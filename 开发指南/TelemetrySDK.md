@@ -89,7 +89,9 @@ Log 数据与系统以及业务挂钩，具有数据结构复杂多变、数据�
 注：以下数据上下文适用于 2.0.0 及以上版本。
 TelemetrySDK 为了将 Trace 数据和 Log 数据进行关联分析，支持从 Trace 上下文中读取上下文关系并继承到日志中
 下面是 LogSpan 的创建流程：
-![图片1.png](https://cdn.nlark.com/yuque/0/2022/png/1904465/1653228181383-bdf81cf1-9e45-46e4-8125-d28fe33eeb50.png#clientId=ue1bf9ec4-561b-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u6d58ec6a&margin=%5Bobject%20Object%5D&name=%E5%9B%BE%E7%89%871.png&originHeight=358&originWidth=441&originalType=binary&ratio=1&rotation=0&showTitle=false&size=25167&status=done&style=none&taskId=ub0de44f1-4051-4a8b-a6b3-dddf2427fc2&title=)
+
+![图片1.png](../images/图片1.png)
+
 通过内部调用 opentelemetry-api 将日志和 trace 进行关联，这样生成的日志可以跟 openTelemetry 中的 Trace 数据相关联，使得日志具备上下文关系。
 
 ##### **日志数据模型结构定义**
@@ -306,7 +308,9 @@ with tracer.start_as_current_span("example-log2"):
     logger.trace("this is threading test", attributes=attributes)
 ```
 访问 jaeger 容器所在节点 ip 的 16686 端口
-![图片2.png](https://cdn.nlark.com/yuque/0/2022/png/1904465/1653229740846-b174b9a4-4719-440f-8297-eb9417ffa465.png#clientId=ue1bf9ec4-561b-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u09767b73&margin=%5Bobject%20Object%5D&name=%E5%9B%BE%E7%89%872.png&originHeight=359&originWidth=643&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42700&status=done&style=none&taskId=ua4b36680-0904-4a0b-9fe7-a33adeb4107&title=)
+
+![图片2.png](../images/图片2.png)
+
 ##### 函数间调用示例
 ```python
 from opentelemetry import trace
@@ -433,7 +437,9 @@ if __name__=="__main__":
     client()
 ```
 访问 jaeger 容器所在节点 ip 的 16686 端口
-![图片3.png](https://cdn.nlark.com/yuque/0/2022/png/1904465/1653230027656-c36f67de-3548-4313-b670-49fe1fa6a97b.png#clientId=ue1bf9ec4-561b-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=uc5f43a28&margin=%5Bobject%20Object%5D&name=%E5%9B%BE%E7%89%873.png&originHeight=129&originWidth=643&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20233&status=done&style=none&taskId=u8eb77038-a675-4b69-ad0d-b3ea50da1d0&title=)
+
+![图片3.png](../images/图片3.png)
+
 ### Telemetry-CPP
 
 ### Telemetry-JAVA
