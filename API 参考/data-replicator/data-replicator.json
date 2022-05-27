@@ -1,0 +1,1182 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "任务管理",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://{host}:{port}/api",
+            "description": "",
+            "variables": {
+                "host": {
+
+                },
+                "port": {
+
+                }
+            }
+        }
+    ],
+    "paths": {
+        "/data-replicator/v1/jobs": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "sort",
+                        "description": "排序类型，默认update_time",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "required": false
+                    },
+                    {
+                        "name": "direction",
+                        "description": "排序方向，默认DESC,[DESC,ASC]",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "limit",
+                        "description": "每页数量，默认10，范围为 [1, 1000]",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query",
+                        "required": false
+                    },
+                    {
+                        "name": "offset",
+                        "description": "偏移量，默认为0（>=0）",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query",
+                        "required": false
+                    },
+                    {
+                        "name": "job_name",
+                        "description": "任务名称，重名校验（精确查询）",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "required": false
+                    },
+                    {
+                        "name": "job_states",
+                        "description": "任务状态\n0：失败\n1：运行中\n2：暂停",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        },
+                        "in": "query",
+                        "required": false
+                    },
+                    {
+                        "name": "name_pattern",
+                        "description": "任务名称，模糊查询",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListResult"
+                                }
+                            }
+                        },
+                        "description": "获取任务列表成功"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "ex1": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.OffsetInvalidParameter",
+                                            "description": "Invalid OffsetParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex2": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest. LimitInvalidParameter",
+                                            "description": "Invalid LimitParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex3": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest. DirectionInvalidParameter",
+                                            "description": "Invalid DirectionParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex4": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest. SortInvalidParameter",
+                                            "description": "Invalid SortParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "参数不合法"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "ex1": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InternalError.JobInternalError",
+                                            "description": "InternalError Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "服务器内部错误"
+                    }
+                },
+                "description": "分页获取任务列表"
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddOrUpdateJobParams"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobIdResult"
+                                },
+                                "examples": {
+                                    "ex1": {
+                                        "value": {
+                                            "name": "多域复制任务1"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "任务新建成功"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "ex1": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.JobNameInvalidParameter",
+                                            "description": "Invalid JobNameParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex2": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.JobNameExist",
+                                            "description": "JobName Exist",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex3": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.JobNameNull",
+                                            "description": "JobName Null",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex5": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesInvalidParameter",
+                                            "description": "Invalid ClusterAddressesParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex6": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.JobTotalOutOfRange",
+                                            "description": "JobTotals Out Of Range",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex7": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.JobClusterDoubleExist",
+                                            "description": "Job ClusterDouble Exist",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex4": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesNull",
+                                            "description": "ClusterAddresses Null",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex8": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.ClusterIdDifferent",
+                                            "description": "Different ClusterId",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex9": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.SameSrcSinkClusterId",
+                                            "description": "Src Sink Same ClusterId",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex10": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesDisconnected",
+                                            "description": "Cluster Address Disconnected",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex11": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.GenerateIDFailed",
+                                            "description": "GenerateID Failed",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex12": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.TopicsInvalidParameter",
+                                            "description": "Invalid TopicsParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "请求参数不合法"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "ex1": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InternalError.JobInternalError",
+                                            "description": "InternalError Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "服务器内部错误"
+                    }
+                },
+                "description": "新建任务信息"
+            }
+        },
+        "/data-replicator/v1/hosts": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TestHosts"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "204": {
+                        "description": "检测成功"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "ex": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesInvalidParameter",
+                                            "description": "Invalid ClusterAddressesParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex1": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesNull",
+                                            "description": "ClusterAddresses Null",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex3": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesDisconnected",
+                                            "description": "Cluster Address Disconnected",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "请求参数校验不合法"
+                    }
+                },
+                "description": "检测主机地址连通性"
+            }
+        },
+        "/data-replicator/v1/jobs/{job_id}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobDetails"
+                                }
+                            }
+                        },
+                        "description": "获取某个任务详情"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "ex": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.JobNameInvalidParameter",
+                                            "description": "Invalid JobNameParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex2": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.JobNameNull",
+                                            "description": "JobName Null",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "参数验证不合法"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "ex1": {
+                                        "value": {
+                                            "error_code": "DataReplicator.NotFound.JobNotFound",
+                                            "description": "NotFound  Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "任务不存在"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "ex1": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InternalError.JobInternalError",
+                                            "description": "InternalError Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "服务器内部错误"
+                    }
+                },
+                "description": "获取某个任务详情信息"
+            },
+            "put": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddOrUpdateJobParams"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "parameters": [
+                    {
+                        "name": "job_id",
+                        "description": "任务编号",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobIdResult"
+                                },
+                                "examples": {
+                                    "ex1": {
+                                        "value": {
+                                            "name": "多域复制任务1"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "修改任务信息成功"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "ex1": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.JobNameNull",
+                                            "description": "JobName Null",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex3": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest. ClusterAddressesInvalidParameter",
+                                            "description": "Invalid ClusterAddressesParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex2": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.JobNameInvalidParameter",
+                                            "description": "Invalid JobNameParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex5": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.JobNameExist",
+                                            "description": "JobName Exist",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex4": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesNull",
+                                            "description": "ClusterAddresses Null",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex6": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.ClusterIdDifferent",
+                                            "description": "Different ClusterId",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex7": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.ClusterIdUpdated",
+                                            "description": "ClusterId Updated",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex8": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesDisconnected",
+                                            "description": "Cluster Address Disconnected",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex9": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.TopicsInvalidParameter",
+                                            "description": "Invalid TopicsParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "参数不合法"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "ex1": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InternalError.JobInternalError",
+                                            "description": "InternalError Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "服务器内部错误"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "ex1": {
+                                        "value": {
+                                            "error_code": "DataReplicator.NotFound.JobNotFound",
+                                            "description": "NotFound  Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "任务资源不存在"
+                    }
+                },
+                "description": "修改任务信息"
+            },
+            "delete": {
+                "parameters": [
+                    {
+                        "name": "job_id",
+                        "description": "任务编号",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "删除任务成功"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "ex1": {
+                                        "value": {
+                                            "error_code": "DataReplicator.NotFound.JobNotFound",
+                                            "description": "NotFound  Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "任务资源不存在"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "ex1": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest. JobIdInvalidParameter",
+                                            "description": "Invalid JobIdParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex2": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.JobIdNull",
+                                            "description": "JobId Null",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "参数验证不合法"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "ex1": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InternalError.JobInternalError",
+                                            "description": "InternalError Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "服务器内部错误"
+                    }
+                },
+                "description": "删除任务"
+            },
+            "parameters": [
+                {
+                    "name": "job_id",
+                    "description": "任务编号",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/data-replicator/v1/jobs/{job_id}/attr/state": {
+            "put": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateStateParam"
+                            },
+                            "examples": {
+                                "ex": {
+                                    "value": {
+                                        "state": 1
+                                    }
+                                },
+                                "ex1": {
+                                    "value": {
+                                        "state": 2
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "parameters": [
+                    {
+                        "name": "job_id",
+                        "description": "任务编号",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateStateResponse"
+                                },
+                                "examples": {
+                                    "ex": {
+                                        "value": {
+                                            "job_id": 402877047124294400,
+                                            "state": 1
+                                        }
+                                    },
+                                    "ex1": {
+                                        "value": {
+                                            "job_id": 402877047124294400,
+                                            "state": 2
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "成功修改任务状态"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "ex": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.JobIdNull",
+                                            "description": "JobId Null",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex1": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.JobIdInvalidParameter",
+                                            "description": "Invalid JobIdParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex2": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.JobStateInvalidParameter",
+                                            "description": "Invalid JobStateParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "参数校验不合法"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "ex": {
+                                        "value": {
+                                            "error_code": "DataReplicator.NotFound.JobNotFound",
+                                            "description": "NotFound  Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "任务资源不存在"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "ex": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InternalError.JobInternalError",
+                                            "description": "InternalError Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "服务器内部错误"
+                    }
+                },
+                "description": "修改任务状态"
+            },
+            "parameters": [
+                {
+                    "name": "job_id",
+                    "description": "任务编号",
+                    "schema": {
+                        "type": "integer"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        }
+    },
+    "components": {
+        "schemas": {
+            "JobDetails": {
+                "description": "任务详情",
+                "required": [
+                    "job_name",
+                    "job_state",
+                    "comment",
+                    "update_time",
+                    "src_cluster_addresses",
+                    "sink_cluster_addresses",
+                    "job_id",
+                    "not_allowed_topics",
+                    "allowed_topics",
+                    "create_time",
+                    "details",
+                    "src_cluster_id",
+                    "sink_cluster_id"
+                ],
+                "type": "object",
+                "properties": {
+                    "comment": {
+                        "description": "备注",
+                        "type": "string"
+                    },
+                    "update_time": {
+                        "description": "更新时间",
+                        "type": "string"
+                    },
+                    "details": {
+                        "description": "任务详情",
+                        "type": "string"
+                    },
+                    "sink_cluster_addresses": {
+                        "description": "目标集群主机地址",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "job_name": {
+                        "description": "任务名称",
+                        "type": "string"
+                    },
+                    "job_id": {
+                        "description": "任务编号",
+                        "type": "string"
+                    },
+                    "not_allowed_topics": {
+                        "description": "不允许复制的topics",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "src_cluster_addresses": {
+                        "description": "源集群主机地址",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "create_time": {
+                        "description": "创建时间",
+                        "type": "string"
+                    },
+                    "allowed_topics": {
+                        "description": "允许复制的topics",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "src_cluster_id": {
+                        "description": "源集群ID",
+                        "type": "string"
+                    },
+                    "sink_cluster_id": {
+                        "description": "目标集群ID",
+                        "type": "string"
+                    },
+                    "job_state": {
+                        "description": "任务状态\n0：失败\n1：运行中\n2：暂停",
+                        "type": "integer"
+                    }
+                }
+            },
+            "ListResult": {
+                "description": "分页查询结果",
+                "required": [
+                    "entries",
+                    "total_count"
+                ],
+                "type": "object",
+                "properties": {
+                    "entries": {
+                        "description": "任务列表",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/JobDetails"
+                        }
+                    },
+                    "total_count": {
+                        "description": "总条目",
+                        "type": "integer"
+                    }
+                }
+            },
+            "Error": {
+                "description": "错误码",
+                "required": [
+                    "error_code",
+                    "description",
+                    "error_details",
+                    "error_link",
+                    "solution"
+                ],
+                "type": "object",
+                "properties": {
+                    "error_code": {
+                        "description": "错误码，供开发者查看的错误信息",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "错误描述",
+                        "type": "string"
+                    },
+                    "error_details": {
+                        "description": "错误细节",
+                        "type": "string"
+                    },
+                    "error_link": {
+                        "description": "错误信息地址",
+                        "type": "string"
+                    },
+                    "solution": {
+                        "description": "错误处理建议",
+                        "type": "string"
+                    }
+                }
+            },
+            "AddOrUpdateJobParams": {
+                "description": "新建任务请求参数",
+                "required": [
+                    "job_name",
+                    "src_cluster_addresses",
+                    "sink_cluster_addresses"
+                ],
+                "type": "object",
+                "properties": {
+                    "comment": {
+                        "description": "备注",
+                        "type": "string"
+                    },
+                    "allowed_topics": {
+                        "description": "允许复制的topics",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "not_allowed_topics": {
+                        "description": "不允许复制的topics",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "sink_cluster_addresses": {
+                        "description": "目标集群主机地址",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "job_name": {
+                        "description": "任务名称",
+                        "type": "string"
+                    },
+                    "src_cluster_addresses": {
+                        "description": "源集群主机地址",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "TestHosts": {
+                "description": "检测主机ip连通性",
+                "required": [
+                    "cluster_addresses"
+                ],
+                "type": "object",
+                "properties": {
+                    "cluster_addresses": {
+                        "description": "主机地址",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "UpdateStateParam": {
+                "description": "修改任务状态",
+                "required": [
+                    "state"
+                ],
+                "type": "object",
+                "properties": {
+                    "state": {
+                        "description": "任务状态\nstate只能是1或2",
+                        "type": "integer"
+                    }
+                }
+            },
+            "JobIdResult": {
+                "description": "新建或修改任务结果",
+                "required": [
+                    "job_id"
+                ],
+                "type": "object",
+                "properties": {
+                    "job_id": {
+                        "description": "任务编号",
+                        "type": "string"
+                    }
+                }
+            },
+            "UpdateStateResponse": {
+                "description": "更新任务状态返回信息",
+                "required": [
+                    "job_id",
+                    "state"
+                ],
+                "type": "object",
+                "properties": {
+                    "job_id": {
+                        "description": "任务id",
+                        "type": "integer"
+                    },
+                    "state": {
+                        "description": "任务状态",
+                        "type": "integer"
+                    }
+                }
+            }
+        }
+    }
+}
