@@ -106,9 +106,9 @@ TelemetrySDK 为了将 Trace 数据和 Log 数据进行关联分析，支持从 
 | SpanId | string | 是 | 子分布式事务ID，多个 span 组成 trace。span 间的父子关系和兄弟关系可以描述一次事务的内外调用关系 |
 | Timestamp | int64 | 是 | 日志行时间戳，精确到纳秒 |
 | SeverityText | string | 是 | 日志级别，字符串格式。从低到高对应为Trace、Debug、Info、Warn、Error、Fatal |
-| Body | Body**（Map）** | 是 | 一次日志记录行为，详细结构定义见下面的「Body 结构定义」 |
-| Attributes | Attributes**(Map)** | 否 | 一次内部调用的业务属性，会继承父内部调用的业务属性。与 body 的区别在于 body 更倾向于系统内部具体描述，Attributes 倾向于对本次事务的描述。详细结构定义见下面的「**Attributes **结构定义」，不存在则为{} |
-| Resource | Resource**(Map)** | 是 | 系统进程属性，与Attributes 区别在于attributes 更倾向于业务信息，resource 关注系统或进程上下文（不可以给应用程序进行设置，往往在日志器实例化时完成从服务信息上下文中填充） |
+| Body | Body（Map） | 是 | 一次日志记录行为，详细结构定义见下面的「Body 结构定义」 |
+| Attributes | Attributes(Map) | 否 | 一次内部调用的业务属性，会继承父内部调用的业务属性。与 body 的区别在于 body 更倾向于系统内部具体描述，Attributes 倾向于对本次事务的描述。详细结构定义见下面的「**Attributes **结构定义」，不存在则为{} |
+| Resource | Resource(Map) | 是 | 系统进程属性，与Attributes 区别在于attributes 更倾向于业务信息，resource 关注系统或进程上下文（不可以给应用程序进行设置，往往在日志器实例化时完成从服务信息上下文中填充） |
 
 - Body 结构定义：
 
