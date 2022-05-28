@@ -136,9 +136,561 @@ Trace、Debug、Info、Warn、Error、Fatal |
 | Telemetry.SDK.Version | string | 是 | sdk 版本号 | 2.0.0. |
 | Telemetry.SDK.Language | string | 是 | sdk 开发语言 | 开发语言 |
 
-## SDK 使用参考
+## SDK2.0 使用参考
 ### Telemetry-Go
+#### Telemetry SDK 安装和导入
+>  golang 一般使用 go get 导入依赖库，但是基于 devops 代码仓库使用 go get 需要做一些权限配置，使用相对复杂
 
+##### 使用方式（3选1）
+
+1. 配置 SSH 公钥
+1. 配置 PAT （Personal Access Token）
+1. 使用 git clone + go mod replace
+
+⚠️ 使用 PAT 方式存在的问题：
+
+1. 由于 devpos 平台本身的原因，可能导致无法拉取
+1. PAT 有效期最长为一年，需要定期修改
+
+使用建议：
+本地开发可以通过 SSH 方式拉取代码（方便）；Jenkins 构建通常无法使用 SSH 公钥方式，同时 PAT 方式也存在问题，可以使用 git clone + go mod replace 方式，下面详细介绍以上 3 种方式的配置过程。
+
+首先设置 Go 环境变量
+```python
+go env -w GO111MODULE=on
+go env -w GOPRIVATE=devops.aishu.cn
+go env -w GOPROXY=https://goproxy.cn,direct
+```
+##### 配置 SSH 公钥方式
+
+1. 创建 SSH 公钥 （以创建可跳过）
+```python
+ssh-keygen -C "{git账号}"
+```
+
+2. 将 公钥添加到 devops 平台 
+
+登陆 Azure DevOps，点击右上角**个人头像 → 安全性 →SSH 公钥**、添加 SSH 公钥，将公钥复制到**秘钥数据**表单中，点击保存。
+![图片4.png](../images/图片4.png)
+
+3. 配置 .gitconfig
+> 说明：使用命令git config --global [user.name](http://user.name) "xxx"会生成.gitconfig，位于家目录下。
+
+将下面配置写入 .gitconfig
+```bash
+[url "git@ssh.devops.aishu.cn:v3"]
+insteadOf = https://devops.aishu.cn
+```
+##### 配置 PAT 方式
+
+1. 创建 PAT
+
+登陆 Azure DevOps，点击右上角**个人头像 → 安全性 → 个人访问令牌**、填写名称，设置过期时间，配置访问权限范围（至少配置**代码-读取权限**），点击创建。
+创建成功后会生成访问令牌（token），点击按钮复制到剪贴板，用与下一步使用。
+![图片5.png](../images/图片5.png)
+![图片6.png](../images/图片6.png)
+
+2. 配置  .gitconfig
+
+将下面配置写入 .gitconfig, 并替换 **<user>** 和**<token>**，**<token> **为上一步生成的个人访问令牌，**<user> **可以替换为任意非空字符串，默认可填写：pat
+```bash
+[url "https://<user>:<token>@devops.aishu.cn"]
+insteadOf = https://devops.aishu.cn
+```
+##### 导入sdk
+直接使用 go get 导入 sdk 
+```bash
+go get -u devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Go.git/span@2.0.0
+```
+如果以上两种方式遇到问题，或者不方便使用，可以使用下面 git clone + go mod replace 方式 
+##### git clone + go mod replace 方式
+
+1. 创建 PAT
+
+同上
+
+2. 将 sdk 代码 clone 到本地
+
+执行下面的 shell 脚本,<PAT> 为上一步创建的 PAT
+```bash
+MY_PAT=<PAT>
+B64_PAT=$(printf "%s"":$MY_PAT" | base64)
+git -c http.extraHeader="Authorization: Basic ${B64_PAT}" clone -b 2.0.0 https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Go
+```
+使用 go mod replace 进行本地替换
+```bash
+go mod edit -replace= devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Go.git/span=<local_path>
+```
+#### 
+#### 只记录日志
+```bash
+package main
+
+import (
+	"devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Go.git/span/encoder"
+	"devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Go.git/span/field"
+	"devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Go.git/span/log"
+	"devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Go.git/span/open_standard"
+	"devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Go.git/span/runtime"
+	"os"
+	
+)
+
+var sampleLog *log.SamplerLogger
+
+
+func main() {
+	
+	sampleLog = log.NewDefaultSamplerLogger()
+	//// 此处demo output为标准输出
+	output := os.Stdout
+	writer := &open_standard.OpenTelemetry{
+		Encoder: encoder.NewJsonEncoder(output),
+	}
+	writer.SetDefaultResources()
+	run := runtime.NewRuntime(writer, field.NewSpanFromPool)
+	sampleLog.SetRuntime(run)
+	// start runtime
+	go run.Run()
+
+	sampleLog.SetLevel(log.TraceLevel)
+
+	// 非结构化日志
+	sampleLog.Info("this is a test")
+
+	type LogModel struct {
+		Model string
+		Project string
+	}
+	var lm = LogModel{
+		Model:   "main",
+		Project: "test-demo",
+	}
+
+	attr := field.NewAttribute("logModel",field.MallocJsonField(lm))
+	// 设置 attribute的日志
+	sampleLog.Debug("this is a test with attribute",field.WithAttribute(attr))
+
+	// 结构化日志
+	sampleLog.InfoField(field.MallocJsonField(lm),"test")
+
+	sampleLog.Close()
+}
+```
+#### 记录日志和 trace
+```bash
+package main
+
+import (
+	"devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Go.git/span/field"
+	"devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Go.git/span/log/easylog"
+	"go.opentelemetry.io/otel/exporters/stdout/stdouttrace"
+	tracesdk "go.opentelemetry.io/otel/sdk/trace"
+
+	"context"
+)
+
+func main() {
+	
+	sampleLog := easylog.NewDefaultSamplerLogger()
+	// trace Exporter
+	exp, _ := stdouttrace.New(stdouttrace.WithPrettyPrint())
+
+	tp := tracesdk.NewTracerProvider()
+
+	tp.RegisterSpanProcessor(tracesdk.NewBatchSpanProcessor(exp))
+
+	tr := tp.Tracer("trace_demo")
+	ctx, s := tr.Start(context.Background(), "span_demo")
+    // 将 上下文传入日志中，日志会自动获取 trace的上下文关系，使得 trace和log能根据traceID和spanID关联起来
+	sampleLog.Info("span start",field.WithContext(ctx))
+	// do something
+	s.End()
+	sampleLog.Info("span end",field.WithContext(ctx))
+	
+	sampleLog.Close()
+
+	tp.Shutdown(ctx)
+}
+```
+#### trace 开关
+##### 静态开关
+#export open_trace=true 设置环境变量      #unset open_trace 销毁环境变量
+```bash
+package main
+
+import (
+	"devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Go.git/span/field"
+	"devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Go.git/span/log/easylog"
+	"go.opentelemetry.io/otel/exporters/stdout/stdouttrace"
+	tracesdk "go.opentelemetry.io/otel/sdk/trace"
+	"os"
+	"context"
+)
+
+func main() {
+	
+	sampleLog := easylog.NewDefaultSamplerLogger()
+
+	exp, _ := stdouttrace.New(stdouttrace.WithPrettyPrint())
+
+	tp := tracesdk.NewTracerProvider()
+	// trace开关
+	traceSwitch := os.Getenv("open_trace")
+	if traceSwitch == "true"{
+		tp.RegisterSpanProcessor(tracesdk.NewBatchSpanProcessor(exp))
+	}
+	tr := tp.Tracer("trace_demo")
+	ctx, s := tr.Start(context.Background(), "span_demo")
+	sampleLog.Info("span start",field.WithContext(ctx))
+	// do something
+	s.End()
+	sampleLog.Info("span end",field.WithContext(ctx))
+
+	sampleLog.Close()
+
+	tp.Shutdown(ctx)
+}
+```
+##### 动态开关
+> 以下仅仅演示这种动态开关效果，应用集成时并不是这种方案，可能是外部接口/信号/配置中心触发。
+
+```bash
+package main
+
+import (
+	"context"
+	"devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Go.git/span/field"
+	"devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Go.git/span/log/easylog"
+	"go.opentelemetry.io/otel/exporters/stdout/stdouttrace"
+	tracesdk "go.opentelemetry.io/otel/sdk/trace"
+)
+
+func main() {
+
+	sampleLog := easylog.NewDefaultSamplerLogger()
+    defer sampleLog.Close()
+	exp, _ := stdouttrace.New(stdouttrace.WithPrettyPrint())
+	tp := tracesdk.NewTracerProvider()
+	// 开启trace输出到终端
+	tp.RegisterSpanProcessor(tracesdk.NewBatchSpanProcessor(exp))
+	tr1 := tp.Tracer("trace_demo1")
+	ctx, s := tr1.Start(context.Background(), "span_demo1")
+	sampleLog.Info("span start",field.WithContext(ctx))
+	// do something
+	s.End()
+	sampleLog.Info("span end",field.WithContext(ctx))
+	tp.Shutdown(ctx)
+
+	// 关闭 trace 输出
+	tp.UnregisterSpanProcessor(tracesdk.NewBatchSpanProcessor(exp))
+	tr2 := tp.Tracer("trace_demo2")
+	ctx2, s2 := tr2.Start(context.Background(), "span_demo2")
+	s2.End()
+	tp.Shutdown(ctx2)
+    
+}
+```
+#### trace 分析
+##### 部署 jaeger
+```bash
+docker run -d -p 16686:16686 -p 14268:14268 -p 6831:6831/udp jaegertracing/all-in-one
+```
+##### 将trace数据导入jaeger
+```bash
+package main
+
+import (
+	"context"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/exporters/jaeger"
+	"go.opentelemetry.io/otel/sdk/resource"
+	tracesdk "go.opentelemetry.io/otel/sdk/trace"
+	semconv "go.opentelemetry.io/otel/semconv/v1.4.0"
+	"log"
+	"time"
+)
+
+const (
+	service     = "trace-demo"
+	environment = "production"
+	id          = 1
+)
+
+// tracerProvider returns an OpenTelemetry TracerProvider configured to use
+// the Jaeger exporter that will send spans to the provided url. The returned
+// TracerProvider will also use a Resource configured with all the information
+// about the application.
+func tracerProvider(url string) (*tracesdk.TracerProvider, error) {
+	// Create the Jaeger exporter
+	exp, err := jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint(url)))
+	if err != nil {
+		return nil, err
+	}
+	tp := tracesdk.NewTracerProvider(
+		// Always be sure to batch in production.
+		tracesdk.WithBatcher(exp),
+		// Record information about this application in an Resource.
+		tracesdk.WithResource(resource.NewWithAttributes(
+			semconv.SchemaURL,
+			semconv.ServiceNameKey.String(service),
+			attribute.String("environment", environment),
+			attribute.Int64("ID", id),
+		)),
+	)
+	return tp, nil
+}
+
+
+
+func main() {
+	tp, err := tracerProvider("http://10.4.107.37:14268/api/traces")
+	if err != nil{
+		panic(err)
+	}
+
+	otel.SetTracerProvider(tp)
+
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	// Cleanly shutdown and flush telemetry when the application exits.
+	defer func(ctx context.Context) {
+		// Do not make the application hang when it is shutdown.
+		ctx, cancel = context.WithTimeout(ctx, time.Second*5)
+		defer cancel()
+		if err := tp.Shutdown(ctx); err != nil {
+			log.Fatal(err)
+		}
+	}(ctx)
+
+	tr := tp.Tracer("component-main")
+
+
+	ctx, span := tr.Start(ctx, "startReuqest")
+	defer span.End()
+
+}
+```
+##### 函数间调用示例
+```bash
+package main
+
+import (
+	"context"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/trace"
+)
+
+var tracer = otel.Tracer("example/main")
+
+func parentFunction() {
+	ctx := context.Background()
+	var parentSpan trace.Span
+	ctx, parentSpan = tracer.Start(ctx, "parent")
+	defer parentSpan.End()
+	// call our child function
+	childFunction(ctx)
+	// do more work, when this function ends, parentSpan will complete.
+}
+
+func childFunction(ctx context.Context) {
+	var childSpan trace.Span
+	ctx, childSpan = tracer.Start(ctx, "child")
+	defer childSpan.End()
+	// do work here, when this function returns, childSpan will complete.
+}
+
+func main() {
+	parentFunction()
+}
+
+```
+##### 服务间调用示例
+Server:
+```bash
+package main
+
+import (
+	"context"
+	"fmt"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/baggage"
+	"go.opentelemetry.io/otel/exporters/jaeger"
+	"go.opentelemetry.io/otel/sdk/resource"
+	tracesdk "go.opentelemetry.io/otel/sdk/trace"
+	semconv "go.opentelemetry.io/otel/semconv/v1.4.0"
+	"go.opentelemetry.io/otel/trace"
+	"io"
+	"net/http"
+)
+
+const (
+	service     = "trace-demo"
+	environment = "production"
+	id          = 1
+)
+
+func tracerProvider(url string) (*tracesdk.TracerProvider, error) {
+	// Create the Jaeger exporter
+	exp, err := jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint(url)))
+	if err != nil {
+		return nil, err
+	}
+	tp := tracesdk.NewTracerProvider(
+		// Always be sure to batch in production.
+		tracesdk.WithBatcher(exp),
+		// Record information about this application in an Resource.
+		tracesdk.WithResource(resource.NewWithAttributes(
+			semconv.SchemaURL,
+			semconv.ServiceNameKey.String(service),
+			attribute.String("environment", environment),
+			attribute.Int64("ID", id),
+		)),
+	)
+	return tp, nil
+}
+
+func Server() {
+	tp, err := tracerProvider("http://10.4.107.37:14268/api/traces")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	defer func() {
+		if err := tp.Shutdown(context.Background()); err != nil {
+			fmt.Printf("Error shutting down tracer provider: %v", err)
+		}
+	}()
+
+	uk := attribute.Key("username")
+
+	helloHandler := func(w http.ResponseWriter, req *http.Request) {
+		ctx := req.Context()
+		span := trace.SpanFromContext(ctx)
+		fmt.Println(span.SpanContext().TraceID().String())
+		bag := baggage.FromContext(ctx)
+		span.AddEvent("handling this...", trace.WithAttributes(uk.String(bag.Member("username").Value())))
+
+		tr := otel.Tracer("next step")
+		_, span1 := tr.Start(ctx, "next step")
+		defer span1.End()
+		fmt.Println(span1.SpanContext().TraceID().String())
+
+		_, _ = io.WriteString(w, "Hello, world!\n")
+	}
+
+	otelHandler := otelhttp.NewHandler(http.HandlerFunc(helloHandler), "Hello")
+
+	http.Handle("/hello", otelHandler)
+	err = http.ListenAndServe(":7777", nil)
+	if err != nil {
+		panic(err)
+	}
+}
+```
+Client:
+```bash
+package main
+
+import (
+	"context"
+	"flag"
+	"fmt"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/httptrace/otelhttptrace"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/baggage"
+	"go.opentelemetry.io/otel/exporters/jaeger"
+	"go.opentelemetry.io/otel/sdk/resource"
+	tracesdk "go.opentelemetry.io/otel/sdk/trace"
+	semconv "go.opentelemetry.io/otel/semconv/v1.4.0"
+	"go.opentelemetry.io/otel/trace"
+	"io/ioutil"
+	"log"
+	"net/http"
+	"net/http/httptrace"
+	"time"
+)
+
+const (
+	service     = "trace-demo"
+	environment = "production"
+	id          = 1
+)
+
+func tracerProvider(url string) (*tracesdk.TracerProvider, error) {
+	// Create the Jaeger exporter
+	exp, err := jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint(url)))
+	if err != nil {
+		return nil, err
+	}
+	tp := tracesdk.NewTracerProvider(
+		// Always be sure to batch in production.
+		tracesdk.WithBatcher(exp),
+		// Record information about this application in an Resource.
+		tracesdk.WithResource(resource.NewWithAttributes(
+			semconv.SchemaURL,
+			semconv.ServiceNameKey.String(service),
+			attribute.String("environment", environment),
+			attribute.Int64("ID", id),
+		)),
+	)
+	return tp, nil
+}
+
+func Client() {
+	time.Sleep(time.Second)
+	tp, err := tracerProvider("http://10.4.107.37:14268/api/traces")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	defer func() {
+		if err := tp.Shutdown(context.Background()); err != nil {
+			log.Printf("Error shutting down tracer provider: %v", err)
+		}
+	}()
+	url := flag.String("server", "http://localhost:7777/hello", "server url")
+	flag.Parse()
+
+	client := http.Client{Transport: otelhttp.NewTransport(http.DefaultTransport)}
+
+	bag, _ := baggage.Parse("username=donuts")
+	ctx := baggage.ContextWithBaggage(context.Background(), bag)
+
+	var body []byte
+
+	tr := otel.Tracer("example/client")
+	err = func(ctx context.Context) error {
+		ctx, span := tr.Start(ctx, "say hello", trace.WithAttributes(semconv.PeerServiceKey.String("ExampleService")))
+		defer span.End()
+		fmt.Println(span.SpanContext().TraceID().String())
+		ctx = httptrace.WithClientTrace(ctx, otelhttptrace.NewClientTrace(ctx))
+		req, _ := http.NewRequestWithContext(ctx, "GET", *url, nil)
+
+		fmt.Printf("Sending request...\n")
+		res, err := client.Do(req)
+		if err != nil {
+			panic(err)
+		}
+		body, err = ioutil.ReadAll(res.Body)
+		_ = res.Body.Close()
+
+		return err
+	}(ctx)
+
+	if err != nil {
+		panic(err)
+	}
+}
+```
 ### **Telemetry-Python**
 #### Telemetry SDK 安装和导入
 ```bash
@@ -311,10 +863,6 @@ with tracer.start_as_current_span("example-log2"):
     #可以用export open_trace="true"临时修改环境变量测试。
     logger.trace("this is threading test", attributes=attributes)
 ```
-访问 jaeger 容器所在节点 ip 的 16686 端口
-
-![图片2.png](../images/图片2.png)
-
 ##### 函数间调用示例
 ```python
 from opentelemetry import trace
@@ -440,10 +988,207 @@ def client():
 if __name__=="__main__":
     client()
 ```
-访问 jaeger 容器所在节点 ip 的 16686 端口
-
-![图片3.png](../images/图片3.png)
 
 ### Telemetry-CPP
+#### TelemetrySDK 安装和导入
+> 本工程是基于 groot 基础库进行开发的。
 
+##### 编译
+
+1. 下载依赖的groot库和头文件：
+```bash
+git submodule update --init
+```
+
+2. 初始环境变量:
+```bash
+source init_build_env.sh
+```
+
+3. 编译（后续的编译只能在当前窗口编译）：
+```bash
+cd src/build
+cmake ../
+make -j4
+```
+##### 使用方式
+**基于groot的方式：**
+
+1. 拷贝库和头文件
+
+头文件：src/telemetrylog/ncTelemetryLog.h
+编译出来的：libtelemetrylog.so
+参考的.cmake文件：src/cmake/telemetrylog-config.cmake
+
+2. 拷贝源码至自己的工程
+
+.h文件：src/telemetrylog/ncTelemetryLog.h
+.cpp文件：src/telemetrylog/ncTelemetryLog.cpp
+
+**基于BaseCore的方式：**
+
+1. 拷贝源码至自己的工程
+
+.h文件：src/telemetrylog/ncTelemetryLog.h
+.cpp文件：src/telemetrylog/ncTelemetryLog.cpp
+#### 只记录日志
+> 参考示例：src/test/ut_ncTelemetryLog.cpp
+
+```cpp
+// 设置日志的级别为INFO
+ncTelemetryLog::getInstance()->SetLogLevel (NC_TELEMETRY_LOG_INFO);
+· 单条字符串类型日志进行删除：
+string iWantToOutPutString ("I want to out put this message");
+ncTelemetryLogLevel logLevel = NC_TELEMETRY_LOG_WARN;
+
+ncTelemetryLogAttribute emptyAttr;
+// 第一种方式
+ncTelemetryLog::getInstance()->PrintMsgToStderr (logLevel, iWantToOutPutString);
+// 第二种方式
+ncTelemetryLog::getInstance()->PrintMsgToStderr (logLevel, iWantToOutPutString, emptyAttr);
+// 第三种方式
+string convertJsonString = ncTelemetryLog::getInstance()->GetString(logLevel, iWantToOutPutString, emptyAttr);
+ncTelemetryLog::PrintfToStderr(_T("%s\n"), convertJsonString.c_str());
+// 单条自定义类型日志进行输出：
+string bodyType ("SelfDefineEventType1");
+JSON::Value bodyJson;
+bodyJson ["UserId"] = 1122325235;
+bodyJson ["UserName"] = "xiao.ming";
+bodyJson ["FileName"] = "ReadMe.txt";
+bodyJson ["Action"] = "Upload";
+bodyJson ["FileSize"] = 10240;
+bodyJson ["Time"] = 1624522824;
+ncTelemetryLogLevel logLevel = NC_TELEMETRY_LOG_INFO;
+
+ncTelemetryLogAttribute emptyAttr;
+// 第一种方式
+ncTelemetryLog::getInstance()->PrintMsgToStderr (logLevel, bodyType, bodyJson);
+// 第二种方式
+ncTelemetryLog::getInstance()->PrintMsgToStderr (logLevel, bodyType, bodyJson, emptyAttr);
+// 第三种方式
+string convertJsonString = ncTelemetryLog::getInstance()->GetString(logLevel, bodyType, bodyJson, emptyAttr);
+ncTelemetryLog::PrintfToStderr(_T("%s\n"), convertJsonString.c_str());
+// 单条字符串类型日志和 Attributes 进行输出：
+string bodyType ("SelfDefineBodyType1");
+JSON::Value bodyJson;
+bodyJson["UserId"] = 1122325235;
+bodyJson["UserName"] = "xiao.ming";
+bodyJson["FileName"] = "ReadMe.txt";
+bodyJson["Action"] = "Upload";
+bodyJson["FileSize"] = 10240;
+bodyJson["Time"] = 1624522824;
+ncTelemetryLogLevel logLevel = NC_TELEMETRY_LOG_INFO;
+
+ncTelemetryLogAttribute attribute;
+attribute.SetAttribute("objectid", "BC89A79C66D11423798E");
+attribute.SetAttribute("parentid", "ACE243243547E98B132C");
+
+// 第一种方式
+ncTelemetryLog::getInstance()->PrintMsgToStderr (logLevel, bodyType, bodyJson, attribute);
+// 第二种方式
+string convertJsonString = ncTelemetryLog::getInstance()->GetString(logLevel, bodyType, bodyJson, attribute);
+ncTelemetryLog::PrintfToStderr(_T("%s\n"), convertJsonString.c_str());
+```
+C++ Telemetry-CPP暂不依赖开源组件opentelemetry-cpp，不支持trace功能
 ### Telemetry-JAVA
+#### Telemetry SDK 安装和导入
+
+##### 编译
+
+1. 下载和安装 sdk（Maven方式）
+```cpp
+git clone https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/DE_TelemetryJava  -b 2.0.0
+cd telemetry-java && mvn clean install
+```
+
+2. 在 pom.xml 中导入 sdk
+```cpp
+<groupId>com.eisoo</groupId>
+<artifactId>SamplerLogger</artifactId>
+<version>2.0.0</version>
+```
+#### 只记录日志
+```cpp
+//（可选）配置系统日志等级，默认是DEBUG
+SamplerLogConfig.setLevel(Level.TRACE);
+// 生成日志实例
+Logger logger = LoggerFactory.getLogger(this.getClass());
+// 打印字符串日志：“hello world”
+logger.info("hello world");
+//---------------------------
+
+//打印自定义类型：Animal
+private class Animal {
+private String name;
+private Integer age;
+
+public Animal(String name, Integer age) {
+this.name = name;
+this.age = age;
+}
+}
+
+ // 创建Animal实例
+Animal animal = new Animal("little cat", 2);
+
+// 创建日志体Body实例
+Body body = new Body(); 
+// 传入自定义类的类名：
+body.setType("animal");
+// 传入自定义类实例
+body.setField(animal);
+
+ // 生成日志实例
+Logger logger = LoggerFactory.getLogger(this.getClass());
+
+ // 打印自定义类实例日志：
+logger.info(body);
+
+// --------------------------------
+//给attribute添加的自定义类型：Animal
+
+// 创建日志体Attributes实例
+Attributes attributes = new Attributes();
+// 传入自定义类的类名：
+attributes.setType("animalType");
+// 传入自定义类实例
+attributes.setField(animal);
+
+// 生成日志实例
+Logger logger = LoggerFactory.getLogger(this.getClass());
+// 3. 打印字符串日志：“hello world”  
+logger.info("hello world", attributes);
+```
+#### 记录日志和 trace
+```cpp
+//（可选）配置系统日志等级，默认是DEBUG
+SamplerLogConfig.setLevel(Level.TRACE); 
+
+// 生成日志实例
+Logger logger = LoggerFactory.getLogger(this.getClass());
+
+// 打印字符串日志：“hello world”
+logger.info("hello world");
+
+
+//通过maven引入相应的openTelemetry包，创建Trace和Span
+Resource serviceNameResource =   Resource.create(io.opentelemetry.api.common.Attributes.of(ResourceAttributes.SERVICE_NAME, "otel-jaeger-example"));
+
+// Set to process the spans by the Jaeger Exporter
+SdkTracerProvider tracerProvider = SdkTracerProvider.builder()
+.addSpanProcessor(SimpleSpanProcessor.create(new LoggingSpanExporter()))
+.setResource(Resource.getDefault().merge(serviceNameResource))
+.build();
+OpenTelemetrySdk openTelemetry =
+OpenTelemetrySdk.builder().setTracerProvider(tracerProvider).build();
+
+// it's always a good idea to shut down the SDK cleanly at JVM exit.
+Runtime.getRuntime().addShutdownHook(new Thread(tracerProvider::close));
+final Tracer tracer = openTelemetry.getTracer("io.opentelemetry.example.JaegerExample");
+Span span = tracer.spanBuilder("Start my wonderful use case").startSpan();
+span.addEvent("Event 0");
+final String message = "using existed traceId and spanId";
+Logger logger = LoggerFactory.getLogger(this.getClass());  
+logger.info(message, span.getSpanContext());
+span.end();
+```
