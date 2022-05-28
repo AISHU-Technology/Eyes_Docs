@@ -28,7 +28,7 @@ SDK 是将导出器与API结合在一起的粘合剂。SDK 是具体的、可执
 将 Metric、Tracing、Logging 结合：
 下面是 Yuri Shkuro 画的原型设计：
 ```go
-+----------------------------------------------------+
++-----------------------------------------------------------------+
 |                                                                 |
 +------------+ custom application logic or specialized frameworks |
 |            |                                                    |
@@ -105,8 +105,7 @@ TelemetrySDK 为了将 Trace 数据和 Log 数据进行关联分析，支持从 
 | TraceId | string | 是 | 分布式事务 ID，一个 trace 含有多个 span |
 | SpanId | string | 是 | 子分布式事务ID，多个 span 组成 trace。span 间的父子关系和兄弟关系可以描述一次事务的内外调用关系 |
 | Timestamp | int64 | 是 | 日志行时间戳，精确到纳秒 |
-| SeverityText | string | 是 | 日志级别，字符串格式。从低到高对应为
-Trace、Debug、Info、Warn、Error、Fatal |
+| SeverityText | string | 是 | 日志级别，字符串格式。从低到高对应为Trace、Debug、Info、Warn、Error、Fatal |
 | Body | Body**（Map）** | 是 | 一次日志记录行为，详细结构定义见下面的「Body 结构定义」 |
 | Attributes | Attributes**(Map)** | 否 | 一次内部调用的业务属性，会继承父内部调用的业务属性。与 body 的区别在于 body 更倾向于系统内部具体描述，Attributes 倾向于对本次事务的描述。详细结构定义见下面的「**Attributes **结构定义」，不存在则为{} |
 | Resource | Resource**(Map)** | 是 | 系统进程属性，与Attributes 区别在于attributes 更倾向于业务信息，resource 关注系统或进程上下文（不可以给应用程序进行设置，往往在日志器实例化时完成从服务信息上下文中填充） |
@@ -115,9 +114,7 @@ Trace、Debug、Info、Warn、Error、Fatal |
 
 | **序号** | **key 字段名** | **value 类型** | **是否必须** | **描述** |
 | --- | --- | --- | --- | --- |
-| Body.1 | Type | string | 否 | 序号Body.1中"Type"分两种情况（Type类型需要统一管理）：
-1. 序号1中"Type"默认为 Message，此时 Body.2 为字符串，在 json 序列化时会被序列化为 json 安全编码字符串；
-2. 序号Body.1中"Type"存在时（Type类型需要统一管理）, Body.2 中Message 必须不能存在，且Body.2 中的 key 必须为 Body.1 中 Type 的 value 值，主要用于应用根据自己的需要扩展数据类型 |
+| Body.1 | Type | string | 否 | 序号Body.1中"Type"分两种情况（Type类型需要统一管理）：1. 序号1中"Type"默认为 Message，此时 Body.2 为字符串，在 json 序列化时会被序列化为 json 安全编码字符串；2. 序号Body.1中"Type"存在时（Type类型需要统一管理）, Body.2 中Message 必须不能存在，且Body.2 中的 key 必须为 Body.1 中 Type 的 value 值，主要用于应用根据自己的需要扩展数据类型 |
 | Body.2 | 上述 Type 对应的 value 值 | 任意类型 | 否 |  |
 
 - Attributes 结构定义：
