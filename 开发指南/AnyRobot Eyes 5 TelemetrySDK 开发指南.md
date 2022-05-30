@@ -197,7 +197,7 @@ insteadOf = https://devops.aishu.cn
 ##### 导入sdk
 直接使用 go get 导入 sdk 
 ```bash
-go get -u devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Go.git/span@2.0.0
+go get -u devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Go.git/span@2.1.0
 ```
 如果以上两种方式遇到问题，或者不方便使用，可以使用下面 git clone + go mod replace 方式 
 ##### git clone + go mod replace 方式
@@ -212,7 +212,7 @@ go get -u devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Go.git/
 ```bash
 MY_PAT=<PAT>
 B64_PAT=$(printf "%s"":$MY_PAT" | base64)
-git -c http.extraHeader="Authorization: Basic ${B64_PAT}" clone -b 2.0.0 https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Go
+git -c http.extraHeader="Authorization: Basic ${B64_PAT}" clone -b 2.1.0 https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Go
 ```
 使用 go mod replace 进行本地替换
 ```bash
@@ -691,7 +691,7 @@ func Client() {
 ### **Telemetry-Python**
 #### Telemetry SDK 安装和导入
 ```bash
-git clone git@devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Python
+git clone -b 2.1.0 git@devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Akashic_TelemetrySDK-Python
 cd Akashic_TelemetrySDK-Python
 pip install .
 ```
@@ -1094,7 +1094,7 @@ C++ Telemetry-CPP暂不依赖开源组件opentelemetry-cpp，不支持trace功�
 
 1. 下载和安装 sdk（Maven方式）
 ```cpp
-git clone https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/DE_TelemetryJava  -b 2.0.0
+git clone  -b 2.1.0 https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/DE_TelemetryJava 
 cd telemetry-java && mvn clean install
 ```
 
@@ -1102,7 +1102,7 @@ cd telemetry-java && mvn clean install
 ```cpp
 <groupId>com.eisoo</groupId>
 <artifactId>SamplerLogger</artifactId>
-<version>2.0.0</version>
+<version>2.1.0</version>
 ```
 #### 只记录日志
 ```cpp
