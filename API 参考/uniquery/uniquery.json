@@ -3978,19 +3978,19 @@
                             },
                             "examples": {
                                 "时间序列选择器": {
-                                    "value": "query=prometheus.metrics.opensearch_indices_shards_docs{prometheus.labels.clust=\"opensearch\",prometheus.labels.index=~\"a.*|node.*\"}&start=1652320556&end=1652323553&step=3"
+                                    "value": "query=prometheus.metrics.opensearch_indices_shards_docs{prometheus.labels.clust=\"opensearch\",prometheus.labels.index=~\"a.*|node.*\",ar_indexbase=\"metricbeat,es\"}&start=1652320556&end=1652323553&step=3"
                                 },
                                 "start 参数错误": {
-                                    "value": "query=prometheus.metrics.opensearch_indices_shards_docs{prometheus.labels.cluster=\"opensearch\",prometheus.labels.index=~\"a.*|node.*\"}&start=1652320556s&end=1652323553&step=3"
+                                    "value": "query=prometheus.metrics.opensearch_indices_shards_docs{prometheus.labels.cluster=\"opensearch\",prometheus.labels.index=~\"a.*|node.*\",ar_indexbase=\"metricbeat,es\"}&start=1652320556s&end=1652323553&step=3"
                                 },
                                 "四则运算 - 两个标量之和": {
                                     "value": "query=1+2&start=1653533598&end=1653534198&step=300"
                                 },
                                 "四则运算 - 向量除以标量": {
-                                    "value": "query=go_memstats_alloc_bytes / 1024&start=1653915694&end=1653916694&step=300"
+                                    "value": "query=go_memstats_alloc_bytes{ar_indexbase=\"metricbeat,es\"} / 1024&start=1653915694&end=1653916694&step=300"
                                 },
                                 "四则运算 - 两个向量之和": {
-                                    "value": "query=go_memstats_heap_alloc_bytes + go_memstats_heap_idle_bytes&start=1653915694&end=1653916694&step=300"
+                                    "value": "query=go_memstats_heap_alloc_bytes{ar_indexbase=\"metricbeat,es\"} + go_memstats_heap_idle_bytes{ar_indexbase=\"metricbeat,es\"}&start=1653915694&end=1653916694&step=300"
                                 }
                             }
                         }
