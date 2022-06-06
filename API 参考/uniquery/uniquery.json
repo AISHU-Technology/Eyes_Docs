@@ -4477,6 +4477,38 @@
                         "status": 400
                     }
                 }
+            },
+            "promqlErrorCode": {
+                "title": "Root Type for promqlErrorCode",
+                "description": "promql 错误信息返回格式",
+                "required": [
+                    "error",
+                    "errorType",
+                    "status"
+                ],
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "description": "状态",
+                        "type": "string",
+                        "example": "error"
+                    },
+                    "errorType": {
+                        "description": "错误类型",
+                        "type": "string",
+                        "example": "timeout"
+                    },
+                    "error": {
+                        "description": "错误体",
+                        "type": "string",
+                        "example": "query timed out in expression evaluation"
+                    }
+                },
+                "example": {
+                    "status": "error",
+                    "errorType": "timeout",
+                    "error": "query timed out in expression evaluation"
+                }
             }
         }
     }
