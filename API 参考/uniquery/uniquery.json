@@ -3991,6 +3991,9 @@
                                 },
                                 "四则运算 - 两个向量之和": {
                                     "value": "query=go_memstats_heap_alloc_bytes{ar_indexbase=\"metricbeat,es\"} + go_memstats_heap_idle_bytes{ar_indexbase=\"metricbeat,es\"}&start=1653915694&end=1653916694&step=300"
+                                },
+                                "两个向量基于on的四则运算": {
+                                    "value": "query=net_conntrack_dialer_conn_closed_total{ar_indexbase=\"metricbeat,es\"} + on(dialer_name) net_conntrack_dialer_conn_closed_total{ar_indexbase=\"metricbeat,es\"}&start=1653915694&end=1653916694&step=300"
                                 }
                             }
                         }
@@ -4335,6 +4338,73 @@
                                                         "value": [
                                                             1.653915978927E9,
                                                             "59380024"
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "基于on的四则运算": {
+                                        "value": {
+                                            "status": "success",
+                                            "data": {
+                                                "resultType": "matrix",
+                                                "result": [
+                                                    {
+                                                        "metric": {
+                                                            "dialer_name": "alertmanager"
+                                                        },
+                                                        "values": [
+                                                            [
+                                                                1655125563,
+                                                                "0"
+                                                            ],
+                                                            [
+                                                                1655125863,
+                                                                "0"
+                                                            ],
+                                                            [
+                                                                1655126163,
+                                                                "0"
+                                                            ]
+                                                        ]
+                                                    },
+                                                    {
+                                                        "metric": {
+                                                            "dialer_name": "default"
+                                                        },
+                                                        "values": [
+                                                            [
+                                                                1655125563,
+                                                                "0"
+                                                            ],
+                                                            [
+                                                                1655125863,
+                                                                "0"
+                                                            ],
+                                                            [
+                                                                1655126163,
+                                                                "0"
+                                                            ]
+                                                        ]
+                                                    },
+                                                    {
+                                                        "metric": {
+                                                            "dialer_name": "prometheus"
+                                                        },
+                                                        "values": [
+                                                            [
+                                                                1655125563,
+                                                                "1"
+                                                            ],
+                                                            [
+                                                                1655125863,
+                                                                "1"
+                                                            ],
+                                                            [
+                                                                1655126163,
+                                                                "1"
+                                                            ]
                                                         ]
                                                     }
                                                 ]
