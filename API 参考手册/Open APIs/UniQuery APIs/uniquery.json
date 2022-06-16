@@ -360,8 +360,120 @@
                         "description": "Internal Server Error"
                     }
                 },
-                "summary": "dsl 翻页搜索",
-                "description": ""
+                "summary": "dsl/_search/scroll",
+                "description": "翻页搜索API, AnyRobot 3.0.18.1版本及以上支持"
+            },
+            "delete": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "examples": {
+                                "scroll": {
+                                    "value": {
+                                        "scroll_id": [
+                                            "FGluY2x1ZGVfY29udGV4dF91dWlkDnF1ZXJ5VGhlbkZldGNoBhQ2WkZjUW5vQlRsOTFDMVZfTWtmTwAAAAAAAB0uFlNoWHlMdDJJUXFHcmZjQ19hNnFEbkEUNnBGY1Fub0JUbDkxQzFWX01rZlQAAAAAAAAdLxZTaFh5THQySVFxR3JmY0NfYTZxRG5BFDdaRmNRbm9CVGw5MUMxVl9Na2ZVAAAAAAAAHTIWU2hYeUx0MklRcUdyZmNDX2E2cURuQRQ3SkZjUW5vQlRsOTFDMVZfTWtmVQAAAAAAAB0xFlNoWHlMdDJJUXFHcmZjQ19hNnFEbkEUNjVGY1Fub0JUbDkxQzFWX01rZlUAAAAAAAAdMBZTaFh5THQySVFxR3JmY0NfYTZxRG5BFDdwRmNRbm9CVGw5MUMxVl9Na2ZoAAAAAAAAHTMWU2hYeUx0MklRcUdyZmNDX2E2cURuQQ==",
+                                            "FGluY2x1ZGVfY29udGV4dF91dWlkDnF1ZXJ5VGhlbkZldGNoMhZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8lAWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8lEWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8lIWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8lMWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8lQWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8lUWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8lYWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8lcWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8lgWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8lkWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8loWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8lsWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8lwWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8l0WN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8l4WN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8l8WN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8mAWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8mEWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8mIWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8mMWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8mQWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8mcWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8mUWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8mYWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8mgWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8mkWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8moWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8msWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8mwWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8m0WN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8m4WN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8m8WN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8nAWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8nEWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8nIWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8nMWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8nQWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8n4WN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8nUWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8nYWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8ncWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8ngWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8nkWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8noWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8nsWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8nwWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8n0WN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8n8WN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8oAWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZxZlLVpKWDNrZlR2bUlXTW9URkxDM0JBAAAAAAAH8oEWN2t6Y2pRQjhTWU9rYUNtS1FTNmthZw=="
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "scroll删除成功": {
+                                        "value": {
+                                            "succeeded": true,
+                                            "num_freed": 50
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "ok"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorCode"
+                                },
+                                "examples": {
+                                    "illegal_argument_exception": {
+                                        "value": {
+                                            "error": {
+                                                "root_cause": [
+                                                    {
+                                                        "type": "illegal_argument_exception",
+                                                        "reason": "Cannot parse scroll id"
+                                                    }
+                                                ],
+                                                "type": "illegal_argument_exception",
+                                                "reason": "Cannot parse scroll id",
+                                                "caused_by": {
+                                                    "type": "illegal_argument_exception",
+                                                    "reason": "Input byte array has incorrect ending byte at 3652"
+                                                }
+                                            },
+                                            "status": 400
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "bad request"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorCode"
+                                },
+                                "examples": {
+                                    "internal_server_error_exception": {
+                                        "value": {
+                                            "error": {
+                                                "type": "internal_server_error_exception",
+                                                "reason": "internal server error",
+                                                "caused_by": {
+                                                    "type": "internal_server_error_exception",
+                                                    "reason": "error connection"
+                                                }
+                                            },
+                                            "status": 500
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorCode"
+                                },
+                                "examples": {
+                                    "scroll_id_not_found": {
+                                        "value": {
+                                            "succeeded": true,
+                                            "num_freed": 0
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "404 not found"
+                    }
+                },
+                "summary": "dsl/_search/scroll",
+                "description": "停止翻页搜索API, AnyRobot 3.0.18.7版本及以上支持"
             }
         },
         "/api/uniquery/v1/health": {
@@ -371,7 +483,8 @@
                         "description": "ok"
                     }
                 },
-                "summary": "健康检查"
+                "summary": "health",
+                "description": "健康检查API, AnyRobot 3.0.18.1版本及以上支持"
             }
         },
         "/api/uniquery/v1/dsl/{x_library}/_search": {
@@ -1853,8 +1966,8 @@
                         "description": "Internal Server Error"
                     }
                 },
-                "summary": "dsl 搜索",
-                "description": ""
+                "summary": "dsl/{x_library}/_search",
+                "description": "搜索API, AnyRobot 3.0.18.1版本及以上支持"
             },
             "parameters": [
                 {
@@ -3347,8 +3460,8 @@
                         "description": "Internal Server Error"
                     }
                 },
-                "summary": "dsl 搜索",
-                "description": ""
+                "summary": "dsl/_search",
+                "description": "搜索API, AnyRobot 3.0.18.1版本及以上支持"
             },
             "parameters": [
                 {
@@ -3642,8 +3755,8 @@
                         "description": "Internal Server Error"
                     }
                 },
-                "summary": "dsl 查询总数",
-                "description": ""
+                "summary": "dsl/{x_library}/_count",
+                "description": "查询总数API, AnyRobot 3.0.18.4版本及以上支持"
             },
             "parameters": [
                 {
@@ -3658,7 +3771,7 @@
             ]
         },
         "/api/uniquery/v1/dsl/_count": {
-            "description": "",
+            "description": "AnyRobot 3.0.18.1版本及以上支持",
             "post": {
                 "requestBody": {
                     "description": "兼容elasticsearch 7.10.2 和opensearch 1.x的dsl查询语法",
@@ -3937,8 +4050,56 @@
                         "description": "Internal Server Error"
                     }
                 },
-                "summary": "dsl 查询总数",
-                "description": ""
+                "summary": "dsl/_count",
+                "description": "查询总数API, AnyRobot 3.0.18.4版本及以上支持"
+            }
+        },
+        "/api/uniquery/v1/dsl/_search/scroll/_all": {
+            "delete": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "所有scroll删除成功": {
+                                        "value": {
+                                            "succeeded": true,
+                                            "num_freed": 1
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "ok"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorCode"
+                                },
+                                "examples": {
+                                    "internal_server_error_exception": {
+                                        "value": {
+                                            "error": {
+                                                "type": "internal_server_error_exception",
+                                                "reason": "internal server error",
+                                                "caused_by": {
+                                                    "type": "internal_server_error_exception",
+                                                    "reason": "error connection"
+                                                }
+                                            },
+                                            "status": 500
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                },
+                "summary": "dsl/_search/scroll/_all",
+                "description": "停止所有翻页搜索API, AnyRobot 3.0.18.7版本及以上支持"
             }
         },
         "/api/uniquery/v1/promql/query": {
@@ -4058,8 +4219,8 @@
                         "description": "Service Unavailable"
                     }
                 },
-                "summary": "promql query",
-                "description": "瞬时值查询"
+                "summary": "promql/query",
+                "description": "瞬时值查询API, AnyRobot 3.0.18.7版本及以上支持"
             }
         },
         "/api/uniquery/v1/promql/query_range": {
@@ -4626,8 +4787,8 @@
                         "description": "Service Unavailable"
                     }
                 },
-                "summary": "promql query_range",
-                "description": "指标范围查询"
+                "summary": "promql/query_range",
+                "description": "指标范围查询API, AnyRobot 3.0.18.7版本及以上支持"
             }
         }
     },

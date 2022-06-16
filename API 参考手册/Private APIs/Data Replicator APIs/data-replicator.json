@@ -19,7 +19,67 @@
         }
     ],
     "paths": {
-        "/data-replicator/v1/jobs": {
+        "/api/data-replicator/v1/hosts": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TestHosts"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "204": {
+                        "description": "检测成功"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "ex": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesInvalidParameter",
+                                            "description": "Invalid ClusterAddressesParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex1": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesNull",
+                                            "description": "ClusterAddresses Null",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex3": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesDisconnected",
+                                            "description": "Cluster Address Disconnected",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "请求参数校验不合法"
+                    }
+                },
+                "summary": "hosts",
+                "description": "检测主机地址连通性, AnyRobot 3.0.18.4版本及以上支持"
+            }
+        },
+        "/api/data-replicator/v1/jobs": {
             "get": {
                 "parameters": [
                     {
@@ -168,7 +228,8 @@
                         "description": "服务器内部错误"
                     }
                 },
-                "description": "分页获取任务列表"
+                "summary": "jobs",
+                "description": "分页获取任务列表, AnyRobot 3.0.18.4版本及以上支持"
             },
             "post": {
                 "requestBody": {
@@ -341,69 +402,11 @@
                         "description": "服务器内部错误"
                     }
                 },
-                "description": "新建任务信息"
+                "summary": "jobs",
+                "description": "新建任务信息, AnyRobot 3.0.18.4版本及以上支持"
             }
         },
-        "/data-replicator/v1/hosts": {
-            "post": {
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/TestHosts"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "204": {
-                        "description": "检测成功"
-                    },
-                    "400": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Error"
-                                },
-                                "examples": {
-                                    "ex": {
-                                        "value": {
-                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesInvalidParameter",
-                                            "description": "Invalid ClusterAddressesParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
-                                        }
-                                    },
-                                    "ex1": {
-                                        "value": {
-                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesNull",
-                                            "description": "ClusterAddresses Null",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
-                                        }
-                                    },
-                                    "ex3": {
-                                        "value": {
-                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesDisconnected",
-                                            "description": "Cluster Address Disconnected",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "description": "请求参数校验不合法"
-                    }
-                },
-                "description": "检测主机地址连通性"
-            }
-        },
-        "/data-replicator/v1/jobs/{job_id}": {
+        "/api/data-replicator/v1/jobs/{job_id}": {
             "get": {
                 "responses": {
                     "200": {
@@ -489,7 +492,8 @@
                         "description": "服务器内部错误"
                     }
                 },
-                "description": "获取某个任务详情信息"
+                "summary": "jobs/{job_id}",
+                "description": "获取某个任务详情信息, AnyRobot 3.0.18.4版本及以上支持"
             },
             "put": {
                 "requestBody": {
@@ -667,7 +671,8 @@
                         "description": "任务资源不存在"
                     }
                 },
-                "description": "修改任务信息"
+                "summary": "jobs/{job_id}",
+                "description": "修改任务信息, AnyRobot 3.0.18.4版本及以上支持"
             },
             "delete": {
                 "parameters": [
@@ -758,7 +763,8 @@
                         "description": "服务器内部错误"
                     }
                 },
-                "description": "删除任务"
+                "summary": "jobs/{job_id}",
+                "description": "删除任务, AnyRobot 3.0.18.4版本及以上支持"
             },
             "parameters": [
                 {
@@ -772,7 +778,7 @@
                 }
             ]
         },
-        "/data-replicator/v1/jobs/{job_id}/attr/state": {
+        "/api/data-replicator/v1/jobs/{job_id}/attr/state": {
             "put": {
                 "requestBody": {
                     "content": {
@@ -914,7 +920,8 @@
                         "description": "服务器内部错误"
                     }
                 },
-                "description": "修改任务状态"
+                "summary": "jobs/{job_id}/attr/state",
+                "description": "修改任务状态, AnyRobot 3.0.18.4版本及以上支持"
             },
             "parameters": [
                 {
