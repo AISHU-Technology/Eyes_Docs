@@ -3941,6 +3941,127 @@
                 "description": ""
             }
         },
+        "/api/uniquery/v1/promql/query": {
+            "summary": "promql query",
+            "description": "promql 瞬时值查询",
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "description": "promql 查询语句",
+                                "type": "object",
+                                "properties": {
+                                    "query": {
+                                        "description": "promql 查询语句. 必须. time()",
+                                        "type": "string"
+                                    },
+                                    "timeout": {
+                                        "description": "时间戳设置. 默认单位是秒, 非必须. time=1653619369.807",
+                                        "type": "Number"
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "时间序列选择器": {
+                                    "value": "query=time()&time=1652323553"
+                                },
+                                "time 参数错误": {
+                                    "value": "query=time()&time=165232355g"
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "时间序列选择器": {
+                                        "value": {
+                                            "status": "success",
+                                            "data": {
+                                                "resultType": "scalar",
+                                                "result": [
+                                                    [
+                                                        1652323553,
+                                                        "1652323553"
+                                                    ]
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/promqlErrorCode"
+                                },
+                                "examples": {
+                                    "start 参数错误": {
+                                        "value": {
+                                            "status": "error",
+                                            "errorType": "bad_data",
+                                            "error": "invalid parameter \"time\": Invalid time value for 'time': cannot parse \"165232355g\" to a valid timestamp"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/promqlErrorCode"
+                                },
+                                "examples": {
+                                    "内部错误": {
+                                        "value": {
+                                            "status": "error",
+                                            "errorType": "opensearch_internal_error_exception",
+                                            "error": "internal error: error connection"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Internal Service Error"
+                    },
+                    "503": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/promqlErrorCode"
+                                },
+                                "examples": {
+                                    "timeout": {
+                                        "value": {
+                                            "status": "error",
+                                            "errorType": "timeout",
+                                            "error": "query timed out in expression evaluation"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Service Unavailable"
+                    }
+                },
+                "summary": "promql query",
+                "description": "瞬时值查询"
+            }
+        },
         "/api/uniquery/v1/promql/query_range": {
             "summary": "promql query_range",
             "description": "promql 指标范围查询",
@@ -3994,6 +4115,9 @@
                                 },
                                 "两个向量基于on的四则运算": {
                                     "value": "query=net_conntrack_dialer_conn_closed_total{ar_indexbase=\"metricbeat,es\"} + on(dialer_name) net_conntrack_dialer_conn_closed_total{ar_indexbase=\"metricbeat,es\"}&start=1653915694&end=1653916694&step=300"
+                                },
+                                "time()算子": {
+                                    "value": "query=time()&start=1653533598&end=1653533600&step=1"
                                 }
                             }
                         }
@@ -4404,6 +4528,35 @@
                                                             [
                                                                 1655126163,
                                                                 "1"
+                                                            ]
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "算子time()": {
+                                        "value": {
+                                            "status": "success",
+                                            "data": {
+                                                "resultType": "matrix",
+                                                "result": [
+                                                    {
+                                                        "metric": {
+
+                                                        },
+                                                        "values": [
+                                                            [
+                                                                1653533598,
+                                                                "1653533598"
+                                                            ],
+                                                            [
+                                                                1653533899,
+                                                                "1653533599"
+                                                            ],
+                                                            [
+                                                                1653533600,
+                                                                "1653533600"
                                                             ]
                                                         ]
                                                     }
