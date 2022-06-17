@@ -4279,6 +4279,9 @@
                                 },
                                 "time()算子": {
                                     "value": "query=time()&start=1653533598&end=1653533600&step=1"
+                                },
+                                "rate": {
+                                    "value": "query=rate(container_cpu_usage_seconds_total{ar_indexbase=\"metricbeat_test\",namespace=\"kube-system\",image!=\"\", container!=\"POD\"}[5m])&start=1654523947&end=1654527547&step=15"
                                 }
                             }
                         }
@@ -4719,6 +4722,134 @@
                                                                 1653533600,
                                                                 "1653533600"
                                                             ]
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "rate": {
+                                        "value": {
+                                            "status": "success",
+                                            "data": {
+                                                "resultType": "matrix",
+                                                "result": [
+                                                    {
+                                                        "metric": {
+                                                            "anyrobot_app": "true",
+                                                            "anyrobot_app_data": "true",
+                                                            "anyrobot_basic": "true",
+                                                            "beta_kubernetes_io_arch": "amd64",
+                                                            "beta_kubernetes_io_os": "linux",
+                                                            "container": "calico-kube-controllers",
+                                                            "cpu": "total",
+                                                            "id": "/kubepods/besteffort/pod8cdec5ef-468a-4c2d-8edb-d930e1948a0a/6a8ffcde4c2acfe966ff0d8240fcba13c5a0999ea1f158e88f0af64e825feb16",
+                                                            "image": "sha256:5c0685e144e200ae38ab8fe5c599fb6e2e6c86fe822c5dd48d8481f7ef555443",
+                                                            "instance": "node239",
+                                                            "job": "kubernetes-nodes-cadvisor",
+                                                            "kubernetes_io_arch": "amd64",
+                                                            "kubernetes_io_hostname": "node239",
+                                                            "kubernetes_io_os": "linux",
+                                                            "name": "k8s_calico-kube-controllers_calico-kube-controllers-6fd85bc7c4-cj2zn_kube-system_8cdec5ef-468a-4c2d-8edb-d930e1948a0a_16",
+                                                            "namespace": "kube-system",
+                                                            "pod": "calico-kube-controllers-6fd85bc7c4-cj2zn"
+                                                        },
+                                                        "values": [
+                                                            [
+                                                                1.654523750832E9,
+                                                                "0.00561727692448935"
+                                                            ],
+                                                            [
+                                                                1.654523764832E9,
+                                                                "0.005283017086779085"
+                                                            ],
+                                                            [
+                                                                1.654523778832E9,
+                                                                "0.005448400861994641"
+                                                            ],
+                                                            [
+                                                                1.654523792832E9,
+                                                                "0.00530584773775338"
+                                                            ],
+                                                            [
+                                                                1.654523806832E9,
+                                                                "0.005442293887843924"
+                                                            ]
+                                                        ]
+                                                    },
+                                                    {
+                                                        "metric": {
+                                                            "anyrobot_app": "true",
+                                                            "anyrobot_app_data": "true",
+                                                            "anyrobot_basic": "true",
+                                                            "beta_kubernetes_io_arch": "amd64",
+                                                            "beta_kubernetes_io_os": "linux",
+                                                            "container": "snapshot-controller",
+                                                            "cpu": "total",
+                                                            "id": "/kubepods/besteffort/pod7d3e95be-bfe0-4ae8-98f3-1e72ebae5521/f2fcf02e0a923c34d6bb882d335d783fa69041fc2f1253d18b678afbb525b136",
+                                                            "image": "sha256:05897620e3b01576f5fa838098e260a5f39211807eac1e415d7ea27677c952d9",
+                                                            "instance": "node239",
+                                                            "job": "kubernetes-nodes-cadvisor",
+                                                            "kubernetes_io_arch": "amd64",
+                                                            "kubernetes_io_hostname": "node239",
+                                                            "kubernetes_io_os": "linux",
+                                                            "name": "k8s_snapshot-controller_snapshot-controller-0_kube-system_7d3e95be-bfe0-4ae8-98f3-1e72ebae5521_14",
+                                                            "namespace": "kube-system",
+                                                            "pod": "snapshot-controller-0"
+                                                        },
+                                                        "values": [
+                                                            [
+                                                                1.654523750832E9,
+                                                                "0.007055602147791945"
+                                                            ],
+                                                            [
+                                                                1.654523764832E9,
+                                                                "0.006829173746349159"
+                                                            ],
+                                                            [
+                                                                1.654523778832E9,
+                                                                "0.0069652038896890825"
+                                                            ]
+                                                        ]
+                                                    },
+                                                    {
+                                                        "metric": {
+                                                            "anyrobot_app": "true",
+                                                            "anyrobot_app_data": "true",
+                                                            "anyrobot_basic": "true",
+                                                            "beta_kubernetes_io_arch": "amd64",
+                                                            "beta_kubernetes_io_os": "linux",
+                                                            "container": "tiller",
+                                                            "cpu": "total",
+                                                            "id": "/kubepods/besteffort/pod932452c0-872e-4f96-8c10-342acdaa1c1a/55bc481b31ed41961500c8531d81b185b9432e48cd9e37b3d99090efb71adabf",
+                                                            "image": "sha256:fd3fd9ab134a864eeb7b2c073c0d90192546f597c60416b81fc4166cca47f29a",
+                                                            "instance": "node239",
+                                                            "job": "kubernetes-nodes-cadvisor",
+                                                            "kubernetes_io_arch": "amd64",
+                                                            "kubernetes_io_hostname": "node239",
+                                                            "kubernetes_io_os": "linux",
+                                                            "name": "k8s_tiller_tiller-deploy-whbq5_kube-system_932452c0-872e-4f96-8c10-342acdaa1c1a_53",
+                                                            "namespace": "kube-system",
+                                                            "pod": "tiller-deploy-whbq5"
+                                                        },
+                                                        "values": [
+                                                            [
+                                                                1.654523750832E9,
+                                                                "0.0013922788293876638"
+                                                            ],
+                                                            [
+                                                                1.654523764832E9,
+                                                                "0.0013372516707928152"
+                                                            ],
+                                                            [
+                                                                1.654523778832E9,
+                                                                "0.0013168908501351017"
+                                                            ],
+                                                            [
+                                                                1.654523792832E9,
+                                                                "0.0013299119126529708"
+                                                            ]
+
                                                         ]
                                                     }
                                                 ]
