@@ -310,7 +310,7 @@ func main() {
 	tp.Shutdown(ctx)
 }
 ```
-#### trace 开关
+#### Trace 开关
 ##### 静态开关
 #export open_trace=true 设置环境变量      #unset open_trace 销毁环境变量
 ```bash
@@ -388,12 +388,12 @@ func main() {
     
 }
 ```
-#### trace 分析
+#### Trace 分析
 ##### 部署 jaeger
 ```bash
 docker run -d -p 16686:16686 -p 14268:14268 -p 6831:6831/udp jaegertracing/all-in-one
 ```
-##### 将trace数据导入jaeger
+##### 将 Trace 数据导入 jaeger
 ```bash
 package main
 
@@ -689,7 +689,7 @@ func Client() {
 }
 ```
 ### **Telemetry-Python**
-#### Telemetry SDK 安装和导入
+#### TelemetrySDK 安装和导入
 ```bash
 git clone -b 2.1.0 ssh://devops.aishu.cn:22/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python
 cd Akashic_TelemetrySDK-Python
@@ -722,7 +722,7 @@ logger.loglevel = "TraceLevel"
 attributes = Attributes({"a": "b"}, atype="test")
 logger.info("hello, this is threading test", attributes=attributes)
 ```
-#### 记录日志和 trace
+#### 记录日志和 Trace
 ```python
 from opentelemetry import trace
 from opentelemetry.sdk.trace import TracerProvider
@@ -821,12 +821,12 @@ with tracer.start_as_current_span("5"):
     trace_open()
 # 只会输出1，3，5三个trace span
 ```
-#### trace 分析
+#### Trace 分析
 ##### 部署 jaeger
 ```python
 docker run -d -p 16686:16686 -p 14250:14250 -p 6831:6831/udp jaegertracing/all-in-one
 ```
-##### 将 trace 数据导入 jaeger
+##### 将 Trace 数据导入 jaeger
 ```python
 from opentelemetry import trace
 from opentelemetry.sdk.trace import TracerProvider
@@ -1088,7 +1088,7 @@ ncTelemetryLog::PrintfToStderr(_T("%s\n"), convertJsonString.c_str());
 ```
 C++ Telemetry-CPP暂不依赖开源组件opentelemetry-cpp，不支持trace功能
 ### Telemetry-JAVA
-#### Telemetry SDK 安装和导入
+#### TelemetrySDK 安装和导入
 
 ##### 编译
 
@@ -1156,7 +1156,7 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 // 3. 打印字符串日志：“hello world”  
 logger.info("hello world", attributes);
 ```
-#### 记录日志和 trace
+#### 记录日志和 Trace
 ```cpp
 //（可选）配置系统日志等级，默认是DEBUG
 SamplerLogConfig.setLevel(Level.TRACE); 
