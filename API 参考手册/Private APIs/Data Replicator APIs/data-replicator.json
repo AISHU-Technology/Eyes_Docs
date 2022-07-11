@@ -19,67 +19,7 @@
         }
     ],
     "paths": {
-        "/api/data-replicator/v1/hosts": {
-            "post": {
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/TestHosts"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "204": {
-                        "description": "检测成功"
-                    },
-                    "400": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Error"
-                                },
-                                "examples": {
-                                    "ex": {
-                                        "value": {
-                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesInvalidParameter",
-                                            "description": "Invalid ClusterAddressesParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
-                                        }
-                                    },
-                                    "ex1": {
-                                        "value": {
-                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesNull",
-                                            "description": "ClusterAddresses Null",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
-                                        }
-                                    },
-                                    "ex3": {
-                                        "value": {
-                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesDisconnected",
-                                            "description": "Cluster Address Disconnected",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "description": "请求参数校验不合法"
-                    }
-                },
-                "summary": "hosts",
-                "description": "检测主机地址连通性, AnyRobot 3.0.18.4版本及以上支持"
-            }
-        },
-        "/api/data-replicator/v1/jobs": {
+        "/data-replicator/v1/jobs": {
             "get": {
                 "parameters": [
                     {
@@ -153,6 +93,44 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ListResult"
+                                },
+                                "examples": {
+                                    "密码不作为返回结果": {
+                                        "value": {
+                                            "entries": [
+                                                {
+                                                    "src_cluster_sasl_username": "",
+                                                    "sink_cluster_sasl_username": "anyrobot_data_replicator",
+                                                    "job_id": "415452930074770180",
+                                                    "job_name": "测试",
+                                                    "job_state": 1,
+                                                    "comment": "test",
+                                                    "create_time": "2022-07-07 09:54:08",
+                                                    "update_time": "2022-07-07 09:54:08",
+                                                    "src_cluster_id": "zHybvkTzRQGNeRFmAbB3eg",
+                                                    "src_cluster_addresses": [
+                                                        "10.4.128.125:31000"
+                                                    ],
+                                                    "is_src_cluster_sasl": false,
+                                                    "is_src_cluster_ssl": false,
+                                                    "sink_cluster_id": "CORKILGMSNW8MzPqfdbcIQ",
+                                                    "sink_cluster_addresses": [
+                                                        "10.4.14.35:31007"
+                                                    ],
+                                                    "is_sink_cluster_sasl": true,
+                                                    "is_sink_cluster_ssl": true,
+                                                    "allowed_topics": [
+                                                        "kafka_topic"
+                                                    ],
+                                                    "not_allowed_topics": [
+                                                        "kafka_topic"
+                                                    ],
+                                                    "details": ""
+                                                }
+                                            ],
+                                            "total_count": 1
+                                        }
+                                    }
                                 }
                             }
                         },
@@ -228,8 +206,7 @@
                         "description": "服务器内部错误"
                     }
                 },
-                "summary": "jobs",
-                "description": "分页获取任务列表, AnyRobot 3.0.18.4版本及以上支持"
+                "description": "jobs"
             },
             "post": {
                 "requestBody": {
@@ -237,6 +214,32 @@
                         "application/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/AddOrUpdateJobParams"
+                            },
+                            "examples": {
+                                "example": {
+                                    "value": {
+                                        "comment": "",
+                                        "allowed_topics": [
+                                        ],
+                                        "not_allowed_topics": [
+                                        ],
+                                        "sink_cluster_addresses": [
+                                            "10.4.105.113:31000"
+                                        ],
+                                        "job_name": "多域复制A",
+                                        "src_cluster_addresses": [
+                                            "10.4.110.32:31000"
+                                        ],
+                                        "is_src_cluster_sasl": true,
+                                        "is_src_cluster_ssl": false,
+                                        "src_cluster_sasl_password": "replicator",
+                                        "is_sink_cluster_sasl": true,
+                                        "is_sink_cluster_ssl": false,
+                                        "sink_cluster_sasl_password": "eisoo.com",
+                                        "sink_cluster_sasl_username": "replicator",
+                                        "src_cluster_sasl_username": "eisoo.com"
+                                    }
+                                }
                             }
                         }
                     },
@@ -296,8 +299,8 @@
                                     },
                                     "ex5": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesInvalidParameter",
-                                            "description": "Invalid ClusterAddressesParameter",
+                                            "error_code": "DataReplicator.BadRequest.SrcClusterAddressesInvalidParameter",
+                                            "description": "Invalid SrcClusterAddressesParameter",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -323,8 +326,8 @@
                                     },
                                     "ex4": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesNull",
-                                            "description": "ClusterAddresses Null",
+                                            "error_code": "DataReplicator.BadRequest.SrcClusterAddressesNull",
+                                            "description": "SrcClusterAddresses Null",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -332,8 +335,8 @@
                                     },
                                     "ex8": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.ClusterIdDifferent",
-                                            "description": "Different ClusterId",
+                                            "error_code": "DataReplicator.BadRequest.SrcClusterIdDifferent",
+                                            "description": "SrcCluster Different ClusterId",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -350,8 +353,8 @@
                                     },
                                     "ex10": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesDisconnected",
-                                            "description": "Cluster Address Disconnected",
+                                            "error_code": "DataReplicator.BadRequest.SrcClusterAddressesDisconnected",
+                                            "description": "SrcClusterAddresses Disconnected",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -370,6 +373,78 @@
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.TopicsInvalidParameter",
                                             "description": "Invalid TopicsParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex15": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.SrcSaslUerNameNull",
+                                            "description": "SrcSaslUserName Null",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex16": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.SrcSaslPasswordNull",
+                                            "description": "SrcSaslPassword Null",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex17": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.SinkClusterAddressesInvalidParameter",
+                                            "description": "Invalid SinkClusterAddressesParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex18": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.SinkClusterAddressesNull",
+                                            "description": "SinkClusterAddresses Null",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex19": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.SinkClusterIdDifferent",
+                                            "description": "SinkCluster Different ClusterId",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex20": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.SinkClusterAddressesDisconnected",
+                                            "description": "SinkClusterAddresses Disconnected",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex21": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.SinkSaslUerNameNull",
+                                            "description": "SinkSaslUserName Null",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex22": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.SinkSaslPasswordNull",
+                                            "description": "SinkSaslPassword Null",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -402,11 +477,10 @@
                         "description": "服务器内部错误"
                     }
                 },
-                "summary": "jobs",
-                "description": "新建任务信息, AnyRobot 3.0.18.4版本及以上支持"
+                "description": "jobs"
             }
         },
-        "/api/data-replicator/v1/jobs/{job_id}": {
+        "/data-replicator/v1/jobs/{job_id}": {
             "get": {
                 "responses": {
                     "200": {
@@ -414,6 +488,39 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/JobDetails"
+                                },
+                                "examples": {
+                                    "密码不作为结果返回": {
+                                        "value": {
+                                            "src_cluster_sasl_username": "",
+                                            "sink_cluster_sasl_username": "anyrobot_data_replicator",
+                                            "job_id": "415452930074770180",
+                                            "job_name": "测试",
+                                            "job_state": 1,
+                                            "comment": "test",
+                                            "create_time": "2022-07-07 09:54:08",
+                                            "update_time": "2022-07-07 10:29:43",
+                                            "src_cluster_id": "zHybvkTzRQGNeRFmAbB3eg",
+                                            "src_cluster_addresses": [
+                                                "10.4.128.125:31000"
+                                            ],
+                                            "is_src_cluster_sasl": false,
+                                            "is_src_cluster_ssl": false,
+                                            "sink_cluster_id": "CORKILGMSNW8MzPqfdbcIQ",
+                                            "sink_cluster_addresses": [
+                                                "10.4.14.35:31007"
+                                            ],
+                                            "is_sink_cluster_sasl": true,
+                                            "is_sink_cluster_ssl": true,
+                                            "allowed_topics": [
+                                                "kafka_topic"
+                                            ],
+                                            "not_allowed_topics": [
+                                                "kafka_topic"
+                                            ],
+                                            "details": ""
+                                        }
+                                    }
                                 }
                             }
                         },
@@ -492,8 +599,7 @@
                         "description": "服务器内部错误"
                     }
                 },
-                "summary": "jobs/{job_id}",
-                "description": "获取某个任务详情信息, AnyRobot 3.0.18.4版本及以上支持"
+                "description": "jobs/{job_id}"
             },
             "put": {
                 "requestBody": {
@@ -501,6 +607,32 @@
                         "application/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/AddOrUpdateJobParams"
+                            },
+                            "examples": {
+                                "example": {
+                                    "value": {
+                                        "comment": "",
+                                        "allowed_topics": [
+                                        ],
+                                        "not_allowed_topics": [
+                                        ],
+                                        "sink_cluster_addresses": [
+                                            "10.4.110.32:31000"
+                                        ],
+                                        "job_name": "aaaa",
+                                        "src_cluster_addresses": [
+                                            "10.4.105.113:31000"
+                                        ],
+                                        "is_src_cluster_sasl": true,
+                                        "is_src_cluster_ssl": false,
+                                        "src_cluster_sasl_password": "replicator",
+                                        "is_sink_cluster_sasl": true,
+                                        "is_sink_cluster_ssl": false,
+                                        "sink_cluster_sasl_password": "replicator",
+                                        "sink_cluster_sasl_username": "eisoo.com",
+                                        "src_cluster_sasl_username": "eisoo.com"
+                                    }
+                                }
                             }
                         }
                     },
@@ -553,8 +685,8 @@
                                     },
                                     "ex3": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest. ClusterAddressesInvalidParameter",
-                                            "description": "Invalid ClusterAddressesParameter",
+                                            "error_code": "DataReplicator.BadRequest.SrcClusterAddressesInvalidParameter",
+                                            "description": "Invalid SrcClusterAddressesParameter",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -580,8 +712,8 @@
                                     },
                                     "ex4": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesNull",
-                                            "description": "ClusterAddresses Null",
+                                            "error_code": "DataReplicator.BadRequest.SrcClusterAddressesNull",
+                                            "description": "SrcClusterAddresses Null",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -589,8 +721,8 @@
                                     },
                                     "ex6": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.ClusterIdDifferent",
-                                            "description": "Different ClusterId",
+                                            "error_code": "DataReplicator.BadRequest.SrcClusterIdDifferent",
+                                            "description": "Different SrcClusterId",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -598,8 +730,8 @@
                                     },
                                     "ex7": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.ClusterIdUpdated",
-                                            "description": "ClusterId Updated",
+                                            "error_code": "DataReplicator.BadRequest.SrcClusterIdUpdated",
+                                            "description": "SrcClusterId Updated",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -607,8 +739,8 @@
                                     },
                                     "ex8": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.ClusterAddressesDisconnected",
-                                            "description": "Cluster Address Disconnected",
+                                            "error_code": "DataReplicator.BadRequest.SrcClusterAddressesDisconnected",
+                                            "description": "SrcCluster Address Disconnected",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -618,6 +750,87 @@
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.TopicsInvalidParameter",
                                             "description": "Invalid TopicsParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex12": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.SrcSaslUerNameNull",
+                                            "description": "SrcSaslUserName Null",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex13": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.SinkSaslPasswordNull",
+                                            "description": "SinkSaslPassword Null",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex10": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.SinkClusterAddressesInvalidParameter",
+                                            "description": "Invalid SinkClusterAddressesParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex11": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.SinkClusterAddressesNull",
+                                            "description": "SinkClusterAddresses Null",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex14": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.SinkClusterIdDifferent",
+                                            "description": "Different SinkClusterId",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex15": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.SinkClusterIdUpdated",
+                                            "description": "SinkClusterId Updated",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex16": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.SinkClusterAddressesDisconnected",
+                                            "description": "SinkCluster Address Disconnected",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex17": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.SinkSaslUerNameNull",
+                                            "description": "SinkSaslUserName Null",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ex18": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.SinkSaslPasswordNull",
+                                            "description": "SinkSaslPassword Null",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -671,8 +884,7 @@
                         "description": "任务资源不存在"
                     }
                 },
-                "summary": "jobs/{job_id}",
-                "description": "修改任务信息, AnyRobot 3.0.18.4版本及以上支持"
+                "description": "jobs/{job_id}"
             },
             "delete": {
                 "parameters": [
@@ -763,8 +975,7 @@
                         "description": "服务器内部错误"
                     }
                 },
-                "summary": "jobs/{job_id}",
-                "description": "删除任务, AnyRobot 3.0.18.4版本及以上支持"
+                "description": "jobs/{job_id}"
             },
             "parameters": [
                 {
@@ -778,7 +989,7 @@
                 }
             ]
         },
-        "/api/data-replicator/v1/jobs/{job_id}/attr/state": {
+        "/data-replicator/v1/jobs/{job_id}/attr/state": {
             "put": {
                 "requestBody": {
                     "content": {
@@ -920,8 +1131,7 @@
                         "description": "服务器内部错误"
                     }
                 },
-                "summary": "jobs/{job_id}/attr/state",
-                "description": "修改任务状态, AnyRobot 3.0.18.4版本及以上支持"
+                "description": "jobs/{job_id}/attr/state"
             },
             "parameters": [
                 {
@@ -953,7 +1163,11 @@
                     "create_time",
                     "details",
                     "src_cluster_id",
-                    "sink_cluster_id"
+                    "sink_cluster_id",
+                    "is_src_cluster_sasl",
+                    "is_src_cluster_ssl",
+                    "is_sink_cluster_sasl",
+                    "is_sink_cluster_ssl"
                 ],
                 "type": "object",
                 "properties": {
@@ -1020,6 +1234,30 @@
                     "job_state": {
                         "description": "任务状态\n0：失败\n1：运行中\n2：暂停",
                         "type": "integer"
+                    },
+                    "is_src_cluster_sasl": {
+                        "description": "源集群是否开启了sasl：false 未开启，true 开启",
+                        "type": "boolean"
+                    },
+                    "is_src_cluster_ssl": {
+                        "description": "源集群是否开启了ssl：0 未开启，1 开启",
+                        "type": "boolean"
+                    },
+                    "is_sink_cluster_sasl": {
+                        "description": "目标集群是否开启了sasl：false 未开启，true 开启",
+                        "type": "boolean"
+                    },
+                    "is_sink_cluster_ssl": {
+                        "description": "目标集群是否开启了ssl：false 未开启，true 开启",
+                        "type": "boolean"
+                    },
+                    "sink_cluster_sasl_username": {
+                        "description": "目标集群开启sasl的用户名",
+                        "type": "string"
+                    },
+                    "src_cluster_sasl_username": {
+                        "description": "源集群开启sasl的用户名",
+                        "type": "string"
                     }
                 }
             },
@@ -1082,7 +1320,11 @@
                 "required": [
                     "job_name",
                     "src_cluster_addresses",
-                    "sink_cluster_addresses"
+                    "sink_cluster_addresses",
+                    "is_src_cluster_sasl",
+                    "is_src_cluster_ssl",
+                    "is_sink_cluster_sasl",
+                    "is_sink_cluster_ssl"
                 ],
                 "type": "object",
                 "properties": {
@@ -1121,13 +1363,47 @@
                         "items": {
                             "type": "string"
                         }
+                    },
+                    "is_src_cluster_sasl": {
+                        "description": "源集群是否开启了sasl：false 未开启，true 开启",
+                        "type": "boolean"
+                    },
+                    "is_src_cluster_ssl": {
+                        "description": "源集群是否开启了ssl：false 未开启，true 开启",
+                        "type": "boolean"
+                    },
+                    "src_cluster_sasl_password": {
+                        "description": "源集群开启sasl的密码",
+                        "type": "string"
+                    },
+                    "is_sink_cluster_sasl": {
+                        "description": "目标集群是否开启了sasl：false 未开启，true 开启",
+                        "type": "boolean"
+                    },
+                    "is_sink_cluster_ssl": {
+                        "description": "目标集群是否开启了ssl：false 未开启，true 开启",
+                        "type": "boolean"
+                    },
+                    "sink_cluster_sasl_password": {
+                        "description": "目标集群开启sasl的密码",
+                        "type": "string"
+                    },
+                    "sink_cluster_sasl_username": {
+                        "description": "目标集群开启sasl的用户名",
+                        "type": "string"
+                    },
+                    "src_cluster_sasl_username": {
+                        "description": "源集群开启sasl的用户名",
+                        "type": "string"
                     }
                 }
             },
             "TestHosts": {
                 "description": "检测主机ip连通性",
                 "required": [
-                    "cluster_addresses"
+                    "cluster_addresses",
+                    "is_cluster_sasl",
+                    "is_cluster_ssl"
                 ],
                 "type": "object",
                 "properties": {
@@ -1137,6 +1413,22 @@
                         "items": {
                             "type": "string"
                         }
+                    },
+                    "is_cluster_sasl": {
+                        "description": "集群是否开启了sasl：false 未开启,true 开启",
+                        "type": "boolean"
+                    },
+                    "is_cluster_ssl": {
+                        "description": "集群是否开启了ssl：false 未开启，true 开启",
+                        "type": "boolean"
+                    },
+                    "cluster_sasl_password": {
+                        "description": "集群开启sasl的密码",
+                        "type": "string"
+                    },
+                    "cluster_sasl_username": {
+                        "description": "集群开启sasl的用户名",
+                        "type": "string"
                     }
                 }
             },
