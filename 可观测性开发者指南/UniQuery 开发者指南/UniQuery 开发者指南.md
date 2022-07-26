@@ -929,7 +929,7 @@ metrics.system_metric_memory_total_bytes{ar_indexbase="system_metric",labels.ins
 > {\_\_name\_\_="on"} # Good!
 
 
-#### <span id="范围向量选择器">2.3.2.2 范围向量选择器</span>
+#### <span id="range_vactor_selector">2.3.2.2 范围向量选择器</span>
 
 1. 语义
 
@@ -1207,7 +1207,7 @@ $ curl -X POST http://localhost:13011/api/v1/query \
 ``` markdown
 irate(v range-vector)
 ```
-其中 `range-vector` 的语法结构参考[范围向量选择器](#范围向量选择器)。
+其中 `range-vector` 的语法结构参考[范围向量选择器](#range_vactor_selector)。
 
 + 示例
 
@@ -1326,7 +1326,7 @@ API 响应格式为 JSON。
   "result": <value>
 }
 ```
-`<value>` 指的是查询结果数据，其格式根据 `resultType` 而有所不同. 请参阅 [表达式查询结果格式](#表达式查询结果格式)。
+`<value>` 指的是查询结果数据，其格式根据 `resultType` 而有所不同. 请参阅 [表达式查询结果格式](#result_format)。
 
 
 ### 2.3.5.2 Range query查询接口
@@ -1357,7 +1357,7 @@ API 响应格式为 JSON。
   "result": <value>
 }
 ```
-`<value>` 指的是查询结果数据，请参阅 [范围向量结果格式](#范围向量)。
+`<value>` 指的是查询结果数据，请参阅 [范围向量结果格式](#range_vector_result_format)。
 
 ### 2.3.5.3 Series查询接口
 
@@ -1390,11 +1390,11 @@ API 响应格式为 JSON。
 
 
 
-### <span id="表达式查询结果格式">2.3.5.4 表达式查询结果格式</span>
+### <span id="result_format">2.3.5.4 表达式查询结果格式</span>
 
 表达式查询返回结果的 `result` 属性中的 `data` 部分可能是如下的格式。`<sample_value>` 是数字样本值。JSON 不支持特殊的浮点值，例如 `NaN`、`Inf` 和 `-Inf`，因此样本值作为带引号的 JSON 字符串而不是原始数字传输。
 
-+ <span id="范围向量">范围向量</span>
++ <span id="range_vector_result_format">范围向量</span>
 
 范围向量返回的结果类型为 `matrix`。相应的 `result` 属性有如下格式：
 ```json
@@ -1638,7 +1638,7 @@ http://ip:port/api/uniquery/v1/promql/series
 查询场景如下：查询指标 `metrics.system_metric_cpu_seconds_total` 下的序列列表。
 
 ```Plain Text
-curl -X POST http://10.4.106.127:13011/api/uniquery/v1/promql/series \
+curl -X POST http://ip:port/api/uniquery/v1/promql/series \
 -H "Content-Type:application/x-www-form-urlencoded" \
 -d 'match[]=metrics.system_metric_cpu_seconds_total{ar_indexbase="promql_test"}
  &start=2022-04-25T09:46:00.000Z&end=2022-04-25T09:48:30.000Z'
