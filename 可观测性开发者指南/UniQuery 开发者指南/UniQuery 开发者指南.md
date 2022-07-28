@@ -1674,6 +1674,18 @@ curl -X POST http://ip:port/api/uniquery/v1/promql/series \
 }
 ```
 
++ 结合 grafana 的使用说明
+
+当前在 grafana 中使用 `series` 接口的场景是在定义 dashboard 的变量时使用。由于我们存储在 `opensearch` 的字段是可以用英文点号来表示字段的层级关系。而 grafana 的 `label_values` 函数不支持，所以为了兼容 grafana 定义变量的场景，我们需要在 grafana 中配置正则来提取标签值。
+配置的正则表达式示例：
+```
+/.*labels.instance="([^"]*)"*/
+```
+
+下图中配置的是从序列选择器 `prometheus.metrics.node_exporter_build_info{ar_indexbase="test",labels.kubernetes_namespace="anyrobot"}` 中匹配到的序列列表中提取字段 `labels.instance` 的值作为 `ip` 变量的可选值。
+
+![image](images/grafana_define_variables_with_uniquery.png)
+
 
 ### 2.3.7 PromQL 限制性说明
 
