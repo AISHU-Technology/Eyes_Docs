@@ -68,7 +68,7 @@
                     },
                     {
                         "name": "job_states",
-                        "description": "任务状态\n0：失败\n1：运行中\n2：暂停",
+                        "description": "任务状态\n0：失败\n1：运行中\n2：关闭\n3：休眠中",
                         "schema": {
                             "type": "array",
                             "items": {
@@ -125,6 +125,9 @@
                                                     "not_allowed_topics": [
                                                         "kafka_topic"
                                                     ],
+                                                    "is_open_timed_replication": false,
+                                                    "timed_replication_start_time": "00:00",
+                                                    "timed_replication_duration": 300,
                                                     "details": ""
                                                 }
                                             ],
@@ -143,7 +146,7 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "OffsetInvalidParameter": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.OffsetInvalidParameter",
                                             "description": "Invalid OffsetParameter",
@@ -152,27 +155,27 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex2": {
+                                    "LimitInvalidParameter": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest. LimitInvalidParameter",
+                                            "error_code": "DataReplicator.BadRequest.LimitInvalidParameter",
                                             "description": "Invalid LimitParameter",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex3": {
+                                    "DirectionInvalidParameter": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest. DirectionInvalidParameter",
+                                            "error_code": "DataReplicator.BadRequest.DirectionInvalidParameter",
                                             "description": "Invalid DirectionParameter",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex4": {
+                                    "SortInvalidParameter": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest. SortInvalidParameter",
+                                            "error_code": "DataReplicator.BadRequest.SortInvalidParameter",
                                             "description": "Invalid SortParameter",
                                             "error_details": "some text",
                                             "error_link": "some text",
@@ -191,7 +194,7 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "JobInternalError": {
                                         "value": {
                                             "error_code": "DataReplicator.InternalError.JobInternalError",
                                             "description": "InternalError Job",
@@ -237,7 +240,10 @@
                                         "is_sink_cluster_ssl": false,
                                         "sink_cluster_sasl_password": "eisoo.com",
                                         "sink_cluster_sasl_username": "replicator",
-                                        "src_cluster_sasl_username": "eisoo.com"
+                                        "src_cluster_sasl_username": "eisoo.com",
+                                        "is_open_timed_replication": true,
+                                        "timed_replication_duration": 300,
+                                        "timed_replication_start_time": "00:00"
                                     }
                                 }
                             }
@@ -253,9 +259,9 @@
                                     "$ref": "#/components/schemas/JobIdResult"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "createSuccessExample": {
                                         "value": {
-                                            "name": "多域复制任务1"
+                                            "job_id": "419417529442642865"
                                         }
                                     }
                                 }
@@ -270,7 +276,7 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "JobNameInvalid": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.JobNameInvalidParameter",
                                             "description": "Invalid JobNameParameter",
@@ -279,7 +285,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex2": {
+                                    "JobNameExist": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.JobNameExist",
                                             "description": "JobName Exist",
@@ -288,7 +294,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex3": {
+                                    "JobNameNull": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.JobNameNull",
                                             "description": "JobName Null",
@@ -297,7 +303,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex5": {
+                                    "SrcClusterAddressesInvaliid": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SrcClusterAddressesInvalidParameter",
                                             "description": "Invalid SrcClusterAddressesParameter",
@@ -306,7 +312,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex6": {
+                                    "JobTotalOutOfRange": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.JobTotalOutOfRange",
                                             "description": "JobTotals Out Of Range",
@@ -315,7 +321,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex7": {
+                                    "JobClusterDoubleExist": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.JobClusterDoubleExist",
                                             "description": "Job ClusterDouble Exist",
@@ -324,7 +330,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex4": {
+                                    "SrcClusterAddressesNull": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SrcClusterAddressesNull",
                                             "description": "SrcClusterAddresses Null",
@@ -333,7 +339,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex8": {
+                                    "SrcClusterIdDifferent": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SrcClusterIdDifferent",
                                             "description": "SrcCluster Different ClusterId",
@@ -342,7 +348,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex9": {
+                                    "SameSrcSinkClusterId": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SameSrcSinkClusterId",
                                             "description": "Src Sink Same ClusterId",
@@ -351,7 +357,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex10": {
+                                    "SrcClusterAddressesDisconnected": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SrcClusterAddressesDisconnected",
                                             "description": "SrcClusterAddresses Disconnected",
@@ -360,7 +366,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex11": {
+                                    "GenerateIDFailed": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.GenerateIDFailed",
                                             "description": "GenerateID Failed",
@@ -369,7 +375,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex12": {
+                                    "TopicsInvalid": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.TopicsInvalidParameter",
                                             "description": "Invalid TopicsParameter",
@@ -378,7 +384,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex15": {
+                                    "SrcSaslUerNameNull": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SrcSaslUerNameNull",
                                             "description": "SrcSaslUserName Null",
@@ -387,7 +393,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex16": {
+                                    "SrcSaslPasswordNull": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SrcSaslPasswordNull",
                                             "description": "SrcSaslPassword Null",
@@ -396,7 +402,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex17": {
+                                    "SinkClusterAddressesInvalid": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SinkClusterAddressesInvalidParameter",
                                             "description": "Invalid SinkClusterAddressesParameter",
@@ -405,7 +411,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex18": {
+                                    "SinkClusterAddressesNull": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SinkClusterAddressesNull",
                                             "description": "SinkClusterAddresses Null",
@@ -414,7 +420,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex19": {
+                                    "SinkClusterIdDifferent": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SinkClusterIdDifferent",
                                             "description": "SinkCluster Different ClusterId",
@@ -423,7 +429,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex20": {
+                                    "SinkClusterAddressesDisconnected": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SinkClusterAddressesDisconnected",
                                             "description": "SinkClusterAddresses Disconnected",
@@ -432,7 +438,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex21": {
+                                    "SinkSaslUerNameNull": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SinkSaslUerNameNull",
                                             "description": "SinkSaslUserName Null",
@@ -441,10 +447,28 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex22": {
+                                    "SinkSaslPasswordNull": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SinkSaslPasswordNull",
                                             "description": "SinkSaslPassword Null",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "TimedReplicationStartTimeInvalid": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadReque.TimedReplicationStartTimeInvalidParameter",
+                                            "description": "Invalid TimedReplicationStartTimeParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "TimedReplicationDurationOutOfRange": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.TimedReplicationDurationOutOfRange",
+                                            "description": "TimedReplicationDuration Out Of Range",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -462,10 +486,28 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "JobInternalError": {
                                         "value": {
                                             "error_code": "DataReplicator.InternalError.JobInternalError",
                                             "description": "InternalError Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ReplicatorJobInternalError": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InternalError.ReplicatorJobInternalError",
+                                            "description": "InternalError ReplicatorJob",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "KafkaInternalError": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InternalError.KafkaInternalError",
+                                            "description": "InternalError kafka",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -518,6 +560,9 @@
                                             "not_allowed_topics": [
                                                 "kafka_topic"
                                             ],
+                                            "is_open_timed_replication": false,
+                                            "timed_replication_start_time": "00:00",
+                                            "timed_replication_duration": 300,
                                             "details": ""
                                         }
                                     }
@@ -533,19 +578,19 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex": {
+                                    "JobIdInvalidParameter": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.JobNameInvalidParameter",
-                                            "description": "Invalid JobNameParameter",
+                                            "error_code": "DataReplicator.BadRequest.JobIdInvalidParameter",
+                                            "description": "Invalid JobIdParameter",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex2": {
+                                    "JobIdNull": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.JobNameNull",
-                                            "description": "JobName Null",
+                                            "error_code": "DataReplicator.BadRequest.JobIdNull",
+                                            "description": "JobId Null",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -563,7 +608,7 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "JobNotFound": {
                                         "value": {
                                             "error_code": "DataReplicator.NotFound.JobNotFound",
                                             "description": "NotFound  Job",
@@ -584,7 +629,7 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "JobInternalError": {
                                         "value": {
                                             "error_code": "DataReplicator.InternalError.JobInternalError",
                                             "description": "InternalError Job",
@@ -630,7 +675,10 @@
                                         "is_sink_cluster_ssl": false,
                                         "sink_cluster_sasl_password": "replicator",
                                         "sink_cluster_sasl_username": "eisoo.com",
-                                        "src_cluster_sasl_username": "eisoo.com"
+                                        "src_cluster_sasl_username": "eisoo.com",
+                                        "is_open_timed_replication": false,
+                                        "timed_replication_duration": 300,
+                                        "timed_replication_start_time": "00:00"
                                     }
                                 }
                             }
@@ -657,9 +705,9 @@
                                     "$ref": "#/components/schemas/JobIdResult"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "UpdateJobSuccess": {
                                         "value": {
-                                            "name": "多域复制任务1"
+                                            "job_id": "419417529442642865"
                                         }
                                     }
                                 }
@@ -674,7 +722,7 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "JobNameNull": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.JobNameNull",
                                             "description": "JobName Null",
@@ -683,7 +731,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex3": {
+                                    "SrcClusterAddressesInvalidParameter": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SrcClusterAddressesInvalidParameter",
                                             "description": "Invalid SrcClusterAddressesParameter",
@@ -692,7 +740,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex2": {
+                                    "JobNameInvalidParameter": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.JobNameInvalidParameter",
                                             "description": "Invalid JobNameParameter",
@@ -701,16 +749,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex5": {
-                                        "value": {
-                                            "error_code": "DataReplicator.BadRequest.JobNameExist",
-                                            "description": "JobName Exist",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
-                                        }
-                                    },
-                                    "ex4": {
+                                    "SrcClusterAddressesNull": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SrcClusterAddressesNull",
                                             "description": "SrcClusterAddresses Null",
@@ -719,7 +758,16 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex6": {
+                                    "JobNameExist": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.JobNameExist",
+                                            "description": "JobName Exist",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "SrcClusterIdDifferent": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SrcClusterIdDifferent",
                                             "description": "Different SrcClusterId",
@@ -728,7 +776,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex7": {
+                                    "SrcClusterIdUpdated": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SrcClusterIdUpdated",
                                             "description": "SrcClusterId Updated",
@@ -737,7 +785,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex8": {
+                                    "SrcClusterAddressesDisconnected": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SrcClusterAddressesDisconnected",
                                             "description": "SrcCluster Address Disconnected",
@@ -746,16 +794,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex9": {
-                                        "value": {
-                                            "error_code": "DataReplicator.BadRequest.TopicsInvalidParameter",
-                                            "description": "Invalid TopicsParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
-                                        }
-                                    },
-                                    "ex12": {
+                                    "SrcSaslUerNameNull": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SrcSaslUerNameNull",
                                             "description": "SrcSaslUserName Null",
@@ -764,7 +803,16 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex13": {
+                                    "TopicsInvalidParameter": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.TopicsInvalidParameter",
+                                            "description": "Invalid TopicsParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "SinkSaslPasswordNull": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SinkSaslPasswordNull",
                                             "description": "SinkSaslPassword Null",
@@ -773,7 +821,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex10": {
+                                    "SinkClusterAddressesInvalidParameter": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SinkClusterAddressesInvalidParameter",
                                             "description": "Invalid SinkClusterAddressesParameter",
@@ -782,7 +830,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex11": {
+                                    "SinkClusterAddressesNull": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SinkClusterAddressesNull",
                                             "description": "SinkClusterAddresses Null",
@@ -791,7 +839,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex14": {
+                                    "SinkClusterIdDifferent": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SinkClusterIdDifferent",
                                             "description": "Different SinkClusterId",
@@ -800,7 +848,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex15": {
+                                    "SinkClusterIdUpdated": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SinkClusterIdUpdated",
                                             "description": "SinkClusterId Updated",
@@ -809,7 +857,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex16": {
+                                    "SinkClusterAddressesDisconnected": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SinkClusterAddressesDisconnected",
                                             "description": "SinkCluster Address Disconnected",
@@ -818,7 +866,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex17": {
+                                    "SinkSaslUerNameNull": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.SinkSaslUerNameNull",
                                             "description": "SinkSaslUserName Null",
@@ -827,10 +875,28 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex18": {
+                                    "SrcSaslPasswordNull": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SinkSaslPasswordNull",
+                                            "error_code": "DataReplicator.BadRequest.SrcSaslPasswordNull",
                                             "description": "SinkSaslPassword Null",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "TimedReplicationStartTimeInvalidParameter": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadReque.TimedReplicationStartTimeInvalidParameter",
+                                            "description": "Invalid TimedReplicationStartTimeParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "TimedReplicationDurationOutOfRange": {
+                                        "value": {
+                                            "error_code": "DataReplicator.BadRequest.TimedReplicationDurationOutOfRange",
+                                            "description": "TimedReplicationDuration Out Of Range",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -848,10 +914,37 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "JobInternalError": {
                                         "value": {
                                             "error_code": "DataReplicator.InternalError.JobInternalError",
                                             "description": "InternalError Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ReplicatorJobInternalError": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InternalError.ReplicatorJobInternalError",
+                                            "description": "InternalError ReplicatorJob",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "KafkaInternalError": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InternalError.KafkaInternalError",
+                                            "description": "InternalError kafka",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "TaskInternalError": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InternalError.TaskInternalError",
+                                            "description": "InternalError task",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -869,7 +962,7 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "JobNotFound": {
                                         "value": {
                                             "error_code": "DataReplicator.NotFound.JobNotFound",
                                             "description": "NotFound  Job",
@@ -909,7 +1002,7 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "JobNotFound": {
                                         "value": {
                                             "error_code": "DataReplicator.NotFound.JobNotFound",
                                             "description": "NotFound  Job",
@@ -930,16 +1023,16 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "JobIdInvalidParameter": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest. JobIdInvalidParameter",
+                                            "error_code": "DataReplicator.BadRequest.JobIdInvalidParameter",
                                             "description": "Invalid JobIdParameter",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex2": {
+                                    "JobIdNull": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.JobIdNull",
                                             "description": "JobId Null",
@@ -960,10 +1053,37 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "JobInternalError": {
                                         "value": {
                                             "error_code": "DataReplicator.InternalError.JobInternalError",
                                             "description": "InternalError Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ReplicatorJobInternalError": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InternalError.ReplicatorJobInternalError",
+                                            "description": "InternalError ReplicatorJob",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "KafkaInternalError": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InternalError.KafkaInternalError",
+                                            "description": "InternalError kafka",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "TaskInternalError": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InternalError.TaskInternalError",
+                                            "description": "InternalError task",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -1032,13 +1152,13 @@
                                     "$ref": "#/components/schemas/UpdateStateResponse"
                                 },
                                 "examples": {
-                                    "ex": {
+                                    "startJobSuccess": {
                                         "value": {
                                             "job_id": 402877047124294400,
                                             "state": 1
                                         }
                                     },
-                                    "ex1": {
+                                    "PauseJobSuccess": {
                                         "value": {
                                             "job_id": 402877047124294400,
                                             "state": 2
@@ -1056,7 +1176,7 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex": {
+                                    "JobIdNull": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.JobIdNull",
                                             "description": "JobId Null",
@@ -1065,7 +1185,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex1": {
+                                    "JobIdInvalidParameter": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.JobIdInvalidParameter",
                                             "description": "Invalid JobIdParameter",
@@ -1074,7 +1194,7 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex2": {
+                                    "JobStateInvalidParameter": {
                                         "value": {
                                             "error_code": "DataReplicator.BadRequest.JobStateInvalidParameter",
                                             "description": "Invalid JobStateParameter",
@@ -1095,7 +1215,7 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex": {
+                                    "JobNotFound": {
                                         "value": {
                                             "error_code": "DataReplicator.NotFound.JobNotFound",
                                             "description": "NotFound  Job",
@@ -1116,10 +1236,37 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex": {
+                                    "JobInternalError": {
                                         "value": {
                                             "error_code": "DataReplicator.InternalError.JobInternalError",
                                             "description": "InternalError Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "ReplicatorJobInternalError": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InternalError.ReplicatorJobInternalError",
+                                            "description": "InternalError ReplicatorJob",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "KafkaInternalError": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InternalError.KafkaInternalError",
+                                            "description": "InternalError kafka",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "TaskInternalError": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InternalError.TaskInternalError",
+                                            "description": "InternalError task",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -1167,7 +1314,8 @@
                     "is_src_cluster_sasl",
                     "is_src_cluster_ssl",
                     "is_sink_cluster_sasl",
-                    "is_sink_cluster_ssl"
+                    "is_sink_cluster_ssl",
+                    "is_open_timed_replication"
                 ],
                 "type": "object",
                 "properties": {
@@ -1232,7 +1380,7 @@
                         "type": "string"
                     },
                     "job_state": {
-                        "description": "任务状态\n0：失败\n1：运行中\n2：暂停",
+                        "description": "任务状态\n0：失败\n1：运行中\n2：关闭\n3：休眠中",
                         "type": "integer"
                     },
                     "is_src_cluster_sasl": {
@@ -1257,6 +1405,18 @@
                     },
                     "src_cluster_sasl_username": {
                         "description": "源集群开启sasl的用户名",
+                        "type": "string"
+                    },
+                    "is_open_timed_replication": {
+                        "description": "是否开启定时复制",
+                        "type": "boolean"
+                    },
+                    "timed_replication_start_time": {
+                        "description": "开启定时复制的开始时间 ; 格式:时:分(如00:00，01:00）；范围（00:00-23:59）；如果开启了定时复制，默认00:00",
+                        "type": "string"
+                    },
+                    "timed_replication_duration": {
+                        "description": "定时复制的持续时间（多少分钟）; 范围（0<duration<1440）; 如果开启了定时复制,默认300",
                         "type": "string"
                     }
                 }
@@ -1324,7 +1484,8 @@
                     "is_src_cluster_sasl",
                     "is_src_cluster_ssl",
                     "is_sink_cluster_sasl",
-                    "is_sink_cluster_ssl"
+                    "is_sink_cluster_ssl",
+                    "is_open_timed_replication"
                 ],
                 "type": "object",
                 "properties": {
@@ -1395,6 +1556,18 @@
                     "src_cluster_sasl_username": {
                         "description": "源集群开启sasl的用户名",
                         "type": "string"
+                    },
+                    "is_open_timed_replication": {
+                        "description": "是否开启定时复制",
+                        "type": "boolean"
+                    },
+                    "timed_replication_duration": {
+                        "description": "定时复制的持续时间（多少分钟）; 范围（0<duration<1440）; 如果开启了定时复制,默认300",
+                        "type": "integer"
+                    },
+                    "timed_replication_start_time": {
+                        "description": "开启定时复制的开始时间 ; 格式:时:分(如00:00，01:00）；范围（00:00-23:59）；如果开启了定时复制，默认00:00",
+                        "type": "string"
                     }
                 }
             },
@@ -1440,7 +1613,7 @@
                 "type": "object",
                 "properties": {
                     "state": {
-                        "description": "任务状态\nstate只能是1或2",
+                        "description": "任务状态\nstate只能是1或2;\n1：运行中\n2：关闭",
                         "type": "integer"
                     }
                 }
