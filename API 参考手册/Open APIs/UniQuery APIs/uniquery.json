@@ -4189,6 +4189,15 @@
                                 },
                                 "bool运算 - 向量与向量": {
                                     "value": "query=opensearch_indices_segment_memory_bytes_total < bool opensearch_indices_store_size_bytes_total&ar_dataview=f910bae8-1a08-11ed-ac4b-262ebcd7db7b&time=1653374160"
+                                },
+                                "集合逻辑运算 - and运算": {
+                                    "value": "query=prometheus.metrics.process_resident_memory_bytes{ar_indexbase=\"at_uniquery_metric2\"} and prometheus.metrics.process_virtual_memory_bytes{ar_indexbase=\"at_uniquery_metric2\",labels.job =\"UniQuery\"}&time=1650883566"
+                                },
+                                "集合逻辑运算 - or运算": {
+                                    "value": "query=prometheus.metrics.process_resident_memory_bytes{ar_indexbase=\"at_uniquery_metric2\",labels.job =\"UniQuery\"} or prometheus.metrics.process_virtual_memory_bytes{ar_indexbase=\"at_uniquery_metric2\",labels.job =\"prometheus\"}&time=1650883566"
+                                },
+                                "集合逻辑运算 - unless运算": {
+                                    "value": "query=prometheus.metrics.process_resident_memory_bytes{ar_indexbase=\"at_uniquery_metric2\"} unless prometheus.metrics.process_virtual_memory_bytes{ar_indexbase=\"at_uniquery_metric2\",labels.job =\"prometheus\"}&time=1650883566"
                                 }
                             }
                         }
@@ -8938,6 +8947,33 @@
                                                 ]
                                             }
                                         }
+                                    },
+                                    "集合逻辑运算 - and运算": {
+                                        "value": {
+                                            "status": "success",
+                                            "data": {
+                                                "resultType": "vector",
+                                                "result": [
+                                                    {
+                                                        "metric": {
+                                                            "cluster": "xyz",
+                                                            "host": "10.4.106.129",
+                                                            "job": "UniQuery"
+                                                        },
+                                                        "value": [
+                                                            1650883566,
+                                                            "48415079"
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "集合逻辑运算 - or运算": {
+                                        "value": "{'status': 'success', 'data': {'resultType': 'vector', 'result': [{'metric': {'cluster': 'xyz', 'host': '10.4.106.129', 'job': 'UniQuery'}, 'value': [1650883566, '48415079']}, {'metric': {'cluster': 'xyz', 'host': '10.4.106.127', 'job': 'prometheus'}, 'value': [1650883566, '1275621735']}]}}"
+                                    },
+                                    "集合逻辑运算 - unless运算": {
+                                        "value": "{'status': 'success', 'data': {'resultType': 'vector', 'result': [{'metric': {'cluster': 'xyz', 'host': '10.4.106.129', 'job': 'UniQuery'}, 'value': [1650883566, '48415079']}]}}"
                                     }
                                 }
                             }
@@ -9105,6 +9141,9 @@
                                 },
                                 "bool运算 - 向量与向量": {
                                     "value": "query=opensearch_indices_segment_memory_bytes_total < bool opensearch_indices_store_size_bytes_total&ar_dataview=f910bae8-1a08-11ed-ac4b-262ebcd7db7b&start=1653374200&end=1653374560&step=60"
+                                },
+                                "increase": {
+                                    "value": "query=increase(prometheus.metrics.process_virtual_memory_bytes{ar_indexbase=\"at_uniquery_metric2\"}[60s])&start=1650881160&end=1650882960&step=600"
                                 }
                             }
                         }
@@ -20420,6 +20459,58 @@
                                                             [
                                                                 1653374520,
                                                                 "1"
+                                                            ]
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "increase": {
+                                        "value": {
+                                            "status": "success",
+                                            "data": {
+                                                "resultType": "matrix",
+                                                "result": [
+                                                    {
+                                                        "metric": {
+                                                            "cluster": "xyz",
+                                                            "host": "10.4.106.127",
+                                                            "job": "prometheus"
+                                                        },
+                                                        "values": [
+                                                            [
+                                                                1650881160,
+                                                                "6"
+                                                            ],
+                                                            [
+                                                                1650881760,
+                                                                "6"
+                                                            ],
+                                                            [
+                                                                1650882360,
+                                                                "6"
+                                                            ]
+                                                        ]
+                                                    },
+                                                    {
+                                                        "metric": {
+                                                            "cluster": "xyz",
+                                                            "host": "10.4.106.129",
+                                                            "job": "UniQuery"
+                                                        },
+                                                        "values": [
+                                                            [
+                                                                1650881160,
+                                                                "6"
+                                                            ],
+                                                            [
+                                                                1650881760,
+                                                                "6"
+                                                            ],
+                                                            [
+                                                                1650882360,
+                                                                "6"
                                                             ]
                                                         ]
                                                     }
