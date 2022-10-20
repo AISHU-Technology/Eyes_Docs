@@ -1,0 +1,269 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Feed Ingester 接收接口",
+        "version": "1.0.0",
+        "description": "A brand new API with no content.  Go nuts!"
+    },
+    "paths": {
+        "/api/feed_ingester/v1/jobs/{job_id}/events": {
+            "description": "接收接口url,其中metric位置可以根据采集任务配置自定义",
+            "post": {
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/SingleMetric"
+                                }
+                            },
+                            "examples": {
+                                "common ": {
+                                    "value": [
+                                        {
+                                            "datetime": "1970-01-01T00:00:00.700+08:00",
+                                            "labels": {
+                                                "courtCode": "test",
+                                                "dcName": "test"
+                                            },
+                                            "metrics": {
+                                                "dcTotalVolume": 238172833,
+                                                "dcCourtCount": 13,
+                                                "dcUsedVolume": 1000
+                                            }
+                                        },
+                                        {
+                                            "datetime": "1970-01-01T00:00:00.700+08:00",
+                                            "labels": {
+                                                "courtCode": "test",
+                                                "backupJobName": "test",
+                                                "backupType": "test",
+                                                "jobStatus": "1"
+                                            },
+                                            "metrics": {
+                                                "backupVolume": 123123
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "FeedIngester.BadRequest.FormatError": {
+                                        "value": {
+                                            "error_code": "FeedIngester.BadRequest.FormatError",
+                                            "description": "请求体格式错误",
+                                            "solution": "检查请求体格式",
+                                            "error_details": {
+
+                                            },
+                                            "error_link": ""
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "客户端错误"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "FeedIngester.InternalError.InternalError": {
+                                        "value": {
+                                            "error_code": "FeedIngester.InternalError.InternalError",
+                                            "description": "内部错误",
+                                            "solution": "联系运维人员",
+                                            "error_details": {
+
+                                            },
+                                            "error_link": ""
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "内部错误"
+                    },
+                    "204": {
+                        "description": "添加成功"
+                    },
+                    "413": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "FeedIngester.BadRequest.PayloadTooLarge": {
+                                        "value": {
+                                            "error_code": "FeedIngester.BadRequest.PayloadTooLarge",
+                                            "description": "请求体长度过长",
+                                            "solution": "检查请求体长度",
+                                            "error_details": {
+
+                                            },
+                                            "error_link": ""
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "请求体超过限制长度"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "FeedIngester.BadRequest.JobIdNotFound": {
+                                        "value": {
+                                            "description": "没有找到对应的job_id,任务已停止",
+                                            "error_code": "FeedIngester.BadRequest.JobIdNotFound",
+                                            "error_details": {
+
+                                            },
+                                            "error_link": "",
+                                            "solution": "确认job_id是否正确"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "未找到任务Id"
+                    }
+                },
+                "summary": "接收指标数据",
+                "description": "用于从远程接收指标数据,保证长度限制在5m以内"
+            },
+            "parameters": [
+                {
+                    "name": "job_id",
+                    "description": "任务所属的job_id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "path",
+                    "required": true
+                },
+                {
+                    "examples": {
+                        "sync": {
+                            "value": "sync"
+                        }
+                    },
+                    "name": "sync-mode",
+                    "description": "是否使用同步模式，当该参数为sync时为同步模式，否则都为异步模式",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "header",
+                    "required": false
+                }
+            ]
+        }
+    },
+    "components": {
+        "schemas": {
+            "SingleMetric": {
+                "description": "单个指标(总请求体大小控制在5m以内)",
+                "required": [
+                    "datetime",
+                    "metrics",
+                    "labels"
+                ],
+                "type": "object",
+                "properties": {
+                    "metrics": {
+                        "description": "采集指标，数字类型字典，目前无论传入int或者浮点类型后台全部作为float64处理",
+                        "type": "object",
+                        "additionalProperties": {
+                            "format": "double",
+                            "type": "number"
+                        }
+                    },
+                    "datetime": {
+                        "format": "date-time",
+                        "description": "时间戳，接受格式：2022-08-02T18:01:20.700+08:00",
+                        "type": "string"
+                    },
+                    "labels": {
+                        "description": "标签，为string字典",
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "example": {
+                    "datetime": "1970-01-01T00:00:00.700+08:00",
+                    "labels": {
+                        "courtCode": "test",
+                        "dcName": "test"
+                    },
+                    "metrics": {
+                        "dcTotalVolume": 238172833,
+                        "dcUsedVolume": 100000,
+                        "dcCourtCount": 13
+                    }
+                }
+            },
+            "Error": {
+                "title": "Root Type for err_res",
+                "description": "",
+                "required": [
+                    "error_code",
+                    "description"
+                ],
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "description": "错误描述",
+                        "type": "string"
+                    },
+                    "solution": {
+                        "description": "错误解决方法",
+                        "type": "string"
+                    },
+                    "error_code": {
+                        "description": "错误码",
+                        "type": "string"
+                    },
+                    "error_link": {
+                        "description": "错误信息地址",
+                        "type": "string"
+                    },
+                    "error_details": {
+                        "description": "错误详细信息"
+                    }
+                },
+                "example": {
+                    "description": "some text",
+                    "solution": "some text",
+                    "error_code": "some text",
+                    "error_link": "some text",
+                    "error_details": {
+
+                    }
+                }
+            }
+        }
+    }
+}
