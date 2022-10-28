@@ -17276,6 +17276,60 @@
                                             }
                                         }
                                     }
+                                },
+                                "x_library 和 ar_dataview 都放在body中": {
+                                    "value": {
+                                        "x_library": [
+                                            "kclogs",
+                                            "shardlink"
+                                        ],
+                                        "ar_dataview": "1234asde",
+                                        "query": {
+                                            "bool": {
+                                                "filter": [
+                                                    {
+                                                        "range": {
+                                                            "StartTime": {
+                                                                "format": "epoch_millis||yyyy-MM-dd HH:mm:ss",
+                                                                "gte": "2021-07-01T01:49:10.893Z",
+                                                                "lt": "2021-07-08T01:49:10.893Z"
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "term": {
+                                                            "文档库id.keyword": "ABC001"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                },
+                                "只指定了 ar_dataview， 未指定 x_library": {
+                                    "value": {
+                                        "ar_dataview": "1234asde",
+                                        "query": {
+                                            "bool": {
+                                                "filter": [
+                                                    {
+                                                        "range": {
+                                                            "StartTime": {
+                                                                "format": "epoch_millis||yyyy-MM-dd HH:mm:ss",
+                                                                "gte": "2021-07-01T01:49:10.893Z",
+                                                                "lt": "2021-07-08T01:49:10.893Z"
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "term": {
+                                                            "文档库id.keyword": "ABC001"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -17692,6 +17746,124 @@
                                             "kclogs",
                                             "shardlink"
                                         ],
+                                        "size": 0,
+                                        "aggs": {
+                                            "count(sharedLink)": {
+                                                "terms": {
+                                                    "field": "sharedLink.keyword",
+                                                    "order": {
+                                                        "_count": "desc"
+                                                    },
+                                                    "shard_size": "200",
+                                                    "size": 100
+                                                },
+                                                "aggs": {
+                                                    "top": {
+                                                        "top_hits": {
+                                                            "size": 1,
+                                                            "sort": [
+                                                                {
+                                                                    "@timestamp": "desc"
+                                                                }
+                                                            ],
+                                                            "_source": {
+                                                                "include": [
+                                                                    "共享地址url",
+                                                                    "共享地址类型",
+                                                                    "名称"
+                                                                ]
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "query": {
+                                            "bool": {
+                                                "filter": [
+                                                    {
+                                                        "range": {
+                                                            "StartTime": {
+                                                                "format": "epoch_millis||yyyy-MM-dd HH:mm:ss",
+                                                                "gte": "2021-07-01T01:49:10.893Z",
+                                                                "lt": "2021-07-08T01:49:10.893Z"
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "term": {
+                                                            "文档库id.keyword": "ABC001"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                },
+                                "x_libarary 和 ar_dataview 都在 body 中": {
+                                    "value": {
+                                        "x_library": [
+                                            "kclogs",
+                                            "shardlink"
+                                        ],
+                                        "ar_dataview": "1234asdfe",
+                                        "size": 0,
+                                        "aggs": {
+                                            "count(sharedLink)": {
+                                                "terms": {
+                                                    "field": "sharedLink.keyword",
+                                                    "order": {
+                                                        "_count": "desc"
+                                                    },
+                                                    "shard_size": "200",
+                                                    "size": 100
+                                                },
+                                                "aggs": {
+                                                    "top": {
+                                                        "top_hits": {
+                                                            "size": 1,
+                                                            "sort": [
+                                                                {
+                                                                    "@timestamp": "desc"
+                                                                }
+                                                            ],
+                                                            "_source": {
+                                                                "include": [
+                                                                    "共享地址url",
+                                                                    "共享地址类型",
+                                                                    "名称"
+                                                                ]
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "query": {
+                                            "bool": {
+                                                "filter": [
+                                                    {
+                                                        "range": {
+                                                            "StartTime": {
+                                                                "format": "epoch_millis||yyyy-MM-dd HH:mm:ss",
+                                                                "gte": "2021-07-01T01:49:10.893Z",
+                                                                "lt": "2021-07-08T01:49:10.893Z"
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "term": {
+                                                            "文档库id.keyword": "ABC001"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                },
+                                "只指定了 ar_dataview, 未指定 x_library": {
+                                    "value": {
+                                        "ar_dataview": "1234asdfe",
                                         "size": 0,
                                         "aggs": {
                                             "count(sharedLink)": {
@@ -19057,6 +19229,60 @@
                                             }
                                         }
                                     }
+                                },
+                                "x_library 和 ar_dataview 都放在了 body 中": {
+                                    "value": {
+                                        "x_library": [
+                                            "kclogs",
+                                            "shardlink"
+                                        ],
+                                        "ar_dataview": "1234asdfe",
+                                        "query": {
+                                            "bool": {
+                                                "filter": [
+                                                    {
+                                                        "range": {
+                                                            "StartTime": {
+                                                                "format": "epoch_millis||yyyy-MM-dd HH:mm:ss",
+                                                                "gte": "2021-07-01T01:49:10.893Z",
+                                                                "lt": "2021-07-08T01:49:10.893Z"
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "term": {
+                                                            "文档库id.keyword": "ABC001"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                },
+                                "在 body 中只指定了 ar_dataview, 未指定 x_library": {
+                                    "value": {
+                                        "ar_dataview": "1234asdfe",
+                                        "query": {
+                                            "bool": {
+                                                "filter": [
+                                                    {
+                                                        "range": {
+                                                            "StartTime": {
+                                                                "format": "epoch_millis||yyyy-MM-dd HH:mm:ss",
+                                                                "gte": "2021-07-01T01:49:10.893Z",
+                                                                "lt": "2021-07-08T01:49:10.893Z"
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "term": {
+                                                            "文档库id.keyword": "ABC001"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -19484,6 +19710,124 @@
                                             "kclogs",
                                             "shardlink"
                                         ],
+                                        "size": 0,
+                                        "aggs": {
+                                            "count(sharedLink)": {
+                                                "terms": {
+                                                    "field": "sharedLink.keyword",
+                                                    "order": {
+                                                        "_count": "desc"
+                                                    },
+                                                    "shard_size": "200",
+                                                    "size": 100
+                                                },
+                                                "aggs": {
+                                                    "top": {
+                                                        "top_hits": {
+                                                            "size": 1,
+                                                            "sort": [
+                                                                {
+                                                                    "@timestamp": "desc"
+                                                                }
+                                                            ],
+                                                            "_source": {
+                                                                "include": [
+                                                                    "共享地址url",
+                                                                    "共享地址类型",
+                                                                    "名称"
+                                                                ]
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "query": {
+                                            "bool": {
+                                                "filter": [
+                                                    {
+                                                        "range": {
+                                                            "StartTime": {
+                                                                "format": "epoch_millis||yyyy-MM-dd HH:mm:ss",
+                                                                "gte": "2021-07-01T01:49:10.893Z",
+                                                                "lt": "2021-07-08T01:49:10.893Z"
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "term": {
+                                                            "文档库id.keyword": "ABC001"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                },
+                                "x_library 和 ar_dataview 都放在了 body 中": {
+                                    "value": {
+                                        "x_library": [
+                                            "kclogs",
+                                            "shardlink"
+                                        ],
+                                        "ar_dataview": "1234asdfe",
+                                        "size": 0,
+                                        "aggs": {
+                                            "count(sharedLink)": {
+                                                "terms": {
+                                                    "field": "sharedLink.keyword",
+                                                    "order": {
+                                                        "_count": "desc"
+                                                    },
+                                                    "shard_size": "200",
+                                                    "size": 100
+                                                },
+                                                "aggs": {
+                                                    "top": {
+                                                        "top_hits": {
+                                                            "size": 1,
+                                                            "sort": [
+                                                                {
+                                                                    "@timestamp": "desc"
+                                                                }
+                                                            ],
+                                                            "_source": {
+                                                                "include": [
+                                                                    "共享地址url",
+                                                                    "共享地址类型",
+                                                                    "名称"
+                                                                ]
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "query": {
+                                            "bool": {
+                                                "filter": [
+                                                    {
+                                                        "range": {
+                                                            "StartTime": {
+                                                                "format": "epoch_millis||yyyy-MM-dd HH:mm:ss",
+                                                                "gte": "2021-07-01T01:49:10.893Z",
+                                                                "lt": "2021-07-08T01:49:10.893Z"
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "term": {
+                                                            "文档库id.keyword": "ABC001"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                },
+                                "在body中只指定了 ar_dataview": {
+                                    "value": {
+                                        "ar_dataview": "1234asdfe",
                                         "size": 0,
                                         "aggs": {
                                             "count(sharedLink)": {
