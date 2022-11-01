@@ -631,6 +631,9 @@
                                 },
                                 "集合逻辑运算 - unless运算": {
                                     "value": "query=prometheus.metrics.process_resident_memory_bytes{ar_indexbase=\"at_uniquery_metric2\"} unless prometheus.metrics.process_virtual_memory_bytes{ar_indexbase=\"at_uniquery_metric2\",labels.job =\"prometheus\"}&time=1650883566"
+                                },
+                                "changes": {
+                                    "value": "query=changes(node_cpu_seconds_total{cpu=\"0\",mode=\"idle\"}[5m])&ar_dataview=f910bae8-1a08-11ed-ac4b-262ebcd7db7b&time=1654523947"
                                 }
                             }
                         }
@@ -5407,6 +5410,31 @@
                                     },
                                     "集合逻辑运算 - unless运算": {
                                         "value": "{'status': 'success', 'data': {'resultType': 'vector', 'result': [{'metric': {'cluster': 'xyz', 'host': '10.4.106.129', 'job': 'UniQuery'}, 'value': [1650883566, '48415079']}]}}"
+                                    },
+                                    "changes": {
+                                        "value": {
+                                            "status": "success",
+                                            "data": {
+                                                "resultType": "vector",
+                                                "result": [
+                                                    {
+                                                        "metric": {
+                                                            "cpu": "0",
+                                                            "instance": "10.4.80.58:9101",
+                                                            "job": "prometheus",
+                                                            "kubernetes_namespace": "anyrobot",
+                                                            "kubernetes_node_name": "node58",
+                                                            "kubernetes_pod_name": "node-exporter-qrjpr",
+                                                            "mode": "idle"
+                                                        },
+                                                        "value": [
+                                                            1667146260,
+                                                            "0.16737152143730322"
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -5577,6 +5605,9 @@
                                 },
                                 "increase": {
                                     "value": "query=increase(prometheus.metrics.process_virtual_memory_bytes{ar_indexbase=\"at_uniquery_metric2\"}[60s])&start=1650881160&end=1650882960&step=600"
+                                },
+                                "changes": {
+                                    "value": "query=changes(node_cpu_seconds_total{cpu=\"0\",mode=\"idle\"}[5m])&ar_dataview=f910bae8-1a08-11ed-ac4b-262ebcd7db7b&start=1667146297&end=1667147397&step=240"
                                 }
                             }
                         }
@@ -16944,6 +16975,49 @@
                                                             [
                                                                 1650882360,
                                                                 "6"
+                                                            ]
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "changes": {
+                                        "value": {
+                                            "status": "success",
+                                            "data": {
+                                                "resultType": "matrix",
+                                                "result": [
+                                                    {
+                                                        "metric": {
+                                                            "cpu": "0",
+                                                            "instance": "10.4.80.58:9101",
+                                                            "job": "prometheus",
+                                                            "kubernetes_namespace": "anyrobot",
+                                                            "kubernetes_node_name": "node58",
+                                                            "kubernetes_pod_name": "node-exporter-qrjpr",
+                                                            "mode": "idle"
+                                                        },
+                                                        "values": [
+                                                            [
+                                                                1667146260,
+                                                                "0.06473549205265347"
+                                                            ],
+                                                            [
+                                                                1667146500,
+                                                                "0.7248687910571915"
+                                                            ],
+                                                            [
+                                                                1667146740,
+                                                                "0.8268013468093744"
+                                                            ],
+                                                            [
+                                                                1667146980,
+                                                                "0.8194612794577675"
+                                                            ],
+                                                            [
+                                                                1667147220,
+                                                                "0.8216498316538455"
                                                             ]
                                                         ]
                                                     }
