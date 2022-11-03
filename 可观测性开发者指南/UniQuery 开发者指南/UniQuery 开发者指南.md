@@ -702,7 +702,7 @@ http://ip:port/api/uniquery/v1/dsl/test/_search
 
 创建日志分组可通过 AR 管理页面创建，也可以通过调用 API 创建。具体方式如下：
 
-**方式一、****   **登录 AR 页面创建日志分组：
+1. 方式一：登录 AR 页面创建日志分组：
 + 登录 AR，新建日志分组：
 
 通过 "数据管理-日志分组-新建日志分组"
@@ -714,7 +714,7 @@ http://ip:port/api/uniquery/v1/dsl/test/_search
 由于现在是用日志分组ID来请求接口，且日志分组ID不是作为展示字段展示在页面中，所以可以在保存之前按 f12 来获取新建的日志分组ID，图例如下：
 ![image](images/loggroup_id.png)
 
-**方式二、****   **调用 API 创建日志分组：
+2. 方式二：调用 API 创建日志分组：
 + 先获取日志库id：
 ```json
 curl http://10.4.14.35/api/v1/dataManager/logWareHouse?dataType=test |jq .data[0].id
@@ -1664,17 +1664,17 @@ label_replace(v instant-vector, dst_label string, replacement string, src_label 
 
 3. 示例
 
-如下表达式是给 `up` 下的所有时间序列都生成一个 `host` 标签，标签值为从 `instance` 中通过正则匹配到的内容：
+如下表达式是给 `node_cpu_seconds_total` 下的所有时间序列都生成一个 `host` 标签，标签值为从 `instance` 中通过正则匹配到的内容：
 ``` markdown
-label_replace(up, "host", "$1", "instance", "(.*):.*")
+label_replace(node_cpu_seconds_total, "host", "$1", "instance", "(.*):.*")
 ```
 
 + 示例输出
 
 ``` markdown
-up{host="localhost",instance="localhost:8080",job="cadvisor"} 1
-up{host="localhost",instance="localhost:9090",job="prometheus"} 1
-up{host="localhost",instance="localhost:9100",job="node"} 1
+node_cpu_seconds_total{host="localhost",instance="localhost:8080",job="cadvisor"} 1
+node_cpu_seconds_total{host="localhost",instance="localhost:9090",job="prometheus"} 1
+node_cpu_seconds_total{host="localhost",instance="localhost:9100",job="node"} 1
 ```
 
 2.3.4.8 label_join
@@ -1693,18 +1693,18 @@ label_join(v instant-vector, dst_label string, separator string, src_label_1 str
 
 3. 示例
 
-如下表达式是给 `up` 下的所有时间序列都生成一个 `host` 标签，标签值为 `instance` 和 `job` 的拼接：
+如下表达式是给 `node_cpu_seconds_total` 下的所有时间序列都生成一个 `host` 标签，标签值为 `instance` 和 `job` 的拼接：
 
 ``` markdown
-label_join(up, "host", "---", "instance", "job")
+label_join(node_cpu_seconds_total, "host", "---", "instance", "job")
 ```
 
 + 示例输出
 
 ``` markdown
-up{host="localhost:8080---cadvisor",instance="localhost:8080",job="cadvisor"} 1
-up{host="localhost:9090---prometheus",instance="localhost:9090",job="prometheus"} 1
-up{host="localhost:9100---node",instance="localhost:9100",job="node"} 1
+node_cpu_seconds_total{host="localhost:8080---cadvisor",instance="localhost:8080",job="cadvisor"} 1
+node_cpu_seconds_total{host="localhost:9090---prometheus",instance="localhost:9090",job="prometheus"} 1
+node_cpu_seconds_total{host="localhost:9100---node",instance="localhost:9100",job="node"} 1
 ```
 
 ### 2.3.5 HTTP API
@@ -1931,7 +1931,7 @@ curl -X POST "10.4.14.35:30000/_bulk?pretty" -uadmin:eisoo.com123 -H 'Content-Ty
 
 创建日志分组可通过 AR 管理页面创建，也可以通过调用 API 创建。具体方式如下：
 
-**方式一、****   **登录 AR 页面创建日志分组：
+1. 方式一：登录 AR 页面创建日志分组：
 + 登录 AR，新建日志分组：
 
 通过 "数据管理-日志分组-新建日志分组"
@@ -1943,7 +1943,7 @@ curl -X POST "10.4.14.35:30000/_bulk?pretty" -uadmin:eisoo.com123 -H 'Content-Ty
 由于现在是用日志分组ID来请求接口，且日志分组ID不是作为展示字段展示在页面中，所以可以在保存之前按 f12 来获取新建的日志分组ID，图例如下：
 ![image](images/loggroup_id_of_promql_test.png)
 
-**方式二、****   **调用 API 创建日志分组：
+2. 方式二：调用 API 创建日志分组：
 + 先获取日志库id：
 ```json
 curl http://10.4.14.35/api/v1/dataManager/logWareHouse?dataType=promql_test |jq .data[0].id
@@ -1986,6 +1986,8 @@ curl -X POST 'http://10.4.14.35/manager/loggroup?operate=create' -H 'user: f5a08
 返回结果即为日志分组id，如下如所示：
 ![image](images/loggroup_id2.png)
 
+
+**第4步****   **发送 PromQL 查询请求
 
 ##### Instant query 查询
 
