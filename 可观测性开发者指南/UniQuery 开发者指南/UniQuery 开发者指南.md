@@ -1195,7 +1195,7 @@ UniQuery 将输入的 PromQL 解析成 AST，叶子节点把查询请求的过�
         + `=~`：选择与提供的字符串进行正则表达式匹配的标签。
         + `!~`：选择与提供的字符串进行正则表达式不匹配的标签。
 
-1. 示例
+3. 示例
 
 以下示例查询的是仅选择具有 `system_metric_memory_total_bytes` 指标名称且 `instance` 标签设置为 `0.0.0.0` 的时间序列。
 
@@ -1218,7 +1218,7 @@ system_metric_memory_total_bytes{instance="0.0.0.0"}
 
 范围向量选择器选择的是当前时间回溯一段时间内的所有样本点。我们当前的 PromQL 尚未支持范围向量选择器的单独使用，应结合 `irate`、`rate` 或者 `increase` 函数使用。
 
-1. 语法结构
+2. 语法结构
 ``` markdown
 <metric_name>{<label_matcher_list>}[time_durations]
 ```
@@ -1291,7 +1291,7 @@ PromQL 中存在以下二元算术运算符：
 [<vector expr> | <scalar>] <bin-op> [<vector expr> | <scalar>]
 ```
 
-1. 示例
+3. 示例
 
 + 两个标量之间
 > 1+2
@@ -1379,13 +1379,13 @@ PromQL 中存在以下比较二元运算符：
 
 **在两个瞬时向量之间**，比较运算符默认是作为一个过滤器，应用与匹配条目。表达式结果不是 `true` 或者在表达式的另一侧找不到匹配项的向量元素将从结果中删除；如果匹配上了，则返回结果为左侧向量的标签集和值。如果提供了 `bool` 修饰符，则比较结果为 `false` 的向量元素的值为 `0`，而比较结果为 `true` 的向量元素的值为 `1`。
 
-1. 语法结构
+2. 语法结构
 
 ``` markdown
 [<vector expr> | <scalar>] <bin-op> [bool] [<vector expr> | <scalar>]
 ```
 
-1. 示例
+3. 示例
 
 + 两个标量之间
 > 5 \> bool 3
@@ -1421,13 +1421,13 @@ PromQL 中的逻辑/集合二元运算符只能定义在两个向量之间，逻
 
 **vector1 unless vector2**，会生成一个向量，该向量中的元素由 `vector1` 中没有与 `vector2` 匹配的元素组成。
 
-1. 语法结构
+2. 语法结构
 
 ``` markdown
 [<vector expr>] <bin-op> [<vector expr>]
 ```
 
-1. 示例
+3. 示例
 
 + vector1 and vector2
 
@@ -1458,17 +1458,17 @@ sum(node_filesystem_size_bytes{mountpoint="/"} unless node_filesystem_size_bytes
 支持以下内置聚合运算符，可用于聚合指标下的时间序列，从而生成具有聚合值的标签更少的时间序列：
 
 用于聚合单个即时向量的元素，从而生成具有聚合值的元素更少的新向量
-> - sum （基于标签对一组时间序列分组后对指标值求和）
-> - max （基于标签对一组时间序列分组后对指标值求最大值）
-> - avg （基于标签对一组时间序列分组后对指标值求平均值）
 > - count （基于标签对一组时间序列分组计数）
+> - sum （基于标签对一组时间序列分组后对指标值求和）
+> - avg （基于标签对一组时间序列分组后对指标值求平均值）
+> - max （基于标签对一组时间序列分组后对指标值求最大值）
 > - min （基于标签对一组时间序列分组后对指标值求最小值）
 > - topk （基于标签对一组时间序列分组后对指标值降序取前k）
 > - bottomk （基于标签对一组时间序列分组后对指标值升序取前k
 
 这些运算符既可以用于聚合所有的标签，也可以通过包含 `by` 或者 `without` 子句来保留不同的标签。这些子句可以在表达式之前或者之后使用。
 
-1. 语法结构
+2. 语法结构
 
 ``` markdown
 <aggr-op> [without|by (<label list>)] ([parameter,] <vector expression>)
@@ -1537,9 +1537,15 @@ http_errors{method="post", code="404"} 21
 PromQL 提供的内置函数有： time(), irate , rate, increase, sort, sort_desc, label_replace, label_join。
 
 #### 2.3.4.1 time()
+
+1. 语义
+
 time() 返回自 UTC 时间（1970.1.1）以来的秒数。请注意，这实际上并不返回当前时间，而是要计算表达式的时间。当我们向 query 接口请求 time()，则返回的是当前时间。
 
+2. 示例
+
 + 示例1
+
 如下是 time() 请求 query 接口返回当前你时间戳的示例
 ``` markdown
 $ curl 'http://localhost:13011/api/v1/query?query=time()'
@@ -1556,6 +1562,7 @@ $ curl 'http://localhost:13011/api/v1/query?query=time()'
 ```
 
 + 示例2
+
 如下是 time() 请求 query 接口返回计算表达式时间的示例
 ``` markdown
 $ curl -X POST http://localhost:13011/api/v1/query \
@@ -1574,15 +1581,18 @@ $ curl -X POST http://localhost:13011/api/v1/query \
 ```
 
 #### 2.3.4.2 irate
+
+1. 语义
+
 `irate(v range-vector)` 计算范围向量中时间序列的每秒瞬时增长率。irate函数是基于区间向量中最后两个样本数据来计算区间向量的增长速率。
 
-+ 语法结构
+2. 语法结构
 ``` markdown
 irate(v range-vector)
 ```
 其中 `range-vector` 的语法结构参考[范围向量选择器](#range_vactor_selector)。
 
-+ 示例
+3. 示例
 
 以下示例表达式返回针对范围向量中每个时间序列的两个最近数据点的 HTTP 请求的每秒增长速率，最多可追溯 5 分钟：
 ``` markdown
@@ -1591,15 +1601,17 @@ irate(http_requests_total{job="api-server"}[5m])
 
 #### 2.3.4.3 rate
 
+1. 语义
+
 `rate(v range-vector)` 计算范围向量中时间序列的每秒平均增长率。单调性的中断（例如由于目标重新启动而导致的计数器重置）会自动调整。此外，计算外推到时间范围的末端，允许遗漏采集或采集周期与该范围的时间段的不完美对齐。
 
-+ 语法结构
+2. 语法结构
 ``` markdown
 rate(v range-vector)
 ```
 其中 `range-vector` 的语法结构参考[范围向量选择器](#范围向量选择器)。
 
-+ 示例
+3. 示例
 
 以下示例表达式返回针对范围向量中过去 5 分钟内的所有数据点的 HTTP 请求的每秒平均增长速率：
 ``` markdown
@@ -1608,15 +1620,17 @@ rate(http_requests_total{job="api-server"}[5m])
 
 #### 2.3.4.4 increase
 
+1. 语义
+
 `increase(v range-vector)` 计算范围向量中时间序列的一样本增长量。单调性的中断（例如由于目标重新启动而导致的计数器重置）会自动调整。此外，计算外推到时间范围的末端，允许遗漏采集或采集周期与该范围的时间段的不完美对齐。
 
-+ 语法结构
+2. 语法结构
 ``` markdown
 increase(v range-vector)
 ```
 其中 `range-vector` 的语法结构参考[范围向量选择器](#范围向量选择器)。
 
-+ 示例
+3. 示例
 
 以下示例表达式返回针对范围向量中过去 5 分钟内的所有数据点的 HTTP 请求的增长量：
 ``` markdown
@@ -1634,9 +1648,11 @@ increase(http_requests_total{job="api-server"}[5m])
 
 2.3.4.7 label_replace
 
+1. 语义
+
 `label_replace` 为时间序列添加额外的标签或修改已有标签。
 
-+ 语法结构
+2. 语法结构
 ``` markdown
 label_replace(v instant-vector, dst_label string, replacement string, src_label string, regex string)
 ```
@@ -1646,7 +1662,7 @@ label_replace(v instant-vector, dst_label string, replacement string, src_label 
 需要注意的是，当想要将常量 `replacement` 赋予新的 `dst_label` 时，与 `src_label` 无关，但是 `src_label` 与 `regex` 会影响查询结果，建议这种情况下，`regex` 取 `^.*$`。
 
 
-+ 示例
+3. 示例
 
 如下表达式是给 `up` 下的所有时间序列都生成一个 `host` 标签，标签值为从 `instance` 中通过正则匹配到的内容：
 ``` markdown
@@ -1663,7 +1679,11 @@ up{host="localhost",instance="localhost:9100",job="node"} 1
 
 2.3.4.8 label_join
 
-+ 语法结构
+1. 定义
+
+`label_join` 为时间序列添加一个标签，此标签中的值为多个标签的值通过指定连接符连接起来的字符串。
+
+2. 语法结构
 
 ``` markdown
 label_join(v instant-vector, dst_label string, separator string, src_label_1 string, src_label_2 string, ...)
@@ -1671,7 +1691,7 @@ label_join(v instant-vector, dst_label string, separator string, src_label_1 str
 
 `label_join` 函数会依次对 `v`中的每一条时间序列进行处理，函数可以将时间序列 `v` 中多个标签 `src_label` 的值，通过 `separator` 作为连接符写入到一个新的标签 `dst_label` 中。可以有多个 `src_label` 标签。
 
-+ 示例
+3. 示例
 
 如下表达式是给 `up` 下的所有时间序列都生成一个 `host` 标签，标签值为 `instance` 和 `job` 的拼接：
 
@@ -2199,7 +2219,7 @@ curl -X POST http://ip:port/api/uniquery/v1/promql/series \
 
 + 语法上兼容ElasticSearch7.10查询语法
 
-+ 版本上兼容AnyRobot-3.19.0及以后
++ 版本上兼容AnyRobot-5.0.0及以后
 
 # 第3章 术语及参考文献
 
