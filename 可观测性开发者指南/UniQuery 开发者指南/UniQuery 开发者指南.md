@@ -1212,7 +1212,7 @@ system_metric_memory_total_bytes{instance="0.0.0.0"}
 > {\_\_name\_\_="on"} # Good!
 
 
-#### <span id="range_vactor_selector">2.3.2.2 范围向量选择器</span>
+#### 2.3.2.2 范围向量选择器
 
 1. 语义
 
@@ -1225,7 +1225,7 @@ system_metric_memory_total_bytes{instance="0.0.0.0"}
 
 范围向量选择器的语法结构与时间序列选择器的语法结构类似，范围向量选择器多了一个用于定义时间区间的时间范围选择器 `[]`。
 
-+ <span id="time_durations">time_durations</span>
++ time_durations
 
 时间区间用一个数字，后面跟时间单位来定义。时间单位可以是如下之一：
 > - ms - 毫秒
@@ -1237,7 +1237,7 @@ system_metric_memory_total_bytes{instance="0.0.0.0"}
 > - y - 年 - 一年 365 天
 
 
-3. 示例
+1. 示例
 
 + 与 irate 结合使用
 
@@ -1590,9 +1590,9 @@ $ curl -X POST http://localhost:13011/api/v1/query \
 ``` markdown
 irate(v range-vector)
 ```
-其中 `range-vector` 的语法结构参考[范围向量选择器](#range_vactor_selector)。
+其中 `range-vector` 的语法结构参考[范围向量选择器]。
 
-3. 示例
+1. 示例
 
 以下示例表达式返回针对范围向量中每个时间序列的两个最近数据点的 HTTP 请求的每秒增长速率，最多可追溯 5 分钟：
 ``` markdown
@@ -1609,9 +1609,9 @@ irate(http_requests_total{job="api-server"}[5m])
 ``` markdown
 rate(v range-vector)
 ```
-其中 `range-vector` 的语法结构参考[范围向量选择器](#范围向量选择器)。
+其中 `range-vector` 的语法结构参考[范围向量选择器]。
 
-3. 示例
+1. 示例
 
 以下示例表达式返回针对范围向量中过去 5 分钟内的所有数据点的 HTTP 请求的每秒平均增长速率：
 ``` markdown
@@ -1628,7 +1628,7 @@ rate(http_requests_total{job="api-server"}[5m])
 ``` markdown
 increase(v range-vector)
 ```
-其中 `range-vector` 的语法结构参考[范围向量选择器](#范围向量选择器)。
+其中 `range-vector` 的语法结构参考[范围向量选择器]。
 
 3. 示例
 
@@ -1751,7 +1751,7 @@ API 响应格式为 JSON。
   "result": <value>
 }
 ```
-`<value>` 指的是查询结果数据，其格式根据 `resultType` 而有所不同. 请参阅 [表达式查询结果格式](#result_format)。
+`<value>` 指的是查询结果数据，其格式根据 `resultType` 而有所不同. 请参阅 [表达式查询结果格式]。
 
 
 ### 2.3.5.2 Range query查询接口
@@ -1770,7 +1770,7 @@ API 响应格式为 JSON。
 | query       | 是       | string                | PromQL 表达式                                                                                    |
 | start       | 是       | int64                 | 开始时间，以秒为单位的 Unix 时间戳戳                                                             |
 | end         | 是       | int64                 | 结束时间，以秒为单位的 Unix 时间戳戳                                                             |
-| step        | 是       | `<duration \| float>` | 以 `duration` 格式（参考 [time_durations](#time_durations)）或浮点秒数表示的查询步长             |
+| step        | 是       | `<duration \| float>` | 以 `duration` 格式（参考 [time_durations]）或浮点秒数表示的查询步长                              |
 | ar_dataview | 否       | string                | 查询的日志分组id，只支持指定一个日志分组id。当涉及到指标查询时必须，若只是标量之间的运算可不填。 |
 
 
@@ -1783,7 +1783,7 @@ API 响应格式为 JSON。
   "result": <value>
 }
 ```
-`<value>` 指的是查询结果数据，请参阅 [范围向量结果格式](#range_vector_result_format)。
+`<value>` 指的是查询结果数据，请参阅 [范围向量结果格式]。
 
 ### 2.3.5.3 Series查询接口
 
@@ -1817,11 +1817,11 @@ API 响应格式为 JSON。
 
 
 
-### <span id="result_format">2.3.5.4 表达式查询结果格式</span>
+### 2.3.5.4 表达式查询结果格式
 
 表达式查询返回结果的 `result` 属性中的 `data` 部分可能是如下的格式。`<sample_value>` 是数字样本值。JSON 不支持特殊的浮点值，例如 `NaN`、`Inf` 和 `-Inf`，因此样本值作为带引号的 JSON 字符串而不是原始数字传输。
 
-+ <span id="range_vector_result_format">范围向量</span>
++ 范围向量
 
 范围向量返回的结果类型为 `matrix`。相应的 `result` 属性有如下格式：
 ```json
