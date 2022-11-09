@@ -2,12 +2,22 @@
 
 ## 安装导入TelemetrySDK
 
-1. 检查go版本：`go version`
-2. 升级go版本到：[go1.18](https://gomirrors.org/)
-3. 配置项目下载权限：
-4. 引入TelemetrySDK：
+1. 检查版本[兼容性](compatibility.md)
+2. 配置项目[下载权限](https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Eyes_Docs?path=/可观测性开发者指南/TelemetrySDK开发者指南/Log/README.md&version=GBdevelop&_a=preview&anchor=sdk2.0-使用参考)
+3. 引入TelemetrySDK：
+
+```
+go get go.opentelemetry.io/otel@v1.10.0
+go get go.opentelemetry.io/otel/sdk/trace@v1.10.0
+```
+
+4. (可选)更新TelemetrySDK：步骤等同于引入TelemetrySDK。
+
+## 安装导入Trace Exporter
+
+1. 引入Trace Exporter：
    ```go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporters/artrace@2.2.0```
-5. (可选)更新TelemetrySDK：步骤等同于引入TelemetrySDK。
+2. (可选)更新Trace Exporter：步骤等同于引入Trace Exporter。
 
 ## 使用TelemetrySDK进行代码埋点生产链路数据
 
@@ -59,7 +69,7 @@ func main() {
 }
 ```
 
-## 最佳实践
+## [最佳实践]()
 
 ### 上报链路数据到AnyRobot
 
