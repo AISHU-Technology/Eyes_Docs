@@ -5,8 +5,6 @@
 ### 增加
 
 - 提供Golang版Trace Exporter，支持Trace数据发送至AnyRobot
-- 增加持续构建azure-pipelines.yml
-- 补充单元测试覆盖率94%
 - 增加生产发送链路数据开关
 
 ### 变更
