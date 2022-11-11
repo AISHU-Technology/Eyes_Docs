@@ -700,10 +700,10 @@ http://ip:port/api/uniquery/v1/dsl/test/_search
 
 **第1步****   **给索引库创建日志分组：
 
-创建日志分组可通过 AR 管理页面创建，也可以通过调用 API 创建。具体方式如下：
+创建日志分组可通过 AnyRobot 管理页面创建，也可以通过调用 API 创建。具体方式如下：
 
-1. 方式一：登录 AR 页面创建日志分组：
-+ 登录 AR，新建日志分组：
+1. 方式一：登录 AnyRobot 页面创建日志分组：
++ 登录 AnyRobot，新建日志分组：
 
 通过 "数据管理-日志分组-新建日志分组"
 ![image](images/create_log_group1.png)
@@ -711,7 +711,7 @@ http://ip:port/api/uniquery/v1/dsl/test/_search
 
 + 获取日志分组id：
 
-由于现在是用日志分组ID来请求接口，且日志分组ID不是作为展示字段展示在页面中，所以可以在保存之前按 f12 来获取新建的日志分组ID，图例如下：
+新建之后点击保存，在日志分组详情页可以查看到该分组的id：
 ![image](images/loggroup_id.png)
 
 2. 方式二：调用 API 创建日志分组：
@@ -1157,7 +1157,7 @@ http://ip:port/api/uniquery/v1/dsl/_count
 
 PromQL（Prometheus Query Language）是Prometheus内置的数据查询语言，它能实现对事件序列数据的查询、聚合、逻辑运算等。它并且被广泛应用在Prometheus的日常应用当中，包括对数据查询、可视化、告警处理当中。
 
-通过 PromQL 的搜索引擎可支持对对时序数据、日志数据做聚合查询。并在兼容 Prometheus 的 PromQL 的基础上扩展新的功能以支持特定场景的统计查询。
+通过 PromQL 的搜索引擎可支持对时序数据、日志数据做聚合查询。并在兼容 Prometheus 的 PromQL 的基础上扩展新的功能以支持特定场景的统计查询。
 
 UniQuery 将输入的 PromQL 解析成 AST，叶子节点把查询请求的过滤条件和聚合逻辑转换为DSL，根据索引选择和访问控制优化的结果，再结合索引和索引的分片数，并发从 Opensearch 中获取结果。之后对各个索引各个分片返回的数据做合并处理，再把数据逐层流转到上层节点执行，直到顶层节点执行完毕。
 
@@ -1546,7 +1546,7 @@ time() 返回自 UTC 时间（1970.1.1）以来的秒数。请注意，这实际
 
 + 示例1
 
-如下是 time() 请求 query 接口返回当前你时间戳的示例
+如下是 time() 请求 query 接口返回当前时间戳的示例
 ``` markdown
 $ curl 'http://localhost:13011/api/v1/query?query=time()'
 {
@@ -1929,10 +1929,10 @@ curl -X POST "10.4.14.35:30000/_bulk?pretty" -uadmin:eisoo.com123 -H 'Content-Ty
 
 **第3步****   **给索引库创建日志分组：
 
-创建日志分组可通过 AR 管理页面创建，也可以通过调用 API 创建。具体方式如下：
+创建日志分组可通过 AnyRobot 管理页面创建，也可以通过调用 API 创建。具体方式如下：
 
-1. 方式一：登录 AR 页面创建日志分组：
-+ 登录 AR，新建日志分组：
+1. 方式一：登录 AnyRobot 页面创建日志分组：
++ 登录 AnyRobot，新建日志分组：
 
 通过 "数据管理-日志分组-新建日志分组"
 ![image](images/create_log_group1.png)
@@ -1940,7 +1940,7 @@ curl -X POST "10.4.14.35:30000/_bulk?pretty" -uadmin:eisoo.com123 -H 'Content-Ty
 
 + 获取日志分组id：
 
-由于现在是用日志分组ID来请求接口，且日志分组ID不是作为展示字段展示在页面中，所以可以在保存之前按 f12 来获取新建的日志分组ID，图例如下：
+新建之后点击保存，在日志分组详情页可以查看到该分组的id：
 ![image](images/loggroup_id_of_promql_test.png)
 
 2. 方式二：调用 API 创建日志分组：
