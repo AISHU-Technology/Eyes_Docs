@@ -1637,16 +1637,35 @@ increase(v range-vector)
 increase(http_requests_total{job="api-server"}[5m])
 ```
 
-2.3.4.5 sort
+#### 2.3.4.5 changes
+
+1. 语义
+
+`changes(v range-vector)` 计算范围向量中时间序列的样本值发生变化次数。
+
+1. 语法结构
+``` markdown
+changes(v range-vector)
+```
+其中 `range-vector` 的语法结构参考[范围向量选择器]。
+
+3. 示例
+
+以下示例表达式返回针对范围向量中过去 5 分钟内的所有数据点的 HTTP 请求的增长量：
+``` markdown
+changes(http_requests_total{job="api-server"}[5m])
+```
+
+#### 2.3.4.6 sort
 
 `sort(v instant-vector)` 将瞬时表达式返回的样本数据进行升序排序。`sort` 对 `query_range` 查询无排序效果，因此，禁止 `sort` 在query_range接口的使用。
 
-2.3.4.6 sort_desc
+#### 2.3.4.7 sort_desc
 
 `sort_desc(v instant-vector)` 将瞬时表达式返回的样本数据进行降序排序。`sort_desc` 对 `query_range` 查询无排序效果，因此，禁止 `sort_desc` 在query_range接口的使用。
 
 
-2.3.4.7 label_replace
+#### 2.3.4.8 label_replace
 
 1. 语义
 
@@ -1677,7 +1696,7 @@ node_cpu_seconds_total{host="localhost",instance="localhost:9090",job="prometheu
 node_cpu_seconds_total{host="localhost",instance="localhost:9100",job="node"} 1
 ```
 
-2.3.4.8 label_join
+#### 2.3.4.9 label_join
 
 1. 定义
 
