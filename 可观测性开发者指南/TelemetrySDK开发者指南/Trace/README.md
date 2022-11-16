@@ -1,4 +1,4 @@
-![LOGO](images/TelemetrySDK.png)
+![LOGO](./images/TelemetrySDK.png)
 
 # [TelemetrySDK-Go Trace](https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Eyes_Docs?path=/可观测性开发者指南/TelemetrySDK开发者指南/Trace/README.md&version=GBdevelop&_a=preview)
 
@@ -8,10 +8,10 @@
 
 ### [兼容列表](./docs/compatibility.md)
 
-### [术语定义](docs/glossary.md)
+### [术语定义](./docs/glossary.md)
 
-### [开发指南](docs/dev_guide.md)
+### [开发指南](./docs/dev_guide.md)
 
-### [使用手册](docs/manual.md)
+### [使用手册](./docs/manual.md)
 
-### [版本变化](docs/changelog.md)
+### [版本变化](./docs/changelog.md)
