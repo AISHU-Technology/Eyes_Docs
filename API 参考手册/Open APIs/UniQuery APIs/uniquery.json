@@ -634,6 +634,21 @@
                                 },
                                 "changes": {
                                     "value": "query=changes(node_cpu_seconds_total{cpu=\"0\",mode=\"idle\"}[5m])&ar_dataview=f910bae8-1a08-11ed-ac4b-262ebcd7db7b&time=1654523947"
+                                },
+                                "avg_over_time": {
+                                    "value": "query=avg_over_time(node_cpu_seconds_total{cpu=\"0\",mode=\"idle\"}[5m])&ar_dataview=f910bae8-1a08-11ed-ac4b-262ebcd7db7b&time=1654523947"
+                                },
+                                "sum_over_time": {
+                                    "value": "query=sum_over_time(node_cpu_seconds_total{cpu=\"0\",mode=\"idle\"}[5m])&ar_dataview=f910bae8-1a08-11ed-ac4b-262ebcd7db7b&time=1654523947"
+                                },
+                                "max_over_time": {
+                                    "value": "query=max_over_time(node_cpu_seconds_total{cpu=\"0\",mode=\"idle\"}[5m])&ar_dataview=f910bae8-1a08-11ed-ac4b-262ebcd7db7b&time=1654523947"
+                                },
+                                "min_over_time": {
+                                    "value": "query=min_over_time(node_cpu_seconds_total{cpu=\"0\",mode=\"idle\"}[5m])&ar_dataview=f910bae8-1a08-11ed-ac4b-262ebcd7db7b&time=1654523947"
+                                },
+                                "count_over_time": {
+                                    "value": "query=count_over_time(node_cpu_seconds_total{cpu=\"0\",mode=\"idle\"}[5m])&ar_dataview=f910bae8-1a08-11ed-ac4b-262ebcd7db7b&time=1654523947"
                                 }
                             }
                         }
@@ -5435,6 +5450,131 @@
                                                 ]
                                             }
                                         }
+                                    },
+                                    "avg_over_time": {
+                                        "value": {
+                                            "status": "success",
+                                            "data": {
+                                                "resultType": "vector",
+                                                "result": [
+                                                    {
+                                                        "metric": {
+                                                            "cpu": "0",
+                                                            "instance": "10.4.80.58:9101",
+                                                            "job": "prometheus",
+                                                            "kubernetes_namespace": "anyrobot",
+                                                            "kubernetes_node_name": "node58",
+                                                            "kubernetes_pod_name": "node-exporter-qrjpr",
+                                                            "mode": "idle"
+                                                        },
+                                                        "value": [
+                                                            1667146260,
+                                                            "0.16737152143730322"
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "sum_over_time": {
+                                        "value": {
+                                            "status": "success",
+                                            "data": {
+                                                "resultType": "vector",
+                                                "result": [
+                                                    {
+                                                        "metric": {
+                                                            "cpu": "0",
+                                                            "instance": "10.4.80.58:9101",
+                                                            "job": "prometheus",
+                                                            "kubernetes_namespace": "anyrobot",
+                                                            "kubernetes_node_name": "node58",
+                                                            "kubernetes_pod_name": "node-exporter-qrjpr",
+                                                            "mode": "idle"
+                                                        },
+                                                        "value": [
+                                                            1667146260,
+                                                            "0.16737152143730322"
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "max_over_time": {
+                                        "value": {
+                                            "status": "success",
+                                            "data": {
+                                                "resultType": "vector",
+                                                "result": [
+                                                    {
+                                                        "metric": {
+                                                            "cpu": "0",
+                                                            "instance": "10.4.80.58:9101",
+                                                            "job": "prometheus",
+                                                            "kubernetes_namespace": "anyrobot",
+                                                            "kubernetes_node_name": "node58",
+                                                            "kubernetes_pod_name": "node-exporter-qrjpr",
+                                                            "mode": "idle"
+                                                        },
+                                                        "value": [
+                                                            1667146260,
+                                                            "0.16737152143730322"
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "min_over_time": {
+                                        "value": {
+                                            "status": "success",
+                                            "data": {
+                                                "resultType": "vector",
+                                                "result": [
+                                                    {
+                                                        "metric": {
+                                                            "cpu": "0",
+                                                            "instance": "10.4.80.58:9101",
+                                                            "job": "prometheus",
+                                                            "kubernetes_namespace": "anyrobot",
+                                                            "kubernetes_node_name": "node58",
+                                                            "kubernetes_pod_name": "node-exporter-qrjpr",
+                                                            "mode": "idle"
+                                                        },
+                                                        "value": [
+                                                            1667146260,
+                                                            "0.16737152143730322"
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "count_over_time": {
+                                        "value": {
+                                            "status": "success",
+                                            "data": {
+                                                "resultType": "vector",
+                                                "result": [
+                                                    {
+                                                        "metric": {
+                                                            "cpu": "0",
+                                                            "instance": "10.4.80.58:9101",
+                                                            "job": "prometheus",
+                                                            "kubernetes_namespace": "anyrobot",
+                                                            "kubernetes_node_name": "node58",
+                                                            "kubernetes_pod_name": "node-exporter-qrjpr",
+                                                            "mode": "idle"
+                                                        },
+                                                        "value": [
+                                                            1667146260,
+                                                            "1"
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -5608,6 +5748,21 @@
                                 },
                                 "changes": {
                                     "value": "query=changes(node_cpu_seconds_total{cpu=\"0\",mode=\"idle\"}[5m])&ar_dataview=f910bae8-1a08-11ed-ac4b-262ebcd7db7b&start=1667146297&end=1667147397&step=240"
+                                },
+                                "avg_over_time": {
+                                    "value": "query=avg_over_time(node_cpu_seconds_total{cpu=\"0\",mode=\"idle\"}[5m])&ar_dataview=f910bae8-1a08-11ed-ac4b-262ebcd7db7b&start=1667146297&end=1667147397&step=240"
+                                },
+                                "sum_over_time": {
+                                    "value": "query=sum_over_time(node_cpu_seconds_total{cpu=\"0\",mode=\"idle\"}[5m])&ar_dataview=f910bae8-1a08-11ed-ac4b-262ebcd7db7b&start=1667146297&end=1667147397&step=240"
+                                },
+                                "max_over_time": {
+                                    "value": "query=max_over_time(node_cpu_seconds_total{cpu=\"0\",mode=\"idle\"}[5m])&ar_dataview=f910bae8-1a08-11ed-ac4b-262ebcd7db7b&start=1667146297&end=1667147397&step=240"
+                                },
+                                "min_over_time": {
+                                    "value": "query=min_over_time(node_cpu_seconds_total{cpu=\"0\",mode=\"idle\"}[5m])&ar_dataview=f910bae8-1a08-11ed-ac4b-262ebcd7db7b&start=1667146297&end=1667147397&step=240"
+                                },
+                                "count_over_time": {
+                                    "value": "query=count_over_time(node_cpu_seconds_total{cpu=\"0\",mode=\"idle\"}[5m])&ar_dataview=f910bae8-1a08-11ed-ac4b-262ebcd7db7b&start=1667146297&end=1667147397&step=240"
                                 }
                             }
                         }
@@ -17018,6 +17173,221 @@
                                                             [
                                                                 1667147220,
                                                                 "0.8216498316538455"
+                                                            ]
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "avg_over_time": {
+                                        "value": {
+                                            "status": "success",
+                                            "data": {
+                                                "resultType": "matrix",
+                                                "result": [
+                                                    {
+                                                        "metric": {
+                                                            "cpu": "0",
+                                                            "instance": "10.4.80.58:9101",
+                                                            "job": "prometheus",
+                                                            "kubernetes_namespace": "anyrobot",
+                                                            "kubernetes_node_name": "node58",
+                                                            "kubernetes_pod_name": "node-exporter-qrjpr",
+                                                            "mode": "idle"
+                                                        },
+                                                        "values": [
+                                                            [
+                                                                1667146260,
+                                                                "0.06"
+                                                            ],
+                                                            [
+                                                                1667146500,
+                                                                "0.72"
+                                                            ],
+                                                            [
+                                                                1667146740,
+                                                                "0.82"
+                                                            ],
+                                                            [
+                                                                1667146980,
+                                                                "0.82"
+                                                            ],
+                                                            [
+                                                                1667147220,
+                                                                "0.82"
+                                                            ]
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "sum_over_time": {
+                                        "value": {
+                                            "status": "success",
+                                            "data": {
+                                                "resultType": "matrix",
+                                                "result": [
+                                                    {
+                                                        "metric": {
+                                                            "cpu": "0",
+                                                            "instance": "10.4.80.58:9101",
+                                                            "job": "prometheus",
+                                                            "kubernetes_namespace": "anyrobot",
+                                                            "kubernetes_node_name": "node58",
+                                                            "kubernetes_pod_name": "node-exporter-qrjpr",
+                                                            "mode": "idle"
+                                                        },
+                                                        "values": [
+                                                            [
+                                                                1667146260,
+                                                                "0.12"
+                                                            ],
+                                                            [
+                                                                1667146500,
+                                                                "1.44"
+                                                            ],
+                                                            [
+                                                                1667146740,
+                                                                "1.64"
+                                                            ],
+                                                            [
+                                                                1667146980,
+                                                                "1.64"
+                                                            ],
+                                                            [
+                                                                1667147220,
+                                                                "1.64"
+                                                            ]
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "max_over_time": {
+                                        "value": {
+                                            "status": "success",
+                                            "data": {
+                                                "resultType": "matrix",
+                                                "result": [
+                                                    {
+                                                        "metric": {
+                                                            "cpu": "0",
+                                                            "instance": "10.4.80.58:9101",
+                                                            "job": "prometheus",
+                                                            "kubernetes_namespace": "anyrobot",
+                                                            "kubernetes_node_name": "node58",
+                                                            "kubernetes_pod_name": "node-exporter-qrjpr",
+                                                            "mode": "idle"
+                                                        },
+                                                        "values": [
+                                                            [
+                                                                1667146260,
+                                                                "0.06"
+                                                            ],
+                                                            [
+                                                                1667146500,
+                                                                "0.72"
+                                                            ],
+                                                            [
+                                                                1667146740,
+                                                                "0.82"
+                                                            ],
+                                                            [
+                                                                1667146980,
+                                                                "0.82"
+                                                            ],
+                                                            [
+                                                                1667147220,
+                                                                "0.82"
+                                                            ]
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "min_over_time": {
+                                        "value": {
+                                            "status": "success",
+                                            "data": {
+                                                "resultType": "matrix",
+                                                "result": [
+                                                    {
+                                                        "metric": {
+                                                            "cpu": "0",
+                                                            "instance": "10.4.80.58:9101",
+                                                            "job": "prometheus",
+                                                            "kubernetes_namespace": "anyrobot",
+                                                            "kubernetes_node_name": "node58",
+                                                            "kubernetes_pod_name": "node-exporter-qrjpr",
+                                                            "mode": "idle"
+                                                        },
+                                                        "values": [
+                                                            [
+                                                                1667146260,
+                                                                "0.06"
+                                                            ],
+                                                            [
+                                                                1667146500,
+                                                                "0.72"
+                                                            ],
+                                                            [
+                                                                1667146740,
+                                                                "0.82"
+                                                            ],
+                                                            [
+                                                                1667146980,
+                                                                "0.82"
+                                                            ],
+                                                            [
+                                                                1667147220,
+                                                                "0.82"
+                                                            ]
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "count_over_time": {
+                                        "value": {
+                                            "status": "success",
+                                            "data": {
+                                                "resultType": "matrix",
+                                                "result": [
+                                                    {
+                                                        "metric": {
+                                                            "cpu": "0",
+                                                            "instance": "10.4.80.58:9101",
+                                                            "job": "prometheus",
+                                                            "kubernetes_namespace": "anyrobot",
+                                                            "kubernetes_node_name": "node58",
+                                                            "kubernetes_pod_name": "node-exporter-qrjpr",
+                                                            "mode": "idle"
+                                                        },
+                                                        "values": [
+                                                            [
+                                                                1667146260,
+                                                                "2"
+                                                            ],
+                                                            [
+                                                                1667146500,
+                                                                "2"
+                                                            ],
+                                                            [
+                                                                1667146740,
+                                                                "2"
+                                                            ],
+                                                            [
+                                                                1667146980,
+                                                                "2"
+                                                            ],
+                                                            [
+                                                                1667147220,
+                                                                "2"
                                                             ]
                                                         ]
                                                     }
