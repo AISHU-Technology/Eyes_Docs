@@ -4,7 +4,7 @@
 
 **第1步**检查版本兼容性
 
-- 查看SDK[兼容列表](./compatibility.md)，检查待埋点业务代码的Go版本是否符合要求。
+- 查看SDK[兼容列表](compatibility.md)，检查待埋点业务代码的Go版本是否符合要求。
 
 **第2步**配置项目下载权限
 
@@ -37,7 +37,7 @@ go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exp
 
 **第2步**(可选)更新Trace Exporter
 
-- 查看SDK[兼容列表](./compatibility.md)，选择希望引入的版本，例如2.3.0，替换末尾的版本号重新执行命令。
+- 查看SDK[兼容列表](compatibility.md)，选择希望引入的版本，例如2.3.0，替换末尾的版本号重新执行命令。
 
 ```
 go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporters/artrace@2.3.0
