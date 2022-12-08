@@ -20,7 +20,7 @@
 | **Trace Exporter**  | Trace Exporters send traces to a consumer. This consumer can be standard output for debugging and development-time, the OpenTelemetry Collector, or any open-source or vendor backend of your choice.                                                                                                                                                                                                               | Trace Exporter把生产的Span发送到Trace接收器。既可以发送到本地文件用来调试，也可以发送到链路分析端例如AnyRobot。                                                |
 |  **Trace Context**  | Trace Context is metadata about trace spans that provides correlation between spans across service and process boundaries. For example, let’s say that Service A calls Service B and you want to track the call in a trace. In that case, OpenTelemetry will use Trace Context to capture the ID of the trace and current span from Service A, so that spans created in Service B can connect and add to the trace. | Trace Context是可以跨越分布式服务传递的分布式上下文信息。                                                                                    |
 
-![LOGO](../images/Process.png)
+![LOGO](../../../images/Process.png)
 
 ## [Span的数据格式](https://opentelemetry.io/docs/concepts/signals/traces/#span-context)：
 
