@@ -1,5 +1,22 @@
 # 版本变化
 
+## 2.4.0
+
+### 增加
+
+- 提供Golang版EventSDK，支持生产Event数据
+- 提供Golang版Event Exporter，支持Event数据发送至AnyRobot
+- 新增多个exporter转发数据
+
+### 变更
+
+- Trace Exporter发送逻辑更改，导入方式调整
+- 变更子项目名称
+
+### 修复
+
+- 修复文档中的失效链接
+
 ## 2.3.0
 
 ### 增加
@@ -8,8 +25,7 @@
 
 ### 变更
 
--
-转移文档到AnyRobot空间[Eyes_Docs](https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Eyes_Docs?path=%2F%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97%2FTelemetrySDK%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97%2FTrace&version=GBdevelop)
+- 转移文档到AnyRobot空间[Eyes_Docs](https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Eyes_Docs?path=%2F%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97%2FTelemetrySDK%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97&version=GBdevelop)
 项目
 
 ### 修复
