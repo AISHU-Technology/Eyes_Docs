@@ -5,7 +5,7 @@
 Tracer 是一个全局变量，用于在业务代码中生产Span。
 
 ```
-artrace.Tracer.Start(ctx context.Context, spanName string, opts ...SpanStartOption) (context.Context, Span)
+ar_trace.Tracer.Start(ctx context.Context, spanName string, opts ...SpanStartOption) (context.Context, Span)
 ```
 
 #### SetAttributes
@@ -34,31 +34,31 @@ func GetResource(serviceName string, serviceVersion string, serviceInstanceID st
 
 #### NewExporter
 
-NewExporter 新建Exporter，需要传入指定的数据发送客户端 client.Client 。
+NewExporter 新建Exporter，需要传入指定的数据发送客户端 public.Client 。
 
 ```
-func NewExporter(c client.Client) *client.Exporter
+func NewExporter(c public.Client) *public.Exporter
 ```
 
 #### NewHTTPClient
 
-NewHTTPClient 创建 client.Exporter 需要的HTTP数据发送客户端。
+NewHTTPClient 创建 ar_trace.Exporter 需要的HTTP数据发送客户端。
 
 ```
-func NewHTTPClient(opts ...config.HTTPOption) client.Client
+func NewHTTPClient(opts ...config.HTTPOption) public.Client
 ```
 
 #### NewStdoutClient
 
-NewStdoutClient 创建 client.Exporter 需要的Local数据发送客户端。
+NewStdoutClient 创建 ar_trace.Exporter 需要的Local数据发送客户端。
 
 ```
-func NewStdoutClient(stdoutPath string) client.Client
+func NewStdoutClient(stdoutPath string) public.Client
 ```
 
 #### WithAnyRobotURL
 
-WithAnyRobotURL 设置 client.httpClient 数据上报地址。
+WithAnyRobotURL 设置 public.HTTPClient 数据上报地址。
 
 ```
 func WithAnyRobotURL(URL string) config.Option
@@ -74,7 +74,7 @@ func WithCompression(compression int) config.Option
 
 #### WithHeader
 
-WithHeader 设置 client.httpClient 用户自定义请求头。
+WithHeader 设置 public.HTTPClient 用户自定义请求头。
 
 ```
 func WithHeader(headers map[string]string) config.Option
@@ -82,7 +82,7 @@ func WithHeader(headers map[string]string) config.Option
 
 #### WithRetry
 
-WithRetry 设置 client.httpClient 重发机制，如果显著干扰到业务运行了，请增加重发间隔maxInterval，减少最大重发时间maxElapsedTime，甚至关闭重发enabled=false。
+WithRetry 设置 public.HTTPClient 重发机制，如果显著干扰到业务运行了，请增加重发间隔maxInterval，减少最大重发时间maxElapsedTime，甚至关闭重发enabled=false。
 
 ```
 func WithRetry(enabled bool, internal time.Duration, maxInterval time.Duration, ...) config.Option
@@ -90,7 +90,7 @@ func WithRetry(enabled bool, internal time.Duration, maxInterval time.Duration, 
 
 #### WithTimeout
 
-WithTimeout 设置 client.httpClient 连接超时时间。
+WithTimeout 设置 public.HTTPClient 连接超时时间。
 
 ```
 func WithTimeout(duration time.Duration) config.Option

@@ -69,16 +69,15 @@
 
 |           **字段**           | **类型** | **是否必填** | **主动设置** | **自动生成** | **说明**   | **示例**                               |
 |:--------------------------:|:------:|:--------:|:--------:|:--------:|:---------|:-------------------------------------|
-|        **host.ip**	        | string |    ✕     |          |    ✓     | 主机IP地址   | 1.2.3.4                              |
-|       **host.arch**	       | string |    ✕     |          |    ✓     | 主机CPU架构  | amd64、arm64                          |
-|       **host.name**	       | string |    ✕     |          |    ✓     | 主机名称     | Desk-028                             |
-|        **os.type**	        | string |    ✕     |          |    ✓     | 操作系统类型   | windows、linux                        |
-|      **os.version**	       | string |    ✕     |          |    ✓     | 操作系统版本   | CentOS 7.7                           |
-|     **os.description**     | string |    ✕     |          |    ✓     | 操作系统详细信息 | Microsoft Windows 10 Enterprise      |
+|        **host.ip**	        | string |    ✓     |          |    ✓     | 主机IP地址   | 1.2.3.4                              |
+|       **host.arch**	       | string |    ✓     |          |    ✓     | 主机CPU架构  | amd64、arm64                          |
+|       **host.name**	       | string |    ✓     |          |    ✓     | 主机名称     | Desk-028                             |
+|        **os.type**	        | string |    ✓     |          |    ✓     | 操作系统类型   | windows、linux                        |
+|      **os.version**	       | string |    ✓     |          |    ✓     | 操作系统版本   | CentOS 7.7                           |
+|     **os.description**     | string |    ✓     |          |    ✓     | 操作系统详细信息 | Microsoft Windows 10 Enterprise      |
 |  **service.instance.id**   | string |    ✕     |          |          | 服务实例的ID  | 627cc493-f310-47de-96bd-71410b7dec09 |
 |      **service.name**      | string |    ✓     |    ✓     |          | 服务名称     | ShoppingMart                         |
 |    **service.version**     | string |    ✓     |    ✓     |          | 服务的版本号   | 5.3.0                                |
 | **telemetry.sdk.language** | string |    ✓     |          |    ✓     | SDK的开发语言 | go                                   |
 |   **telemetry.sdk.name**   | string |    ✓     |          |    ✓     | SDK名称    | TelemetrySDK-Go/exporters/artrace    |
 | **telemetry.sdk.version**  | string |    ✓     |          |    ✓     | SDK版本号   | v2.2.0                               |
-
