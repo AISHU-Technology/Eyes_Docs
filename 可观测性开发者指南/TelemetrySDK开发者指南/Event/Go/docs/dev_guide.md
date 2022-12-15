@@ -78,7 +78,7 @@ func multiply(ctx context.Context, x, y int64) (context.Context, int64) {
 }
 ```
 
-### 上报链路数据到AnyRobot
+### 上报事件数据到AnyRobot
 
 **第1步**本地调试
 
