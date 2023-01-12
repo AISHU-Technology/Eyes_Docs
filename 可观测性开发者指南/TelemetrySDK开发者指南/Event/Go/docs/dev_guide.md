@@ -14,12 +14,12 @@
 **第3步**执行以下命令引入TelemetrySDK-Event(Go)
 
 ```
-go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/event@2.4.0
+go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/event@2.5.0
 ```
 
 **第4步**(可选)更新TelemetrySDK-Event(Go)
 
-- 查看Telemetry[版本列表](https://pkg.go.dev/go.opentelemetry.io/otel?tab=versions)，选择希望引入的版本，例如v2.5.0，替换末尾的版本号重新执行命令。
+- 查看Telemetry[版本列表](../../../docs/compatibility.md)，选择希望引入的版本，例如v2.5.0，替换末尾的版本号重新执行命令。
 
 ```
 go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/event@2.5.0
@@ -30,7 +30,7 @@ go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/eve
 **第1步**执行以下命令引入Event Exporter
 
 ```
-go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter@2.4.0
+go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter@2.5.0
 ```
 
 **第2步**(可选)更新Event Exporter
@@ -88,7 +88,8 @@ func main() {
 	eventClient := public.NewStdoutClient("./AnyRobotEvent.txt")
 	//eventClient := public.NewHTTPClient(public.WithAnyRobotURL("http://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/events"))
 	eventExporter := ar_event.NewExporter(eventClient)
-	eventProvider := eventsdk.NewEventProvider(eventsdk.WithExporters(eventExporter))
+	public.SetServiceInfo("YourServiceName", "1.0.0", "")
+	eventProvider := eventsdk.NewEventProvider(eventsdk.Exporters(eventExporter), ar_event.EventResource())
 	eventsdk.SetEventProvider(eventProvider)
 
 	defer func() {
@@ -103,7 +104,7 @@ func main() {
 }
 ```
 
-- 在同级目录找到本地文件AnyRobotEvent.txt，查看是否正常生产链路数据。
+- 在同级目录找到本地文件AnyRobotEvent.txt，查看是否正常生产事件数据。
 
 **第2步**获取上报地址
 
@@ -119,7 +120,8 @@ func main() {
 	//eventClient := public.NewStdoutClient("./AnyRobotEvent.txt")
 	eventClient := public.NewHTTPClient(public.WithAnyRobotURL("http://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/events"))
 	eventExporter := ar_event.NewExporter(eventClient)
-	eventProvider := eventsdk.NewEventProvider(eventsdk.WithExporters(eventExporter))
+	public.SetServiceInfo("YourServiceName", "1.0.0", "")
+	eventProvider := eventsdk.NewEventProvider(eventsdk.Exporters(eventExporter), ar_event.EventResource())
 	eventsdk.SetEventProvider(eventProvider)
 
 	defer func() {

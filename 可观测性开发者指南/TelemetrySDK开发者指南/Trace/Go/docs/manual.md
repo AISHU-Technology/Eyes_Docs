@@ -24,12 +24,20 @@ AddEvent 用于在Span中添加某一时刻发生的有意义的事件。
 func AddEvent(name string, options ...EventOption)
 ```
 
-#### GetResource
+#### SetServiceInfo
 
-GetResource 获取内置资源信息，记录客户服务名，需要传入服务名 serviceName ，服务版本 serviceVersion ，服务实例ID。
+SetServiceInfo 设置服务信息，包括服务名、版本号、实例ID。
 
 ```
-func GetResource(serviceName string, serviceVersion string, serviceInstanceID string) *resource.Resource
+func SetServiceInfo(name string, version string, instance string)
+```
+
+#### TraceResource
+
+TraceResource 传入 Trace 的默认Resource。
+
+```
+func TraceResource() *sdkresource.Resource
 ```
 
 #### NewExporter
