@@ -57,10 +57,10 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "InvalidIngest": {
                                         "value": {
-                                            "error_code": "IngestManager.NotFound.ExecNotFound",
-                                            "description": "NotFound  Executor",
+                                            "error_code": "IngestManager.BadRequest.InvalidIngest",
+                                            "description": "BadRequest  Executor",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -78,10 +78,10 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "InternalError": {
                                         "value": {
-                                            "error_code": "DataReplicator.InternalError.ExecInternalError",
-                                            "description": "InternalError Job",
+                                            "error_code": "IngestManager.InternalError.InternalError",
+                                            "description": "InternalError  Executor",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -144,7 +144,7 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "404": {
+                                    "NotFound": {
                                         "value": {
                                             "error_code": "IngestManager.NotFound.ExecNotFound",
                                             "description": "NotFound  Executor",
@@ -163,6 +163,17 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "InternalError": {
+                                        "value": {
+                                            "error_code": "IngestManager.InternalError.InternalError",
+                                            "description": "InternalError  Executor",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
                                 }
                             }
                         },
@@ -206,6 +217,15 @@
                 }
             ],
             "put": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BodyHeartbeat"
+                            }
+                        }
+                    }
+                },
                 "tags": [
                     "客户端接口"
                 ],
@@ -218,6 +238,17 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "NotFound": {
+                                        "value": {
+                                            "error_code": "IngestManager.NotFound.ExecNotFound",
+                                            "description": "NotFound  Executor",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
                                 }
                             }
                         },
@@ -228,6 +259,17 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "InternalError": {
+                                        "value": {
+                                            "error_code": "IngestManager.InternalError.InternalError",
+                                            "description": "InternalError  Executor",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
                                 }
                             }
                         },
@@ -303,10 +345,10 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "Not Found": {
+                                    "NotFound": {
                                         "value": {
-                                            "error_code": "IngestManager.NotFound.JobNotFound",
-                                            "description": "NotFound  Job",
+                                            "error_code": "IngestManager.NotFound.ExecNotFound",
+                                            "description": "NotFound  Executor",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -322,6 +364,17 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "InternalError": {
+                                        "value": {
+                                            "error_code": "IngestManager.InternalError.InternalError",
+                                            "description": "InternalError  Executor",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
                                 }
                             }
                         },
@@ -347,7 +400,277 @@
                 }
             ]
         },
-        "/api/ingest-manager/v1/inner/jobs/{job_id}": {
+        "/api/ingest-manager/v1/jobs/{job_ids}/ingest_config": {
+            "servers": [
+                {
+                    "url": "https://{host}:{port}",
+                    "description": "host：地址，port：端口",
+                    "variables": {
+                        "host": {
+                            "default": "host",
+                            "description": "主机地址"
+                        },
+                        "port": {
+                            "default": "port",
+                            "description": "主机端口"
+                        }
+                    }
+                }
+            ],
+            "get": {
+                "tags": [
+                    "客户端接口"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/RespConfig"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "接口调用成功"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "NotFound": {
+                                        "value": {
+                                            "error_code": "IngestManager.NotFound.JobNotFound",
+                                            "description": "NotFound  Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "资源不存在"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "internalError": {
+                                        "value": {
+                                            "error_code": "IngestManager.InternalError.InternalError",
+                                            "description": "InternalError  Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "服务器错误"
+                    }
+                },
+                "description": "批量获取任务采集配置"
+            },
+            "parameters": [
+                {
+                    "examples": {
+                        "1": {
+                            "value": "job-a9414be9f4a72a92"
+                        },
+                        "2": {
+                            "value": "job-a9414be9f4a72a92,job-a9414be9fsdfsdff"
+                        }
+                    },
+                    "name": "job_ids",
+                    "description": "查询任务 id，以逗号分隔",
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/api/ingest-manager/v1/inner/executors": {
+            "description": "",
+            "servers": [
+                {
+                    "url": "https://{host}:{port}",
+                    "description": "host：地址，port：端口",
+                    "variables": {
+                        "host": {
+                            "default": "host",
+                            "description": "主机地址"
+                        },
+                        "port": {
+                            "default": "port",
+                            "description": "主机端口"
+                        }
+                    }
+                }
+            ],
+            "get": {
+                "tags": [
+                    "前端服务接口"
+                ],
+                "parameters": [
+                    {
+                        "name": "status",
+                        "description": "任务状态",
+                        "schema": {
+                            "enum": [
+                                "running",
+                                "offline",
+                                "exception"
+                            ],
+                            "type": "string"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "sort",
+                        "description": "排序字段 id create_time update_time",
+                        "schema": {
+                            "enum": [
+                                "id",
+                                "create_time",
+                                "update_time"
+                            ],
+                            "type": "string"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "limit",
+                        "description": "每页数量",
+                        "schema": {
+                            "default": 10,
+                            "maximum": 100,
+                            "minimum": 1,
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "offset",
+                        "description": "偏移量",
+                        "schema": {
+                            "default": 0,
+                            "minimum": 0,
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "direction",
+                        "description": "排序方向，即顺序或倒序 desc，asc",
+                        "schema": {
+                            "enum": [
+                                "desc",
+                                "asc"
+                            ],
+                            "type": "string"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RespExecList"
+                                }
+                            }
+                        },
+                        "description": "接口调用成功"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "OffsetInvalidParameter": {
+                                        "value": {
+                                            "error_code": "IngesterManager.BadRequest.OffsetInvalidParameter",
+                                            "description": "Invalid OffsetParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "LimitInvalidParameter": {
+                                        "value": {
+                                            "error_code": "IngesterManager.BadRequest.LimitInvalidParameter",
+                                            "description": "Invalid LimitParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "SortInvalidParameter": {
+                                        "value": {
+                                            "error_code": "IngesterManager.BadRequest.SortInvalidParameter",
+                                            "description": "Invalid SortParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "StatusInvalidParameter": {
+                                        "value": {
+                                            "error_code": "IngesterManager.BadRequest.StatusInvalidParameter",
+                                            "description": "Invalid StatusParameter",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "非法请求"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "InternalError": {
+                                        "value": {
+                                            "error_code": "IngesterManager.InternalError.InternalError",
+                                            "description": "InternalError  Executor",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "服务器内部错误"
+                    }
+                },
+                "description": "获取执行器列表"
+            }
+        },
+        "/api/ingest-manager/v1/inner/executors/{exec_id}": {
             "servers": [
                 {
                     "url": "https://{host}:{port}",
@@ -373,7 +696,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/RespJobDetail"
+                                    "$ref": "#/components/schemas/RespExecDetail"
                                 }
                             }
                         },
@@ -386,10 +709,10 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "NotFound": {
                                         "value": {
-                                            "error_code": "IngestManager.NotFound.JobNotFound",
-                                            "description": "NotFound  Job",
+                                            "error_code": "IngestManager.NotFound.ExecNotFound",
+                                            "description": "NotFound  Executor",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -407,10 +730,10 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "InternalError": {
                                         "value": {
-                                            "error_code": "IngestManger.InternalError.InternalError",
-                                            "description": "InternalError",
+                                            "error_code": "IngestManager.InternalError.InternalError",
+                                            "description": "InternalError  Executor",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -422,23 +745,32 @@
                         "description": "服务器错误"
                     }
                 },
-                "description": "获取任务详情"
+                "description": "获取执行器详情"
             },
-            "put": {
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/BodyJobUpdate"
-                            }
-                        }
-                    },
-                    "required": true
-                },
+            "delete": {
                 "tags": [
                     "前端服务接口"
                 ],
+                "parameters": [
+                    {
+                        "examples": {
+                            "id": {
+                                "value": "exec-35a29542fcabebe9"
+                            }
+                        },
+                        "name": "exec_id",
+                        "description": "执行器 id，多个执行器 id 用逗号隔开",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
+                    "204": {
+                        "description": "成功且无返回内容"
+                    },
                     "400": {
                         "content": {
                             "application/json": {
@@ -446,10 +778,10 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex3": {
+                                    "NotFound": {
                                         "value": {
-                                            "error_code": "IngesterManager.BadRequest.InvalidConfig",
-                                            "description": "Invalid Config",
+                                            "error_code": "IngestManager.BadRequest.InvalidExecutorStatus",
+                                            "description": "BadRequest  Executor",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -467,10 +799,10 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "NotFound": {
                                         "value": {
-                                            "error_code": "DataReplicator.NotFound.JobNotFound",
-                                            "description": "NotFound  Job",
+                                            "error_code": "IngestManager.NotFound.ExecNotFound",
+                                            "description": "NotFound  Executor",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -488,10 +820,10 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "InternalError": {
                                         "value": {
-                                            "error_code": "DataReplicator.InternalError.InternalError",
-                                            "description": "InternalError Job",
+                                            "error_code": "IngestManager.InternalError.InternalError",
+                                            "description": "InternalError  Executor",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -501,75 +833,19 @@
                             }
                         },
                         "description": "服务器错误"
-                    },
-                    "204": {
-                        "description": "成功且无返回内容"
                     }
                 },
-                "description": "修改任务信息"
-            },
-            "delete": {
-                "tags": [
-                    "前端服务接口"
-                ],
-                "parameters": [
-                    {
-                        "examples": {
-                            "任务编号": {
-                                "value": "job-a9414be9f4a72a92"
-                            },
-                            "任务编号2": {
-                                "value": "job-a9414be9f4a72a92,job-f5636bg7a4a72a21"
-                            }
-                        },
-                        "name": "job_id",
-                        "description": "任务 id，多个任务用逗号隔开\n",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-
-                            }
-                        },
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "成功且无返回内容"
-                    },
-                    "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Error"
-                                }
-                            }
-                        },
-                        "description": "资源不存在"
-                    },
-                    "500": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Error"
-                                }
-                            }
-                        },
-                        "description": "服务器错误"
-                    }
-                },
-                "description": "批量删除任务"
+                "description": "批量清理（离线）执行器"
             },
             "parameters": [
                 {
                     "examples": {
-                        "任务编号": {
-                            "value": "job-a9414be9f4a72a92"
+                        "id": {
+                            "value": "exec-35a29542fcabebe9"
                         }
                     },
-                    "name": "job_id",
-                    "description": "任务 id\n",
+                    "name": "exec_id",
+                    "description": "执行器 id",
                     "schema": {
                         "type": "string"
                     },
@@ -682,7 +958,7 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "OffsetInvalidParameter": {
                                         "value": {
                                             "error_code": "IngesterManager.BadRequest.OffsetInvalidParameter",
                                             "description": "Invalid OffsetParameter",
@@ -691,28 +967,28 @@
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex2": {
+                                    "LimitInvalidParameter": {
                                         "value": {
-                                            "error_code": "IngesterManager.BadRequest. LimitInvalidParameter",
+                                            "error_code": "IngesterManager.BadRequest.LimitInvalidParameter",
                                             "description": "Invalid LimitParameter",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex4": {
+                                    "SortInvalidParameter": {
                                         "value": {
-                                            "error_code": "IngesterManager.BadRequest. SortInvalidParameter",
+                                            "error_code": "IngesterManager.BadRequest.SortInvalidParameter",
                                             "description": "Invalid SortParameter",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
                                         }
                                     },
-                                    "ex3": {
+                                    "StatusInvalidParameter": {
                                         "value": {
                                             "error_code": "IngesterManager.BadRequest.StatusInvalidParameter",
-                                            "description": "Invalid SortParameter",
+                                            "description": "Invalid StatusParameter",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -733,7 +1009,7 @@
                                     "ex1": {
                                         "value": {
                                             "error_code": "IngesterManager.InternalError.InternalError",
-                                            "description": "InternalError Job",
+                                            "description": "InternalError  Job",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -762,7 +1038,16 @@
                     "前端服务接口"
                 ],
                 "responses": {
-                    "200": {
+                    "201": {
+                        "headers": {
+                            "Location": {
+                                "schema": {
+                                    "format": "uri",
+                                    "description": "查看，修改，删除 任务 `/api/ingest-manager/v1/inner/jobs/{job_id}`",
+                                    "type": "string"
+                                }
+                            }
+                        },
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -770,7 +1055,7 @@
                                 }
                             }
                         },
-                        "description": "接口调用成功"
+                        "description": "创建成功"
                     },
                     "400": {
                         "content": {
@@ -787,11 +1072,86 @@
                                             "error_link": "some text",
                                             "solution": "some text"
                                         }
+                                    },
+                                    "InvaildExecutor": {
+                                        "value": {
+                                            "error_code": "IngestManager.BadRequest.InvaildExecutor",
+                                            "description": "Invalid Executor",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "InvaildIngest": {
+                                        "value": {
+                                            "error_code": "IngestManager.BadRequest.InvaildIngest",
+                                            "description": "Invalid Ingest",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
                                     }
                                 }
                             }
                         },
                         "description": "非法请求"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "internalError": {
+                                        "value": {
+                                            "error_code": "IngestManager.InternalError.InternalError",
+                                            "description": "InternalError  Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "服务器错误"
+                    }
+                },
+                "description": "创建任务"
+            }
+        },
+        "/api/ingest-manager/v1/inner/jobs/{job_id}": {
+            "servers": [
+                {
+                    "url": "https://{host}:{port}",
+                    "description": "host：地址，port：端口",
+                    "variables": {
+                        "host": {
+                            "default": "host",
+                            "description": "主机地址"
+                        },
+                        "port": {
+                            "default": "port",
+                            "description": "主机端口"
+                        }
+                    }
+                }
+            ],
+            "get": {
+                "tags": [
+                    "前端服务接口"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RespJobDetail"
+                                }
+                            }
+                        },
+                        "description": "接口调用成功"
                     },
                     "404": {
                         "content": {
@@ -800,10 +1160,10 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "IngestNotFound": {
+                                    "NotFound": {
                                         "value": {
-                                            "error_code": "IngestManager.NotFound.IngestNotFound",
-                                            "description": "IngestNotFound",
+                                            "error_code": "IngestManager.NotFound.JobNotFound",
+                                            "description": "NotFound  Job",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -821,10 +1181,10 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "internalError": {
+                                    "InternalError": {
                                         "value": {
-                                            "error_code": "IngestManager.InternalError.InternalError",
-                                            "description": "InternalError",
+                                            "error_code": "IngestManger.InternalError.InternalError",
+                                            "description": "InternalError  Job",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -836,8 +1196,201 @@
                         "description": "服务器错误"
                     }
                 },
-                "description": "创建任务"
-            }
+                "description": "获取任务详情"
+            },
+            "put": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BodyJobUpdate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "前端服务接口"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "成功且无返回内容"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "InvalidConfig": {
+                                        "value": {
+                                            "error_code": "IngesterManager.BadRequest.InvalidConfig",
+                                            "description": "Invalid Config",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "InvaildExecutor": {
+                                        "value": {
+                                            "error_code": "IngestManager.BadRequest.InvaildExecutor",
+                                            "description": "Invalid Executor",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "InvaildIngest": {
+                                        "value": {
+                                            "error_code": "IngestManager.BadRequest.InvaildIngest",
+                                            "description": "Invalid Ingest",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "非法请求"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "NotFound": {
+                                        "value": {
+                                            "error_code": "IngestManager.NotFound.JobNotFound",
+                                            "description": "NotFound  Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "资源不存在"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "InternalError": {
+                                        "value": {
+                                            "error_code": "IngestManager.InternalError.InternalError",
+                                            "description": "InternalError  Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "服务器错误"
+                    }
+                },
+                "description": "修改任务信息"
+            },
+            "delete": {
+                "tags": [
+                    "前端服务接口"
+                ],
+                "parameters": [
+                    {
+                        "examples": {
+                            "任务编号": {
+                                "value": "job-a9414be9f4a72a92"
+                            },
+                            "任务编号2": {
+                                "value": "job-a9414be9f4a72a92,job-f5636bg7a4a72a21"
+                            }
+                        },
+                        "name": "job_id",
+                        "description": "任务 id，多个任务用逗号隔开\n",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+
+                            }
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "成功且无返回内容"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "NotFound": {
+                                        "value": {
+                                            "error_code": "IngestManager.NotFound.JobNotFound",
+                                            "description": "NotFound  Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "资源不存在"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "InternalError": {
+                                        "value": {
+                                            "error_code": "IngestManager.InternalError.InternalError",
+                                            "description": "InternalError  Job",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "服务器错误"
+                    }
+                },
+                "description": "批量删除任务"
+            },
+            "parameters": [
+                {
+                    "examples": {
+                        "任务编号": {
+                            "value": "job-a9414be9f4a72a92"
+                        }
+                    },
+                    "name": "job_id",
+                    "description": "任务 id\n",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
         },
         "/api/ingest-manager/v1/inner/jobs/verify_ingest_config": {
             "description": "验证任务配置",
@@ -880,87 +1433,30 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Error"
-                                }
-                            }
-                        },
-                        "description": "非法请求"
-                    },
-                    "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Error"
-                                }
-                            }
-                        },
-                        "description": "资源不存在"
-                    },
-                    "500": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Error"
-                                }
-                            }
-                        },
-                        "description": "服务器错误"
-                    }
-                },
-                "description": "验证配置"
-            }
-        },
-        "/api/ingest-manager/v1/inner/ingests/{id}": {
-            "servers": [
-                {
-                    "url": "https://{host}:{port}",
-                    "description": "host：地址，port：端口",
-                    "variables": {
-                        "host": {
-                            "default": "host",
-                            "description": "主机地址"
-                        },
-                        "port": {
-                            "default": "port",
-                            "description": "主机端口"
-                        }
-                    }
-                }
-            ],
-            "get": {
-                "tags": [
-                    "前端服务接口"
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/RespIngestDetail"
-                                }
-                            }
-                        },
-                        "description": "接口调用成功"
-                    },
-                    "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "InvalidConfigParameter": {
                                         "value": {
-                                            "error_code": "IngestManager.NotFound.IngestNotFound",
-                                            "description": "采集器未找到",
-                                            "error_link": "",
-                                            "solution": "",
-                                            "error_details": ""
+                                            "error_code": "IngestManager.BadRequest.InvaildConfig",
+                                            "description": "Invalid config",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
+                                        }
+                                    },
+                                    "InvaildIngest": {
+                                        "value": {
+                                            "error_code": "IngestManager.BadRequest.InvaildIngest",
+                                            "description": "Invalid Ingest",
+                                            "error_details": "some text",
+                                            "error_link": "some text",
+                                            "solution": "some text"
                                         }
                                     }
                                 }
                             }
                         },
-                        "description": "资源不存在"
+                        "description": "非法请求"
                     },
                     "500": {
                         "content": {
@@ -969,10 +1465,10 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "internalError": {
                                         "value": {
-                                            "error_code": "DataReplicator.InternalError.JobInternalError",
-                                            "description": "InternalError Job",
+                                            "error_code": "IngestManager.InternalError.InternalError",
+                                            "description": "InternalError  Job",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -984,19 +1480,8 @@
                         "description": "服务器错误"
                     }
                 },
-                "description": "获取采集器详情"
-            },
-            "parameters": [
-                {
-                    "name": "id",
-                    "description": "采集器编号 即自增id\n",
-                    "schema": {
-                        "type": "string"
-                    },
-                    "in": "path",
-                    "required": true
-                }
-            ]
+                "description": "验证配置"
+            }
         },
         "/api/ingest-manager/v1/inner/ingests": {
             "description": "获取已支持的采集器列表",
@@ -1102,7 +1587,7 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "SortInvalidParameter": {
                                         "value": {
                                             "error_code": "IngestManager.BadRequest.SortInvalidParameter",
                                             "description": "排序字段错误，没在列表id ingest_name ''中",
@@ -1111,7 +1596,7 @@
                                             "error_details": "Key: 'IngestListQuery.Sort' Error:Field validation for 'Sort' failed on the 'oneof' tag"
                                         }
                                     },
-                                    "ex2": {
+                                    "LimitInvalidParameter": {
                                         "value": {
                                             "error_code": "IngestManager.BadRequest.LimitInvalidParameter",
                                             "description": "每页数量必须大于 1 小于 100",
@@ -1120,238 +1605,13 @@
                                             "error_details": "Key: 'IngestListQuery.CommonListQuery.Limit' Error:Field validation for 'Limit' failed on the 'gte' tag"
                                         }
                                     },
-                                    "ex3": {
+                                    "OffsetInvalidParameter": {
                                         "value": {
                                             "error_code": "IngestManager.BadRequest.OffsetInvalidParameter",
                                             "description": "偏移量必须大于等于 0",
                                             "error_link": "",
                                             "solution": "",
                                             "error_details": "Key: 'IngestListQuery.CommonListQuery.Offset' Error:Field validation for 'Offset' failed on the 'gte' tag"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "description": "参数不合法"
-                    },
-                    "500": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Error"
-                                },
-                                "examples": {
-                                    "ex1": {
-                                        "value": {
-                                            "error_code": "IngesterManager.InternalError.InternalError",
-                                            "description": "InternalError",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "description": "服务器内部错误"
-                    }
-                },
-                "description": "获取采集器列表"
-            }
-        },
-        "/api/ingest-manager/v1/inner/executors/{exec_id}": {
-            "servers": [
-                {
-                    "url": "https://{host}:{port}",
-                    "description": "host：地址，port：端口",
-                    "variables": {
-                        "host": {
-                            "default": "host",
-                            "description": "主机地址"
-                        },
-                        "port": {
-                            "default": "port",
-                            "description": "主机端口"
-                        }
-                    }
-                }
-            ],
-            "get": {
-                "tags": [
-                    "前端服务接口"
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/RespExecDetail"
-                                }
-                            }
-                        },
-                        "description": "接口调用成功"
-                    },
-                    "404": {
-                        "description": "资源不存在"
-                    },
-                    "500": {
-                        "description": "服务器错误"
-                    }
-                },
-                "description": "获取执行器详情"
-            },
-            "parameters": [
-                {
-                    "examples": {
-                        "id": {
-                            "value": "exec-35a29542fcabebe9"
-                        }
-                    },
-                    "name": "exec_id",
-                    "description": "执行器 id",
-                    "schema": {
-                        "type": "string"
-                    },
-                    "in": "path",
-                    "required": true
-                }
-            ]
-        },
-        "/api/ingest-manager/v1/inner/executors": {
-            "description": "",
-            "servers": [
-                {
-                    "url": "https://{host}:{port}",
-                    "description": "host：地址，port：端口",
-                    "variables": {
-                        "host": {
-                            "default": "host",
-                            "description": "主机地址"
-                        },
-                        "port": {
-                            "default": "port",
-                            "description": "主机端口"
-                        }
-                    }
-                }
-            ],
-            "get": {
-                "tags": [
-                    "前端服务接口"
-                ],
-                "parameters": [
-                    {
-                        "name": "status",
-                        "description": "任务状态",
-                        "schema": {
-                            "enum": [
-                                "running",
-                                "offline",
-                                "exception"
-                            ],
-                            "type": "string"
-                        },
-                        "in": "query"
-                    },
-                    {
-                        "name": "sort",
-                        "description": "排序字段 id create_time update_time",
-                        "schema": {
-                            "enum": [
-                                "id",
-                                "create_time",
-                                "update_time"
-                            ],
-                            "type": "string"
-                        },
-                        "in": "query"
-                    },
-                    {
-                        "name": "limit",
-                        "description": "每页数量",
-                        "schema": {
-                            "default": 10,
-                            "maximum": 100,
-                            "minimum": 1,
-                            "type": "integer"
-                        },
-                        "in": "query"
-                    },
-                    {
-                        "name": "offset",
-                        "description": "偏移量",
-                        "schema": {
-                            "default": 0,
-                            "minimum": 0,
-                            "type": "integer"
-                        },
-                        "in": "query"
-                    },
-                    {
-                        "name": "direction",
-                        "description": "排序方向，即顺序或倒序 desc，asc",
-                        "schema": {
-                            "enum": [
-                                "desc",
-                                "asc"
-                            ],
-                            "type": "string"
-                        },
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/RespExecList"
-                                }
-                            }
-                        },
-                        "description": "接口调用成功"
-                    },
-                    "400": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Error"
-                                },
-                                "examples": {
-                                    "ex1": {
-                                        "value": {
-                                            "error_code": "IngesterManager.BadRequest.OffsetInvalidParameter",
-                                            "description": "Invalid OffsetParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
-                                        }
-                                    },
-                                    "ex2": {
-                                        "value": {
-                                            "error_code": "IngesterManager.BadRequest. LimitInvalidParameter",
-                                            "description": "Invalid LimitParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
-                                        }
-                                    },
-                                    "ex4": {
-                                        "value": {
-                                            "error_code": "IngesterManager.BadRequest. SortInvalidParameter",
-                                            "description": "Invalid SortParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
-                                        }
-                                    },
-                                    "ex3": {
-                                        "value": {
-                                            "error_code": "IngesterManager.BadRequest.StatusInvalidParameter",
-                                            "description": "Invalid SortParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
                                         }
                                     }
                                 }
@@ -1366,10 +1626,10 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "ex1": {
+                                    "InternalError": {
                                         "value": {
                                             "error_code": "IngesterManager.InternalError.InternalError",
-                                            "description": "InternalError Job",
+                                            "description": "InternalError  Ingest",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -1378,13 +1638,13 @@
                                 }
                             }
                         },
-                        "description": "服务器内部错误"
+                        "description": "服务器错误"
                     }
                 },
-                "description": "获取执行器列表"
+                "description": "获取采集器列表"
             }
         },
-        "/api/ingest-manager/v1/jobs/{job_ids}/ingest_config": {
+        "/api/ingest-manager/v1/inner/ingests/{id}": {
             "servers": [
                 {
                     "url": "https://{host}:{port}",
@@ -1403,17 +1663,14 @@
             ],
             "get": {
                 "tags": [
-                    "客户端接口"
+                    "前端服务接口"
                 ],
                 "responses": {
                     "200": {
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/RespConfig"
-                                    }
+                                    "$ref": "#/components/schemas/RespIngestDetail"
                                 }
                             }
                         },
@@ -1426,13 +1683,13 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "notfound": {
+                                    "NotFound": {
                                         "value": {
-                                            "error_code": "IngestManager.NotFound.JobNotFound",
-                                            "description": "NotFound  Job",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "IngestManager.NotFound.IngestNotFound",
+                                            "description": "NotFound  Ingest",
+                                            "error_link": "",
+                                            "solution": "",
+                                            "error_details": ""
                                         }
                                     }
                                 }
@@ -1447,10 +1704,10 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "internalError": {
+                                    "InternalError": {
                                         "value": {
-                                            "error_code": "IngestManger.InternalError.JobInternalError",
-                                            "description": "InternalError",
+                                            "error_code": "IngestManager.InternalError.InternalError",
+                                            "description": "InternalError  Ingest",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
@@ -1462,25 +1719,14 @@
                         "description": "服务器错误"
                     }
                 },
-                "description": "批量获取任务采集配置"
+                "description": "获取采集器详情"
             },
             "parameters": [
                 {
-                    "examples": {
-                        "1": {
-                            "value": "job-a9414be9f4a72a92"
-                        },
-                        "2": {
-                            "value": "job-a9414be9f4a72a92,job-a9414be9fsdfsdff"
-                        }
-                    },
-                    "name": "job_ids",
-                    "description": "查询任务 id，以逗号分隔",
+                    "name": "id",
+                    "description": "采集器编号 即自增id\n",
                     "schema": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
+                        "type": "string"
                     },
                     "in": "path",
                     "required": true
@@ -1771,187 +2017,12 @@
                 "type": "object",
                 "properties": {
                     "job_id": {
+                        "description": "任务的唯一标识",
                         "type": "string"
                     }
                 },
                 "example": {
                     "job_id": "job-df5735c3b46649a3"
-                }
-            },
-            "RespConfig": {
-                "description": "配置信息返回",
-                "required": [
-                    "job_id",
-                    "ingest_config"
-                ],
-                "type": "object",
-                "properties": {
-                    "job_id": {
-                        "description": "任务 id",
-                        "type": "string"
-                    },
-                    "ingest_config": {
-                        "description": "任务采集配置，json 对象",
-                        "type": "object",
-                        "additionalProperties": true
-                    }
-                },
-                "example": {
-                    "job_id": "job-a9414be9f4a72a92",
-                    "ingest_config": {
-                        "input": {
-                            "type": "json_opentelemetry_trace",
-                            "receiver": "http"
-                        },
-                        "processor": {
-                            "type": "add_metadata",
-                            "fields": {
-                                "type": "json_opentelemetry_trace"
-                            }
-                        },
-                        "output": {
-                            "type": "kafka",
-                            "kafka": {
-                                "address": [
-                                    "kafka-headless.resource:9097"
-                                ],
-                                "user": "pEe/1ToFSNVkbnEJ6RYnGw==",
-                                "password": "0wyMl36ec8LNe2Cqv9oq+g==",
-                                "topic": "kafka_topic"
-                            }
-                        }
-                    }
-                }
-            },
-            "RespJobDetail": {
-                "description": "任务详情",
-                "required": [
-                    "job_name",
-                    "ingest_id",
-                    "config_version",
-                    "job_id",
-                    "executor_ids",
-                    "ingest_config",
-                    "deploy_config"
-                ],
-                "type": "object",
-                "properties": {
-                    "ingest_id": {
-                        "description": "采集器 id",
-                        "type": "string"
-                    },
-                    "job_name": {
-                        "description": "任务名称",
-                        "type": "string"
-                    },
-                    "job_id": {
-                        "description": "任务编号",
-                        "type": "string",
-                        "readOnly": true
-                    },
-                    "config_version": {
-                        "description": "配置版本",
-                        "type": "string"
-                    },
-                    "executor_ids": {
-                        "description": "任务绑定的执行器列表",
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "ingest_config": {
-                        "description": "采集配置，json 对象",
-                        "type": "object",
-                        "additionalProperties": true
-                    },
-                    "deploy_config": {
-                        "description": "任务部署配置，json 对象",
-                        "type": "object",
-                        "additionalProperties": true
-                    }
-                },
-                "example": {
-                    "job_id": "job-a9414be9f4a72a92",
-                    "job_name": "test1",
-                    "ingest_id": "feed",
-                    "config_version": "feed_ingester_v1",
-                    "executor_ids": [
-                        "exec-a9414be9f4a72a92",
-                        "exec-f2345be9f4s35s12"
-                    ],
-                    "ingest_config": {
-                        "input": {
-                            "type": "json_anyrobot_metric",
-                            "receiver": [
-                                "http"
-                            ]
-                        },
-                        "processor": {
-                            "type": "add_metadata",
-                            "fields": {
-                                "type": "json_anyrobot_metric"
-                            }
-                        },
-                        "output": {
-                            "type": "kafka",
-                            "kafka": {
-                                "address": [
-                                    "kafka-headless.resource:9097"
-                                ],
-                                "user": "pEe/1ToFSNVkbnEJ6RYnGw==",
-                                "password": "0wyMl36ec8LNe2Cqv9oq+g==",
-                                "topic": "kafka_topic"
-                            }
-                        }
-                    },
-                    "deploy_config": {
-
-                    }
-                }
-            },
-            "BodyJobUpdate": {
-                "description": "任务详情",
-                "required": [
-                ],
-                "type": "object",
-                "properties": {
-                    "job_name": {
-                        "description": "任务名称",
-                        "type": "string"
-                    },
-                    "executor_ids": {
-                        "description": "任务绑定的执行器id，没有时为空数组",
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "ingest_config": {
-                        "description": "任务配置，各采集器任务配置不相同",
-                        "type": "object",
-                        "additionalProperties": true
-                    }
-                },
-                "example": {
-                    "ingest_config": {
-                        "input": {
-                            "type": "json_anyrobot_metric",
-                            "receiver": [
-                                "http"
-                            ]
-                        },
-                        "processor": {
-                            "type": "add_metadata",
-                            "fields": {
-                                "type": "json_anyrobot_metric"
-                            }
-                        }
-                    },
-                    "executor_ids": [
-                        "test1"
-                    ],
-                    "job_name": "test-0921"
                 }
             },
             "RespExecDetail": {
@@ -2020,6 +2091,35 @@
                     "status": "running"
                 }
             },
+            "RespJobCreateHeader": {
+                "description": "创建任务的返回头",
+                "type": "object",
+                "properties": {
+                    "Location": {
+                        "format": "uri",
+                        "description": "添加/修改/删除 任务",
+                        "type": "string"
+                    }
+                },
+                "example": "/api/ingest-manager/v1/inner/jobs/{job_id}"
+            },
+            "BodyHeartbeat": {
+                "description": "执行器 心跳 请求体",
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "description": "执行器的当前状态",
+                        "enum": [
+                            "running",
+                            "exception"
+                        ],
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "status": "running"
+                }
+            },
             "BodyJobCreate": {
                 "description": "任务详情",
                 "required": [
@@ -2047,26 +2147,13 @@
                         }
                     },
                     "ingest_config": {
-                        "description": "任务配置，格式为 json 对象",
-                        "type": "object",
+                        "description": "任务配置，格式为 json 字符串",
+                        "type": "string",
                         "additionalProperties": true
                     }
                 },
                 "example": {
-                    "ingest_config": {
-                        "input": {
-                            "type": "json_anyrobot_metric",
-                            "receiver": [
-                                "http"
-                            ]
-                        },
-                        "processor": {
-                            "type": "add_metadata",
-                            "fields": {
-                                "type": "json_anyrobot_metric"
-                            }
-                        }
-                    },
+                    "ingest_config": "{\"input\":{\"type\":\"json_anyrobot_metric\",\"receiver\":[\"http\"]},\"output\":{\"type\":\"\",\"kafka\": {\"address\": [\"10.4.68.149:9092\"],\"user\" : \"feeder_kafka\",\"password\": \"sdhoqwudhjxdbjahd\",\"topic\": \"kafka_topic\"}},\"processors\":[{\"add_metadata\":{\"type\":\"json_anyrobot_metric_default\",\"tags\":[]}},{\"add_labels\":{\"labels\":{}}},{\"add_k8s_attributes\":{}},{\"add_host_attributes\":{}}]}",
                     "ingest_id": "feed",
                     "job_name": "test-0920",
                     "executor_ids": [
@@ -2086,12 +2173,129 @@
                         "type": "string"
                     },
                     "ingest_config": {
-                        "description": "任务配置，各采集器任务配置不相同",
+                        "description": "任务配置，格式为 json 字符串",
+                        "type": "string",
+                        "additionalProperties": true
+                    }
+                },
+                "example": {
+                    "ingest_config": "{\"input\":{\"type\":\"json_anyrobot_metric\",\"receiver\":[\"http\"]},\"output\":{\"type\":\"\",\"kafka\": {\"address\": [\"10.4.68.149:9092\"],\"user\" : \"feeder_kafka\",\"password\": \"sdhoqwudhjxdbjahd\",\"topic\": \"kafka_topic\"}},\"processors\":[{\"add_metadata\":{\"type\":\"json_anyrobot_metric_default\",\"tags\":[]}},{\"add_labels\":{\"labels\":{}}},{\"add_k8s_attributes\":{}},{\"add_host_attributes\":{}}]}",
+                    "ingest_id": "feed"
+                }
+            },
+            "BodyJobUpdate": {
+                "description": "任务详情",
+                "required": [
+                ],
+                "type": "object",
+                "properties": {
+                    "job_name": {
+                        "description": "任务名称",
+                        "maxLength": 32,
+                        "type": "string"
+                    },
+                    "executor_ids": {
+                        "description": "任务绑定的执行器id，没有时为空数组",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "ingest_config": {
+                        "description": "任务配置，格式为 json 字符串",
+                        "type": "string",
+                        "additionalProperties": true
+                    }
+                },
+                "example": {
+                    "ingest_config": "{\"input\":{\"type\":\"json_anyrobot_metric\",\"receiver\":[\"http\"]},\"output\":{\"type\":\"\",\"kafka\": {\"address\": [\"10.4.68.149:9092\"],\"user\" : \"feeder_kafka\",\"password\": \"sdhoqwudhjxdbjahd\",\"topic\": \"kafka_topic\"}},\"processors\":[{\"add_metadata\":{\"type\":\"json_anyrobot_metric_default\",\"tags\":[]}},{\"add_labels\":{\"labels\":{}}},{\"add_k8s_attributes\":{}},{\"add_host_attributes\":{}}]}",
+                    "executor_ids": [
+                        "test1"
+                    ],
+                    "job_name": "test-0921"
+                }
+            },
+            "RespJobDetail": {
+                "description": "任务详情",
+                "required": [
+                    "job_name",
+                    "ingest_id",
+                    "config_version",
+                    "job_id",
+                    "executor_ids",
+                    "ingest_config",
+                    "deploy_config"
+                ],
+                "type": "object",
+                "properties": {
+                    "ingest_id": {
+                        "description": "采集器 id",
+                        "type": "string"
+                    },
+                    "job_name": {
+                        "description": "任务名称",
+                        "type": "string"
+                    },
+                    "job_id": {
+                        "description": "任务编号",
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "config_version": {
+                        "description": "配置版本",
+                        "type": "string"
+                    },
+                    "executor_ids": {
+                        "description": "任务绑定的执行器列表",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "ingest_config": {
+                        "description": "采集配置，json 字符串",
+                        "type": "string",
+                        "additionalProperties": true
+                    },
+                    "deploy_config": {
+                        "description": "任务部署配置，json 字符串",
+                        "type": "string",
+                        "additionalProperties": true
+                    }
+                },
+                "example": {
+                    "job_id": "job-a9414be9f4a72a92",
+                    "job_name": "test1",
+                    "ingest_id": "feed",
+                    "config_version": "feed_ingester_v1",
+                    "executor_ids": [
+                        "exec-a9414be9f4a72a92",
+                        "exec-f2345be9f4s35s12"
+                    ],
+                    "ingest_config": "{\"input\":{\"type\":\"json_anyrobot_metric\",\"receiver\":[\"http\"]},\"output\":{\"type\":\"\",\"kafka\": {\"address\": [\"10.4.68.149:9092\"],\"user\" : \"feeder_kafka\",\"password\": \"sdhoqwudhjxdbjahd\",\"topic\": \"kafka_topic\"}},\"processors\":[{\"add_metadata\":{\"type\":\"json_anyrobot_metric_default\",\"tags\":[]}},{\"add_labels\":{\"labels\":{}}},{\"add_k8s_attributes\":{}},{\"add_host_attributes\":{}}]}",
+                    "deploy_config": ""
+                }
+            },
+            "RespConfig": {
+                "description": "配置信息返回",
+                "required": [
+                    "job_id",
+                    "ingest_config"
+                ],
+                "type": "object",
+                "properties": {
+                    "job_id": {
+                        "description": "任务 id",
+                        "type": "string"
+                    },
+                    "ingest_config": {
+                        "description": "任务采集配置，格式为 json 对象",
                         "type": "object",
                         "additionalProperties": true
                     }
                 },
                 "example": {
+                    "job_id": "job-a9414be9f4a72a92",
                     "ingest_config": {
                         "input": {
                             "type": "json_anyrobot_metric",
@@ -2099,14 +2303,44 @@
                                 "http"
                             ]
                         },
-                        "processor": {
-                            "type": "add_metadata",
-                            "fields": {
-                                "type": "json_anyrobot_metric"
+                        "output": {
+                            "type": "",
+                            "kafka": {
+                                "address": [
+                                    "10.4.68.149:9092"
+                                ],
+                                "user": "feeder_kafka",
+                                "password": "sdhoqwudhjxdbjahd",
+                                "topic": "kafka_topic"
                             }
-                        }
-                    },
-                    "ingest_id": "feed"
+                        },
+                        "processors": [
+                            {
+                                "add_metadata": {
+                                    "type": "json_anyrobot_metric_default",
+                                    "tags": [
+                                    ]
+                                }
+                            },
+                            {
+                                "add_labels": {
+                                    "labels": {
+
+                                    }
+                                }
+                            },
+                            {
+                                "add_k8s_attributes": {
+
+                                }
+                            },
+                            {
+                                "add_host_attributes": {
+
+                                }
+                            }
+                        ]
+                    }
                 }
             }
         }
