@@ -32,7 +32,7 @@ go get go.opentelemetry.io/otel/sdk/trace@v1.11.0
 **第1步**执行以下命令引入Trace Exporter
 
 ```
-go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/traceExporter@2.4.0
+go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter@2.5.0
 ```
 
 **第2步**(可选)更新Trace Exporter
@@ -40,7 +40,7 @@ go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/tra
 - 查看SDK[兼容列表](../../../docs/compatibility.md)，选择希望引入的版本，例如2.5.0，替换末尾的版本号重新执行命令。
 
 ```
-go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/traceExporter@2.5.0
+go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter@2.5.0
 ```
 
 ## 使用TelemetrySDK-Trace(Go)进行代码埋点生产链路数据
@@ -94,7 +94,8 @@ func main() {
 	traceClient := public.NewStdoutClient("./AnyRobotTrace.txt")
 	//traceClient := public.NewHTTPClient(public.WithAnyRobotURL("http://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/traces"))
 	traceExporter := ar_trace.NewExporter(traceClient)
-	tracerProvider := sdktrace.NewTracerProvider(sdktrace.WithBatcher(traceExporter), sdktrace.WithResource(ar_trace.GetResource("YourServiceName", "1.0.0", "")))
+	public.SetServiceInfo("YourServiceName", "1.0.0", "")
+	tracerProvider := sdktrace.NewTracerProvider(sdktrace.WithBatcher(traceExporter), sdktrace.WithResource(ar_trace.TraceResource()))
 	otel.SetTracerProvider(tracerProvider)
 	defer func() {
 		if err := tracerProvider.Shutdown(ctx); err != nil {
@@ -124,7 +125,8 @@ func main() {
 	//traceClient := public.NewStdoutClient("./AnyRobotTrace.txt")
 	traceClient := public.NewHTTPClient(public.WithAnyRobotURL("http://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/traces"))
 	traceExporter := ar_trace.NewExporter(traceClient)
-	tracerProvider := sdktrace.NewTracerProvider(sdktrace.WithBatcher(traceExporter), sdktrace.WithResource(ar_trace.GetResource("YourServiceName", "1.0.0", "")))
+	public.SetServiceInfo("YourServiceName", "1.0.0", "")
+	tracerProvider := sdktrace.NewTracerProvider(sdktrace.WithBatcher(traceExporter), sdktrace.WithResource(ar_trace.TraceResource()))
 	otel.SetTracerProvider(tracerProvider)
 	defer func() {
 		if err := tracerProvider.Shutdown(ctx); err != nil {
@@ -149,7 +151,8 @@ func main() {
 	ctx := context.Background()
 	traceClient := public.NewStdoutClient("./AnyRobotTrace.txt")
 	traceExporter := ar_trace.NewExporter(traceClient)
-	tracerProvider := sdktrace.NewTracerProvider(sdktrace.WithBatcher(traceExporter), sdktrace.WithResource(ar_trace.GetResource("YourServiceName", "1.0.0", "")))
+	public.SetServiceInfo("YourServiceName", "1.0.0", "")
+	tracerProvider := sdktrace.NewTracerProvider(sdktrace.WithBatcher(traceExporter), sdktrace.WithResource(ar_trace.TraceResource()))
 	otel.SetTracerProvider(tracerProvider)
 	defer func() {
 		if err := tracerProvider.Shutdown(ctx); err != nil {
@@ -176,7 +179,8 @@ func main() {
 	ctx := context.Background()
 	traceClient := public.NewStdoutClient("./AnyRobotTrace.txt")
 	traceExporter := ar_trace.NewExporter(traceClient)
-	tracerProvider := sdktrace.NewTracerProvider(sdktrace.WithBatcher(traceExporter), sdktrace.WithResource(ar_trace.GetResource("YourServiceName", "1.0.0", "")))
+	public.SetServiceInfo("YourServiceName", "1.0.0", "")
+	tracerProvider := sdktrace.NewTracerProvider(sdktrace.WithBatcher(traceExporter), sdktrace.WithResource(ar_trace.TraceResource()))
 	otel.SetTracerProvider(tracerProvider)
 	defer func() {
 		if err := tracerProvider.Shutdown(ctx); err != nil {

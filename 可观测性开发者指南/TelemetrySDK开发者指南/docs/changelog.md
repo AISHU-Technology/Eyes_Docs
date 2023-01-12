@@ -1,5 +1,16 @@
 # 版本变化
 
+## 2.5.0
+
+### 增加
+
+- 提供Golang版Metric Exporter，支持Metric数据发送至AnyRobot。
+- 
+### 变更
+
+- 删除Trace Exporter旧资源设置方式，变为统一设置服务信息方法。
+- 调整Event数据模型。新增Attributes字段，Link字段在未设置时隐藏。
+
 ## 2.4.0
 
 ### 增加

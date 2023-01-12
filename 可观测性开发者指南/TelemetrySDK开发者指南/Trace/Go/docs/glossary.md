@@ -45,7 +45,6 @@
 
 
 ## SpanContext与Parent字段内属性：
-
 |     **字段**     | **类型** | **是否必填** | **主动设置** | **自动生成** | **说明**                                                                                                      |
 |:--------------:|:------:|:--------:|:--------:|:--------:|:------------------------------------------------------------------------------------------------------------|
 |  **TraceID**   | string |    ✓     |          |    ✓     | 一个有效的TraceID是一个16字节的数组\[16\]byte，且至少有一个非0字节。输出为字符串类型时会转成32长度的字符串。                                           |
@@ -65,19 +64,482 @@
 |  PRODUCER   |        |   ✓    |          |    可能    |      4      | 表示Span所属服务的类型是异步处理的生产者类型，属于父子关系中的父。                  |
 |  CONSUMER   |        |   ✓    |    可能    |          |      5      | 表示Span所属服务的类型是异步处理的消费者类型，属于父子关系中的子。                  |
 
-## Resource记录信息定义：
+## Resource数据格式
+|           **字段**           | **类型** | **是否必填** | **主动设置** | **自动生成** | **说明**    | **示例**                               |
+|:--------------------------:|:------:|:--------:|:--------:|:--------:|:----------|:-------------------------------------|
+|        **host.ip**	        | string |    ✓     |          |    ✓     | 主机IP地址    | 1.2.3.4                              |
+|       **host.arch**	       | string |    ✓     |          |    ✓     | 主机CPU架构   | amd64、arm64                          |
+|       **host.name**	       | string |    ✓     |          |    ✓     | 主机名称      | Desk-028                             |
+|        **os.type**	        | string |    ✓     |          |    ✓     | 操作系统类型    | windows、linux                        |
+|      **os.version**	       | string |    ✓     |          |    ✓     | 操作系统版本    | CentOS 7.7                           |
+|     **os.description**     | string |    ✓     |          |    ✓     | 操作系统详细信息  | Microsoft Windows 10 Enterprise      |
+|    **service.instance**    | string |    ✕     |          |          | 服务实例的ID   | 627cc493-f310-47de-96bd-71410b7dec09 |
+|      **service.name**      | string |    ✓     |    ✓     |          | 服务名称      | ShoppingMart                         |
+|    **service.version**     | string |    ✓     |    ✓     |          | 服务的版本号    | 5.3.0                                |
+| **telemetry.sdk.language** | string |    ✓     |          |    ✓     | SDK的开发语言  | go                                   |
+|   **telemetry.sdk.name**   | string |    ✓     |          |    ✓     | SDK名称     | TelemetrySDK-Go/exporters/ar_trace   |
+| **telemetry.sdk.version**  | string |    ✓     |          |    ✓     | SDK版本号    | v2.2.0                               |
+|  **k8s.namespace.name**	   | string |    ✓     |          |    ✓     | k8s命名空间   | anyshare                             |
+|     **k8s.pod.name**	      | string |    ✓     |          |    ✓     | k8s pod名称 | efast-123456789-12345                |
+|     **k8s.node.name**	     | string |    ✓     |          |    ✓     | k8s节点名称   | node01                               |
 
-|           **字段**           | **类型** | **是否必填** | **主动设置** | **自动生成** | **说明**   | **示例**                               |
-|:--------------------------:|:------:|:--------:|:--------:|:--------:|:---------|:-------------------------------------|
-|        **host.ip**	        | string |    ✓     |          |    ✓     | 主机IP地址   | 1.2.3.4                              |
-|       **host.arch**	       | string |    ✓     |          |    ✓     | 主机CPU架构  | amd64、arm64                          |
-|       **host.name**	       | string |    ✓     |          |    ✓     | 主机名称     | Desk-028                             |
-|        **os.type**	        | string |    ✓     |          |    ✓     | 操作系统类型   | windows、linux                        |
-|      **os.version**	       | string |    ✓     |          |    ✓     | 操作系统版本   | CentOS 7.7                           |
-|     **os.description**     | string |    ✓     |          |    ✓     | 操作系统详细信息 | Microsoft Windows 10 Enterprise      |
-|  **service.instance.id**   | string |    ✕     |          |          | 服务实例的ID  | 627cc493-f310-47de-96bd-71410b7dec09 |
-|      **service.name**      | string |    ✓     |    ✓     |          | 服务名称     | ShoppingMart                         |
-|    **service.version**     | string |    ✓     |    ✓     |          | 服务的版本号   | 5.3.0                                |
-| **telemetry.sdk.language** | string |    ✓     |          |    ✓     | SDK的开发语言 | go                                   |
-|   **telemetry.sdk.name**   | string |    ✓     |          |    ✓     | SDK名称    | TelemetrySDK-Go/exporters/artrace    |
-| **telemetry.sdk.version**  | string |    ✓     |          |    ✓     | SDK版本号   | v2.2.0                               |
+# Trace数据样例
+```json
+[
+	{
+		"Name": "乘法",
+		"SpanContext": {
+			"TraceID": "8db02a16d1c296c5729a93489bfda477",
+			"SpanID": "4c6417705315b53c",
+			"TraceFlags": "01",
+			"TraceState": "",
+			"Remote": false
+		},
+		"Parent": {
+			"TraceID": "00000000000000000000000000000000",
+			"SpanID": "0000000000000000",
+			"TraceFlags": "00",
+			"TraceState": "",
+			"Remote": false
+		},
+		"SpanKind": 1,
+		"StartTime": "2023-01-12T11:59:29.0864778+08:00",
+		"EndTime": "2023-01-12T11:59:29.1887487+08:00",
+		"Attributes": [
+			{
+				"Key": "multiply",
+				"Value": {
+					"Type": "STRING",
+					"Value": "计算两数之积"
+				}
+			}
+		],
+		"Links": [],
+		"Events": [
+			{
+				"Name": "multiplyEvent",
+				"Attributes": [
+					{
+						"Key": "key",
+						"Value": {
+							"Type": "BOOLARRAY",
+							"Value": [
+								true,
+								true
+							]
+						}
+					},
+					{
+						"Key": "analyzed",
+						"Value": {
+							"Type": "STRING",
+							"Value": "100ms"
+						}
+					}
+				],
+				"DroppedAttributeCount": 0,
+				"Time": "2023-01-12T11:59:29.0864778+08:00"
+			}
+		],
+		"Status": {
+			"Code": "Ok",
+			"Description": ""
+		},
+		"InstrumentationScope": {
+			"Name": "TelemetrySDK-Go/exporter/ar_trace",
+			"Version": "v2.5.0",
+			"SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?path=/exporter/ar_trace"
+		},
+		"Resource": [
+			{
+				"Key": "host.arch",
+				"Value": {
+					"Type": "STRING",
+					"Value": "x86_64"
+				}
+			},
+			{
+				"Key": "host.ip",
+				"Value": {
+					"Type": "STRING",
+					"Value": "10.4.34.50"
+				}
+			},
+			{
+				"Key": "host.name",
+				"Value": {
+					"Type": "STRING",
+					"Value": "DevDeskV6-029"
+				}
+			},
+			{
+				"Key": "os.description",
+				"Value": {
+					"Type": "STRING",
+					"Value": "Microsoft Windows 10 Enterprise"
+				}
+			},
+			{
+				"Key": "os.type",
+				"Value": {
+					"Type": "STRING",
+					"Value": "windows"
+				}
+			},
+			{
+				"Key": "os.version",
+				"Value": {
+					"Type": "STRING",
+					"Value": "10.0.18363.959 Build 18363.959"
+				}
+			},
+			{
+				"Key": "service.instance.id",
+				"Value": {
+					"Type": "STRING",
+					"Value": ""
+				}
+			},
+			{
+				"Key": "service.name",
+				"Value": {
+					"Type": "STRING",
+					"Value": "YourServiceName"
+				}
+			},
+			{
+				"Key": "service.version",
+				"Value": {
+					"Type": "STRING",
+					"Value": "1.0.0"
+				}
+			},
+			{
+				"Key": "telemetry.sdk.language",
+				"Value": {
+					"Type": "STRING",
+					"Value": "go"
+				}
+			},
+			{
+				"Key": "telemetry.sdk.name",
+				"Value": {
+					"Type": "STRING",
+					"Value": "TelemetrySDK-Go/exporter/ar_trace"
+				}
+			},
+			{
+				"Key": "telemetry.sdk.version",
+				"Value": {
+					"Type": "STRING",
+					"Value": "v2.5.0"
+				}
+			}
+		],
+		"DroppedAttributes": 0,
+		"DroppedEvents": 0,
+		"DroppedLinks": 0,
+		"ChildSpanCount": 0
+	},
+	{
+		"Name": "乘法",
+		"SpanContext": {
+			"TraceID": "8db02a16d1c296c5729a93489bfda477",
+			"SpanID": "99f7976ed85cfd6f",
+			"TraceFlags": "01",
+			"TraceState": "",
+			"Remote": false
+		},
+		"Parent": {
+			"TraceID": "8db02a16d1c296c5729a93489bfda477",
+			"SpanID": "4c6417705315b53c",
+			"TraceFlags": "01",
+			"TraceState": "",
+			"Remote": false
+		},
+		"SpanKind": 1,
+		"StartTime": "2023-01-12T11:59:29.188749+08:00",
+		"EndTime": "2023-01-12T11:59:29.3029718+08:00",
+		"Attributes": [
+			{
+				"Key": "multiply",
+				"Value": {
+					"Type": "STRING",
+					"Value": "计算两数之积"
+				}
+			}
+		],
+		"Links": [],
+		"Events": [
+			{
+				"Name": "multiplyEvent",
+				"Attributes": [
+					{
+						"Key": "key",
+						"Value": {
+							"Type": "BOOLARRAY",
+							"Value": [
+								true,
+								true
+							]
+						}
+					},
+					{
+						"Key": "analyzed",
+						"Value": {
+							"Type": "STRING",
+							"Value": "100ms"
+						}
+					}
+				],
+				"DroppedAttributeCount": 0,
+				"Time": "2023-01-12T11:59:29.188749+08:00"
+			}
+		],
+		"Status": {
+			"Code": "Ok",
+			"Description": ""
+		},
+		"InstrumentationScope": {
+			"Name": "TelemetrySDK-Go/exporter/ar_trace",
+			"Version": "v2.5.0",
+			"SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?path=/exporter/ar_trace"
+		},
+		"Resource": [
+			{
+				"Key": "host.arch",
+				"Value": {
+					"Type": "STRING",
+					"Value": "x86_64"
+				}
+			},
+			{
+				"Key": "host.ip",
+				"Value": {
+					"Type": "STRING",
+					"Value": "10.4.34.50"
+				}
+			},
+			{
+				"Key": "host.name",
+				"Value": {
+					"Type": "STRING",
+					"Value": "DevDeskV6-029"
+				}
+			},
+			{
+				"Key": "os.description",
+				"Value": {
+					"Type": "STRING",
+					"Value": "Microsoft Windows 10 Enterprise"
+				}
+			},
+			{
+				"Key": "os.type",
+				"Value": {
+					"Type": "STRING",
+					"Value": "windows"
+				}
+			},
+			{
+				"Key": "os.version",
+				"Value": {
+					"Type": "STRING",
+					"Value": "10.0.18363.959 Build 18363.959"
+				}
+			},
+			{
+				"Key": "service.instance.id",
+				"Value": {
+					"Type": "STRING",
+					"Value": ""
+				}
+			},
+			{
+				"Key": "service.name",
+				"Value": {
+					"Type": "STRING",
+					"Value": "YourServiceName"
+				}
+			},
+			{
+				"Key": "service.version",
+				"Value": {
+					"Type": "STRING",
+					"Value": "1.0.0"
+				}
+			},
+			{
+				"Key": "telemetry.sdk.language",
+				"Value": {
+					"Type": "STRING",
+					"Value": "go"
+				}
+			},
+			{
+				"Key": "telemetry.sdk.name",
+				"Value": {
+					"Type": "STRING",
+					"Value": "TelemetrySDK-Go/exporter/ar_trace"
+				}
+			},
+			{
+				"Key": "telemetry.sdk.version",
+				"Value": {
+					"Type": "STRING",
+					"Value": "v2.5.0"
+				}
+			}
+		],
+		"DroppedAttributes": 0,
+		"DroppedEvents": 0,
+		"DroppedLinks": 0,
+		"ChildSpanCount": 0
+	},
+	{
+		"Name": "加法",
+		"SpanContext": {
+			"TraceID": "8db02a16d1c296c5729a93489bfda477",
+			"SpanID": "a3b488f211cb883f",
+			"TraceFlags": "01",
+			"TraceState": "",
+			"Remote": false
+		},
+		"Parent": {
+			"TraceID": "8db02a16d1c296c5729a93489bfda477",
+			"SpanID": "99f7976ed85cfd6f",
+			"TraceFlags": "01",
+			"TraceState": "",
+			"Remote": false
+		},
+		"SpanKind": 1,
+		"StartTime": "2023-01-12T11:59:29.3029722+08:00",
+		"EndTime": "2023-01-12T11:59:29.4032686+08:00",
+		"Attributes": [
+			{
+				"Key": "add",
+				"Value": {
+					"Type": "STRING",
+					"Value": "计算两数之和"
+				}
+			}
+		],
+		"Links": [],
+		"Events": [
+			{
+				"Name": "AddEvent",
+				"Attributes": [
+					{
+						"Key": "succeeded",
+						"Value": {
+							"Type": "BOOL",
+							"Value": true
+						}
+					}
+				],
+				"DroppedAttributeCount": 0,
+				"Time": "2023-01-12T11:59:29.3029722+08:00"
+			}
+		],
+		"Status": {
+			"Code": "Ok",
+			"Description": ""
+		},
+		"InstrumentationScope": {
+			"Name": "TelemetrySDK-Go/exporter/ar_trace",
+			"Version": "v2.5.0",
+			"SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?path=/exporter/ar_trace"
+		},
+		"Resource": [
+			{
+				"Key": "host.arch",
+				"Value": {
+					"Type": "STRING",
+					"Value": "x86_64"
+				}
+			},
+			{
+				"Key": "host.ip",
+				"Value": {
+					"Type": "STRING",
+					"Value": "10.4.34.50"
+				}
+			},
+			{
+				"Key": "host.name",
+				"Value": {
+					"Type": "STRING",
+					"Value": "DevDeskV6-029"
+				}
+			},
+			{
+				"Key": "os.description",
+				"Value": {
+					"Type": "STRING",
+					"Value": "Microsoft Windows 10 Enterprise"
+				}
+			},
+			{
+				"Key": "os.type",
+				"Value": {
+					"Type": "STRING",
+					"Value": "windows"
+				}
+			},
+			{
+				"Key": "os.version",
+				"Value": {
+					"Type": "STRING",
+					"Value": "10.0.18363.959 Build 18363.959"
+				}
+			},
+			{
+				"Key": "service.instance.id",
+				"Value": {
+					"Type": "STRING",
+					"Value": ""
+				}
+			},
+			{
+				"Key": "service.name",
+				"Value": {
+					"Type": "STRING",
+					"Value": "YourServiceName"
+				}
+			},
+			{
+				"Key": "service.version",
+				"Value": {
+					"Type": "STRING",
+					"Value": "1.0.0"
+				}
+			},
+			{
+				"Key": "telemetry.sdk.language",
+				"Value": {
+					"Type": "STRING",
+					"Value": "go"
+				}
+			},
+			{
+				"Key": "telemetry.sdk.name",
+				"Value": {
+					"Type": "STRING",
+					"Value": "TelemetrySDK-Go/exporter/ar_trace"
+				}
+			},
+			{
+				"Key": "telemetry.sdk.version",
+				"Value": {
+					"Type": "STRING",
+					"Value": "v2.5.0"
+				}
+			}
+		],
+		"DroppedAttributes": 0,
+		"DroppedEvents": 0,
+		"DroppedLinks": 0,
+		"ChildSpanCount": 0
+	}
+]
+```
