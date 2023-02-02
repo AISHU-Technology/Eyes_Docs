@@ -18,7 +18,7 @@ func NewExporter(c public.Client) *EventExporter
 
 #### NewHTTPClient
 
-NewHTTPClient 创建 ar_trace.Exporter 需要的HTTP数据发送客户端。
+NewHTTPClient 创建 ar_event.Exporter 需要的HTTP数据发送客户端。
 
 ```
 func NewHTTPClient(opts ...config.HTTPOption) public.Client
@@ -26,7 +26,7 @@ func NewHTTPClient(opts ...config.HTTPOption) public.Client
 
 #### NewStdoutClient
 
-NewStdoutClient 创建 ar_trace.Exporter 需要的Local数据发送客户端。
+NewStdoutClient 创建 ar_event.Exporter 需要的Local数据发送客户端。
 
 ```
 func NewStdoutClient(stdoutPath string) public.Client
@@ -42,7 +42,7 @@ func WithAnyRobotURL(URL string) config.Option
 
 #### WithCompression
 
-WithCompression 设置Trace压缩方式：0代表无压缩，1代表GZIP压缩。
+WithCompression 设置Event压缩方式：0代表无压缩，1代表GZIP压缩。
 
 ```
 func WithCompression(compression int) config.Option

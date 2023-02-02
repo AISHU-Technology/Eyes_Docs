@@ -1,5 +1,6 @@
 # 兼容列表
 
+## Go
 各个版本的SDK兼容的最低Go版本列表。推荐升级Go到更高版本。Go版本不符合最低要求需要升级，否则无法引入TelemetrySDK。
 
 |  SDK  | Go Version |
@@ -13,7 +14,7 @@
 | 2.4.0 |   go1.18   |
 | 2.5.0 |   go1.18   |
 
-# 上报数据
+## 上报数据
 
 各个版本的SDK支持上报的数据类型表格。
 
@@ -28,8 +29,37 @@
 | 2.4.0 |   ✓   |  ✓  |        |   ✓   |
 | 2.5.0 |   ✓   |  ✓  |   ✓    |   ✓   |
 
-# 升级GO版本
+## 升级Go版本
 
 检查Go版本：`go version`
 
 [下载Go安装包](https://gomirrors.org/)
+
+## Python
+各个版本的SDK兼容的最低Python版本列表。推荐升级Python到更高版本。Python版本不符合最低要求需要升级，否则无法引入TelemetrySDK。
+
+|  SDK  | Python Version |
+|:-----:|:--------------:|
+| 1.0.0 |   Python3.7    |
+| 2.0.0 |   Python3.7    |
+| 2.1.0 |   Python3.7    |
+| 2.2.0 |   Python3.10   |
+
+## 上报数据
+
+各个版本的SDK支持上报的数据类型表格。
+
+|  SDK  | Trace | Log | Metric | Event |
+|:-----:|:-----:|:---:|:------:|:-----:|
+| 1.0.0 |       |  ✓  |||
+| 2.0.0 |       |  ✓  |||
+| 2.1.0 |       |  ✓  |||
+| 2.2.0 |       |  ✓  |   ✓    ||
+
+## 升级Python版本
+
+检查Python版本：`python --version`
+
+[下载Python安装包](https://www.python.org/downloads/)
+
+
