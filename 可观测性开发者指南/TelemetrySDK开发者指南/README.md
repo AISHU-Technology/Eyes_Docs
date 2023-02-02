@@ -18,4 +18,6 @@
 
 ### [兼容列表](./docs/compatibility.md)
 
-### [版本变化](./docs/changelog.md)
+### [版本变化 Go](./docs/change_log_go.md)
+
+### [版本变化 Python](./docs/change_log_python.md)

@@ -1,6 +1,6 @@
 # 使用手册
 
-#### NewEventProvider
+#### NewMeterProvider
 
 NewMeterProvider 根据配置项，新建 NewMeterProvider 。
 
@@ -18,7 +18,7 @@ func NewExporter(c public.Client) *MetricExporter
 
 #### NewHTTPClient
 
-NewHTTPClient 创建 ar_trace.Exporter 需要的HTTP数据发送客户端。
+NewHTTPClient 创建 ar_metric.Exporter 需要的HTTP数据发送客户端。
 
 ```
 func NewHTTPClient(opts ...config.HTTPOption) public.Client
@@ -26,7 +26,7 @@ func NewHTTPClient(opts ...config.HTTPOption) public.Client
 
 #### NewStdoutClient
 
-NewStdoutClient 创建 ar_trace.Exporter 需要的Local数据发送客户端。
+NewStdoutClient 创建 ar_metric.Exporter 需要的Local数据发送客户端。
 
 ```
 func NewStdoutClient(stdoutPath string) public.Client
@@ -42,7 +42,7 @@ func WithAnyRobotURL(URL string) config.Option
 
 #### WithCompression
 
-WithCompression 设置Trace压缩方式：0代表无压缩，1代表GZIP压缩。
+WithCompression 设置Metric压缩方式：0代表无压缩，1代表GZIP压缩。
 
 ```
 func WithCompression(compression int) config.Option
@@ -88,14 +88,6 @@ NewPeriodicReader 设置 Exporter。
 func NewPeriodicReader(exporter Exporter, options ...PeriodicReaderOption) Reader
 ```
 
-#### WithResource
-
-WithResource 设置资源信息。
-
-```
-func WithResource(res *resource.Resource) Option
-```
-
 #### SetServiceInfo
 
 SetServiceInfo 设置服务信息，包括服务名、版本号、实例ID。
@@ -106,7 +98,7 @@ func SetServiceInfo(name string, version string, instance string)
 
 #### MetricResource
 
-MetricResource 传入 Event 的默认resource。
+MetricResource 传入 Metric 的默认resource。
 
 ```
 func MetricResource() *sdkresource.Resource
