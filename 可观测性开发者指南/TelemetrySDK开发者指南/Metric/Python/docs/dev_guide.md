@@ -22,7 +22,7 @@ pip3 install opentelemetry-sdk==1.15.0
 - 查看Telemetry[版本列表](https://github.com/open-telemetry/opentelemetry-python/tags)，选择希望引入的版本，例如1.15.0。
 
 ```
-pip install --upgrade opentelemetry-sdk==1.15.0
+pip3 install --upgrade opentelemetry-sdk==1.15.0
 ```
 
 ## 导入Metric Exporter
