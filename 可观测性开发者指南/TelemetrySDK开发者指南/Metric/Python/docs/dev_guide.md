@@ -132,4 +132,4 @@ reader = PeriodicExportingMetricReader(
 )
 ```
 
-## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?path=%2Fexporter%2Far_metric%2Fexamples%2Fone_service.go&version=GB2.5.0)
+## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python?path=%2Fexporter%2Far_metric%2Fexamples%2Fone_service.py)
