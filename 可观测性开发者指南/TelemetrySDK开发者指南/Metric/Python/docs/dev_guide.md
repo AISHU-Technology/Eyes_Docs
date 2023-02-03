@@ -14,7 +14,7 @@
 **第3步**执行以下命令引入TelemetrySDK-Metric(Python)
 
 ```
-pip install opentelemetry-sdk
+pip3 install opentelemetry-sdk==1.15.0
 ```
 
 **第4步**(可选)更新TelemetrySDK-Metric(Python)
