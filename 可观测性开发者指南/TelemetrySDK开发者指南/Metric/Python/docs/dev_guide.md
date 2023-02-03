@@ -36,7 +36,7 @@ pip install .
 **第1步**执行以下命令引入TelemetrySDK-Metric(Python)
 
 ```
-pip3 install -r requirement.txt
+pip3 install -r requirements.txt
 ```
 
 **第2步**(可选)Mark directory as namespace package
