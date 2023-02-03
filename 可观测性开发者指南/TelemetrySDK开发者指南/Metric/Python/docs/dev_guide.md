@@ -11,20 +11,6 @@
 - 从[ONE-Architecture](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python)
   拉取代码需要配置代码仓库[下载权限](https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Eyes_Docs?path=/可观测性开发者指南/TelemetrySDK开发者指南/Log/README.md&version=GBdevelop&_a=preview&anchor=sdk2.0-使用参考)
 
-**第3步**执行以下命令引入TelemetrySDK-Metric(Python)
-
-```
-pip3 install opentelemetry-sdk==1.15.0
-```
-
-**第4步**(可选)更新TelemetrySDK-Metric(Python)
-
-- 查看Telemetry[版本列表](https://github.com/open-telemetry/opentelemetry-python/tags)，选择希望引入的版本，例如1.15.0。
-
-```
-pip3 install --upgrade opentelemetry-sdk==1.15.0
-```
-
 ## 导入Metric Exporter
 
 **第1步**执行以下命令引入Metric Exporter
@@ -44,6 +30,16 @@ git clone ssh://devops.aishu.cn:22/AISHUDevOps/ONE-Architecture/_git/TelemetrySD
 cd TelemetrySDK-Python
 pip install .
 ```
+
+## 导入依赖
+
+**第1步**执行以下命令引入TelemetrySDK-Metric(Python)
+
+```
+pip3 install -r requirement.txt
+```
+
+**第2步**(可选)Mark directory as namespace package
 
 ## 使用TelemetrySDK-Metric(Python)进行代码埋点生产指标数据
 
