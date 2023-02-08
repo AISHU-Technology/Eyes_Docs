@@ -92,7 +92,7 @@ func multiply(ctx context.Context, x, y int64) (context.Context, int64) {
 func main() {
 	ctx := context.Background()
 	traceClient := public.NewStdoutClient("./AnyRobotTrace.txt")
-	//traceClient := public.NewHTTPClient(public.WithAnyRobotURL("http://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/traces"))
+	//traceClient := public.NewHTTPClient(public.WithAnyRobotURL("http://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/events"))
 	traceExporter := ar_trace.NewExporter(traceClient)
 	public.SetServiceInfo("YourServiceName", "1.0.0", "")
 	tracerProvider := sdktrace.NewTracerProvider(sdktrace.WithBatcher(traceExporter), sdktrace.WithResource(ar_trace.TraceResource()))
@@ -113,7 +113,7 @@ func main() {
 
 **第2步**获取上报地址
 
-- 在AnyRobot管理端创建Trace采集任务并生成上报地址供数据源端使用，如`https://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/traces` 。
+- 在AnyRobot管理端创建Trace采集任务并生成上报地址供数据源端使用，如`https://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/events` 。
 
 **第3步**上报到AnyRobot
 
@@ -123,7 +123,7 @@ func main() {
 func main() {
 	ctx := context.Background()
 	//traceClient := public.NewStdoutClient("./AnyRobotTrace.txt")
-	traceClient := public.NewHTTPClient(public.WithAnyRobotURL("http://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/traces"))
+	traceClient := public.NewHTTPClient(public.WithAnyRobotURL("http://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/events"))
 	traceExporter := ar_trace.NewExporter(traceClient)
 	public.SetServiceInfo("YourServiceName", "1.0.0", "")
 	tracerProvider := sdktrace.NewTracerProvider(sdktrace.WithBatcher(traceExporter), sdktrace.WithResource(ar_trace.TraceResource()))

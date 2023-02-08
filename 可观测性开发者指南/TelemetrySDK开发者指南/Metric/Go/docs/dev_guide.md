@@ -121,7 +121,7 @@ func main() {
 
 **第2步**获取上报地址
 
-- 在AnyRobot管理端创建Metric采集任务并生成上报地址供数据源端使用，如`https://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/metrics` 。
+- 在AnyRobot管理端创建Metric采集任务并生成上报地址供数据源端使用，如`https://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/events` 。
 
 **第3步**上报到AnyRobot
 
@@ -130,7 +130,7 @@ func main() {
 ```
 func main() {
 	ctx := context.Background()
-	metricClient := public.NewHTTPClient(public.WithAnyRobotURL("http://127.0.0.1:8800/api/feed_ingester/v1/jobs/job-abcd4f634e80d530/metrics"),
+	metricClient := public.NewHTTPClient(public.WithAnyRobotURL("http://127.0.0.1:8800/api/feed_ingester/v1/jobs/job-abcd4f634e80d530/events"),
 		public.WithCompression(1), public.WithTimeout(10*time.Second), public.WithRetry(true, 5*time.Second, 30*time.Second, 1*time.Minute))
 	metricExporter := ar_metric.NewExporter(metricClient)
 	public.SetServiceInfo("YourServiceName", "1.0.0", "")

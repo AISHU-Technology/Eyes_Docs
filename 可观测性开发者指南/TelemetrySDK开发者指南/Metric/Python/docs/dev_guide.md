@@ -113,7 +113,7 @@ if __name__ == "__main__":
 
 **第2步**获取上报地址
 
-- 在AnyRobot管理端创建Metric采集任务并生成上报地址供数据源端使用，如`http://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/metrics` 。
+- 在AnyRobot管理端创建Metric采集任务并生成上报地址供数据源端使用，如`http://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/events` 。
 
 **第3步**上报到AnyRobot
 
@@ -124,7 +124,7 @@ reader = PeriodicExportingMetricReader(
     ARMetricExporter(
         HTTPClient(
             WithAnyRobotURL(
-                http://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/metrics"
+                http://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/events"
             ),
             WithCompression(Compression.GzipCompression),
         )
