@@ -21,3 +21,5 @@
 ### [版本变化 Go](./docs/change_log_go.md)
 
 ### [版本变化 Python](./docs/change_log_python.md)
+
+# [TelemetrySDK特性支持列表](https://confluence.aishu.cn/pages/resumedraft.action?draftId=178130715&draftShareId=b66f2911-c783-4567-8e81-b4386570d2d8&)
