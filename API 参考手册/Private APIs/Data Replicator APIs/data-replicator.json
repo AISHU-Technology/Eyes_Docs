@@ -119,15 +119,15 @@
                                                     ],
                                                     "is_sink_cluster_sasl": true,
                                                     "is_sink_cluster_ssl": true,
+                                                    "data_source_type": 0,
                                                     "allowed_topics": [
-                                                        "kafka_topic"
-                                                    ],
-                                                    "not_allowed_topics": [
-                                                        "kafka_topic"
                                                     ],
                                                     "is_open_timed_replication": false,
                                                     "timed_replication_start_time": "00:00",
                                                     "timed_replication_duration": 300,
+                                                    "auto_offset_rest": "earliest",
+                                                    "is_open_limit_speed": "false",
+                                                    "limit_speed": "5MB/s",
                                                     "details": ""
                                                 }
                                             ],
@@ -148,38 +148,38 @@
                                 "examples": {
                                     "OffsetInvalidParameter": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.OffsetInvalidParameter",
-                                            "description": "Invalid OffsetParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InvalidParameter.Offset",
+                                            "description": "The offset parameter is invalidr",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "LimitInvalidParameter": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.LimitInvalidParameter",
-                                            "description": "Invalid LimitParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InvalidParameter.Limit",
+                                            "description": "The limit parameter is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "DirectionInvalidParameter": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.DirectionInvalidParameter",
-                                            "description": "Invalid DirectionParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InvalidParameter.Direction",
+                                            "description": "The direction parameter is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SortInvalidParameter": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SortInvalidParameter",
-                                            "description": "Invalid SortParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InvalidParameter.Sort",
+                                            "description": "The sort parameter is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     }
                                 }
@@ -194,13 +194,13 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "JobInternalError": {
+                                    "DataBase": {
                                         "value": {
-                                            "error_code": "DataReplicator.InternalError.JobInternalError",
-                                            "description": "InternalError Job",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InternalError.DataBase",
+                                            "description": "The database is unhealthy",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the database id healthy"
                                         }
                                     }
                                 }
@@ -222,9 +222,8 @@
                                 "example": {
                                     "value": {
                                         "comment": "",
+                                        "data_source_type": 0,
                                         "allowed_topics": [
-                                        ],
-                                        "not_allowed_topics": [
                                         ],
                                         "sink_cluster_addresses": [
                                             "10.4.105.113:31000"
@@ -243,7 +242,10 @@
                                         "src_cluster_sasl_username": "eisoo.com",
                                         "is_open_timed_replication": true,
                                         "timed_replication_duration": 300,
-                                        "timed_replication_start_time": "00:00"
+                                        "timed_replication_start_time": "00:00",
+                                        "auto_offset_reset": "earliest",
+                                        "is_open_limit_speed": "false",
+                                        "limit_speed": "5MB/s"
                                     }
                                 }
                             }
@@ -278,200 +280,218 @@
                                 "examples": {
                                     "JobNameInvalid": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.JobNameInvalidParameter",
-                                            "description": "Invalid JobNameParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InvalidParameter.JobName",
+                                            "description": "The job name is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "JobNameExist": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.JobNameExist",
-                                            "description": "JobName Exist",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.Duplicated.JobName",
+                                            "description": "The job name exists",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "JobNameNull": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.JobNameNull",
-                                            "description": "JobName Null",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.MissingParameter.JobName",
+                                            "description": "The parameter job name cannot be null",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SrcClusterAddressesInvaliid": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SrcClusterAddressesInvalidParameter",
-                                            "description": "Invalid SrcClusterAddressesParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InvalidParameter.SrcClusterAddresses",
+                                            "description": "The source cluster addresses parameter is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "JobTotalOutOfRange": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.JobTotalOutOfRange",
-                                            "description": "JobTotals Out Of Range",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.CountExceeded.JobTotal",
+                                            "description": "The number of jobs exceeded",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please delete useless jobs"
                                         }
                                     },
                                     "JobClusterDoubleExist": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.JobClusterDoubleExist",
-                                            "description": "Job ClusterDouble Exist",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.Duplicated.ClusterPair",
+                                            "description": "The job cluster pair exists",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SrcClusterAddressesNull": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SrcClusterAddressesNull",
-                                            "description": "SrcClusterAddresses Null",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.MissingParameter.SrcClusterAddresses",
+                                            "description": "The parameter src cluster addresses cannot be null",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SrcClusterIdDifferent": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SrcClusterIdDifferent",
-                                            "description": "SrcCluster Different ClusterId",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.Different.SrcClusterID",
+                                            "description": "The host addresses of multiple source clusters have different cluster ids",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SameSrcSinkClusterId": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SameSrcSinkClusterId",
-                                            "description": "Src Sink Same ClusterId",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.Duplicated.SrcClusterIDSinkClusterID",
+                                            "description": "The source cluster id is same to sink cluster id",
+                                            "error_details": "xx",
+                                            "error_link": "xx",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SrcClusterAddressesDisconnected": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SrcClusterAddressesDisconnected",
-                                            "description": "SrcClusterAddresses Disconnected",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
-                                        }
-                                    },
-                                    "GenerateIDFailed": {
-                                        "value": {
-                                            "error_code": "DataReplicator.BadRequest.GenerateIDFailed",
-                                            "description": "GenerateID Failed",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.Unavailable.SrcClusterAddresses",
+                                            "description": "The host address of the source is unavailable",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "TopicsInvalid": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.TopicsInvalidParameter",
-                                            "description": "Invalid TopicsParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InvalidParameter.Topics",
+                                            "description": "The topics parameter is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SrcSaslUerNameNull": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SrcSaslUerNameNull",
-                                            "description": "SrcSaslUserName Null",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.MissingParameter.SrcClusterSaslUserName",
+                                            "description": "The parameter source cluster sasl user name cannot be null",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SrcSaslPasswordNull": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SrcSaslPasswordNull",
-                                            "description": "SrcSaslPassword Null",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.MissingParameter.SrcClusterSaslPassword",
+                                            "description": "The parameter source cluster sasl password cannot be null",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SinkClusterAddressesInvalid": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SinkClusterAddressesInvalidParameter",
-                                            "description": "Invalid SinkClusterAddressesParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InvalidParameter.SinkClusterAddresses",
+                                            "description": "The sink cluster addresses parameter is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SinkClusterAddressesNull": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SinkClusterAddressesNull",
-                                            "description": "SinkClusterAddresses Null",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.MissingParameter.SinkClusterAddresses",
+                                            "description": "The parameter sink cluster addresses cannot be null",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SinkClusterIdDifferent": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SinkClusterIdDifferent",
-                                            "description": "SinkCluster Different ClusterId",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.Different.SinkClusterID",
+                                            "description": "The host addresses of multiple sink clusters have different cluster ids",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SinkClusterAddressesDisconnected": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SinkClusterAddressesDisconnected",
-                                            "description": "SinkClusterAddresses Disconnected",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.Unavailable.SinkClusterAddresses",
+                                            "description": "The host address of the sink is unavailable",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SinkSaslUerNameNull": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SinkSaslUerNameNull",
-                                            "description": "SinkSaslUserName Null",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.MissingParameter.SinkClusterSaslUserName",
+                                            "description": "The parameter sink cluster sasl user name cannot be null",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SinkSaslPasswordNull": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SinkSaslPasswordNull",
-                                            "description": "SinkSaslPassword Null",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.MissingParameter.SinkClusterSaslPassword",
+                                            "description": "The parameter sink cluster sasl password cannot be null",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "TimedReplicationStartTimeInvalid": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadReque.TimedReplicationStartTimeInvalidParameter",
-                                            "description": "Invalid TimedReplicationStartTimeParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InvalidParameter.TimedReplicationStartTime",
+                                            "description": "The timed replication start time parameter is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "TimedReplicationDurationOutOfRange": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.TimedReplicationDurationOutOfRange",
-                                            "description": "TimedReplicationDuration Out Of Range",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.OutOfRange.TimedReplicationDuration",
+                                            "description": "The duration of the timed replication is out of range",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
+                                        }
+                                    },
+                                    "LimitSpeedInvalidParameter": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InvalidParameter.LimitSpeed",
+                                            "description": "The limit speed parameter is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
+                                        }
+                                    },
+                                    "CommentInvalidParameter": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InvalidParameter.Comment",
+                                            "description": "The comment parameter is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
+                                        }
+                                    },
+                                    "DataSource": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InvalidParameter.DataSource",
+                                            "description": "The data source parameter is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     }
                                 }
@@ -486,31 +506,40 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "JobInternalError": {
+                                    "JobExistsInMemory": {
                                         "value": {
-                                            "error_code": "DataReplicator.InternalError.JobInternalError",
-                                            "description": "InternalError Job",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InternalError.JobExistsInMemory",
+                                            "description": "Job exists in memory",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please try this operation again, if the error occurs again, submit the work order or contact technical support engineers."
                                         }
                                     },
-                                    "ReplicatorJobInternalError": {
+                                    "FailedToCreateTimedCron": {
                                         "value": {
-                                            "error_code": "DataReplicator.InternalError.ReplicatorJobInternalError",
-                                            "description": "InternalError ReplicatorJob",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InternalError.FailedToCreateTimedCron",
+                                            "description": "Failed to create the timed cron",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please try this operation again, if the error occurs again, submit the work order or contact technical support engineers."
                                         }
                                     },
-                                    "KafkaInternalError": {
+                                    "DataBase": {
                                         "value": {
-                                            "error_code": "DataReplicator.InternalError.KafkaInternalError",
-                                            "description": "InternalError kafka",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InternalError.DataBase",
+                                            "description": "The database is unhealthy",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the database id healthy"
+                                        }
+                                    },
+                                    "Kafka": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InternalError.kafka",
+                                            "description": "The cluster kafka is unhealthy",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the cluster kafka is healthy"
                                         }
                                     }
                                 }
@@ -555,14 +584,14 @@
                                             "is_sink_cluster_sasl": true,
                                             "is_sink_cluster_ssl": true,
                                             "allowed_topics": [
-                                                "kafka_topic"
                                             ],
-                                            "not_allowed_topics": [
-                                                "kafka_topic"
-                                            ],
+                                            "data_source_type": 0,
                                             "is_open_timed_replication": false,
                                             "timed_replication_start_time": "00:00",
                                             "timed_replication_duration": 300,
+                                            "auto_offset_reset": "earliest",
+                                            "is_open_limit_speed": "false",
+                                            "limit_speed": "5MB/s",
                                             "details": ""
                                         }
                                     }
@@ -580,20 +609,20 @@
                                 "examples": {
                                     "JobIdInvalidParameter": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.JobIdInvalidParameter",
-                                            "description": "Invalid JobIdParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InvalidParameter.JobID",
+                                            "description": "The job id parameter is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "JobIdNull": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.JobIdNull",
-                                            "description": "JobId Null",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.MissingParameter.JobID",
+                                            "description": "The parameter job id cannot be null",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     }
                                 }
@@ -610,11 +639,11 @@
                                 "examples": {
                                     "JobNotFound": {
                                         "value": {
-                                            "error_code": "DataReplicator.NotFound.JobNotFound",
-                                            "description": "NotFound  Job",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.NotFound.Job",
+                                            "description": "The job is not found",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     }
                                 }
@@ -629,13 +658,13 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "JobInternalError": {
+                                    "DataBase": {
                                         "value": {
-                                            "error_code": "DataReplicator.InternalError.JobInternalError",
-                                            "description": "InternalError Job",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InternalError.DataBase",
+                                            "description": "The database is unhealthy",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the database id healthy"
                                         }
                                     }
                                 }
@@ -657,9 +686,8 @@
                                 "example": {
                                     "value": {
                                         "comment": "",
+                                        "data_source_type": 0,
                                         "allowed_topics": [
-                                        ],
-                                        "not_allowed_topics": [
                                         ],
                                         "sink_cluster_addresses": [
                                             "10.4.110.32:31000"
@@ -678,7 +706,10 @@
                                         "src_cluster_sasl_username": "eisoo.com",
                                         "is_open_timed_replication": false,
                                         "timed_replication_duration": 300,
-                                        "timed_replication_start_time": "00:00"
+                                        "timed_replication_start_time": "00:00",
+                                        "auto_offset_reset": "earliest",
+                                        "is_open_limit_speed": "false",
+                                        "limit_speed": "5MB/s"
                                     }
                                 }
                             }
@@ -724,182 +755,209 @@
                                 "examples": {
                                     "JobNameNull": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.JobNameNull",
-                                            "description": "JobName Null",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.MissingParameter.JobName",
+                                            "description": "The parameter job name cannot be null",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SrcClusterAddressesInvalidParameter": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SrcClusterAddressesInvalidParameter",
-                                            "description": "Invalid SrcClusterAddressesParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InvalidParameter.SrcClusterAddresses",
+                                            "description": "The source cluster addresses parameter is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "JobNameInvalidParameter": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.JobNameInvalidParameter",
-                                            "description": "Invalid JobNameParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InvalidParameter.JobName",
+                                            "description": "The job name is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SrcClusterAddressesNull": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SrcClusterAddressesNull",
-                                            "description": "SrcClusterAddresses Null",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.MissingParameter.SrcClusterAddresses",
+                                            "description": "The parameter source cluster addresses cannot be null",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "JobNameExist": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.JobNameExist",
-                                            "description": "JobName Exist",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.Duplicated.JobName",
+                                            "description": "The job name exists",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SrcClusterIdDifferent": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SrcClusterIdDifferent",
-                                            "description": "Different SrcClusterId",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.Different.SrcClusterID",
+                                            "description": "The host addresses of multiple source clusters have different cluster ids",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SrcClusterIdUpdated": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SrcClusterIdUpdated",
-                                            "description": "SrcClusterId Updated",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.Update.SrcClusterID",
+                                            "description": "The id of the source cluster updated",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SrcClusterAddressesDisconnected": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SrcClusterAddressesDisconnected",
-                                            "description": "SrcCluster Address Disconnected",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.Unavailable.SrcClusterAddresses",
+                                            "description": "The host address of the source is unavailable",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SrcSaslUerNameNull": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SrcSaslUerNameNull",
-                                            "description": "SrcSaslUserName Null",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.MissingParameter.SrcClusterSaslUserName",
+                                            "description": "The parameter source cluster sasl user name cannot be null",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "TopicsInvalidParameter": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.TopicsInvalidParameter",
-                                            "description": "Invalid TopicsParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InvalidParameter.Topics",
+                                            "description": "The topics parameter is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SinkSaslPasswordNull": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SinkSaslPasswordNull",
-                                            "description": "SinkSaslPassword Null",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.MissingParameter.SinkClusterSaslPassword",
+                                            "description": "The parameter sink cluster sasl password cannot be null",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SinkClusterAddressesInvalidParameter": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SinkClusterAddressesInvalidParameter",
-                                            "description": "Invalid SinkClusterAddressesParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InvalidParameter.SinkClusterAddresses",
+                                            "description": "The sink cluster addresses parameter is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SinkClusterAddressesNull": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SinkClusterAddressesNull",
-                                            "description": "SinkClusterAddresses Null",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.MissingParameter.SinkClusterAddresses",
+                                            "description": "The parameter sink cluster addresses cannot be null",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SinkClusterIdDifferent": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SinkClusterIdDifferent",
-                                            "description": "Different SinkClusterId",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.Different.SinkClusterID",
+                                            "description": "The host addresses of multiple sink clusters have different cluster ids",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SinkClusterIdUpdated": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SinkClusterIdUpdated",
-                                            "description": "SinkClusterId Updated",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.Update.SinkClusterID",
+                                            "description": "The id of the sink cluster updated",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SinkClusterAddressesDisconnected": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SinkClusterAddressesDisconnected",
-                                            "description": "SinkCluster Address Disconnected",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.Unavailable.SinkClusterAddresses",
+                                            "description": "The host address of the sink is unavailable",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SinkSaslUerNameNull": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SinkSaslUerNameNull",
-                                            "description": "SinkSaslUserName Null",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.MissingParameter.SinkClusterSaslUserName",
+                                            "description": "The parameter sink cluster sasl user name cannot be null",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "SrcSaslPasswordNull": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.SrcSaslPasswordNull",
-                                            "description": "SinkSaslPassword Null",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.MissingParameter.SrcClusterSaslPassword",
+                                            "description": "The parameter source cluster sasl password cannot be null",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "TimedReplicationStartTimeInvalidParameter": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadReque.TimedReplicationStartTimeInvalidParameter",
-                                            "description": "Invalid TimedReplicationStartTimeParameter",
+                                            "error_code": "DataReplicator.InvalidParameter.TimedReplicationStartTime",
+                                            "description": "The timed replication start time parameter is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
+                                        }
+                                    },
+                                    "TimedReplicationDurationOutOfRange": {
+                                        "value": {
+                                            "error_code": "DataReplicator.OutOfRange.TimedReplicationDuration",
+                                            "description": "The duration of the timed replication is out of range",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
+                                        }
+                                    },
+                                    "LimitSpeedInvalidParameter": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InvalidParameter.LimitSpeed",
+                                            "description": "LimitSpeed Invalid",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
                                         }
                                     },
-                                    "TimedReplicationDurationOutOfRange": {
+                                    "CommentInvalidParameter": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.TimedReplicationDurationOutOfRange",
-                                            "description": "TimedReplicationDuration Out Of Range",
+                                            "error_code": "DataReplicator.InvalidParameter.Comment",
+                                            "description": "Comment Invalid",
                                             "error_details": "some text",
                                             "error_link": "some text",
                                             "solution": "some text"
+                                        }
+                                    },
+                                    "DataSource": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InvalidParameter.DataSource",
+                                            "description": "The data source parameter is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     }
                                 }
@@ -914,40 +972,40 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "JobInternalError": {
+                                    "JobNotExistInMemory": {
                                         "value": {
-                                            "error_code": "DataReplicator.InternalError.JobInternalError",
-                                            "description": "InternalError Job",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InternalError.JobNotExistInMemory",
+                                            "description": "The job does not exist in memory",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please try this operation again, if the error occurs again, submit the work order or contact technical support engineers."
                                         }
                                     },
-                                    "ReplicatorJobInternalError": {
+                                    "FailedToCreateTimedCron": {
                                         "value": {
-                                            "error_code": "DataReplicator.InternalError.ReplicatorJobInternalError",
-                                            "description": "InternalError ReplicatorJob",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InternalError.FailedToCreateTimedCron",
+                                            "description": "Failed to create the timed cron",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please try this operation again, if the error occurs again, submit the work order or contact technical support engineers."
                                         }
                                     },
-                                    "KafkaInternalError": {
+                                    "Kafka": {
                                         "value": {
-                                            "error_code": "DataReplicator.InternalError.KafkaInternalError",
-                                            "description": "InternalError kafka",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InternalError.kafka",
+                                            "description": "The cluster kafka is unhealthy",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the cluster kafka is healthy"
                                         }
                                     },
-                                    "TaskInternalError": {
+                                    "DataBase": {
                                         "value": {
-                                            "error_code": "DataReplicator.InternalError.TaskInternalError",
-                                            "description": "InternalError task",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InternalError.DataBase",
+                                            "description": "The database is unhealthy",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the database id healthy"
                                         }
                                     }
                                 }
@@ -964,11 +1022,11 @@
                                 "examples": {
                                     "JobNotFound": {
                                         "value": {
-                                            "error_code": "DataReplicator.NotFound.JobNotFound",
-                                            "description": "NotFound  Job",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.NotFound.Job",
+                                            "description": "The job is not found",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     }
                                 }
@@ -1004,11 +1062,11 @@
                                 "examples": {
                                     "JobNotFound": {
                                         "value": {
-                                            "error_code": "DataReplicator.NotFound.JobNotFound",
-                                            "description": "NotFound  Job",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.NotFound.Job",
+                                            "description": "The job is not found",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     }
                                 }
@@ -1025,20 +1083,20 @@
                                 "examples": {
                                     "JobIdInvalidParameter": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.JobIdInvalidParameter",
-                                            "description": "Invalid JobIdParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InvalidParameter.JobID",
+                                            "description": "The job id parameter is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "JobIdNull": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.JobIdNull",
-                                            "description": "JobId Null",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.MissingParameter.JobID",
+                                            "description": "The parameter job id cannot be null",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     }
                                 }
@@ -1053,40 +1111,13 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "JobInternalError": {
+                                    "JobNotExistInMemory": {
                                         "value": {
-                                            "error_code": "DataReplicator.InternalError.JobInternalError",
-                                            "description": "InternalError Job",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
-                                        }
-                                    },
-                                    "ReplicatorJobInternalError": {
-                                        "value": {
-                                            "error_code": "DataReplicator.InternalError.ReplicatorJobInternalError",
-                                            "description": "InternalError ReplicatorJob",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
-                                        }
-                                    },
-                                    "KafkaInternalError": {
-                                        "value": {
-                                            "error_code": "DataReplicator.InternalError.KafkaInternalError",
-                                            "description": "InternalError kafka",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
-                                        }
-                                    },
-                                    "TaskInternalError": {
-                                        "value": {
-                                            "error_code": "DataReplicator.InternalError.TaskInternalError",
-                                            "description": "InternalError task",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InternalError.JobNotExistInMemory",
+                                            "description": "The job does not exist in memory",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please try this operation again, if the error occurs again, submit the work order or contact technical support engineers."
                                         }
                                     }
                                 }
@@ -1178,29 +1209,29 @@
                                 "examples": {
                                     "JobIdNull": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.JobIdNull",
-                                            "description": "JobId Null",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.MissingParameter.JobID",
+                                            "description": "The parameter job id cannot be null",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "JobIdInvalidParameter": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.JobIdInvalidParameter",
-                                            "description": "Invalid JobIdParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InvalidParameter.JobID",
+                                            "description": "The job id parameter is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     },
                                     "JobStateInvalidParameter": {
                                         "value": {
-                                            "error_code": "DataReplicator.BadRequest.JobStateInvalidParameter",
-                                            "description": "Invalid JobStateParameter",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InvalidParameter.JobState",
+                                            "description": "The job state parameter is invalid",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     }
                                 }
@@ -1217,11 +1248,11 @@
                                 "examples": {
                                     "JobNotFound": {
                                         "value": {
-                                            "error_code": "DataReplicator.NotFound.JobNotFound",
-                                            "description": "NotFound  Job",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.NotFound.Job",
+                                            "description": "The job is not found",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the parameter is correct"
                                         }
                                     }
                                 }
@@ -1236,40 +1267,49 @@
                                     "$ref": "#/components/schemas/Error"
                                 },
                                 "examples": {
-                                    "JobInternalError": {
+                                    "DataBase": {
                                         "value": {
-                                            "error_code": "DataReplicator.InternalError.JobInternalError",
-                                            "description": "InternalError Job",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InternalError.DataBase",
+                                            "description": "The database is unhealthy",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the database id healthy"
                                         }
                                     },
-                                    "ReplicatorJobInternalError": {
+                                    "JobNotExistInMemory": {
                                         "value": {
-                                            "error_code": "DataReplicator.InternalError.ReplicatorJobInternalError",
-                                            "description": "InternalError ReplicatorJob",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InternalError.JobNotExistInMemory",
+                                            "description": "The job does not exist in memory",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please try this operation again, if the error occurs again, submit the work order or contact technical support engineers."
                                         }
                                     },
-                                    "KafkaInternalError": {
+                                    "FailedToPauseNotRunningJob": {
                                         "value": {
-                                            "error_code": "DataReplicator.InternalError.KafkaInternalError",
-                                            "description": "InternalError kafka",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InternalError.FailedToPauseNotRunningJob",
+                                            "description": "Failed to pause the not running job",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the job status is running"
                                         }
                                     },
-                                    "TaskInternalError": {
+                                    "FailedToCreateTimedCron": {
                                         "value": {
-                                            "error_code": "DataReplicator.InternalError.TaskInternalError",
-                                            "description": "InternalError task",
-                                            "error_details": "some text",
-                                            "error_link": "some text",
-                                            "solution": "some text"
+                                            "error_code": "DataReplicator.InternalError.FailedToCreateTimedCron",
+                                            "description": "Failed to create the timed cron",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please try this operation again, if the error occurs again, submit the work order or contact technical support engineers."
+                                        }
+                                    },
+                                    "kafka": {
+                                        "value": {
+                                            "error_code": "DataReplicator.InternalError.kafka",
+                                            "description": "The cluster kafka is unhealthy",
+                                            "error_details": "None",
+                                            "error_link": "None",
+                                            "solution": "Please check whether the cluster kafka is healthy"
                                         }
                                     }
                                 }
@@ -1305,8 +1345,6 @@
                     "src_cluster_addresses",
                     "sink_cluster_addresses",
                     "job_id",
-                    "not_allowed_topics",
-                    "allowed_topics",
                     "create_time",
                     "details",
                     "src_cluster_id",
@@ -1315,7 +1353,11 @@
                     "is_src_cluster_ssl",
                     "is_sink_cluster_sasl",
                     "is_sink_cluster_ssl",
-                    "is_open_timed_replication"
+                    "is_open_timed_replication",
+                    "auto_offset_rest",
+                    "is_open_limit_speed",
+                    "allowed_topics",
+                    "data_source_type"
                 ],
                 "type": "object",
                 "properties": {
@@ -1346,13 +1388,6 @@
                         "description": "任务编号",
                         "type": "string"
                     },
-                    "not_allowed_topics": {
-                        "description": "不允许复制的topics",
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
                     "src_cluster_addresses": {
                         "description": "源集群主机地址",
                         "type": "array",
@@ -1363,13 +1398,6 @@
                     "create_time": {
                         "description": "创建时间",
                         "type": "string"
-                    },
-                    "allowed_topics": {
-                        "description": "允许复制的topics",
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
                     },
                     "src_cluster_id": {
                         "description": "源集群ID",
@@ -1412,12 +1440,39 @@
                         "type": "boolean"
                     },
                     "timed_replication_start_time": {
-                        "description": "开启定时复制的开始时间 ; 格式:时:分(如00:00，01:00）；范围（00:00-23:59）；如果开启了定时复制，默认00:00",
+                        "description": "执行周期，分钟步长效果，枚举值00、15、30、45",
                         "type": "string"
                     },
                     "timed_replication_duration": {
-                        "description": "定时复制的持续时间（多少分钟）; 范围（0<duration<1440）; 如果开启了定时复制,默认300",
+                        "description": "持续时间，默认值为 5 小时，持续时间数值大于 0 ，最大值为 23，单位是小时",
                         "type": "string"
+                    },
+                    "auto_offset_rest": {
+                        "description": "从最新或最早的数据开始复制,默认 earliest",
+                        "enum": [
+                            "earliest",
+                            "latest"
+                        ],
+                        "type": "string"
+                    },
+                    "is_open_limit_speed": {
+                        "description": "是否开启限速复制",
+                        "type": "boolean"
+                    },
+                    "limit_speed": {
+                        "description": "限速大小，单位 MB/s 或 KB/s,值必须为整数",
+                        "type": "string"
+                    },
+                    "data_source_type": {
+                        "description": "数据来源,默认是原始数据：0：原始数据，1：解析后数据，2：自定义",
+                        "type": "integer"
+                    },
+                    "allowed_topics": {
+                        "description": "topics名字列表",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
                     }
                 }
             },
@@ -1485,27 +1540,17 @@
                     "is_src_cluster_ssl",
                     "is_sink_cluster_sasl",
                     "is_sink_cluster_ssl",
-                    "is_open_timed_replication"
+                    "is_open_timed_replication",
+                    "auto_offset_reset",
+                    "is_open_limit_speed",
+                    "data_source_type",
+                    "allowed_topics"
                 ],
                 "type": "object",
                 "properties": {
                     "comment": {
                         "description": "备注",
                         "type": "string"
-                    },
-                    "allowed_topics": {
-                        "description": "允许复制的topics",
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "not_allowed_topics": {
-                        "description": "不允许复制的topics",
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
                     },
                     "sink_cluster_addresses": {
                         "description": "目标集群主机地址",
@@ -1562,12 +1607,39 @@
                         "type": "boolean"
                     },
                     "timed_replication_duration": {
-                        "description": "定时复制的持续时间（多少分钟）; 范围（0<duration<1440）; 如果开启了定时复制,默认300",
+                        "description": "持续时间，默认值为 5 小时，持续时间数值大于 0 ，最大值为 23，单位是小时",
                         "type": "integer"
                     },
                     "timed_replication_start_time": {
-                        "description": "开启定时复制的开始时间 ; 格式:时:分(如00:00，01:00）；范围（00:00-23:59）；如果开启了定时复制，默认00:00",
+                        "description": "执行周期，分钟步长效果，枚举值00、15、30、45",
                         "type": "string"
+                    },
+                    "auto_offset_reset": {
+                        "description": "最新或最早的数据开始复制,默认 earliest",
+                        "enum": [
+                            "earliest",
+                            "latest"
+                        ],
+                        "type": "string"
+                    },
+                    "is_open_limit_speed": {
+                        "description": "是否开启限速复制",
+                        "type": "boolean"
+                    },
+                    "limit_speed": {
+                        "description": "限速大小，单位 MB/s 或 KB/s,值必须为整数",
+                        "type": "string"
+                    },
+                    "allowed_topics": {
+                        "description": "topics名字列表",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "data_source_type": {
+                        "description": "数据来源,默认是原始数据：0：原始数据，1：解析后数据，2：自定义",
+                        "type": "integer"
                     }
                 }
             },
