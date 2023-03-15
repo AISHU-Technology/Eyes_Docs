@@ -1,4 +1,4 @@
-# Log
+# Log（版本2.5.0及以下老版本适用）
 
 ## 设计目标
 
@@ -273,7 +273,7 @@ git -c http.extraHeader="Authorization: Basic ${B64_PAT}" clone -b 2.1.0 https:/
 go mod edit -replace=devops.aishu.docs/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/span=<local_path>
 ```
 
-####   
+####    
 
 #### 只记录日志
 
