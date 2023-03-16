@@ -1,11 +1,22 @@
 # 版本变化
 
+## 2.6.0
+
+### 增加
+
+- 提供Golang版Log多provider，将日志器区分为系统日志和业务日志。
+
+### 变更
+
+- 升级go version为1.20，仍然兼容1.18。
+- Trace数据模型中的SpanKind修改由string修改为unint32。
+
 ## 2.5.0
 
 ### 增加
 
 - 提供Golang版Metric Exporter，支持Metric数据发送至AnyRobot。
-- 
+
 ### 变更
 
 - 删除Trace Exporter旧资源设置方式，变为统一设置服务信息方法。
@@ -36,8 +47,7 @@
 
 ### 变更
 
-- 转移文档到AnyRobot空间[Eyes_Docs](https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Eyes_Docs?path=%2F%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97%2FTelemetrySDK%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97&version=GBdevelop)
-项目
+- 转移文档到AnyRobot空间[Eyes_Docs](https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Eyes_Docs?path=%2F%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97%2FTelemetrySDK%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97&version=GBdevelop)项目
 
 ### 修复
 

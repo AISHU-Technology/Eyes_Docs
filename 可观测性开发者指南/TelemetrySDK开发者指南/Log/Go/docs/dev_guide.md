@@ -51,14 +51,17 @@ import (
 	"devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter/ar_span"
 	"devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter/ar_trace"
 	"devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter/public"
+	"devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter/resource"
 	"devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/span/encoder"
 	"devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/span/exporter"
 	"devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/span/field"
-	"devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/span/log"
+	spanLog "devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/span/log"
 	"devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/span/open_standard"
 	"devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/span/runtime"
 	"go.opentelemetry.io/otel"
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
+	"log"
+	"time"
 )
 ```
 
@@ -67,8 +70,9 @@ import (
 - 修改前
 
 ```
-func multiply(ctx context.Context, x, y int64) (context.Context, int64) {
-	//your code here
+func multiplyBefore(ctx context.Context, x, y int64) (context.Context, int64) {
+	//业务代码
+	time.Sleep(100 * time.Millisecond)
 	return ctx, x * y
 }
 ```
@@ -76,10 +80,21 @@ func multiply(ctx context.Context, x, y int64) (context.Context, int64) {
 - 修改后
 
 ```
+// multiply 增加了 Log 的计算两数之积。
 func multiply(ctx context.Context, x, y int64) (context.Context, int64) {
-    sampleLog.Info("this is a test")
-	//your code here
+	ctx, _ = ar_trace.Tracer.Start(ctx, "乘法")
+
+	numbers := []int64{x, y}
+	attr := field.NewAttribute("INTARRAY", field.MallocJsonField(numbers))
+	// ar_span.ServiceLogger 记录业务日志，并且记录自定义的业务属性信息。
+	ar_span.ServiceLogger.Info("multiply two numbers", field.WithAttribute(attr), field.WithContext(ctx))
+	// ar_span.SystemLogger 记录系统日志，同时关联Trace。
+	ar_span.SystemLogger.Fatal("This is an fatal message", field.WithContext(ctx))
+
+	//业务代码
+	time.Sleep(100 * time.Millisecond)
 	return ctx, x * y
+
 }
 ```
 
@@ -88,38 +103,42 @@ func multiply(ctx context.Context, x, y int64) (context.Context, int64) {
 **第1步**本地标准输出
 
 ```
-var sampleLog *log.SamplerLogger
+func StdoutExporterExample() {
+	public.SetServiceInfo("YourServiceName", "1.0.0", "")
 
-func main() {
-	sampleLog = log.NewDefaultSamplerLogger()
-	//logClient := public.NewHTTPClient(public.WithAnyRobotURL("http://10.4.130.68:13048/api/feed_ingester/v1/jobs/Kitty1/events"),
-	//public.WithCompression(0), public.WithTimeout(10*time.Second), public.WithRetry(true, 5*time.Second, 30*time.Second, 1*time.Minute))
-	//logExporter := ar_span.NewExporter(logClient)
-	defaultExporter := exporter.GetStdoutExporter()
-	//	output := os.Stdout
-	writer := &open_standard.OpenTelemetry{
-		Encoder:  encoder.NewJsonEncoderWithExporters(defaultExporter),
-		Resource: field.WithServiceInfo("testServiceName", "testServiceVersion", "testServiceInstanceID"),
+	// 1.初始化系统日志器，系统日志在控制台输出。
+	systemLogExporter := exporter.GetStdoutExporter()
+	systemLogWriter := &open_standard.OpenTelemetry{
+		Encoder:  encoder.NewJsonEncoderWithExporters(systemLogExporter),
+		Resource: resource.LogResource(),
 	}
-	//writer.SetDefaultResources()
-	writer.SetResourcesWithServiceInfo("testServiceName", "testServiceVersion", "testServiceInstanceID")
-	run := runtime.NewRuntime(writer, field.NewSpanFromPool)
+	systemLogRunner := runtime.NewRuntime(systemLogWriter, field.NewSpanFromPool)
+	systemLogRunner.SetUploadInternalAndMaxLog(3*time.Second, 10)
+	// 运行SystemLogger日志器。
+	go systemLogRunner.Run()
+	defer ar_span.SystemLogger.Close()
+	ar_span.SystemLogger.SetLevel(spanLog.InfoLevel)
+	ar_span.SystemLogger.SetRuntime(systemLogRunner)
 
-	run.SetUploadInternalAndMaxLog(3*time.Second, 10)
+	// 2.初始化业务日志器，业务日志仅在控制台输出。
+	serviceLogExporter := exporter.GetStdoutExporter()
+	serviceLogWriter := &open_standard.OpenTelemetry{
+		Encoder:  encoder.NewJsonEncoderWithExporters(serviceLogExporter),
+		Resource: resource.LogResource(),
+	}
+	serviceLogRunner := runtime.NewRuntime(serviceLogWriter, field.NewSpanFromPool)
+	serviceLogRunner.SetUploadInternalAndMaxLog(3*time.Second, 10)
+	// 运行ServiceLogger日志器。
+	go serviceLogRunner.Run()
+	defer ar_span.ServiceLogger.Close()
+	ar_span.ServiceLogger.SetLevel(spanLog.AllLevel)
+	ar_span.ServiceLogger.SetRuntime(serviceLogRunner)
 
-	sampleLog.SetRuntime(run)
-
-	// start runtime
-	go run.Run()
-	sampleLog.SetLevel(log.AllLevel)
-
-	//your code here
+	// 3.运行业务代码
 	ctx := context.Background()
 	otel.SetTracerProvider(sdktrace.NewTracerProvider())
-	sampleLog.Info("this is a test")
 	ctx, num := multiply(ctx, 1, 7)
 	_, _ = add(ctx, num, 8)
-	sampleLog.Close()
 }
 ```
 
@@ -134,38 +153,48 @@ func main() {
 - 将获取的上报地址作为参数传入
 
 ```
-var sampleLog *log.SamplerLogger
+func HTTPExample() {
+	public.SetServiceInfo("YourServiceName", "1.0.0", "")
+	stdoutExporter := exporter.GetStdoutExporter()
 
-func main() {
-	sampleLog = log.NewDefaultSamplerLogger()
-	logClient := public.NewHTTPClient(public.WithAnyRobotURL("https://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/events"),
-	public.WithCompression(0), public.WithTimeout(10*time.Second), public.WithRetry(true, 5*time.Second, 30*time.Second, 1*time.Minute))
-	logExporter := ar_span.NewExporter(logClient)
-	defaultExporter := exporter.GetStdoutExporter()
-	//	output := os.Stdout
-	writer := &open_standard.OpenTelemetry{
-		Encoder:  encoder.NewJsonEncoderWithExporters(defaultExporter, logExporter),
-		Resource: field.WithServiceInfo("testServiceName", "testServiceVersion", "testServiceInstanceID"),
+	// 1.初始化系统日志器，系统日志在控制台输出，同时上报到AnyRobot。
+	systemLogClient := public.NewHTTPClient(public.WithAnyRobotURL("http://127.0.0.1:8800/api/feed_ingester/v1/jobs/Kitty1/events1"),
+		public.WithCompression(0), public.WithTimeout(10*time.Second), public.WithRetry(true, 5*time.Second, 30*time.Second, 1*time.Minute))
+	systemLogExporter := ar_span.NewExporter(systemLogClient)
+	systemLogWriter := &open_standard.OpenTelemetry{
+		Encoder:  encoder.NewJsonEncoderWithExporters(systemLogExporter, stdoutExporter),
+		Resource: resource.LogResource(),
 	}
-	//writer.SetDefaultResources()
-	writer.SetResourcesWithServiceInfo("testServiceName", "testServiceVersion", "testServiceInstanceID")
-	run := runtime.NewRuntime(writer, field.NewSpanFromPool)
+	systemLogRunner := runtime.NewRuntime(systemLogWriter, field.NewSpanFromPool)
+	systemLogRunner.SetUploadInternalAndMaxLog(3*time.Second, 10)
+	// 运行SystemLogger日志器。
+	go systemLogRunner.Run()
+	defer ar_span.SystemLogger.Close()
+	ar_span.SystemLogger.SetLevel(spanLog.InfoLevel)
+	ar_span.SystemLogger.SetRuntime(systemLogRunner)
 
-	run.SetUploadInternalAndMaxLog(3*time.Second, 10)
+	// 2.初始化业务日志器，业务日志仅上报到AnyRobot，上报地址不同。
+	serviceLogClient := public.NewHTTPClient(public.WithAnyRobotURL("http://127.0.0.1:9900/api/feed_ingester/v1/jobs/Kitty2/events2"),
+		public.WithCompression(0), public.WithTimeout(10*time.Second), public.WithRetry(true, 5*time.Second, 30*time.Second, 1*time.Minute))
+	serviceLogExporter := ar_span.NewExporter(serviceLogClient)
+	serviceLogWriter := &open_standard.OpenTelemetry{
+		Encoder:  encoder.NewJsonEncoderWithExporters(serviceLogExporter),
+		Resource: resource.LogResource(),
+	}
+	serviceLogRunner := runtime.NewRuntime(serviceLogWriter, field.NewSpanFromPool)
+	serviceLogRunner.SetUploadInternalAndMaxLog(3*time.Second, 10)
+	// 运行ServiceLogger日志器。
+	go serviceLogRunner.Run()
+	defer ar_span.ServiceLogger.Close()
+	ar_span.ServiceLogger.SetLevel(spanLog.AllLevel)
+	ar_span.ServiceLogger.SetRuntime(serviceLogRunner)
 
-	sampleLog.SetRuntime(run)
-
-	// start runtime
-	go run.Run()
-	sampleLog.SetLevel(log.AllLevel)
-
-	//your code here
+	// 3.运行业务代码
 	ctx := context.Background()
 	otel.SetTracerProvider(sdktrace.NewTracerProvider())
-	sampleLog.Info("this is a test")
 	ctx, num := multiply(ctx, 1, 7)
 	_, _ = add(ctx, num, 8)
-	sampleLog.Close()
+
 }
 ```
 
