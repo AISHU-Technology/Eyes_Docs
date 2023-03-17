@@ -99,18 +99,26 @@ public class App {
                 System.out.println(resource.toString());
                 // 创建meter provider
                 PeriodicMetricReader reader = PeriodicMetricReader
-                                .builder(MetricsExporter.create(new StdSender()))
-                                .build();
+                                .builder(MetricsExporter.create(
+                                        new StdSender()                                         //导出到标准输出
+//                                        HttpSender.create("http://localhost:8080/")           //导出到Ar接收器
+                                ))
+                                .setInterval(Duration.ofDays(1)).build();
                 SdkMeterProvider sdkMeterProvider = SdkMeterProvider.builder()
                                 .registerMetricReader(reader)
                                 .setResource(resource)
                                 .build();
                 // 通过instrumentScopeName创建meter
+                List<String> testList = new ArrayList<String>();
+                testList.add("test1");
+                testList.add("test2");
                 Meter meter = sdkMeterProvider.meterBuilder(instrumentScopeName).build();
 
                 //创建通用attributes
                 Attributes attributes = Attributes.of(AttributeKey.stringKey("key.1.2"), "SomeWork",
-                                AttributeKey.stringKey("key.1.3"), "SomeWork");
+                                AttributeKey.stringKey("key.1.3"), "SomeWork",
+                                AttributeKey.booleanKey("testBool"), false,
+                                AttributeKey.stringArrayKey("testArray"), testList);
                 // 在记录单调累加数据时，创建counter计数器
                 LongCounter counter = meter.counterBuilder("http_request_count")
                                 .setDescription("测试")
