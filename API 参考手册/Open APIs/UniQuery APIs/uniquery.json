@@ -21645,6 +21645,378 @@
                 "summary": "dsl/_search/scroll/_all",
                 "description": "停止所有翻页搜索API, AnyRobot 3.0.18.7版本及以上支持"
             }
+        },
+        "/api/uniquery/v1/traces/{trace_id}": {
+            "description": "AnyRobot 5.0.1.0版本及以上支持",
+            "get": {
+                "parameters": [
+                    {
+                        "name": "ar_dataview",
+                        "description": "链路的日志分组id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TraceDetail"
+                                },
+                                "examples": {
+                                    "查询成功": {
+                                        "value": {
+                                            "trace_id": "ab4fe1de2d9c951411bbdbc3533d747f",
+                                            "trace_status": "ok",
+                                            "start_time": 1651258379114304000,
+                                            "end_time": 1651258379115123000,
+                                            "duration": 1131000,
+                                            "span_stats": {
+                                                "Ok": 0,
+                                                "Error": 0,
+                                                "Unset": 3
+                                            },
+                                            "spans": [
+                                                {
+                                                    "Name": "搜索前端服务",
+                                                    "SpanContext": {
+                                                        "TraceID": "ab4fe1de2d9c951411bbdbc3533d747f",
+                                                        "SpanID": "44c39ef193f3e08a",
+                                                        "TraceFlags": "01",
+                                                        "TraceState": {
+                                                            "rojo": "00f067aa0ba902b7",
+                                                            "congo": "t61rcWkgMzE"
+                                                        }
+                                                    },
+                                                    "Parent": {
+                                                        "TraceID": "00000000000000000000000000000000",
+                                                        "SpanID": "0000000000000000",
+                                                        "TraceFlags": "00",
+                                                        "TraceState": {
+
+                                                        }
+                                                    },
+                                                    "SpanKind": 1,
+                                                    "SpanKindDesc": "INTERNAL",
+                                                    "StartTime": 1651258378114304000,
+                                                    "EndTime": 1651258378115123000,
+                                                    "@timestamp": "2022-04-29T18:52:58.114Z",
+                                                    "Duration": 1131000,
+                                                    "Attributes": {
+                                                        "num": "45"
+                                                    },
+                                                    "Events": [
+                                                        {
+                                                            "Name": "Nice operation!",
+                                                            "Time": "1661995319100",
+                                                            "Attributes": {
+                                                                "bogons": 100
+                                                            }
+                                                        }
+                                                    ],
+                                                    "Links": [
+                                                        {
+                                                            "TraceID": "ab4fe1de2d9c951411bbdbc3533d747h",
+                                                            "SpanID": "dbff9e1d80069b59",
+                                                            "TraceState": {
+                                                                "rojo": "00f067aa0ba902b7",
+                                                                "congo": "t61rcWkgMzE"
+                                                            },
+                                                            "Attributes": {
+                                                                "num": 100
+                                                            }
+                                                        }
+                                                    ],
+                                                    "Status": {
+                                                        "Code": 0,
+                                                        "CodeDesc": "Unset",
+                                                        "Description": ""
+                                                    },
+                                                    "Resource": {
+                                                        "service": {
+                                                            "name": "web-data-manager",
+                                                            "version": "版本1.0.1"
+                                                        },
+                                                        "telemetry": {
+                                                            "sdk": {
+                                                                "language": "go",
+                                                                "name": "opentelemetry",
+                                                                "version": "1.9.0"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "Name": "uniquery服务",
+                                                    "SpanContext": {
+                                                        "TraceID": "ab4fe1de2d9c951411bbdbc3533d747f",
+                                                        "SpanID": "44c39ef193f3e08b",
+                                                        "TraceFlags": "01",
+                                                        "TraceState": {
+                                                            "rojo": "00f067aa0ba902b7",
+                                                            "congo": "t61rcWkgMzE"
+                                                        }
+                                                    },
+                                                    "Parent": {
+                                                        "TraceID": "ab4fe1de2d9c951411bbdbc3533d747f",
+                                                        "SpanID": "44c39ef193f3e08a",
+                                                        "TraceFlags": "01",
+                                                        "TraceState": {
+                                                            "rojo": "00f067aa0ba902b7",
+                                                            "congo": "t61rcWkgMzE"
+                                                        }
+                                                    },
+                                                    "SpanKind": 1,
+                                                    "SpanKindDesc": "INTERNAL",
+                                                    "StartTime": 1651258379114304000,
+                                                    "EndTime": 1651258379115123000,
+                                                    "@timestamp": "2022-04-29T18:52:59.114Z",
+                                                    "Duration": 1131000,
+                                                    "Attributes": {
+                                                        "num": "45"
+                                                    },
+                                                    "Events": [
+                                                        {
+                                                            "Name": "Nice operation!",
+                                                            "Time": "1661995319100",
+                                                            "Attributes": {
+                                                                "bogons": 100
+                                                            }
+                                                        }
+                                                    ],
+                                                    "Links": [
+                                                        {
+                                                            "TraceID": "ab4fe1de2d9c951411bbdbc3533d747h",
+                                                            "SpanID": "dbff9e1d80069b59",
+                                                            "TraceState": {
+                                                                "rojo": "00f067aa0ba902b7",
+                                                                "congo": "t61rcWkgMzE"
+                                                            },
+                                                            "Attributes": {
+                                                                "num": 100
+                                                            }
+                                                        }
+                                                    ],
+                                                    "Status": {
+                                                        "Code": 0,
+                                                        "CodeDesc": "Unset",
+                                                        "Description": ""
+                                                    },
+                                                    "Resource": {
+                                                        "service": {
+                                                            "name": "uniquery",
+                                                            "version": "5.0.0"
+                                                        },
+                                                        "telemetry": {
+                                                            "sdk": {
+                                                                "language": "go",
+                                                                "name": "opentelemetry",
+                                                                "version": "1.9.0"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "Name": "opensearch服务",
+                                                    "SpanContext": {
+                                                        "TraceID": "ab4fe1de2d9c951411bbdbc3533d747f",
+                                                        "SpanID": "44c39ef193f3e08c",
+                                                        "TraceFlags": "01",
+                                                        "TraceState": {
+                                                            "rojo": "00f067aa0ba902b7",
+                                                            "congo": "t61rcWkgMzE"
+                                                        }
+                                                    },
+                                                    "Parent": {
+                                                        "TraceID": "ab4fe1de2d9c951411bbdbc3533d747f",
+                                                        "SpanID": "44c39ef193f3e08b",
+                                                        "TraceFlags": "01",
+                                                        "TraceState": {
+                                                            "rojo": "00f067aa0ba902b7",
+                                                            "congo": "t61rcWkgMzE"
+                                                        }
+                                                    },
+                                                    "SpanKind": 1,
+                                                    "SpanKindDesc": "INTERNAL",
+                                                    "StartTime": 1651258380114304000,
+                                                    "EndTime": 1651258380115123000,
+                                                    "@timestamp": "2022-04-29T18:53:00.114Z",
+                                                    "Duration": 1131000,
+                                                    "Attributes": {
+                                                        "num": "45"
+                                                    },
+                                                    "Events": [
+                                                        {
+                                                            "Name": "Nice operation!",
+                                                            "Time": "1661995319100",
+                                                            "Attributes": {
+                                                                "bogons": 100
+                                                            }
+                                                        }
+                                                    ],
+                                                    "Links": [
+                                                        {
+                                                            "TraceID": "ab4fe1de2d9c951411bbdbc3533d747h",
+                                                            "SpanID": "dbff9e1d80069b59",
+                                                            "TraceState": {
+                                                                "rojo": "00f067aa0ba902b7",
+                                                                "congo": "t61rcWkgMzE"
+                                                            },
+                                                            "Attributes": {
+                                                                "num": 100
+                                                            }
+                                                        }
+                                                    ],
+                                                    "Status": {
+                                                        "Code": 0,
+                                                        "CodeDesc": "Unset",
+                                                        "Description": ""
+                                                    },
+                                                    "Resource": {
+                                                        "service": {
+                                                            "name": "opensearch",
+                                                            "version": "1.3.1"
+                                                        },
+                                                        "telemetry": {
+                                                            "sdk": {
+                                                                "language": "go",
+                                                                "name": "opentelemetry",
+                                                                "version": "1.9.0"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ],
+                                            "services": [
+                                                {
+                                                    "name": "web-data-manager",
+                                                    "version": "1.0.0"
+                                                },
+                                                {
+                                                    "name": "opensearch",
+                                                    "version": "1.3.1"
+                                                },
+                                                {
+                                                    "name": "uniquery",
+                                                    "version": "5.0.0"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "查询成功"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UniqueryErrorCode"
+                                },
+                                "examples": {
+                                    "指定的日志分组ID未传入": {
+                                        "value": {
+                                            "error_code": "Uniquery.MissingParameter.ARDataView",
+                                            "description": "指定的日志分组ID未传入",
+                                            "error_details": "some text",
+                                            "error_link": "None",
+                                            "solution": "请您传入正确的参数。"
+                                        }
+                                    },
+                                    "指定的日志分组不存在": {
+                                        "value": {
+                                            "error_code": "Uniquery.NoSuchARDataView",
+                                            "description": "指定的日志分组不存在",
+                                            "error_details": "some text",
+                                            "error_link": "None",
+                                            "solution": "请您传入正确的参数。"
+                                        }
+                                    },
+                                    "指定的日志分组无效": {
+                                        "value": {
+                                            "error_code": "Uniquery_InvalidParameter_ARDataView",
+                                            "description": "指定的日志分组无效",
+                                            "error_details": "some text",
+                                            "error_link": "None",
+                                            "solution": "请您传入正确的参数。"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UniqueryErrorCode"
+                                },
+                                "examples": {
+                                    "链路数据不存在": {
+                                        "value": {
+                                            "error_code": "Uniquery.TraceNotFound",
+                                            "description": "指定的链路不存在",
+                                            "error_details": "some text",
+                                            "error_link": "None",
+                                            "solution": "请您检查参数是否正确。"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "链路数据未找到"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UniqueryErrorCode"
+                                },
+                                "examples": {
+                                    "服务器内部错误": {
+                                        "value": {
+                                            "error_code": "Uniquery.InternalError",
+                                            "description": "服务器内部错误",
+                                            "error_details": "some text",
+                                            "error_link": "None",
+                                            "solution": "请重试该操作，若再次出现该错误请提交工单或联系技术支持工程师。"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "内部错误"
+                    }
+                },
+                "summary": "traces/{trace_id}",
+                "description": "查看单条trace数据详情, AnyRobot 5.0.1.0版本及以上支持"
+            },
+            "parameters": [
+                {
+                    "name": "trace_id",
+                    "description": "链路id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "path",
+                    "required": true
+                },
+                {
+                    "name": "ar_dataview",
+                    "description": "日志分组id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "query",
+                    "required": true
+                }
+            ]
         }
     },
     "components": {
@@ -21747,6 +22119,215 @@
                     "status": "error",
                     "errorType": "timeout",
                     "error": "query timed out in expression evaluation"
+                }
+            },
+            "UniqueryErrorCode": {
+                "description": "",
+                "required": [
+                    "description",
+                    "error_code",
+                    "error_detail",
+                    "error_link",
+                    "solution"
+                ],
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "description": "错误描述",
+                        "type": "string"
+                    },
+                    "error_code": {
+                        "description": "错误码",
+                        "type": "string"
+                    },
+                    "error_detail": {
+                        "description": "错误详情",
+                        "type": "string"
+                    },
+                    "error_link": {
+                        "description": "错误链接",
+                        "type": "string"
+                    },
+                    "solution": {
+                        "description": "处理建议",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "description": "some text",
+                    "error_code": "some text",
+                    "error_detail": "some text",
+                    "error_link": "some text",
+                    "solution": "some text"
+                }
+            },
+            "SpanDetail": {
+                "description": "span原始数据",
+                "required": [
+                    "Name",
+                    "SpanContext.TraceID",
+                    "SpanContext.SpanID",
+                    "SpanContext.TraceFlags",
+                    "SpanContext.TraceState",
+                    "Parent.TraceID",
+                    "Parent.SpanID",
+                    "Parent.TraceFlags",
+                    "Parent.TraceState",
+                    "SpanKind",
+                    "StartTime",
+                    "EndTime",
+                    "@timestamp",
+                    "Duration",
+                    "Attributes",
+                    "Events",
+                    "Links",
+                    "Status.Code",
+                    "Status.Description",
+                    "Resource",
+                    "Status.CodeDesc",
+                    "SpanKindDesc"
+                ],
+                "type": "object",
+                "properties": {
+                    "Name": {
+                        "description": "span名称",
+                        "type": "string"
+                    },
+                    "SpanContext.TraceID": {
+                        "description": "trace id",
+                        "type": "string"
+                    },
+                    "SpanContext.SpanID": {
+                        "description": "span id",
+                        "type": "string"
+                    },
+                    "SpanContext.TraceFlags": {
+                        "description": "W3C Trace Flags",
+                        "type": "string"
+                    },
+                    "SpanContext.TraceState": {
+                        "description": "系统特定的配置数据, 键值对列表",
+                        "type": "map"
+                    },
+                    "Parent.TraceID": {
+                        "description": "父trace id",
+                        "type": "string"
+                    },
+                    "Parent.SpanID": {
+                        "description": "父span id",
+                        "type": "string"
+                    },
+                    "Parent.TraceFlags": {
+                        "description": "W3C Trace Flags",
+                        "type": "string"
+                    },
+                    "Parent.TraceState": {
+                        "description": "系统特定的配置数据, 键值对列表",
+                        "type": "map"
+                    },
+                    "SpanKind": {
+                        "description": "描述在一次追踪中Span及其父子之间的关系",
+                        "type": "integer"
+                    },
+                    "SpanKindDesc": {
+                        "description": "对SpanKind字段的翻译",
+                        "type": "string"
+                    },
+                    "StartTime": {
+                        "description": "开始时间, Unix纳秒时间戳",
+                        "type": "integer"
+                    },
+                    "EndTime": {
+                        "description": "结束时间, Unix纳秒时间戳",
+                        "type": "integer"
+                    },
+                    "@timestamp": {
+                        "description": "opensearch时间戳",
+                        "type": "string"
+                    },
+                    "Duration": {
+                        "description": "耗时, 单位为纳秒",
+                        "type": "integer"
+                    },
+                    "Attributes": {
+                        "description": "业务属性",
+                        "type": "map"
+                    },
+                    "Events": {
+                        "description": "结构化日志消息",
+                        "type": "array"
+                    },
+                    "Links": {
+                        "description": "关联链路",
+                        "type": "array"
+                    },
+                    "Status.Code": {
+                        "description": "span状态, 值为0,1,2",
+                        "type": "int"
+                    },
+                    "Status.CodeDesc": {
+                        "description": "对Status.Code字段的翻译, Status.Code=0对应Unset, Status.Code=1对应Error, Status.Code=2对应Ok",
+                        "type": "string"
+                    },
+                    "Status.Description": {
+                        "description": "状态描述",
+                        "type": "string"
+                    },
+                    "Resource": {
+                        "description": "系统进程属性",
+                        "type": "map"
+                    }
+                }
+            },
+            "TraceDetail": {
+                "description": "单条trace详情",
+                "required": [
+                    "trace_id",
+                    "trace_status",
+                    "start_time",
+                    "end_time",
+                    "duration",
+                    "span_stats",
+                    "spans",
+                    "services"
+                ],
+                "type": "object",
+                "properties": {
+                    "trace_id": {
+                        "description": "trace id",
+                        "type": "string"
+                    },
+                    "trace_status": {
+                        "description": "trace状态, 值为ok或error",
+                        "type": "string"
+                    },
+                    "start_time": {
+                        "description": "整条trace的开始时间, Unix纳秒时间戳",
+                        "type": "integer"
+                    },
+                    "end_time": {
+                        "description": "整条trace的结束时间, Unix纳秒时间戳",
+                        "type": "integer"
+                    },
+                    "duration": {
+                        "description": "整条链路的耗时, 单位是纳秒",
+                        "type": "integer"
+                    },
+                    "spans": {
+                        "description": "span原始数据组成的集合",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SpanDetail"
+                        }
+                    },
+                    "services": {
+                        "description": "trace涉及到服务信息统计",
+                        "type": "array"
+                    },
+                    "span_stats": {
+                        "description": "span状态统计, 包括Ok, Error, Unset三种状态",
+                        "type": "map"
+                    }
                 }
             }
         }
