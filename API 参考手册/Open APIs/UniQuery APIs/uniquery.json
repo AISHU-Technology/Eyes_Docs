@@ -21893,16 +21893,13 @@
                                             ],
                                             "services": [
                                                 {
-                                                    "name": "web-data-manager",
-                                                    "version": "1.0.0"
+                                                    "name": "web-data-manager"
                                                 },
                                                 {
-                                                    "name": "opensearch",
-                                                    "version": "1.3.1"
+                                                    "name": "opensearch"
                                                 },
                                                 {
-                                                    "name": "uniquery",
-                                                    "version": "5.0.0"
+                                                    "name": "uniquery"
                                                 }
                                             ]
                                         }
@@ -22315,10 +22312,7 @@
                     },
                     "spans": {
                         "description": "span原始数据组成的集合",
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/SpanDetail"
-                        }
+                        "type": "array"
                     },
                     "services": {
                         "description": "trace涉及到服务信息统计",
