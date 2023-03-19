@@ -82,6 +82,12 @@ public static int add(int a,int b){
     return res;
 }
 ```
+
+- (可选)通过回调函数的方式记录数据
+```
+
+```
+
 ### 上报指标数据到AnyRobot
 **第1步** 本地调试
 ```
@@ -164,10 +170,24 @@ public class App {
 ```
 //在初始化reader时使用httpSender或者httpsSender以切换http发送或者https发送
 PeriodicMetricReader reader = PeriodicMetricReader.builder(MetricsExporter.create(HttpSender.create("发送地址",null, true, 10))).build();
+```
+- (可选)(http发送器专用)改变重发逻辑
+```
+import cn.aishu.exporter.common.output.Retry
 
 //通过传入Retry对象的方式可改变默认的重试规则
 PeriodicMetricReader reader = PeriodicMetricReader.builder(MetricsExporter.create(HttpSender.create("发送地址",Retry.create(true, 2, 10, 20), true, 10))).build();
+//true:指启用重发逻辑
+//2:第一次重发与上一次发送的时间间隔,单位是秒(s)
+//10:两次重发的最长时间间隔:单位是秒(s)
+//20:重发最长持续的时间:单位是秒(s)
+```
 
+- (可选)设置采集时间间隔
+```
+//修改reader的builder过程修改采集时间间隔
+//修改采集时间间隔为一天
+PeriodicMetricReader reader = PeriodicMetricReader.builder(MetricsExporter.create(HttpSender.create("发送地址",Retry.create(true, 2, 10, 20), true, 10))).setInterval(Duration.ofDays(1)).build();
 ```
 
 
