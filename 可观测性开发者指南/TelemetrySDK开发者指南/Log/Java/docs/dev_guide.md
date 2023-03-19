@@ -20,10 +20,10 @@ Logger
 <dependency>
     <groupId>cn.aishu</groupId>
     <artifactId>TelemetrySDK-Logger</artifactId>
-    <version>2.2.3</version>
+    <version>1.0.0</version>
     <type>jar</type>
     <scope>system</scope>
-    <systemPath>${project.basedir}/opentelemetry-exporter-ar-trace-2.2.3-jar-with-dependencies.jar</systemPath>
+    <systemPath>${project.basedir}/opentelemetry-exporter-ar-trace-1.0.0-jar-with-dependencies.jar</systemPath>
 </dependency>
 ```
 
