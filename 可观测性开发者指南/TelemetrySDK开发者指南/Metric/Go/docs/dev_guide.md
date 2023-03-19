@@ -151,4 +151,4 @@ func main() {
 }
 ```
 
-## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python?version=GB2.2.0&path=/exporter/ar_metric/examples/one_service.py)
+## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?path=%2Fexporter%2Far_metric%2Fexamples%2Fone_service.go&version=GBmaster&_a=contents)
