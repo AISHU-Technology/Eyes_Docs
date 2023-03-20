@@ -15,8 +15,7 @@ Logger
   opentelemetry-exporter-ar-log-1.0.0-jar-with-dependencies.jar   //大包，包含了所有依赖包，包括opentelemetry-exporter-common
 ```
 
-#### 1.1 最加单的使用方法：对于没有maven本地仓库的情况，把log大包（opentelemetry-exporter-ar-log-1.0.0-jar-with-dependencies.jar）
-  放在与项目src同级目录，用以下方法引用。使用导入本地jar文件的方式引入包，这样可以在离线环境下使用
+#### 1.1 最加单的使用方法：对于没有maven本地仓库的情况，把log大包（opentelemetry-exporter-ar-log-1.0.0-jar-with-dependencies.jar）放在与项目src同级目录，用以下方法引用。使用导入本地jar文件的方式引入包，这样可以在离线环境下使用
 ```
 <dependency>
     <groupId>cn.aishu</groupId>
@@ -24,7 +23,7 @@ Logger
     <version>1.0.0</version>
     <type>jar</type>
     <scope>system</scope>
-    <systemPath>${project.basedir}/opentelemetry-exporter-ar-trace-1.0.0-jar-with-dependencies.jar</systemPath>
+    <systemPath>${project.basedir}/opentelemetry-exporter-ar-log-1.0.0-jar-with-dependencies.jar</systemPath>
 </dependency>
 ```
 
