@@ -5,21 +5,22 @@
 Logger
 - 查看SDK[兼容列表](../../../docs/compatibility.md)，检查待埋点业务代码的Java版本是否符合要求。
 - 在pom.xml中引入相应版本的sdk包
+-
+-  opentelemetry-exporter-ar-log组件 需要依赖 opentelemetry-exporter-common组件
+-  我们一共提供了有四个包：
 ```
-<dependency>
-        <groupId>cn.aishu</groupId>
-        <artifactId>opentelemetry-exporter-ar-log</artifactId>
-        <version>1.0.0</version>
-        //离线模式下，需要把sdk的依赖加进来：<classifier>jar-with-dependencies</classifier>
-    </dependency>
+  opentelemetry-exporter-common-1.0.0.jar //小包，需要有maven仓库下载其它第三方包，如io.opentelemetry
+  opentelemetry-exporter-common-1.0.0-jar-with-dependencies.jar //大包，包含了所有依赖包
+  opentelemetry-exporter-ar-log-1.0.0.jar //小包，需要有maven仓库下载其它第三方包，如io.opentelemetry
+  opentelemetry-exporter-ar-log-1.0.0-jar-with-dependencies.jar   //大包，包含了所有依赖包，包括opentelemetry-exporter-common
 ```
-- 对于没有maven本地仓库的情况，把两个jar包（TelemetrySDK-Logger-1.0.0.jar
-  与 opentelemetry-exporter-ar-trace-1.0.0-jar-with-dependencies.jar）
+
+#### 1.1 最加单的使用方法：对于没有maven本地仓库的情况，把log大包（opentelemetry-exporter-ar-log-1.0.0-jar-with-dependencies.jar）
   放在与项目src同级目录，用以下方法引用。使用导入本地jar文件的方式引入包，这样可以在离线环境下使用
 ```
 <dependency>
     <groupId>cn.aishu</groupId>
-    <artifactId>TelemetrySDK-Logger</artifactId>
+    <artifactId>opentelemetry-exporter-ar-log</artifactId>
     <version>1.0.0</version>
     <type>jar</type>
     <scope>system</scope>
@@ -27,6 +28,38 @@ Logger
 </dependency>
 ```
 
+#### 1.2  对于有maven仓库,并且可以连外网拉第三方库的情况：
+- 把 opentelemetry-exporter-common-1.0.0.jar 和 opentelemetry-exporter-ar-log-1.0.0.jar 上传的maven仓库， 然后在pom.xml里引用：
+```
+<dependency>
+    <groupId>cn.aishu</groupId>
+    <artifactId>opentelemetry-exporter-common</artifactId>
+    <version>1.0.0</version>
+</dependency>
+
+<dependency>
+    <groupId>cn.aishu</groupId>
+    <artifactId>opentelemetry-exporter-ar-log</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+#### 1.3  对于有maven仓库,但不可以连外网拉第三方库的情况：
+- 把 opentelemetry-exporter-common-1.0.0-jar-with-dependencies.jar 和 opentelemetry-exporter-ar-log-1.0.0.jar 上传的maven仓库， 然后在pom.xml里引用：
+```
+<dependency>
+    <groupId>cn.aishu</groupId>
+    <artifactId>opentelemetry-exporter-common</artifactId>
+    <version>1.0.0</version>
+    <classifier>jar-with-dependencies</classifier>
+</dependency>
+
+<dependency>
+    <groupId>cn.aishu</groupId>
+    <artifactId>opentelemetry-exporter-ar-log</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
 
 
 ## 使用TelemetrySDK-Logger
