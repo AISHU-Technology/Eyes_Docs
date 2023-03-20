@@ -13,17 +13,17 @@ Logger
         //离线模式下，需要把sdk的依赖加进来：<classifier>jar-with-dependencies</classifier>
     </dependency>
 ```
-- 对于没有maven本地仓库的情况，把两个jar包（TelemetrySDK-Logger-1.0.0.jar
-  与 opentelemetry-exporter-ar-trace-1.0.0-jar-with-dependencies.jar）
+- 对于没有maven本地仓库的情况，把两个jar包（opentelemetry-exporter-ar-log-1.0.0.jar
+  与 opentelemetry-exporter-ar-log-1.0.0-jar-with-dependencies.jar）
   放在与项目src同级目录，用以下方法引用。使用导入本地jar文件的方式引入包，这样可以在离线环境下使用
 ```
 <dependency>
     <groupId>cn.aishu</groupId>
-    <artifactId>TelemetrySDK-Logger</artifactId>
+    <artifactId>opentelemetry-exporter-ar-log</artifactId>
     <version>1.0.0</version>
     <type>jar</type>
     <scope>system</scope>
-    <systemPath>${project.basedir}/opentelemetry-exporter-ar-trace-1.0.0-jar-with-dependencies.jar</systemPath>
+    <systemPath>${project.basedir}/opentelemetry-exporter-ar-log-1.0.0-jar-with-dependencies.jar</systemPath>
 </dependency>
 ```
 
