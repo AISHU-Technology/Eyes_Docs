@@ -15,7 +15,7 @@ Trace
   opentelemetry-exporter-ar-trace-1.0.0-jar-with-dependencies.jar   //大包，包含了所有依赖包，包括opentelemetry-exporter-common
 ```
 
-#### 1.1 最加单的使用方法：对于没有maven本地仓库的情况，把trace大包（opentelemetry-exporter-ar-trace-1.0.0-jar-with-dependencies.jar）放在与项目src同级目录，用以下方法引用。使用导入本地jar文件的方式引入包，这样可以在离线环境下使用
+#### 1.1 最简单的使用方法：对于没有maven本地仓库的情况，把trace大包（opentelemetry-exporter-ar-trace-1.0.0-jar-with-dependencies.jar）放在与项目src同级目录，用以下方法引用。使用导入本地jar文件的方式引入包，这样可以在离线环境下使用
 ```
 <dependency>
     <groupId>cn.aishu</groupId>
@@ -60,7 +60,7 @@ Trace
 </dependency>
 ```
 
-## 使用TelemetrySDK-Trace(Java) 
+## 使用TelemetrySDK-Trace(Java)
 以实际使用为准。
 ```
 import cn.aishu.exporter.ar_trace.ArExporter;
@@ -85,7 +85,7 @@ public class TraceExporterTest {
                 SdkTracerProvider.builder()
                           //1. 导出到标准输出
                         .addSpanProcessor(SimpleSpanProcessor.create(new ArExporter()))
-                        
+
                           //2. 导出到AnyRobot:注意切换到对应地址：
 //                        .addSpanProcessor(SimpleSpanProcessor.create(ArExporter.create(
 //                                HttpSender.create("http://10.4.15.62/api/feed_ingester/v1/jobs/job-0988e01371fd21c9/events"))))

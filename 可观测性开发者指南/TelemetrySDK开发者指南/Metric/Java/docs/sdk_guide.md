@@ -104,10 +104,15 @@ LongUpDownCounter upDownCounter = meter.upDownCounterBuilder("queue_size")//指�
 ```
 由于注册的类型为增减计数器，因此生成的Metric数据中单调性一栏会为False
 
+
 ### 进行指标的记录
 ```
 //可传入指定的attributes，记录额外的label信息
 upDownCounter.add(10, attributes);
 upDownCounter.add(-5, attributes);
 ```
+
+### 使用Instrumentation的场合
+
+
 

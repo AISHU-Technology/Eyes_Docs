@@ -4,6 +4,7 @@
 **第1步** 检查版本兼容性
 Metric
 - 查看SDK[兼容列表](../../../docs/compatibility.md)，检查待埋点业务代码的Java版本是否符合要求。
+
 - 在pom.xml中引入相应版本的sdk包
 ```
 <dependency>
@@ -11,18 +12,26 @@ Metric
     <artifactId>opentelemetry-sdk-metrics</artifactId>
     <version>1.23.1</version>
 </dependency>
-<dependency>
-    <groupId>io.opentelemetry</groupId>
-    <artifactId>opentelemetry-api</artifactId>
-    <version>1.23.1</version>
-</dependency>
 ```
 ## 导入Metric Exporter
+
+-  opentelemetry-exporter-ar-metric组件 需要依赖 opentelemetry-exporter-common组件
+### 一共提供了四个包，用于应对不同的maven部署情况：
+- opentelemetry-exporter-common-1.0.0.jar //小包，需要有maven仓库下载其它第三方包，如io.opentelemetry
+-   opentelemetry-exporter-common-1.0.0-jar-with-dependencies.jar //大包，包含了所有依赖包
+-  opentelemetry-exporter-ar-metric-1.0.0.jar //小包，需要有maven仓库下载其它第三方包，如io.opentelemetry
+-  opentelemetry-exporter-ar-metric-1.0.0-jar-with-dependencies.jar   //大包，包含了所有依赖包，包括opentelemetry-exporter-common
+
 - 在pom.xml中引入包
 ```
 <dependency>
     <groupId>cn.aishu</groupId>
     <artifactId>opentelemetry-metrics-exporter</artifactId>
+    <version>1.0.0</version>
+</dependency>
+<dependency>
+    <groupId>cn.aishu</groupId>
+    <artifactId>opentelemetry-exporter-common</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```
@@ -33,10 +42,11 @@ Metric
     <artifactId>opentelemetry-metrics-exporter</artifactId>
     <version>1.0.0</version>
     <type>jar</type>
-    <scope>system</scope>
-    <systemPath>${project.basedir}/opentelemetry-metrics-exporter-1.0.0-jar-with-dependencies.jar</systemPath>
+    <scope>stystem</scope>
+    <systemPath>解压包所在地址</systemPath>
 </dependency>
 ```
+- 当使用这种依赖方式时，如果在这个基础上将自己的代码打包到其他机器上运行会导致问题，因此建议最好还是通过本地maven仓库进行引入
 
 ## 使用TelemetrySDK-Metric(Java)进行代码埋点生产指标数据
 **第1步** 新增依赖：以下为新增汇总，以实际使用为准。
