@@ -80,6 +80,14 @@ func multiplyBefore(ctx context.Context, x, y int64) (context.Context, int64) {
 - 修改后
 
 ```
+// 定义一组全局变量
+// SystemLogger 程序日志记录器，使用异步发送模式，无返回值。
+var SystemLogger = spanLog.NewSamplerLogger(spanLog.WithSample(1.0), spanLog.WithLevel(spanLog.InfoLevel))
+// ServiceLogger 业务日志记录器，使用同步发送模式，有返回值，返回error=nil代表发送成功，返回error!=nil代表发送失败。
+var ServiceLogger = spanLog.NewSyncLogger(spanLog.WithLevel(spanLog.AllLevel))
+```
+
+```
 // multiply 增加了 Log 的计算两数之积。
 func multiply(ctx context.Context, x, y int64) (context.Context, int64) {
 	ctx, _ = ar_trace.Tracer.Start(ctx, "乘法")
