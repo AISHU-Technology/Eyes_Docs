@@ -162,10 +162,11 @@ public class App {
                                 .setResource(resource)
                                 .build();
                 // 通过instrumentScopeName创建meter
+                Meter meter = sdkMeterProvider.meterBuilder(instrumentScopeName).build();
+
                 List<String> testList = new ArrayList<String>();
                 testList.add("test1");
                 testList.add("test2");
-                Meter meter = sdkMeterProvider.meterBuilder(instrumentScopeName).build();
 
                 //创建通用attributes
                 Attributes attributes = Attributes.of(AttributeKey.stringKey("key.1.2"), "SomeWork",
