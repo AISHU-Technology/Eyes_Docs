@@ -15,6 +15,7 @@ Logger
   opentelemetry-exporter-ar-log-1.0.0-jar-with-dependencies.jar   //大包，包含了所有依赖包，包括opentelemetry-exporter-common
 ```
 
+### 导包方法（根据部署环境选择以下三种方法的一种即可）
 #### 1.1 最佳实践：【离线环境下可以使用】
 ###### 1.1.1 把log大包（opentelemetry-exporter-ar-log-1.0.0-jar-with-dependencies.jar）用以下命令安装到maven仓库：【注意：-Dfile指定jar包的地址填写正确。】
 - mvn install:install-file -Dfile=D:/jar/opentelemetry-exporter-ar-log-1.0.0-jar-with-dependencies.jar -DgroupId=cn.aishu -DartifactId=opentelemetry-exporter-ar-log -Dversion=1.0.0 -Dpackaging=jar
