@@ -78,11 +78,45 @@ Logger
     <artifactId>opentelemetry-exporter-common</artifactId>
     <version>1.0.0</version>
 </dependency>
-
 <dependency>
     <groupId>cn.aishu</groupId>
     <artifactId>opentelemetry-exporter-ar-log</artifactId>
     <version>1.0.0</version>
+</dependency>
+<dependency>
+    <groupId>cn.hutool</groupId>
+    <artifactId>hutool-all</artifactId>
+    <version>5.8.14</version>
+</dependency>
+<dependency>
+    <groupId>cn.hutool</groupId>
+    <artifactId>hutool-core</artifactId>
+    <version>5.8.14</version>
+</dependency>
+<dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+    <version>2.10.1</version>
+</dependency>
+<dependency>
+    <groupId>io.opentelemetry</groupId>
+    <artifactId>opentelemetry-sdk</artifactId>
+    <version>1.23.1</version>
+</dependency>
+<dependency>
+    <groupId>ch.qos.logback</groupId>
+    <artifactId>logback-core</artifactId>
+    <version>1.2.3</version>
+</dependency>
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>1.7.30</version>
+</dependency>
+<dependency>
+    <groupId>ch.qos.logback</groupId>
+    <artifactId>logback-classic</artifactId>
+    <version>1.2.3</version>
 </dependency>
 ```
 
