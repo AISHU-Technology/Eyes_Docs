@@ -229,3 +229,7 @@ Logger
         //或
         https.url=https://10.4.15.62/api/feed_ingester/v1/jobs/job-0e87b9ed98e52c30/events
 
+    //5.1用logback方式发送log:
+        SamplerLogConfig.setSender(LogbackSender.create());
+        final Logger logger = LoggerFactory.getLogger(this.getClass());  //生成日志实例
+        logger.info("test");                                        //生成info级别的字符串日志：test
