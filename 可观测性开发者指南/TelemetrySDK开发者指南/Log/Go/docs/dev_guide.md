@@ -199,4 +199,18 @@ func HTTPExample() {
 }
 ```
 
+### 补充说明
+
+使用异步模式上报Log数据可以配置多个上报地址，例如encoder.NewJsonEncoderWithExporters(systemLogExporter, stdoutExporter)。
+
+使用同步模式上报Log数据只能配置一个地址，例如encoder.NewSyncEncoder(serviceLogExporter)。
+
+如果同步模式需要上报到多个目的地，需要创建并初始化多个SyncLogger，例如：
+
+var ServiceLogger1 = spanLog.NewSyncLogger()
+
+var ServiceLogger2 = spanLog.NewSyncLogger()
+
+var ServiceLogger3 = spanLog.NewSyncLogger()
+
 ## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?version=GB2.6.0&path=/exporter/ar_span/examples/oneservice.go)
