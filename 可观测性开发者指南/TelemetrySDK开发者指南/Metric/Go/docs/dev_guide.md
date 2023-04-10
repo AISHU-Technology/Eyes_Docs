@@ -67,7 +67,7 @@ import (
 
 ```
 func multiply(ctx context.Context, x, y int64) (context.Context, int64) {
-	//your code here
+	// 业务代码
 	return ctx, x * y
 }
 ```
@@ -85,7 +85,7 @@ func multiply(ctx context.Context, x, y int64) (context.Context, int64) {
 	}
 	_ = ar_metric.Meter.RegisterCallback([]instrument.Asynchronous{gauge}, gaugeTest)
 
-	//your code here
+	// 业务代码
 	return ctx, x * y
 }
 ```
@@ -99,7 +99,7 @@ func main() {
 	ctx := context.Background()
 	metricClient := public.NewStdoutClient("./AnyRobotMetric.txt")
 	metricExporter := ar_metric.NewExporter(metricClient)
-	public.SetServiceInfo("YourServiceName", "1.0.0", "")
+	public.SetServiceInfo("YourServiceName", "1.0.0", "983d7e1d5e8cda64")
 	metricProvider := sdkmetric.NewMeterProvider(
 		sdkmetric.WithReader(sdkmetric.NewPeriodicReader(metricExporter, sdkmetric.WithInterval(10*time.Second), sdkmetric.WithTimeout(10*time.Second))),
 		sdkmetric.WithResource(ar_metric.MetricResource()),
@@ -109,11 +109,12 @@ func main() {
 			log.Println(err)
 		}
 	}()
-	ar_metric.Meter = metricProvider.Meter(version.MetricInstrumentationName, metric.WithSchemaURL(version.MetricInstrumentationURL), metric.WithInstrumentationVersion(version.MetricInstrumentationVersion))
-	
-	//your code here
-	ctx, num := multiply(ctx, 2, 3)
+	ar_metric.Meter = metricProvider.Meter(version.MetricInstrumentationName, metric.WithSchemaURL(version.MetricInstrumentationURL), metric.WithInstrumentationVersion(version.TelemetrySDKVersion))
+
+	// 业务代码
+	ctx, num := add(ctx, 2, 8)
 	ctx, num = multiply(ctx, num, 7)
+	log.Println(result, num)
 }
 ```
 
@@ -130,10 +131,11 @@ func main() {
 ```
 func main() {
 	ctx := context.Background()
+	// metricClient := public.NewStdoutClient("./AnyRobotMetric.txt")
 	metricClient := public.NewHTTPClient(public.WithAnyRobotURL("http://127.0.0.1/api/feed_ingester/v1/jobs/job-983d7e1d5e8cda64/events"),
 		public.WithCompression(1), public.WithTimeout(10*time.Second), public.WithRetry(true, 5*time.Second, 30*time.Second, 1*time.Minute))
 	metricExporter := ar_metric.NewExporter(metricClient)
-	public.SetServiceInfo("YourServiceName", "1.0.0", "")
+	public.SetServiceInfo("YourServiceName", "1.0.0", "983d7e1d5e8cda64")
 	metricProvider := sdkmetric.NewMeterProvider(
 		sdkmetric.WithReader(sdkmetric.NewPeriodicReader(metricExporter, sdkmetric.WithInterval(10*time.Second), sdkmetric.WithTimeout(10*time.Second))),
 		sdkmetric.WithResource(ar_metric.MetricResource()),
@@ -143,11 +145,12 @@ func main() {
 			log.Println(err)
 		}
 	}()
-	ar_metric.Meter = metricProvider.Meter(version.MetricInstrumentationName, metric.WithSchemaURL(version.MetricInstrumentationURL), metric.WithInstrumentationVersion(version.MetricInstrumentationVersion))
-	
-	//your code here
-	ctx, num := multiply(ctx, 2, 3)
+	ar_metric.Meter = metricProvider.Meter(version.MetricInstrumentationName, metric.WithSchemaURL(version.MetricInstrumentationURL), metric.WithInstrumentationVersion(version.TelemetrySDKVersion))
+
+	// 业务代码
+	ctx, num := add(ctx, 2, 8)
 	ctx, num = multiply(ctx, num, 7)
+	log.Println(result, num)
 }
 ```
 

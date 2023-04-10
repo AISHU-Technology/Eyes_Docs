@@ -19,10 +19,10 @@ go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/eve
 
 **第4步**(可选)更新TelemetrySDK-Event(Go)
 
-- 查看Telemetry[版本列表](../../../docs/compatibility.md)，选择希望引入的版本，例如v2.5.0，替换末尾的版本号重新执行命令。
+- 查看Telemetry[版本列表](../../../docs/compatibility.md)，选择希望引入的版本，例如v2.6.0，替换末尾的版本号重新执行命令。
 
 ```
-go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/event@2.5.0
+go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/event@2.6.0
 ```
 
 ## 导入Event Exporter
@@ -48,11 +48,16 @@ go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exp
 ```
 import (
 	"context"
+	"log"
+	"time"
+
 	"devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/event/eventsdk"
 	"devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter/ar_event"
 	"devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter/ar_trace"
 	"devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter/public"
-	"log"
+	"go.opentelemetry.io/otel"
+	sdktrace "go.opentelemetry.io/otel/sdk/trace"
+	"go.opentelemetry.io/otel/trace"
 )
 ```
 
@@ -62,7 +67,7 @@ import (
 
 ```
 func multiply(ctx context.Context, x, y int64) (context.Context, int64) {
-	//your code here
+	// 业务代码
 	return ctx, x * y
 }
 ```
@@ -73,7 +78,7 @@ func multiply(ctx context.Context, x, y int64) (context.Context, int64) {
 func multiply(ctx context.Context, x, y int64) (context.Context, int64) {
 	eventsdk.Info("eventData")
 
-	//your code here
+	// 业务代码
 	return ctx, x * y
 }
 ```
@@ -86,9 +91,8 @@ func multiply(ctx context.Context, x, y int64) (context.Context, int64) {
 func main() {
 	ctx := context.Background()
 	eventClient := public.NewStdoutClient("./AnyRobotEvent.txt")
-	//eventClient := public.NewHTTPClient(public.WithAnyRobotURL("http://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/events"))
 	eventExporter := ar_event.NewExporter(eventClient)
-	public.SetServiceInfo("YourServiceName", "1.0.0", "")
+	public.SetServiceInfo("YourServiceName", "1.0.0", "983d7e1d5e8cda64")
 	eventProvider := eventsdk.NewEventProvider(eventsdk.Exporters(eventExporter), ar_event.EventResource())
 	eventsdk.SetEventProvider(eventProvider)
 
@@ -98,9 +102,10 @@ func main() {
 		}
 	}()
 
-	//your code here
-	ctx, num := multiply(ctx, 2, 3)
-	ctx, num = multiply(ctx, num, 7)
+	// 业务代码
+	ctx, num := multiply(ctx, 1, 7)
+	ctx, num = add(ctx, num, 8)
+	log.Println(result, num)
 }
 ```
 
@@ -108,7 +113,7 @@ func main() {
 
 **第2步**获取上报地址
 
-- 在AnyRobot管理端创建Event采集任务并生成上报地址供数据源端使用，如`https://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/events` 。
+- 在AnyRobot管理端创建Event采集任务并生成上报地址供数据源端使用，如`http://127.0.0.1/api/feed_ingester/v1/jobs/job-983d7e1d5e8cda64/events` 。
 
 **第3步**上报到AnyRobot
 
@@ -117,11 +122,12 @@ func main() {
 ```
 func main() {
 	ctx := context.Background()
-	//eventClient := public.NewStdoutClient("./AnyRobotEvent.txt")
-	eventClient := public.NewHTTPClient(public.WithAnyRobotURL("http://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/events"))
+	// eventClient := public.NewStdoutClient("./AnyRobotEvent.txt")
+	eventClient := public.NewHTTPClient(public.WithAnyRobotURL("http://127.0.0.1/api/feed_ingester/v1/jobs/job-983d7e1d5e8cda64/events"),
+		public.WithCompression(0), public.WithTimeout(10*time.Second), public.WithRetry(true, 5*time.Second, 30*time.Second, 1*time.Minute))
 	eventExporter := ar_event.NewExporter(eventClient)
-	public.SetServiceInfo("YourServiceName", "1.0.0", "")
-	eventProvider := eventsdk.NewEventProvider(eventsdk.Exporters(eventExporter), ar_event.EventResource())
+	public.SetServiceInfo("YourServiceName", "1.0.0", "983d7e1d5e8cda64")
+	eventProvider := eventsdk.NewEventProvider(eventsdk.Exporters(eventExporter, eventsdk.GetDefaultExporter()), ar_event.EventResource())
 	eventsdk.SetEventProvider(eventProvider)
 
 	defer func() {
@@ -130,10 +136,14 @@ func main() {
 		}
 	}()
 
-	//your code here
-	ctx, num := multiply(ctx, 2, 3)
-	ctx, num = multiply(ctx, num, 7)
+	// 业务代码
+	ctx, num := add(ctx, 2, 3)
+	for i := 0; i < 6; i++ {
+		ctx, num = multiply(ctx, 2, 3)
+		ctx, num = add(ctx, 2, 3)
+	}
+	log.Println(result, num)
 }
 ```
 
-## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?path=%2Fexporter%2Far_event%2Fexamples%2Fone_service.go&version=GB2.5.0&_a=contents)
+## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?path=%2Fexporter%2Far_event%2Fexamples%2Fone_service.go&version=GBmaster&_a=contents)

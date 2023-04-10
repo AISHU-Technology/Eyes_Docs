@@ -213,4 +213,4 @@ var ServiceLogger2 = spanLog.NewSyncLogger()
 
 var ServiceLogger3 = spanLog.NewSyncLogger()
 
-## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?version=GB2.6.0&path=/exporter/ar_span/examples/oneservice.go)
+## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?path=%2Fexporter%2Far_log%2Fexamples%2Foneservice.go&version=GBmaster&_a=contents)

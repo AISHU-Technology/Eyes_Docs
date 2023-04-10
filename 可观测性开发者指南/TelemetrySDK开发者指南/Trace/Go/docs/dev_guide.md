@@ -67,7 +67,7 @@ import (
 
 ```
 func multiply(ctx context.Context, x, y int64) (context.Context, int64) {
-	//your code here
+	// 业务代码
 	return ctx, x * y
 }
 ```
@@ -79,7 +79,7 @@ func multiply(ctx context.Context, x, y int64) (context.Context, int64) {
 	ctx, span := ar_trace.Tracer.Start(ctx, "乘法")
 	defer span.End()
 
-	//your code here
+	// 业务代码
 	return ctx, x * y
 }
 ```
@@ -93,7 +93,7 @@ func main() {
 	ctx := context.Background()
 	traceClient := public.NewStdoutClient("./AnyRobotTrace.txt")
 	traceExporter := ar_trace.NewExporter(traceClient)
-	public.SetServiceInfo("YourServiceName", "1.0.0", "")
+	public.SetServiceInfo("YourServiceName", "1.0.0", "983d7e1d5e8cda64")
 	tracerProvider := sdktrace.NewTracerProvider(sdktrace.WithBatcher(traceExporter), sdktrace.WithResource(ar_trace.TraceResource()))
 
 	otel.SetTracerProvider(tracerProvider)
@@ -103,6 +103,7 @@ func main() {
 		}
 	}()
 
+	// 业务代码
 	ctx, num := multiply(ctx, 2, 3)
 	ctx, num = multiply(ctx, num, 7)
 	ctx, num = add(ctx, num, 8)
@@ -123,9 +124,10 @@ func main() {
 ```
 func main() {
 	ctx := context.Background()
+	// traceClient := public.NewStdoutClient("./AnyRobotTrace.txt")
 	traceClient := public.NewHTTPClient(public.WithAnyRobotURL("http://127.0.0.1/api/feed_ingester/v1/jobs/job-983d7e1d5e8cda64/events"))
 	traceExporter := ar_trace.NewExporter(traceClient)
-	public.SetServiceInfo("YourServiceName", "1.0.0", "")
+	public.SetServiceInfo("YourServiceName", "1.0.0", "983d7e1d5e8cda64")
 	tracerProvider := sdktrace.NewTracerProvider(sdktrace.WithBatcher(traceExporter), sdktrace.WithResource(ar_trace.TraceResource()))
 	otel.SetTracerProvider(tracerProvider)
 
@@ -135,6 +137,7 @@ func main() {
 		}
 	}()
 
+	// 业务代码
 	ctx, num := multiply(ctx, 2, 3)
 	ctx, num = multiply(ctx, num, 7)
 	ctx, num = add(ctx, num, 8)
@@ -162,11 +165,12 @@ func main() {
 		}
 	}()
 
+    // 业务代码
 	ctx, num := multiply(ctx, 2, 3)
 	ctx, num = multiply(ctx, num, 7)
-	//调用ForceFlush之后会立即发送之前生产的2次乘法链路。
+	// 调用ForceFlush之后会立即发送之前生产的2次乘法链路。
 	_ = tracerProvider.ForceFlush(ctx)
-	//关闭Trace的发送，这3次加法产生的链路不会发送。
+	// 关闭Trace的发送，这3次加法产生的链路不会发送。
 	tracerProvider.UnregisterSpanProcessor(sdktrace.NewBatchSpanProcessor(traceExporter))
 	ctx, num = add(ctx, num, 8)
 	ctx, num = add(ctx, num, 9)
@@ -190,20 +194,21 @@ func main() {
 		}
 	}()
 
+    // 业务代码
 	ctx, num := multiply(ctx, 2, 3)
 	ctx, num = multiply(ctx, num, 7)
-	//调用ForceFlush之后会立即发送之前生产的2次乘法链路。
+	// 调用ForceFlush之后会立即发送之前生产的2次乘法链路。
 	_ = tracerProvider.ForceFlush(ctx)
-	//关闭Trace的发送，这3次加法产生的链路不会发送。
+	// 关闭Trace的发送，这3次加法产生的链路不会发送。
 	tracerProvider.UnregisterSpanProcessor(sdktrace.NewBatchSpanProcessor(traceExporter))
 	ctx, num = add(ctx, num, 8)
 	ctx, num = add(ctx, num, 9)
 	ctx, num = add(ctx, num, 10)
-	//开启Trace的发送，这1次乘法产生的链路会发送。
+	// 开启Trace的发送，这1次乘法产生的链路会发送。
 	tracerProvider.RegisterSpanProcessor(sdktrace.NewBatchSpanProcessor(traceExporter))
 	ctx, num = multiply(ctx, num, 9)
 	log.Println(result, num)
 }
 ```
 
-## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?version=GB2.4.0&path=/exporter/ar_trace/examples/oneservice.go)
+## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?path=%2Fexporter%2Far_trace%2Fexamples%2Fone_service.go&version=GBmaster&_a=contents)
