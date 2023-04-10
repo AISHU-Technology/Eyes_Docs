@@ -14,8 +14,8 @@
 **第3步**执行以下命令引入TelemetrySDK-Trace(Go)
 
 ```
-go get go.opentelemetry.io/otel@v1.10.0
-go get go.opentelemetry.io/otel/sdk/trace@v1.10.0
+go get go.opentelemetry.io/otel@v1.11.2
+go get go.opentelemetry.io/otel/sdk/trace@v1.11.2
 ```
 
 **第4步**(可选)更新TelemetrySDK-Trace(Go)
@@ -37,10 +37,10 @@ go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exp
 
 **第2步**(可选)更新Trace Exporter
 
-- 查看SDK[兼容列表](../../../docs/compatibility.md)，选择希望引入的版本，例如2.5.0，替换末尾的版本号重新执行命令。
+- 查看SDK[兼容列表](../../../docs/compatibility.md)，选择希望引入的版本，例如2.6.0，替换末尾的版本号重新执行命令。
 
 ```
-go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter@2.5.0
+go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter@2.6.0
 ```
 
 ## 使用TelemetrySDK-Trace(Go)进行代码埋点生产链路数据
@@ -50,14 +50,14 @@ go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exp
 ```
 import (
 	"context"
-	"devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/traceExporter/ar_trace"
-	"devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/traceExporter/public"
+	"devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter/ar_trace"
+	"devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter/public"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
-	"go.opentelemetry.io/otel/sdk/resource"
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 	"go.opentelemetry.io/otel/trace"
 	"log"
+	"time"
 )
 ```
 
@@ -92,10 +92,10 @@ func multiply(ctx context.Context, x, y int64) (context.Context, int64) {
 func main() {
 	ctx := context.Background()
 	traceClient := public.NewStdoutClient("./AnyRobotTrace.txt")
-	//traceClient := public.NewHTTPClient(public.WithAnyRobotURL("http://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/events"))
 	traceExporter := ar_trace.NewExporter(traceClient)
 	public.SetServiceInfo("YourServiceName", "1.0.0", "")
 	tracerProvider := sdktrace.NewTracerProvider(sdktrace.WithBatcher(traceExporter), sdktrace.WithResource(ar_trace.TraceResource()))
+
 	otel.SetTracerProvider(tracerProvider)
 	defer func() {
 		if err := tracerProvider.Shutdown(ctx); err != nil {
@@ -103,9 +103,10 @@ func main() {
 		}
 	}()
 
-	//your code here
 	ctx, num := multiply(ctx, 2, 3)
 	ctx, num = multiply(ctx, num, 7)
+	ctx, num = add(ctx, num, 8)
+	log.Println(result, num)
 }
 ```
 
@@ -113,7 +114,7 @@ func main() {
 
 **第2步**获取上报地址
 
-- 在AnyRobot管理端创建Trace采集任务并生成上报地址供数据源端使用，如`https://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/events` 。
+- 在AnyRobot管理端创建Trace采集任务并生成上报地址供数据源端使用，如`http://127.0.0.1/api/feed_ingester/v1/jobs/job-983d7e1d5e8cda64/events` 。
 
 **第3步**上报到AnyRobot
 
@@ -122,21 +123,22 @@ func main() {
 ```
 func main() {
 	ctx := context.Background()
-	//traceClient := public.NewStdoutClient("./AnyRobotTrace.txt")
-	traceClient := public.NewHTTPClient(public.WithAnyRobotURL("http://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/events"))
+	traceClient := public.NewHTTPClient(public.WithAnyRobotURL("http://127.0.0.1/api/feed_ingester/v1/jobs/job-983d7e1d5e8cda64/events"))
 	traceExporter := ar_trace.NewExporter(traceClient)
 	public.SetServiceInfo("YourServiceName", "1.0.0", "")
 	tracerProvider := sdktrace.NewTracerProvider(sdktrace.WithBatcher(traceExporter), sdktrace.WithResource(ar_trace.TraceResource()))
 	otel.SetTracerProvider(tracerProvider)
+
 	defer func() {
 		if err := tracerProvider.Shutdown(ctx); err != nil {
 			log.Println(err)
 		}
 	}()
 
-	//your code here
 	ctx, num := multiply(ctx, 2, 3)
 	ctx, num = multiply(ctx, num, 7)
+	ctx, num = add(ctx, num, 8)
+	log.Println(result, num)
 }
 ```
 

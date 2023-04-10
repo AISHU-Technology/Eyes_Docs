@@ -153,7 +153,7 @@ func StdoutExporterExample() {
 
 **第2步**获取上报地址
 
-- 在AnyRobot管理端创建Log采集任务并生成上报地址供数据源端使用，如`https://a.b.c.d/api/feed_ingester/v1/jobs/job-c9a577c302505576/events` 。
+- 在AnyRobot管理端创建Log采集任务并生成上报地址供数据源端使用，如`http://127.0.0.1/api/feed_ingester/v1/jobs/job-983d7e1d5e8cda64/events` 。
 
 **第3步**上报到AnyRobot
 

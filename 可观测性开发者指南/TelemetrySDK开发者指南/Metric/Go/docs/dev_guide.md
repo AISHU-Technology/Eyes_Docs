@@ -35,10 +35,10 @@ go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exp
 
 **第2步**(可选)更新Metric Exporter
 
-- 查看SDK[兼容列表](../../../docs/compatibility.md)，选择希望引入的版本，例如2.5.0，替换末尾的版本号重新执行命令。
+- 查看SDK[兼容列表](../../../docs/compatibility.md)，选择希望引入的版本，例如2.6.0，替换末尾的版本号重新执行命令。
 
 ```
-go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter@2.5.0
+go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter@2.6.0
 ```
 
 ## 使用TelemetrySDK-Metric(Go)进行代码埋点生产指标数据
@@ -121,7 +121,7 @@ func main() {
 
 **第2步**获取上报地址
 
-- 在AnyRobot管理端创建Metric采集任务并生成上报地址供数据源端使用，如`https://a.b.c.d/api/feed_ingester/v1/jobs/abcd4f634e80d530/events` 。
+- 在AnyRobot管理端创建Metric采集任务并生成上报地址供数据源端使用，如`http://127.0.0.1/api/feed_ingester/v1/jobs/job-983d7e1d5e8cda64/events` 。
 
 **第3步**上报到AnyRobot
 
@@ -130,7 +130,7 @@ func main() {
 ```
 func main() {
 	ctx := context.Background()
-	metricClient := public.NewHTTPClient(public.WithAnyRobotURL("http://127.0.0.1:8800/api/feed_ingester/v1/jobs/job-abcd4f634e80d530/events"),
+	metricClient := public.NewHTTPClient(public.WithAnyRobotURL("http://127.0.0.1/api/feed_ingester/v1/jobs/job-983d7e1d5e8cda64/events"),
 		public.WithCompression(1), public.WithTimeout(10*time.Second), public.WithRetry(true, 5*time.Second, 30*time.Second, 1*time.Minute))
 	metricExporter := ar_metric.NewExporter(metricClient)
 	public.SetServiceInfo("YourServiceName", "1.0.0", "")
