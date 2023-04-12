@@ -32,7 +32,7 @@ go get go.opentelemetry.io/otel/sdk/trace@v1.11.0
 **第1步**执行以下命令引入Trace Exporter
 
 ```
-go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter@2.5.0
+go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter@2.6.0
 ```
 
 **第2步**(可选)更新Trace Exporter
