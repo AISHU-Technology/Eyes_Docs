@@ -206,7 +206,9 @@
                                                 "resultType": "vector",
                                                 "result": [
                                                     {
-                                                        "metric": {},
+                                                        "metric": {
+
+                                                        },
                                                         "value": [
                                                             1655702375,
                                                             "15.001439261"
@@ -5625,7 +5627,9 @@
                                                 "resultType": "matrix",
                                                 "result": [
                                                     {
-                                                        "metric": {},
+                                                        "metric": {
+
+                                                        },
                                                         "values": [
                                                             [
                                                                 1653533598,
@@ -8003,7 +8007,9 @@
                                                 "resultType": "matrix",
                                                 "result": [
                                                     {
-                                                        "metric": {},
+                                                        "metric": {
+
+                                                        },
                                                         "values": [
                                                             [
                                                                 1653533598,
@@ -8157,7 +8163,9 @@
                                                 "resultType": "matrix",
                                                 "result": [
                                                     {
-                                                        "metric": {},
+                                                        "metric": {
+
+                                                        },
                                                         "values": [
                                                             [
                                                                 1655694332,
@@ -13393,7 +13401,9 @@
                                                 "resultType": "matrix",
                                                 "result": [
                                                     {
-                                                        "metric": {},
+                                                        "metric": {
+
+                                                        },
                                                         "values": [
                                                             [
                                                                 1653374160,
@@ -17217,12 +17227,16 @@
                                     "x_library": {
                                         "description": "该参数为dsl之外的扩展参数，指定查询的索引库名称，和路径中一致，非必须参数，若body中均无此参数，则默认空数据集返回",
                                         "type": "array",
-                                        "items": {}
+                                        "items": {
+
+                                        }
                                     },
                                     "ar_dataview": {
                                         "description": "该参数为dsl之外的扩展参数，指定查询的日志分组id，若body和路径均无索引库名称x_library参数，则取此参数来查询；非必须参数；若路径和body中均无x_library且body中无ar_dataview参数，则默认空数据集返回。只支持指定一个日志分组id。",
                                         "type": "string",
-                                        "items": {}
+                                        "items": {
+
+                                        }
                                     }
                                 }
                             },
@@ -17558,12 +17572,16 @@
                                     "x_library": {
                                         "description": "该参数为dsl之外的扩展参数，指定查询的索引库名称，和路径中一致，非必须参数，若路径和body中均无此参数，则默认空数据集返回，若两个都有，则取交集查询",
                                         "type": "array",
-                                        "items": {}
+                                        "items": {
+
+                                        }
                                     },
                                     "ar_dataview": {
                                         "description": "该参数为dsl之外的扩展参数，指定查询的日志分组id，若body和路径均无索引库名称x_library参数，则取此参数来查询；非必须参数；若路径和body中均无x_library且body中无ar_dataview参数，则默认空数据集返回。只支持指定一个日志分组id。",
                                         "type": "string",
-                                        "items": {}
+                                        "items": {
+
+                                        }
                                     }
                                 }
                             },
@@ -17910,12 +17928,16 @@
                                     "x_library": {
                                         "description": "该参数为dsl之外的扩展参数，指定查询的索引库名称，和路径中一致，非必须参数，若路径和body中均无此参数，则默认空数据集返回，若两个都有，则取交集查询",
                                         "type": "array",
-                                        "items": {}
+                                        "items": {
+
+                                        }
                                     },
                                     "ar_dataview": {
                                         "description": "该参数为dsl之外的扩展参数，指定查询的日志分组id，若body和路径均无索引库名称x_library参数，则取此参数来查询；非必须参数；若路径和body中均无x_library且body中无ar_dataview参数，则默认空数据集返回。只支持指定一个日志分组id。",
                                         "type": "string",
-                                        "items": {}
+                                        "items": {
+
+                                        }
                                     }
                                 }
                             },
@@ -18336,7 +18358,8 @@
                                                     "value": 2104,
                                                     "relation": "eq"
                                                 },
-                                                "hits": []
+                                                "hits": [
+                                                ]
                                             },
                                             "aggregations": {
                                                 "count(sharedLink)": {
@@ -18793,9 +18816,15 @@
                                                                 "k8s.pod.uid": "1138528c-c36e-11e9-t235-42010a800198"
                                                             },
                                                             "Body": {
-                                                                "Events": {},
-                                                                "Metrics": {},
-                                                                "ExternalSpan": {}
+                                                                "Events": {
+
+                                                                },
+                                                                "Metrics": {
+
+                                                                },
+                                                                "ExternalSpan": {
+
+                                                                }
                                                             },
                                                             "EndTime": ""
                                                         }
@@ -18828,9 +18857,15 @@
                                                                 "k8s.pod.uid": "1138528c-c36e-11e9-t235-42010a800198"
                                                             },
                                                             "Body": {
-                                                                "Events": {},
-                                                                "Metrics": {},
-                                                                "ExternalSpan": {}
+                                                                "Events": {
+
+                                                                },
+                                                                "Metrics": {
+
+                                                                },
+                                                                "ExternalSpan": {
+
+                                                                }
                                                             },
                                                             "EndTime": ""
                                                         }
@@ -18886,13 +18921,15 @@
                                                     "value": 0,
                                                     "relation": "eq"
                                                 },
-                                                "hits": []
+                                                "hits": [
+                                                ]
                                             },
                                             "aggregations": {
                                                 "count(sharedLink)": {
                                                     "doc_count_error_upper_bound": 0,
                                                     "sum_other_doc_count": 0,
-                                                    "buckets": []
+                                                    "buckets": [
+                                                    ]
                                                 }
                                             }
                                         }
@@ -18913,7 +18950,9 @@
                                                     "relation": "string"
                                                 },
                                                 "hits": [
-                                                    {}
+                                                    {
+
+                                                    }
                                                 ]
                                             },
                                             "aggregations": {
@@ -18945,7 +18984,8 @@
                                                     "value": 6,
                                                     "relation": "eq"
                                                 },
-                                                "hits": []
+                                                "hits": [
+                                                ]
                                             },
                                             "aggregations": {
                                                 "count(sharedLink)": {
@@ -19163,7 +19203,8 @@
                                                     "value": 10000,
                                                     "relation": "gte"
                                                 },
-                                                "hits": []
+                                                "hits": [
+                                                ]
                                             },
                                             "aggregations": {
                                                 "count(sharedLink)": {
@@ -19233,9 +19274,15 @@
                                                             "arPort": 20015,
                                                             "@version": "1",
                                                             "Body": {
-                                                                "ExternalSpan": {},
-                                                                "Events": {},
-                                                                "Metrics": {}
+                                                                "ExternalSpan": {
+
+                                                                },
+                                                                "Events": {
+
+                                                                },
+                                                                "Metrics": {
+
+                                                                }
                                                             },
                                                             "ParentId": "",
                                                             "message": "{\"Version\": \"AISHUV0\", \"TraceId\": \"\", \"SpanId\": \"\", \"ParentId\": \"\", \"StartTime\": \"1621408856003\", \"Attributes\": {\"type\": \"sample logger test\", \"Attribute\": {\"user.id\": \"ABC001\", \"user.dep\": \"\", \"act.type\": \"view doc\", \"topic.id\": \"1000000993\", \"doc.id\": \"300004415\", \"act.label\": \"200000250,200000341,200000455\"}}, \"Resource\": {\"service.name\": \"KC\", \"service.version\": \"1.0.0\", \"k8s.pod.uid\": \"1138528c-c36e-11e9-t235-42010a800198\"}, \"Body\": {\"Events\": {}, \"Metrics\": {}, \"ExternalSpan\": {}}, \"EndTime\": \"\"}\r",
@@ -19500,12 +19547,16 @@
                                     "x_library": {
                                         "description": "该参数为dsl之外的扩展参数，指定查询的索引库名称，和路径中一致，非必须参数，若路径和body中均无此参数，则默认空数据集返回，若两个都有，则取交集查询",
                                         "type": "array",
-                                        "items": {}
+                                        "items": {
+
+                                        }
                                     },
                                     "ar_dataview": {
                                         "description": "该参数为dsl之外的扩展参数，指定查询的日志分组id，若body和路径均无索引库名称x_library参数，则取此参数来查询；非必须参数；若路径和body中均无x_library且body中无ar_dataview参数，则默认空数据集返回。只支持指定一个日志分组id。",
                                         "type": "string",
-                                        "items": {}
+                                        "items": {
+
+                                        }
                                     }
                                 }
                             },
@@ -19926,7 +19977,8 @@
                                                     "value": 2104,
                                                     "relation": "eq"
                                                 },
-                                                "hits": []
+                                                "hits": [
+                                                ]
                                             },
                                             "aggregations": {
                                                 "count(sharedLink)": {
@@ -20383,9 +20435,15 @@
                                                                 "k8s.pod.uid": "1138528c-c36e-11e9-t235-42010a800198"
                                                             },
                                                             "Body": {
-                                                                "Events": {},
-                                                                "Metrics": {},
-                                                                "ExternalSpan": {}
+                                                                "Events": {
+
+                                                                },
+                                                                "Metrics": {
+
+                                                                },
+                                                                "ExternalSpan": {
+
+                                                                }
                                                             },
                                                             "EndTime": ""
                                                         }
@@ -20418,9 +20476,15 @@
                                                                 "k8s.pod.uid": "1138528c-c36e-11e9-t235-42010a800198"
                                                             },
                                                             "Body": {
-                                                                "Events": {},
-                                                                "Metrics": {},
-                                                                "ExternalSpan": {}
+                                                                "Events": {
+
+                                                                },
+                                                                "Metrics": {
+
+                                                                },
+                                                                "ExternalSpan": {
+
+                                                                }
                                                             },
                                                             "EndTime": ""
                                                         }
@@ -20476,13 +20540,15 @@
                                                     "value": 0,
                                                     "relation": "eq"
                                                 },
-                                                "hits": []
+                                                "hits": [
+                                                ]
                                             },
                                             "aggregations": {
                                                 "count(sharedLink)": {
                                                     "doc_count_error_upper_bound": 0,
                                                     "sum_other_doc_count": 0,
-                                                    "buckets": []
+                                                    "buckets": [
+                                                    ]
                                                 }
                                             }
                                         }
@@ -20503,7 +20569,9 @@
                                                     "relation": "string"
                                                 },
                                                 "hits": [
-                                                    {}
+                                                    {
+
+                                                    }
                                                 ]
                                             },
                                             "aggregations": {
@@ -20535,7 +20603,8 @@
                                                     "value": 6,
                                                     "relation": "eq"
                                                 },
-                                                "hits": []
+                                                "hits": [
+                                                ]
                                             },
                                             "aggregations": {
                                                 "count(sharedLink)": {
@@ -20753,7 +20822,8 @@
                                                     "value": 10000,
                                                     "relation": "gte"
                                                 },
-                                                "hits": []
+                                                "hits": [
+                                                ]
                                             },
                                             "aggregations": {
                                                 "count(sharedLink)": {
@@ -20823,9 +20893,15 @@
                                                             "arPort": 20015,
                                                             "@version": "1",
                                                             "Body": {
-                                                                "ExternalSpan": {},
-                                                                "Events": {},
-                                                                "Metrics": {}
+                                                                "ExternalSpan": {
+
+                                                                },
+                                                                "Events": {
+
+                                                                },
+                                                                "Metrics": {
+
+                                                                }
                                                             },
                                                             "ParentId": "",
                                                             "message": "{\"Version\": \"AISHUV0\", \"TraceId\": \"\", \"SpanId\": \"\", \"ParentId\": \"\", \"StartTime\": \"1621408856003\", \"Attributes\": {\"type\": \"sample logger test\", \"Attribute\": {\"user.id\": \"ABC001\", \"user.dep\": \"\", \"act.type\": \"view doc\", \"topic.id\": \"1000000993\", \"doc.id\": \"300004415\", \"act.label\": \"200000250,200000341,200000455\"}}, \"Resource\": {\"service.name\": \"KC\", \"service.version\": \"1.0.0\", \"k8s.pod.uid\": \"1138528c-c36e-11e9-t235-42010a800198\"}, \"Body\": {\"Events\": {}, \"Metrics\": {}, \"ExternalSpan\": {}}, \"EndTime\": \"\"}\r",
@@ -21143,9 +21219,15 @@
                                                             "arPort": 20015,
                                                             "@version": "1",
                                                             "Body": {
-                                                                "ExternalSpan": {},
-                                                                "Events": {},
-                                                                "Metrics": {}
+                                                                "ExternalSpan": {
+
+                                                                },
+                                                                "Events": {
+
+                                                                },
+                                                                "Metrics": {
+
+                                                                }
                                                             },
                                                             "ParentId": "",
                                                             "message": "{\"Version\": \"AISHUV0\", \"TraceId\": \"\", \"SpanId\": \"\", \"ParentId\": \"\", \"StartTime\": \"1621408856003\", \"Attributes\": {\"type\": \"sample logger test\", \"Attribute\": {\"user.id\": \"ABC001\", \"user.dep\": \"\", \"act.type\": \"view doc\", \"topic.id\": \"1000000993\", \"doc.id\": \"300004415\", \"act.label\": \"200000250,200000341,200000455\"}}, \"Resource\": {\"service.name\": \"KC\", \"service.version\": \"1.0.0\", \"k8s.pod.uid\": \"1138528c-c36e-11e9-t235-42010a800198\"}, \"Body\": {\"Events\": {}, \"Metrics\": {}, \"ExternalSpan\": {}}, \"EndTime\": \"\"}\r",
@@ -21245,7 +21327,8 @@
                                                     "relation": "eq"
                                                 },
                                                 "max_score": 0,
-                                                "hits": []
+                                                "hits": [
+                                                ]
                                             }
                                         }
                                     }
@@ -21662,42 +21745,68 @@
                         "$ref": "#/components/responses/500InternalError"
                     }
                 },
-                "summary": "基于指标模型的数据预览"
+                "summary": "metric-model",
+                "description": "基于指标模型的数据预览"
             }
         },
         "/uniquery/v1/metric-models/{id}": {
-            "get": {
-                "parameters": [
-                    {
-                        "name": "start",
-                        "description": "开始时间. 必须. start=< unix_timestamp >. 单位到毫秒. 例如: 1646360670123",
-                        "schema": {
-                            "format": "int64",
-                            "type": "integer"
-                        },
-                        "in": "query",
-                        "required": true
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ReqMetricModel"
+                            },
+                            "examples": {
+                                "exp_req": {
+                                    "value": {
+                                        "method": "GET",
+                                        "start": 1646360670123,
+                                        "end": 1646471470123,
+                                        "step": "1m",
+                                        "filters": [
+                                            {
+                                                "name": "labels.host",
+                                                "value": [
+                                                    "10.2.12.23",
+                                                    "10.21.2.3"
+                                                ],
+                                                "operation": "in"
+                                            },
+                                            {
+                                                "name": "labels.job",
+                                                "value": "prometheus",
+                                                "operation": "="
+                                            },
+                                            {
+                                                "name": "labels.namespace",
+                                                "value": "as",
+                                                "operation": "!="
+                                            },
+                                            {
+                                                "name": "metrics.node_cpu_seconds_total",
+                                                "value": [
+                                                    0,
+                                                    5
+                                                ],
+                                                "operation": "range"
+                                            },
+                                            {
+                                                "name": "metrics.node_memory_MemTotal_bytes",
+                                                "value": [
+                                                    1024,
+                                                    2048
+                                                ],
+                                                "operation": "out_range"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
                     },
-                    {
-                        "name": "end",
-                        "description": "结束时间. 必须. end=< unix_timestamp >. 单位到毫秒. 例如: 1646471470123",
-                        "schema": {
-                            "format": "int64",
-                            "type": "integer"
-                        },
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "name": "step",
-                        "description": "步长. 必须. step=< time_durations >. 用一个数字，后面跟时间单位来定义。若不填单位，则默认按秒计算。时间单位可以是如下之一：\n    ms - 毫秒；\n    s - 秒；\n    m - 分钟；\n    h - 小时；\n    d - 天；\n    w - 周；\n    y - 年；\n\n",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "in": "query",
-                        "required": true
-                    }
-                ],
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "content": {
@@ -21764,7 +21873,8 @@
                         "$ref": "#/components/responses/500InternalError"
                     }
                 },
-                "summary": "根据指标模型 id 查询指标数据"
+                "summary": "metric-models/{id}",
+                "description": "根据指标模型 id 查询指标数据"
             },
             "parameters": [
                 {
@@ -21835,11 +21945,15 @@
                 "x-examples": {
                     "example-1": {
                         "error": {
-                            "root_cause": [],
+                            "root_cause": [
+                            ],
                             "type": "x_content_parse_exception",
                             "reason": "[1:438] [bool] failed to parse field [must]",
-                            "failed_shareds": [],
-                            "caused_by": {}
+                            "failed_shareds": [
+                            ],
+                            "caused_by": {
+
+                            }
                         },
                         "status": 400
                     }
@@ -22172,6 +22286,79 @@
                     "metric_field": "some text",
                     "unit_type": "storeUnit",
                     "unit": "bit"
+                }
+            },
+            "ReqMetricModel": {
+                "description": "基于指标模型的指标数据查询请求体",
+                "required": [
+                    "method",
+                    "start",
+                    "end",
+                    "step"
+                ],
+                "type": "object",
+                "properties": {
+                    "method": {
+                        "description": "方法名，必为\"GET\"",
+                        "enum": [
+                            "GET"
+                        ],
+                        "type": "string"
+                    },
+                    "start": {
+                        "format": "int64",
+                        "description": "开始时间. 必须. start=< unix_timestamp >. 单位到毫秒. 例如: 1646360670123",
+                        "type": "integer"
+                    },
+                    "end": {
+                        "format": "int64",
+                        "description": "结束时间. 必须. end=< unix_timestamp >. 单位到毫秒. 例如: 1646471470123",
+                        "type": "integer"
+                    },
+                    "step": {
+                        "description": "步长. 必须. step=< time_durations >. 用一个数字，后面跟时间单位来定义。若不填单位，则默认按秒计算。时间单位可以是如下之一： ms - 毫秒； s - 秒； m - 分钟； h - 小时； d - 天； w - 周； y - 年；",
+                        "type": "string"
+                    },
+                    "filters": {
+                        "description": "过滤条件数组。可为空。当存在过滤条件时，过滤条件对象的字段都是必须的。",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Filter"
+                        }
+                    }
+                }
+            },
+            "Filter": {
+                "description": "过滤条件",
+                "required": [
+                    "name",
+                    "value",
+                    "operation"
+                ],
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "description": "过滤字段名称",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "过滤的值。当 operation 是 in 时，value 为任意基本类型的数组，且长度大于等于1；当 operation 是 = 或 != 时，value 为任意基本类型的值；当 operation 是 range 时，value 是个由范围的下边界和上边界组成的长度为 2 的数值型数组。当 operation 是 out_range 时, value 是一个长度为 2 的数组，对应过滤条件时是 字段 < value[0] || 字段 >= value[1]",
+                        "type": "array",
+                        "items": {
+
+                        }
+                    },
+                    "operation": {
+                        "description": "操作符。",
+                        "enum": [
+                            "in",
+                            "=",
+                            "!=",
+                            "range",
+                            "out_range"
+                        ],
+                        "type": "string"
+                    }
                 }
             }
         },

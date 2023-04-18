@@ -313,7 +313,11 @@
                                                     "some text",
                                                     "some text"
                                                 ],
-                                                "must_filter": "some text"
+                                                "must_filters": "some text",
+                                                "fields": {
+                                                    "@timestamp": "date",
+                                                    "@version": "text"
+                                                }
                                             },
                                             "query_type": "promql",
                                             "formula": "some text",
@@ -531,34 +535,6 @@
                 },
                 "example": {
                     "key": "value"
-                }
-            },
-            "DataView": {
-                "description": "数据视图的信息。当前版本是获取日志分组的过滤条件",
-                "required": [
-                    "indices",
-                    "must_filter"
-                ],
-                "type": "object",
-                "properties": {
-                    "indices": {
-                        "description": "日志分组包含的日志库信息",
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "must_filter": {
-                        "description": "日志分组的dsl过滤条件语句",
-                        "type": "string"
-                    }
-                },
-                "example": {
-                    "indices": [
-                        "some text",
-                        "some text"
-                    ],
-                    "must_filter": "some text"
                 }
             },
             "string": {
@@ -1223,6 +1199,39 @@
                         "key": "some text"
                     },
                     "comment": "some text"
+                }
+            },
+            "DataView": {
+                "description": "数据视图的信息。当前版本是获取日志分组的过滤条件",
+                "required": [
+                    "indices",
+                    "must_filters",
+                    "fields"
+                ],
+                "type": "object",
+                "properties": {
+                    "indices": {
+                        "description": "日志分组包含的日志库信息",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "must_filters": {
+                        "description": "日志分组的dsl过滤条件语句",
+                        "type": "string"
+                    },
+                    "fields": {
+                        "description": "日志分组的字段信息，是个 map，key 为字段名称，value 为原始字段类型",
+                        "type": "object"
+                    }
+                },
+                "example": {
+                    "indices": [
+                        "some text",
+                        "some text"
+                    ],
+                    "must_filters": "some text"
                 }
             }
         },
