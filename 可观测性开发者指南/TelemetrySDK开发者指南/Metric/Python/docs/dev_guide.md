@@ -40,6 +40,12 @@ pip install .
 pip3 install -r requirements.txt
 ```
 
+**第2步**(可能需要)
+
+Mark Directory as Namespace Package
+
+Mark Directory as Sources Root
+
 ## 使用TelemetrySDK-Metric(Python)进行代码埋点生产指标数据
 
 **第1步**新增依赖：以下为新增汇总，以实际使用为准。

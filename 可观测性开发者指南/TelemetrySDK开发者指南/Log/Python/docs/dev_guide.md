@@ -31,6 +31,20 @@ git checkout 2.3.0
 pip install .
 ```
 
+## 导入依赖
+
+**第1步**执行以下命令引入TelemetrySDK-Log(Python)
+
+```
+pip3 install -r requirements.txt
+```
+
+**第2步**(可能需要)
+
+Mark Directory as Namespace Package
+
+Mark Directory as Sources Root
+
 ## 使用TelemetrySDK-Log(Python)进行代码埋点生产Log数据
 
 **第1步**新增依赖：以下为新增汇总，以实际使用为准。
