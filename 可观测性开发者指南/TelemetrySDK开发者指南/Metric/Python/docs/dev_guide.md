@@ -16,7 +16,7 @@
 **第1步**执行以下命令引入Metric Exporter
 
 ```
-git clone ssh://devops.aishu.cn:22/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python -b 2.2.0
+git clone ssh://devops.aishu.cn:22/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python -b 2.3.0
 cd TelemetrySDK-Python
 pip install .
 ```
@@ -26,8 +26,9 @@ pip install .
 - 查看SDK[兼容列表](../../../docs/compatibility.md)，选择希望引入的版本，例如2.3.0。
 
 ```
-git clone ssh://devops.aishu.cn:22/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python -b 2.2.0
 cd TelemetrySDK-Python
+git fetch
+git checkout 2.3.0
 pip install .
 ```
 
@@ -38,8 +39,6 @@ pip install .
 ```
 pip3 install -r requirements.txt
 ```
-
-**第2步**(可选)Mark directory as namespace package
 
 ## 使用TelemetrySDK-Metric(Python)进行代码埋点生产指标数据
 

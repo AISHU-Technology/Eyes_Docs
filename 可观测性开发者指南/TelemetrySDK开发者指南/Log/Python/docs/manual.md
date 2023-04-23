@@ -1,27 +1,35 @@
 # 使用手册
 
-#### MeterProvider
+#### SamplerLogger
 
-MeterProvider 根据配置项，新建 MeterProvider 。
-
-```
-MeterProvider(resource=metric_resource(), metric_readers=[reader])
-```
-
-#### PeriodicExportingMetricReader
-
-PeriodicExportingMetricReader 新建Reader，需要传入MetricExporter() 。
+SamplerLogger 异步模式上报数据的日志器。
 
 ```
-PeriodicExportingMetricReader(MetricExporter())
+SamplerLogger(log_resource(), ConsoleExporter(), ARLogExporter())
 ```
 
-#### ARMetricExporter
+#### SyncLogger
 
-ARMetricExporter 新建Exporter，需要传入指定的数据发送客户端 Client 。
+SyncLogger 同步模式上报数据的日志器。
 
 ```
-ARMetricExporter(StdoutClient("./AnyRobotMetric.txt"))
+SamplerLogger(log_resource(), ARLogExporter())
+```
+
+#### ARLogExporter
+
+ARLogExporter 新建Exporter，需要传入指定的数据发送客户端 Client 。
+
+```
+ARLogExporter(StdoutClient("./AnyRobotLog.txt"))
+```
+
+#### ARLogExporter
+
+ARLogExporter 新建Exporter，需要传入指定的数据发送客户端 Client 。
+
+```
+ARLogExporter(StdoutClient("./AnyRobotLog.txt"))
 ```
 
 #### HTTPClient
@@ -37,7 +45,7 @@ HTTPClient(WithAnyRobotURL(),WithCompression(Compression.GzipCompression))
 StdoutClient 创建 Exporter 需要的Local数据发送客户端。
 
 ```
-StdoutClient("./AnyRobotMetric.txt")
+StdoutClient("./AnyRobotLog.txt")
 ```
 
 #### WithAnyRobotURL
@@ -48,9 +56,17 @@ WithAnyRobotURL 设置 HTTPClient 数据上报地址。
 WithAnyRobotURL(url: str)
 ```
 
+#### WithSyncMode
+
+WithSyncMode 设置发送方式为同步发送。
+
+```
+WithSyncMode()
+```
+
 #### WithCompression
 
-WithCompression 设置Metric压缩方式：0代表无压缩，1代表GZIP压缩。
+WithCompression 设置Log压缩方式：0代表无压缩，1代表GZIP压缩。
 
 ```
 WithCompression
@@ -88,10 +104,10 @@ set_service_info 设置服务信息，包括服务名、版本号、实例ID。
 def set_service_info(name: str, version: str, instance_id: str):
 ```
 
-#### metric_resource
+#### Log_resource
 
-metric_resource 传入 Metric 的默认resource。
+Log_resource 传入 Log 的默认resource。
 
 ```
-def metric_resource() -> Resource:
+def log_resource() -> Resources:
 ```
