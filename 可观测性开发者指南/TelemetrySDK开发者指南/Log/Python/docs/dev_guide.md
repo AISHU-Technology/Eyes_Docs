@@ -36,12 +36,10 @@ pip install .
 **第1步**执行以下命令引入TelemetrySDK-Log(Python)
 
 ```
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 **第2步**(可能需要)
-
-Mark Directory as Namespace Package
 
 Mark Directory as Sources Root
 
