@@ -8,6 +8,172 @@
         }
     },
     "paths": {
+        "/api/ingest-manager/v1/executors/{exec_id}/jobs_deploy_config": {
+            "servers": [
+                {
+                    "url": "https://{host}:{port}",
+                    "description": "host：地址，port：端口",
+                    "variables": {
+                        "host": {
+                            "default": "host",
+                            "description": "主机地址"
+                        },
+                        "port": {
+                            "default": "port",
+                            "description": "主机端口"
+                        }
+                    }
+                }
+            ],
+            "get": {
+                "tags": [
+                    "客户端接口"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "占位符"
+                    }
+                },
+                "description": "获取执行器关联的任务部署信息（暂未实现）"
+            },
+            "parameters": [
+                {
+                    "examples": {
+                        "id": {
+                            "value": "738d3b7a-0195-11ed-b624-9ed5e774cefb"
+                        }
+                    },
+                    "name": "exec_id",
+                    "description": "执行器的 id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/api/ingest-manager/v1/inner/jobs/{job_id}/user_info": {
+            "servers": [
+                {
+                    "url": "https://{host}:{port}",
+                    "description": "host：地址，port：端口",
+                    "variables": {
+                        "host": {
+                            "default": "host",
+                            "description": "主机地址"
+                        },
+                        "port": {
+                            "default": "port",
+                            "description": "主机端口"
+                        }
+                    }
+                }
+            ],
+            "get": {
+                "tags": [
+                    "前端服务接口"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "占位符"
+                    }
+                },
+                "description": "获取任务供用户使用的信息（如，上传url等）\n（暂未实现）"
+            },
+            "parameters": [
+                {
+                    "name": "job_id",
+                    "description": "任务 id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/api/ingest-manager/v1/jobs/{job_id}/deploy_config": {
+            "servers": [
+                {
+                    "url": "https://{host}:{port}",
+                    "description": "host：地址，port：端口",
+                    "variables": {
+                        "host": {
+                            "default": "host",
+                            "description": "主机地址"
+                        },
+                        "port": {
+                            "default": "port",
+                            "description": "主机端口"
+                        }
+                    }
+                }
+            ],
+            "get": {
+                "tags": [
+                    "客户端接口"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "占位符"
+                    }
+                },
+                "description": "获取任务部署配置（暂未实现）"
+            },
+            "parameters": [
+                {
+                    "name": "job_id",
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/api/ingest-manager/v1/jobs/deploy_config": {
+            "servers": [
+                {
+                    "url": "https://{host}:{port}",
+                    "description": "host：地址，port：端口",
+                    "variables": {
+                        "host": {
+                            "default": "host",
+                            "description": "主机地址"
+                        },
+                        "port": {
+                            "default": "port",
+                            "description": "主机端口"
+                        }
+                    }
+                }
+            ],
+            "get": {
+                "tags": [
+                    "客户端接口"
+                ],
+                "parameters": [
+                    {
+                        "examples": {
+                            "job_ids": {
+                                "value": "\"job_id_1,job_id_2\""
+                            }
+                        },
+                        "name": "job_ids",
+                        "description": "job_id 列表，用英文逗号 ',' 隔开",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "占位符"
+                    }
+                },
+                "description": "批量获取任务部署配置（暂未实现）"
+            }
+        },
         "/api/ingest-manager/v1/executors/{exec_id}/connect": {
             "servers": [
                 {
@@ -1051,7 +1217,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/RespJobCreate"
+                                    "$ref": "#/components/schemas/RespJobCreateWithJobID"
                                 }
                             }
                         },
@@ -2150,11 +2316,16 @@
                         "description": "任务配置，格式为 json 字符串",
                         "type": "string",
                         "additionalProperties": true
+                    },
+                    "job_id": {
+                        "description": "任务ID，以字母或数字开头，总共1-16位的字符串。包含字母、数字、连字符-",
+                        "type": "string"
                     }
                 },
                 "example": {
                     "ingest_config": "{\"input\":{\"type\":\"json_anyrobot_metric\",\"receiver\":[\"http\"]},\"output\":{\"type\":\"\",\"kafka\": {\"address\": [\"10.4.68.149:9092\"],\"user\" : \"feeder_kafka\",\"password\": \"sdhoqwudhjxdbjahd\",\"topic\": \"kafka_topic\"}},\"processors\":[{\"add_metadata\":{\"type\":\"json_anyrobot_metric_default\",\"tags\":[]}},{\"add_labels\":{\"labels\":{}}},{\"add_k8s_attributes\":{}},{\"add_host_attributes\":{}}]}",
                     "ingest_id": "feed",
+                    "job_id": "solid-for-as",
                     "job_name": "test-0920",
                     "executor_ids": [
                     ]
@@ -2341,6 +2512,20 @@
                             }
                         ]
                     }
+                }
+            },
+            "RespJobCreateWithJobID": {
+                "title": "Root Type for job_create_response",
+                "description": "自定义job_id创建Job的200返回",
+                "type": "object",
+                "properties": {
+                    "job_id": {
+                        "description": "任务的唯一标识",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "job_id": "job-solid-for-as"
                 }
             }
         }
