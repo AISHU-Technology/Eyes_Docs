@@ -36,7 +36,7 @@ pip install .
 **第1步**执行以下命令引入TelemetrySDK-Log(Python)
 
 ```
-pip install -r requirements.txt
+pip(pip3) install -r requirements.txt
 ```
 
 **第2步**(可能需要)
@@ -99,7 +99,15 @@ if __name__ == "__main__":
     service_logger = SyncLogger(log_resource(), ARLogExporter(
         HTTPClient(WithAnyRobotURL("http://127.0.0.1/api/feed_ingester/v1/jobs/job-c9a577c302505576/events"),
                    WithSyncMode())))
-
+    
+    # 全部配置项的logger，照抄之后删掉你不需要的配置。
+    all_config_logger = SyncLogger(log_resource(), ARLogExporter(
+        HTTPClient(WithAnyRobotURL("http://127.0.0.1/api/feed_ingester/v1/jobs/job-c9a577c302505576/events"),
+                   WithCompression(Compression(1)),
+                   WithTimeout(10),
+                   WithHeader({"self-defined-header": "something"}),
+                   WithRetry(5),
+                   WithSyncMode())))
     # 业务代码
     add(1, 2)
     multiply(3, 4)
