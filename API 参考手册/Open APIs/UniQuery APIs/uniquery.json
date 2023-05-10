@@ -22910,16 +22910,16 @@
                     },
                     "start": {
                         "format": "int64",
-                        "description": "范围查询的开始时间。当 instant 为 true 时，必须。 start=< unix_timestamp >，单位到毫秒。 例如: 1646360670123",
+                        "description": "范围查询的开始时间。当 instant 为 false 时，必须。 start=< unix_timestamp >，单位到毫秒。 例如: 1646360670123",
                         "type": "integer"
                     },
                     "end": {
                         "format": "int64",
-                        "description": "范围查询的结束时间。当 instant 为 true 时，必须。end=< unix_timestamp >，单位到毫秒。例如: 1646471470123",
+                        "description": "范围查询的结束时间。当 instant 为 false 时，必须。end=< unix_timestamp >，单位到毫秒。例如: 1646471470123",
                         "type": "integer"
                     },
                     "step": {
-                        "description": "范围查询的步长。当 instant 为 true 时，必须。step=< time_durations >，用一个数字，后面跟时间单位来定义。若不填单位，则默认按秒计算。时间单位可以是如下之一： ms - 毫秒； s - 秒； m - 分钟； h - 小时； d - 天； w - 周； y - 年；",
+                        "description": "范围查询的步长。当 instant 为 false 时，必须。step=< time_durations >，用一个数字，后面跟时间单位来定义。若不填单位，则默认按秒计算。时间单位可以是如下之一： ms - 毫秒； s - 秒； m - 分钟； h - 小时； d - 天； w - 周； y - 年；",
                         "type": "string"
                     },
                     "time": {
@@ -22988,16 +22988,16 @@
                     },
                     "start": {
                         "format": "int64",
-                        "description": "范围查询的开始时间。当 instant 为 true 时，必须。 start=< unix_timestamp >，单位到毫秒。 例如: 1646360670123",
+                        "description": "范围查询的开始时间。当 instant 为 false 时，必须。 start=< unix_timestamp >，单位到毫秒。 例如: 1646360670123",
                         "type": "integer"
                     },
                     "end": {
                         "format": "int64",
-                        "description": "范围查询的结束时间。当 instant 为 true 时，必须。end=< unix_timestamp >，单位到毫秒。例如: 1646471470123",
+                        "description": "范围查询的结束时间。当 instant 为 false 时，必须。end=< unix_timestamp >，单位到毫秒。例如: 1646471470123",
                         "type": "integer"
                     },
                     "step": {
-                        "description": "范围查询的步长。当 instant 为 true 时，必须。step=< time_durations >，用一个数字，后面跟时间单位来定义。若不填单位，则默认按秒计算。时间单位可以是如下之一： ms - 毫秒； s - 秒； m - 分钟； h - 小时； d - 天； w - 周； y - 年；",
+                        "description": "范围查询的步长。当 instant 为 false 时，必须。step=< time_durations >，用一个数字，后面跟时间单位来定义。若不填单位，则默认按秒计算。时间单位可以是如下之一： ms - 毫秒； s - 秒； m - 分钟； h - 小时； d - 天； w - 周； y - 年；",
                         "type": "string"
                     },
                     "time": {
