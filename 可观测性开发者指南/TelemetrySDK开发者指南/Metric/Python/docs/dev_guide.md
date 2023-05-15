@@ -16,19 +16,19 @@
 **第1步**执行以下命令引入Metric Exporter
 
 ```
-git clone ssh://devops.aishu.cn:22/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python -b 2.3.0
+git clone ssh://devops.aishu.cn:22/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python -b 2.4.0
 cd TelemetrySDK-Python
 pip install .
 ```
 
 **第2步**(可选)更新Metric Exporter
 
-- 查看SDK[兼容列表](../../../docs/compatibility.md)，选择希望引入的版本，例如2.3.0。
+- 查看SDK[兼容列表](../../../docs/compatibility.md)，选择希望引入的版本，例如2.4.0。
 
 ```
 cd TelemetrySDK-Python
 git fetch
-git checkout 2.3.0
+git checkout 2.4.0
 pip install .
 ```
 
