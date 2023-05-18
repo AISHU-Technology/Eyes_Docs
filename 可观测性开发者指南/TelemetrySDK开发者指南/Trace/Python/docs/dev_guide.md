@@ -116,4 +116,4 @@ def trace_init():
     RequestsInstrumentor().instrument()
 ```
 
-## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python?path=%2Fexporter%2Far_trace%2Fexamples%2Fone_service.py)
+## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python?path=%2Fexporter%2Far_trace%2Fexamples%2FREADME.md&_a=preview)
