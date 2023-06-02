@@ -55,7 +55,8 @@
                         "description": "指标查询语言，默认为空",
                         "schema": {
                             "enum": [
-                                "promql"
+                                "promql",
+                                "dsl"
                             ],
                             "type": "string"
                         },
@@ -125,7 +126,7 @@
                                                     "formula": "avg(irate(node_cpu_seconds_total{name=~\"node-14-35\",mode=\"system\"}[5m]))by(name)",
                                                     "date_field": "@timestamp",
                                                     "date_format": "epoch_millis",
-                                                    "metric_field": "value",
+                                                    "measure_field": "value",
                                                     "unit_type": "timeUnit",
                                                     "unit": "ms",
                                                     "tags": [
@@ -177,7 +178,7 @@
                                             "formula": "avg(irate(node_cpu_seconds_total{name=~\"node-14-35\",mode=\"system\"}[5m]))by(name)",
                                             "date_field": "@timestamp",
                                             "date_format": "epoch_millis",
-                                            "metric_field": "value",
+                                            "measure_field": "value",
                                             "unit_type": "timeUnit",
                                             "unit": "ms",
                                             "tags": [
@@ -201,7 +202,7 @@
                                             "formula": "avg(irate(node_cpu_seconds_total{name=~\"node-14-35\",mode=\"system\"}[5m]))by(name)",
                                             "date_field": "@timestamp",
                                             "date_format": "epoch_millis",
-                                            "metric_field": "value",
+                                            "measure_field": "value",
                                             "timeUnit": "timeUnit",
                                             "unit": "ms",
                                             "tags": [
@@ -221,7 +222,7 @@
                                             "formula": "node_memory_MemTotal_bytes{name=~\"node-14-35\"}",
                                             "date_field": "@timestamp",
                                             "date_format": "epoch_millis",
-                                            "metric_field": "value",
+                                            "measure_field": "value",
                                             "unit_type": "storeUnit",
                                             "unit": "Byte",
                                             "tags": [
@@ -325,7 +326,7 @@
                                             "formula": "some text",
                                             "date_field": "some text",
                                             "date_format": "epoch_millis",
-                                            "metric_field": "some text",
+                                            "measure_field": "some text",
                                             "unit_type": "storeUnit",
                                             "unit": "Mbps",
                                             "tags": [
@@ -368,7 +369,7 @@
                                         "formula": "some text",
                                         "date_field": "@timestamp",
                                         "date_format": "epoch_millis",
-                                        "metric_field": "value",
+                                        "measure_field": "value",
                                         "unit_type": "timeUnit",
                                         "unit": "ms",
                                         "tags": [
@@ -605,280 +606,6 @@
                     "total_count": 1
                 }
             },
-            "ReqMetricModel": {
-                "description": "",
-                "required": [
-                    "metric_model_name",
-                    "metric_type",
-                    "query_type",
-                    "formula",
-                    "data_view_name",
-                    "model_name",
-                    "name",
-                    "unit_type",
-                    "metric_field",
-                    "unit"
-                ],
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "description": "指标模型名称",
-                        "type": "string"
-                    },
-                    "metric_type": {
-                        "description": "指标类型",
-                        "enum": [
-                            "atomic",
-                            "complex"
-                        ],
-                        "type": "string"
-                    },
-                    "data_view_name": {
-                        "description": "数据视图名称",
-                        "type": "string"
-                    },
-                    "query_type": {
-                        "description": "指标查询语言。根据 category 和 datasource 来展示指标查询语言列表",
-                        "enum": [
-                            "promql"
-                        ],
-                        "type": "string"
-                    },
-                    "formula": {
-                        "description": "计算公式",
-                        "type": "string"
-                    },
-                    "date_field": {
-                        "description": "时间字段。当查询语言是 promql 时，此字段值为 @timestamp。",
-                        "type": "string"
-                    },
-                    "date_format": {
-                        "description": "时间格式。当查询语言是 promql 时，此字段值为 epoch_millis。",
-                        "enum": [
-                            "epoch_millis"
-                        ],
-                        "type": "string"
-                    },
-                    "metric_field": {
-                        "description": "度量字段。当查询语言是 promql 时，此字段值为 value。",
-                        "type": "string"
-                    },
-                    "unit_type": {
-                        "description": "单位类型",
-                        "enum": [
-                            "numUnit",
-                            "storeUnit",
-                            "percent",
-                            "transmissionRate",
-                            "timeUnit"
-                        ],
-                        "type": "string"
-                    },
-                    "unit": {
-                        "description": "度量单位",
-                        "enum": [
-                            "none",
-                            "K",
-                            "Mil",
-                            "Bil",
-                            "Tri",
-                            "bit",
-                            "Byte",
-                            "KB",
-                            "MB",
-                            "GB",
-                            "TB",
-                            "PB",
-                            "%",
-                            "bps",
-                            "Kbps",
-                            "Mbps",
-                            "μs",
-                            "ms",
-                            "s",
-                            "m",
-                            "h",
-                            "day",
-                            "week",
-                            "month",
-                            "year"
-                        ],
-                        "type": "string"
-                    },
-                    "tags": {
-                        "description": "标签。用于业务标识",
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "custom_attribute": {
-                        "description": "自定义属性，map，可以包含任意键值对",
-                        "type": "object",
-                        "additionalProperties": true
-                    },
-                    "comment": {
-                        "description": "指标模型备注",
-                        "type": "string"
-                    }
-                },
-                "example": {
-                    "name": "主机-cpu使用率",
-                    "metric_type": "原子指标",
-                    "data_view_name": "主机监控",
-                    "query_type": "promql",
-                    "formula": "avg(irate(node_cpu_seconds_total{name=~\"node-14-35\",mode=\"system\"}[5m]))by(name)",
-                    "date_field": "@timestamp",
-                    "date_format": "epoch_second",
-                    "metric_field": "value",
-                    "unit_type": "numUnit",
-                    "unit": "'Mil'",
-                    "tags": [
-                        "some text",
-                        "some text"
-                    ],
-                    "custom_attribute": {
-                        "link": "指标b"
-                    },
-                    "comment": "主机cpu使用率"
-                }
-            },
-            "UpdateMetricModel": {
-                "description": "",
-                "required": [
-                    "metric_type",
-                    "query_type",
-                    "formula",
-                    "data_view_name",
-                    "name",
-                    "metric_field",
-                    "unit_type",
-                    "unit"
-                ],
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "description": "指标模型名称",
-                        "type": "string"
-                    },
-                    "metric_type": {
-                        "description": "指标类型",
-                        "enum": [
-                            "atomic",
-                            "complex"
-                        ],
-                        "type": "string"
-                    },
-                    "data_view_name": {
-                        "description": "数据视图名称",
-                        "type": "string"
-                    },
-                    "query_type": {
-                        "description": "指标查询语言",
-                        "enum": [
-                            "promql"
-                        ],
-                        "type": "string"
-                    },
-                    "formula": {
-                        "description": "计算公式",
-                        "type": "string"
-                    },
-                    "date_field": {
-                        "description": "时间字段。当查询语言是 promql 时，此字段值为 @timestamp。",
-                        "type": "string"
-                    },
-                    "date_format": {
-                        "description": "时间格式。当查询语言是 promql 时，此字段值为 epoch_millis。",
-                        "enum": [
-                            "epoch_millis"
-                        ],
-                        "type": "string"
-                    },
-                    "metric_field": {
-                        "description": "度量字段。当查询语言是 promql 时，此字段值为 value。",
-                        "type": "string"
-                    },
-                    "unit_type": {
-                        "description": "单位类型",
-                        "enum": [
-                            "numUnit",
-                            "storeUnit",
-                            "percent",
-                            "transmissionRate",
-                            "timeUnit"
-                        ],
-                        "type": "string"
-                    },
-                    "unit": {
-                        "description": "度量单位",
-                        "enum": [
-                            "none",
-                            "K",
-                            "Mil",
-                            "Bil",
-                            "Tri",
-                            "bit",
-                            "Byte",
-                            "KB",
-                            "MB",
-                            "GB",
-                            "TB",
-                            "PB",
-                            "%",
-                            "bps",
-                            "Kbps",
-                            "Mbps",
-                            "μs",
-                            "ms",
-                            "s",
-                            "m",
-                            "h",
-                            "day",
-                            "week",
-                            "month",
-                            "year"
-                        ],
-                        "type": "string"
-                    },
-                    "tags": {
-                        "description": "标签",
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "custom_attribute": {
-                        "description": "自定义属性（可以为空），map，可以包含任意键值对",
-                        "type": "object",
-                        "additionalProperties": true
-                    },
-                    "comment": {
-                        "description": "指标模型备注",
-                        "type": "string"
-                    }
-                },
-                "example": {
-                    "name": "主机cpu使用率",
-                    "metric_type": "原子指标",
-                    "data_view_name": "主机监控",
-                    "query_type": "promql",
-                    "formula": "avg(irate(node_cpu_seconds_total{name=~\"node-14-35\",mode=\"system\"}[5m]))by(name)",
-                    "date_field": "some text",
-                    "date_format": "epoch_second",
-                    "metric_field": "some text",
-                    "unit_type": "transmissionRate",
-                    "unit": "bps",
-                    "tags": [
-                        "some text",
-                        "some text"
-                    ],
-                    "custom_attribute": {
-                        "key": "some text"
-                    },
-                    "comment": "some text"
-                }
-            },
             "DataView": {
                 "description": "数据视图的信息。当前版本是获取日志分组的过滤条件",
                 "required": [
@@ -927,7 +654,7 @@
                     "update_time",
                     "name",
                     "id",
-                    "metric_field",
+                    "measure_field",
                     "date_field",
                     "date_format",
                     "unit",
@@ -963,7 +690,8 @@
                     "query_type": {
                         "description": "指标查询语言。根据 category 和 datasource 来展示指标查询语言列表。",
                         "enum": [
-                            "promql"
+                            "promql",
+                            "dsl"
                         ],
                         "type": "string"
                     },
@@ -972,18 +700,18 @@
                         "type": "string"
                     },
                     "date_field": {
-                        "description": "时间字段。当查询语言是 promql 时，此字段值为 @timestamp。",
+                        "description": "时间字段。当查询语言是 promql 时，此字段值为 @timestamp。当查询语言是 dsl 时序分析时，此字段值为 dsl 语句中的关于时间聚合分桶的聚合名称。",
                         "type": "string"
                     },
                     "date_format": {
-                        "description": "时间格式。当查询语言是 promql 时，此字段值为 epoch_millis。",
+                        "description": "时间格式。当查询语言是 promql 时，此字段值为 epoch_millis。当查询语言是 dsl 时，此字段值为 epoch_millis",
                         "enum": [
                             "epoch_millis"
                         ],
                         "type": "string"
                     },
-                    "metric_field": {
-                        "description": "度量字段。当查询语言是 promql 时，此字段值为 value。",
+                    "measure_field": {
+                        "description": "度量字段。当查询语言是 promql 时，此字段值为 value。当查询语言是 dsl 时，此字段值为 dsl 语句中的值聚合名称。",
                         "type": "string"
                     },
                     "unit_type": {
@@ -1088,7 +816,7 @@
                     "update_time",
                     "date_field",
                     "date_format",
-                    "metric_field",
+                    "measure_field",
                     "unit",
                     "unit_type",
                     "data_view_id"
@@ -1126,7 +854,8 @@
                     "query_type": {
                         "description": "指标查询语言。根据 category 和 datasource 来展示指标查询语言列表。",
                         "enum": [
-                            "promql"
+                            "promql",
+                            "dsl"
                         ],
                         "type": "string"
                     },
@@ -1135,18 +864,18 @@
                         "type": "string"
                     },
                     "date_field": {
-                        "description": "时间字段。当查询语言是 promql 时，此字段值为 @timestamp。",
+                        "description": "时间字段。当查询语言是 promql 时，此字段值为 @timestamp。当查询语言是 dsl 时序分析时，此字段值为 dsl 语句中的关于时间聚合分桶的聚合名称。",
                         "type": "string"
                     },
                     "date_format": {
-                        "description": "时间格式。当查询语言是 promql 时，此字段值为 epoch_millis。",
+                        "description": "时间格式。当查询语言是 promql 时，此字段值为 epoch_millis。当查询语言是 dsl 时，此字段值为 epoch_millis",
                         "enum": [
                             "epoch_millis"
                         ],
                         "type": "string"
                     },
-                    "metric_field": {
-                        "description": "度量字段。当查询语言是 promql 时，此字段值为 value。",
+                    "measure_field": {
+                        "description": "度量字段。当查询语言是 promql 时，此字段值为 value。当查询语言是 dsl 时，此字段值为 dsl 语句中的值聚合名称。",
                         "type": "string"
                     },
                     "unit_type": {
@@ -1241,6 +970,282 @@
                     },
                     "comment": "some text",
                     "update_time": "some text"
+                }
+            },
+            "ReqMetricModel": {
+                "description": "",
+                "required": [
+                    "metric_model_name",
+                    "metric_type",
+                    "query_type",
+                    "formula",
+                    "data_view_name",
+                    "model_name",
+                    "name",
+                    "unit_type",
+                    "measure_field",
+                    "unit"
+                ],
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "description": "指标模型名称",
+                        "type": "string"
+                    },
+                    "metric_type": {
+                        "description": "指标类型",
+                        "enum": [
+                            "atomic",
+                            "complex"
+                        ],
+                        "type": "string"
+                    },
+                    "data_view_name": {
+                        "description": "数据视图名称",
+                        "type": "string"
+                    },
+                    "query_type": {
+                        "description": "指标查询语言。根据 category 和 datasource 来展示指标查询语言列表",
+                        "enum": [
+                            "promql",
+                            "dsl"
+                        ],
+                        "type": "string"
+                    },
+                    "formula": {
+                        "description": "计算公式",
+                        "type": "string"
+                    },
+                    "date_field": {
+                        "description": "时间字段。当查询语言是 promql 时，此字段值为 @timestamp。当查询语言是 dsl 时序分析时，此字段值为 dsl 语句中的关于时间聚合分桶的聚合名称。",
+                        "type": "string"
+                    },
+                    "date_format": {
+                        "description": "时间格式。当查询语言是 promql 时，此字段值为 epoch_millis。当查询语言是 dsl 时，此字段值为 epoch_millis",
+                        "enum": [
+                            "epoch_millis"
+                        ],
+                        "type": "string"
+                    },
+                    "measure_field": {
+                        "description": "度量字段。当查询语言是 promql 时，此字段值为 value。当查询语言是 dsl 时，此字段值为 dsl 语句中的值聚合名称",
+                        "type": "string"
+                    },
+                    "unit_type": {
+                        "description": "单位类型",
+                        "enum": [
+                            "numUnit",
+                            "storeUnit",
+                            "percent",
+                            "transmissionRate",
+                            "timeUnit"
+                        ],
+                        "type": "string"
+                    },
+                    "unit": {
+                        "description": "度量单位",
+                        "enum": [
+                            "none",
+                            "K",
+                            "Mil",
+                            "Bil",
+                            "Tri",
+                            "bit",
+                            "Byte",
+                            "KB",
+                            "MB",
+                            "GB",
+                            "TB",
+                            "PB",
+                            "%",
+                            "bps",
+                            "Kbps",
+                            "Mbps",
+                            "μs",
+                            "ms",
+                            "s",
+                            "m",
+                            "h",
+                            "day",
+                            "week",
+                            "month",
+                            "year"
+                        ],
+                        "type": "string"
+                    },
+                    "tags": {
+                        "description": "标签。用于业务标识",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "custom_attribute": {
+                        "description": "自定义属性，map，可以包含任意键值对",
+                        "type": "object",
+                        "additionalProperties": true
+                    },
+                    "comment": {
+                        "description": "指标模型备注",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "name": "主机-cpu使用率",
+                    "metric_type": "原子指标",
+                    "data_view_name": "主机监控",
+                    "query_type": "promql",
+                    "formula": "avg(irate(node_cpu_seconds_total{name=~\"node-14-35\",mode=\"system\"}[5m]))by(name)",
+                    "date_field": "@timestamp",
+                    "date_format": "epoch_second",
+                    "metric_field": "value",
+                    "unit_type": "numUnit",
+                    "unit": "'Mil'",
+                    "tags": [
+                        "some text",
+                        "some text"
+                    ],
+                    "custom_attribute": {
+                        "link": "指标b"
+                    },
+                    "comment": "主机cpu使用率"
+                }
+            },
+            "UpdateMetricModel": {
+                "description": "",
+                "required": [
+                    "metric_type",
+                    "query_type",
+                    "formula",
+                    "data_view_name",
+                    "name",
+                    "measure_field",
+                    "unit_type",
+                    "unit"
+                ],
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "description": "指标模型名称",
+                        "type": "string"
+                    },
+                    "metric_type": {
+                        "description": "指标类型",
+                        "enum": [
+                            "atomic",
+                            "complex"
+                        ],
+                        "type": "string"
+                    },
+                    "data_view_name": {
+                        "description": "数据视图名称",
+                        "type": "string"
+                    },
+                    "query_type": {
+                        "description": "指标查询语言",
+                        "enum": [
+                            "promql",
+                            "dsl"
+                        ],
+                        "type": "string"
+                    },
+                    "formula": {
+                        "description": "计算公式",
+                        "type": "string"
+                    },
+                    "date_field": {
+                        "description": "时间字段。当查询语言是 promql 时，此字段值为 @timestamp。当查询语言是 dsl 时序分析时，此字段值为 dsl 语句中的关于时间聚合分桶的聚合名称。",
+                        "type": "string"
+                    },
+                    "date_format": {
+                        "description": "时间格式。当查询语言是 promql 时，此字段值为 epoch_millis。当查询语言是 dsl 时，此字段值为 epoch_millis",
+                        "enum": [
+                            "epoch_millis"
+                        ],
+                        "type": "string"
+                    },
+                    "measure_field": {
+                        "description": "度量字段。当查询语言是 promql 时，此字段值为 value。当查询语言是 dsl 时，此字段值为 dsl 语句中的值聚合名称。",
+                        "type": "string"
+                    },
+                    "unit_type": {
+                        "description": "单位类型",
+                        "enum": [
+                            "numUnit",
+                            "storeUnit",
+                            "percent",
+                            "transmissionRate",
+                            "timeUnit"
+                        ],
+                        "type": "string"
+                    },
+                    "unit": {
+                        "description": "度量单位",
+                        "enum": [
+                            "none",
+                            "K",
+                            "Mil",
+                            "Bil",
+                            "Tri",
+                            "bit",
+                            "Byte",
+                            "KB",
+                            "MB",
+                            "GB",
+                            "TB",
+                            "PB",
+                            "%",
+                            "bps",
+                            "Kbps",
+                            "Mbps",
+                            "μs",
+                            "ms",
+                            "s",
+                            "m",
+                            "h",
+                            "day",
+                            "week",
+                            "month",
+                            "year"
+                        ],
+                        "type": "string"
+                    },
+                    "tags": {
+                        "description": "标签",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "custom_attribute": {
+                        "description": "自定义属性（可以为空），map，可以包含任意键值对",
+                        "type": "object",
+                        "additionalProperties": true
+                    },
+                    "comment": {
+                        "description": "指标模型备注",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "name": "主机cpu使用率",
+                    "metric_type": "原子指标",
+                    "data_view_name": "主机监控",
+                    "query_type": "promql",
+                    "formula": "avg(irate(node_cpu_seconds_total{name=~\"node-14-35\",mode=\"system\"}[5m]))by(name)",
+                    "date_field": "some text",
+                    "date_format": "epoch_second",
+                    "metric_field": "some text",
+                    "unit_type": "transmissionRate",
+                    "unit": "bps",
+                    "tags": [
+                        "some text",
+                        "some text"
+                    ],
+                    "custom_attribute": {
+                        "key": "some text"
+                    },
+                    "comment": "some text"
                 }
             }
         },

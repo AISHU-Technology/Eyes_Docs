@@ -21056,7 +21056,600 @@
                 "description": "搜索API, AnyRobot 3.0.18.1版本及以上支持"
             }
         },
-        "/api/uniquery/v1/dsl/_searchscroll": {
+        "/api/uniquery/v1/traces/{trace_id}": {
+            "description": "AnyRobot 5.0.1.0版本及以上支持",
+            "get": {
+                "parameters": [
+                    {
+                        "name": "ar_dataview",
+                        "description": "链路的日志分组id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TraceDetail"
+                                },
+                                "examples": {
+                                    "查询成功": {
+                                        "value": {
+                                            "trace_id": "ab4fe1de2d9c951411bbdbc3533d747f",
+                                            "trace_status": "ok",
+                                            "start_time": 1651258379114304000,
+                                            "end_time": 1651258379115123000,
+                                            "duration": 1131000,
+                                            "span_stats": {
+                                                "Ok": 0,
+                                                "Error": 0,
+                                                "Unset": 3
+                                            },
+                                            "spans": [
+                                                {
+                                                    "Name": "搜索前端服务",
+                                                    "SpanContext": {
+                                                        "TraceID": "ab4fe1de2d9c951411bbdbc3533d747f",
+                                                        "SpanID": "44c39ef193f3e08a",
+                                                        "TraceFlags": "01",
+                                                        "TraceState": {
+                                                            "rojo": "00f067aa0ba902b7",
+                                                            "congo": "t61rcWkgMzE"
+                                                        }
+                                                    },
+                                                    "Parent": {
+                                                        "TraceID": "00000000000000000000000000000000",
+                                                        "SpanID": "0000000000000000",
+                                                        "TraceFlags": "00",
+                                                        "TraceState": {}
+                                                    },
+                                                    "SpanKind": 1,
+                                                    "SpanKindDesc": "INTERNAL",
+                                                    "StartTime": 1651258378114304000,
+                                                    "EndTime": 1651258378115123000,
+                                                    "@timestamp": "2022-04-29T18:52:58.114Z",
+                                                    "Duration": 1131000,
+                                                    "Attributes": {
+                                                        "num": "45"
+                                                    },
+                                                    "Events": [
+                                                        {
+                                                            "Name": "Nice operation!",
+                                                            "Time": "1661995319100",
+                                                            "Attributes": {
+                                                                "bogons": 100
+                                                            }
+                                                        }
+                                                    ],
+                                                    "Links": [
+                                                        {
+                                                            "TraceID": "ab4fe1de2d9c951411bbdbc3533d747h",
+                                                            "SpanID": "dbff9e1d80069b59",
+                                                            "TraceState": {
+                                                                "rojo": "00f067aa0ba902b7",
+                                                                "congo": "t61rcWkgMzE"
+                                                            },
+                                                            "Attributes": {
+                                                                "num": 100
+                                                            }
+                                                        }
+                                                    ],
+                                                    "Status": {
+                                                        "Code": 0,
+                                                        "CodeDesc": "Unset",
+                                                        "Description": ""
+                                                    },
+                                                    "Resource": {
+                                                        "service": {
+                                                            "name": "web-data-manager",
+                                                            "version": "版本1.0.1"
+                                                        },
+                                                        "telemetry": {
+                                                            "sdk": {
+                                                                "language": "go",
+                                                                "name": "opentelemetry",
+                                                                "version": "1.9.0"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "Name": "uniquery服务",
+                                                    "SpanContext": {
+                                                        "TraceID": "ab4fe1de2d9c951411bbdbc3533d747f",
+                                                        "SpanID": "44c39ef193f3e08b",
+                                                        "TraceFlags": "01",
+                                                        "TraceState": {
+                                                            "rojo": "00f067aa0ba902b7",
+                                                            "congo": "t61rcWkgMzE"
+                                                        }
+                                                    },
+                                                    "Parent": {
+                                                        "TraceID": "ab4fe1de2d9c951411bbdbc3533d747f",
+                                                        "SpanID": "44c39ef193f3e08a",
+                                                        "TraceFlags": "01",
+                                                        "TraceState": {
+                                                            "rojo": "00f067aa0ba902b7",
+                                                            "congo": "t61rcWkgMzE"
+                                                        }
+                                                    },
+                                                    "SpanKind": 1,
+                                                    "SpanKindDesc": "INTERNAL",
+                                                    "StartTime": 1651258379114304000,
+                                                    "EndTime": 1651258379115123000,
+                                                    "@timestamp": "2022-04-29T18:52:59.114Z",
+                                                    "Duration": 1131000,
+                                                    "Attributes": {
+                                                        "num": "45"
+                                                    },
+                                                    "Events": [
+                                                        {
+                                                            "Name": "Nice operation!",
+                                                            "Time": "1661995319100",
+                                                            "Attributes": {
+                                                                "bogons": 100
+                                                            }
+                                                        }
+                                                    ],
+                                                    "Links": [
+                                                        {
+                                                            "TraceID": "ab4fe1de2d9c951411bbdbc3533d747h",
+                                                            "SpanID": "dbff9e1d80069b59",
+                                                            "TraceState": {
+                                                                "rojo": "00f067aa0ba902b7",
+                                                                "congo": "t61rcWkgMzE"
+                                                            },
+                                                            "Attributes": {
+                                                                "num": 100
+                                                            }
+                                                        }
+                                                    ],
+                                                    "Status": {
+                                                        "Code": 0,
+                                                        "CodeDesc": "Unset",
+                                                        "Description": ""
+                                                    },
+                                                    "Resource": {
+                                                        "service": {
+                                                            "name": "uniquery",
+                                                            "version": "5.0.0"
+                                                        },
+                                                        "telemetry": {
+                                                            "sdk": {
+                                                                "language": "go",
+                                                                "name": "opentelemetry",
+                                                                "version": "1.9.0"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "Name": "opensearch服务",
+                                                    "SpanContext": {
+                                                        "TraceID": "ab4fe1de2d9c951411bbdbc3533d747f",
+                                                        "SpanID": "44c39ef193f3e08c",
+                                                        "TraceFlags": "01",
+                                                        "TraceState": {
+                                                            "rojo": "00f067aa0ba902b7",
+                                                            "congo": "t61rcWkgMzE"
+                                                        }
+                                                    },
+                                                    "Parent": {
+                                                        "TraceID": "ab4fe1de2d9c951411bbdbc3533d747f",
+                                                        "SpanID": "44c39ef193f3e08b",
+                                                        "TraceFlags": "01",
+                                                        "TraceState": {
+                                                            "rojo": "00f067aa0ba902b7",
+                                                            "congo": "t61rcWkgMzE"
+                                                        }
+                                                    },
+                                                    "SpanKind": 1,
+                                                    "SpanKindDesc": "INTERNAL",
+                                                    "StartTime": 1651258380114304000,
+                                                    "EndTime": 1651258380115123000,
+                                                    "@timestamp": "2022-04-29T18:53:00.114Z",
+                                                    "Duration": 1131000,
+                                                    "Attributes": {
+                                                        "num": "45"
+                                                    },
+                                                    "Events": [
+                                                        {
+                                                            "Name": "Nice operation!",
+                                                            "Time": "1661995319100",
+                                                            "Attributes": {
+                                                                "bogons": 100
+                                                            }
+                                                        }
+                                                    ],
+                                                    "Links": [
+                                                        {
+                                                            "TraceID": "ab4fe1de2d9c951411bbdbc3533d747h",
+                                                            "SpanID": "dbff9e1d80069b59",
+                                                            "TraceState": {
+                                                                "rojo": "00f067aa0ba902b7",
+                                                                "congo": "t61rcWkgMzE"
+                                                            },
+                                                            "Attributes": {
+                                                                "num": 100
+                                                            }
+                                                        }
+                                                    ],
+                                                    "Status": {
+                                                        "Code": 0,
+                                                        "CodeDesc": "Unset",
+                                                        "Description": ""
+                                                    },
+                                                    "Resource": {
+                                                        "service": {
+                                                            "name": "opensearch",
+                                                            "version": "1.3.1"
+                                                        },
+                                                        "telemetry": {
+                                                            "sdk": {
+                                                                "language": "go",
+                                                                "name": "opentelemetry",
+                                                                "version": "1.9.0"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ],
+                                            "services": [
+                                                {
+                                                    "name": "web-data-manager"
+                                                },
+                                                {
+                                                    "name": "opensearch"
+                                                },
+                                                {
+                                                    "name": "uniquery"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "查询成功"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UniqueryErrorCode"
+                                },
+                                "examples": {
+                                    "指定的日志分组ID未传入": {
+                                        "value": {
+                                            "error_code": "Uniquery.MissingParameter.ARDataView",
+                                            "description": "指定的日志分组ID未传入",
+                                            "error_details": "some text",
+                                            "error_link": "None",
+                                            "solution": "请您传入正确的参数。"
+                                        }
+                                    },
+                                    "指定的日志分组不存在": {
+                                        "value": {
+                                            "error_code": "Uniquery.NoSuchARDataView",
+                                            "description": "指定的日志分组不存在",
+                                            "error_details": "some text",
+                                            "error_link": "None",
+                                            "solution": "请您传入正确的参数。"
+                                        }
+                                    },
+                                    "指定的日志分组无效": {
+                                        "value": {
+                                            "error_code": "Uniquery_InvalidParameter_ARDataView",
+                                            "description": "指定的日志分组无效",
+                                            "error_details": "some text",
+                                            "error_link": "None",
+                                            "solution": "请您传入正确的参数。"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UniqueryErrorCode"
+                                },
+                                "examples": {
+                                    "链路数据不存在": {
+                                        "value": {
+                                            "error_code": "Uniquery.TraceNotFound",
+                                            "description": "指定的链路不存在",
+                                            "error_details": "some text",
+                                            "error_link": "None",
+                                            "solution": "请您检查参数是否正确。"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "链路数据未找到"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UniqueryErrorCode"
+                                },
+                                "examples": {
+                                    "服务器内部错误": {
+                                        "value": {
+                                            "error_code": "Uniquery.InternalError",
+                                            "description": "服务器内部错误",
+                                            "error_details": "some text",
+                                            "error_link": "None",
+                                            "solution": "请重试该操作，若再次出现该错误请提交工单或联系技术支持工程师。"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "内部错误"
+                    }
+                },
+                "summary": "traces/{trace_id}",
+                "description": "查看单条trace数据详情, AnyRobot 5.0.1.0版本及以上支持"
+            },
+            "parameters": [
+                {
+                    "name": "trace_id",
+                    "description": "链路id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "path",
+                    "required": true
+                },
+                {
+                    "name": "ar_dataview",
+                    "description": "日志分组id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "query",
+                    "required": true
+                }
+            ]
+        },
+        "/uniquery/v1/metric-models/{id}": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ReqMetricModel"
+                            },
+                            "examples": {
+                                "范围查询+全局过滤器": {
+                                    "value": {
+                                        "method": "GET",
+                                        "instant": false,
+                                        "start": 1646360670123,
+                                        "end": 1646471470123,
+                                        "step": "1m",
+                                        "filters": [
+                                            {
+                                                "name": "labels.host",
+                                                "value": [
+                                                    "10.2.12.23",
+                                                    "10.21.2.3"
+                                                ],
+                                                "operation": "in"
+                                            },
+                                            {
+                                                "name": "labels.job",
+                                                "value": "prometheus",
+                                                "operation": "="
+                                            },
+                                            {
+                                                "name": "labels.namespace",
+                                                "value": "as",
+                                                "operation": "!="
+                                            },
+                                            {
+                                                "name": "metrics.node_cpu_seconds_total",
+                                                "value": [
+                                                    0,
+                                                    5
+                                                ],
+                                                "operation": "range"
+                                            },
+                                            {
+                                                "name": "metrics.node_memory_MemTotal_bytes",
+                                                "value": [
+                                                    1024,
+                                                    2048
+                                                ],
+                                                "operation": "out_range"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "即时查询+全局过滤器": {
+                                    "value": {
+                                        "method": "GET",
+                                        "instant": true,
+                                        "time": 1669789900123,
+                                        "look_back_delta": "10m",
+                                        "filters": [
+                                            {
+                                                "name": "labels.host",
+                                                "value": [
+                                                    "10.2.12.23",
+                                                    "10.21.2.3"
+                                                ],
+                                                "operation": "in"
+                                            },
+                                            {
+                                                "name": "labels.job",
+                                                "value": "prometheus",
+                                                "operation": "="
+                                            },
+                                            {
+                                                "name": "labels.namespace",
+                                                "value": "as",
+                                                "operation": "!="
+                                            },
+                                            {
+                                                "name": "metrics.node_cpu_seconds_total",
+                                                "value": [
+                                                    0,
+                                                    5
+                                                ],
+                                                "operation": "range"
+                                            },
+                                            {
+                                                "name": "metrics.node_memory_MemTotal_bytes",
+                                                "value": [
+                                                    1024,
+                                                    2048
+                                                ],
+                                                "operation": "out_range"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MetricResults"
+                                },
+                                "examples": {
+                                    "范围查询": {
+                                        "value": {
+                                            "model": {
+                                                "name": "model1",
+                                                "metric_type": "atomic",
+                                                "data_view_name": "xxx",
+                                                "query_type": "promql",
+                                                "formula": "cpu_second_total{}",
+                                                "date_field": "@timestamp",
+                                                "date_format": "epoch_millis",
+                                                "measure_field": "value",
+                                                "unit_type": "timeUnit",
+                                                "unit": "s"
+                                            },
+                                            "datas": [
+                                                {
+                                                    "labels": {
+                                                        "cpu": "1",
+                                                        "instance": "10.4.68.120:9101"
+                                                    },
+                                                    "date_values": [
+                                                        1669789800123,
+                                                        1669789900123
+                                                    ],
+                                                    "values": [
+                                                        10,
+                                                        11
+                                                    ]
+                                                },
+                                                {
+                                                    "labels": {
+                                                        "cpu": "2",
+                                                        "instance": "10.4.68.120:9101"
+                                                    },
+                                                    "date_values": [
+                                                        1669789800123,
+                                                        1669789900123
+                                                    ],
+                                                    "values": [
+                                                        10,
+                                                        11
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "即时查询": {
+                                        "value": {
+                                            "model": {
+                                                "name": "model1",
+                                                "metric_type": "atomic",
+                                                "data_view_name": "xxx",
+                                                "query_type": "promql",
+                                                "formula": "cpu_second_total{}",
+                                                "date_field": "@timestamp",
+                                                "date_format": "epoch_millis",
+                                                "measure_field": "value",
+                                                "unit_type": "timeUnit",
+                                                "unit": "s"
+                                            },
+                                            "datas": [
+                                                {
+                                                    "labels": {
+                                                        "cpu": "1",
+                                                        "instance": "10.4.68.120:9101"
+                                                    },
+                                                    "date_values": [
+                                                        1669789900123
+                                                    ],
+                                                    "values": [
+                                                        11
+                                                    ]
+                                                },
+                                                {
+                                                    "labels": {
+                                                        "cpu": "2",
+                                                        "instance": "10.4.68.120:9101"
+                                                    },
+                                                    "date_values": [
+                                                        1669789900123
+                                                    ],
+                                                    "values": [
+                                                        11
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400BadRequest"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500InternalError"
+                    }
+                },
+                "summary": "metric-models/{id}",
+                "description": "根据指标模型 id 查询指标数据"
+            },
+            "parameters": [
+                {
+                    "name": "id",
+                    "description": "指标模型id",
+                    "schema": {
+                        "type": "integer"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/api/uniquery/v1/dsl/_search/scroll": {
             "post": {
                 "requestBody": {
                     "description": "Post the necessary fields for the API to get next scroll result.",
@@ -21515,7 +22108,7 @@
                 "description": "停止翻页搜索API, AnyRobot 3.0.18.7版本及以上支持"
             }
         },
-        "/api/uniquery/v1/dsl/_searchscroll/_all": {
+        "/api/uniquery/v1/dsl/_search/scroll/_all": {
             "delete": {
                 "responses": {
                     "200": {
@@ -21563,373 +22156,6 @@
                 "description": "停止所有翻页搜索API, AnyRobot 3.0.18.7版本及以上支持"
             }
         },
-        "/api/uniquery/v1/traces/{trace_id}": {
-            "description": "AnyRobot 5.0.1.0版本及以上支持",
-            "get": {
-                "parameters": [
-                    {
-                        "name": "ar_dataview",
-                        "description": "链路的日志分组id",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/TraceDetail"
-                                },
-                                "examples": {
-                                    "查询成功": {
-                                        "value": {
-                                            "trace_id": "ab4fe1de2d9c951411bbdbc3533d747f",
-                                            "trace_status": "ok",
-                                            "start_time": 1651258379114304000,
-                                            "end_time": 1651258379115123000,
-                                            "duration": 1131000,
-                                            "span_stats": {
-                                                "Ok": 0,
-                                                "Error": 0,
-                                                "Unset": 3
-                                            },
-                                            "spans": [
-                                                {
-                                                    "Name": "搜索前端服务",
-                                                    "SpanContext": {
-                                                        "TraceID": "ab4fe1de2d9c951411bbdbc3533d747f",
-                                                        "SpanID": "44c39ef193f3e08a",
-                                                        "TraceFlags": "01",
-                                                        "TraceState": {
-                                                            "rojo": "00f067aa0ba902b7",
-                                                            "congo": "t61rcWkgMzE"
-                                                        }
-                                                    },
-                                                    "Parent": {
-                                                        "TraceID": "00000000000000000000000000000000",
-                                                        "SpanID": "0000000000000000",
-                                                        "TraceFlags": "00",
-                                                        "TraceState": {}
-                                                    },
-                                                    "SpanKind": 1,
-                                                    "SpanKindDesc": "INTERNAL",
-                                                    "StartTime": 1651258378114304000,
-                                                    "EndTime": 1651258378115123000,
-                                                    "@timestamp": "2022-04-29T18:52:58.114Z",
-                                                    "Duration": 1131000,
-                                                    "Attributes": {
-                                                        "num": "45"
-                                                    },
-                                                    "Events": [
-                                                        {
-                                                            "Name": "Nice operation!",
-                                                            "Time": "1661995319100",
-                                                            "Attributes": {
-                                                                "bogons": 100
-                                                            }
-                                                        }
-                                                    ],
-                                                    "Links": [
-                                                        {
-                                                            "TraceID": "ab4fe1de2d9c951411bbdbc3533d747h",
-                                                            "SpanID": "dbff9e1d80069b59",
-                                                            "TraceState": {
-                                                                "rojo": "00f067aa0ba902b7",
-                                                                "congo": "t61rcWkgMzE"
-                                                            },
-                                                            "Attributes": {
-                                                                "num": 100
-                                                            }
-                                                        }
-                                                    ],
-                                                    "Status": {
-                                                        "Code": 0,
-                                                        "CodeDesc": "Unset",
-                                                        "Description": ""
-                                                    },
-                                                    "Resource": {
-                                                        "service": {
-                                                            "name": "web-data-manager",
-                                                            "version": "版本1.0.1"
-                                                        },
-                                                        "telemetry": {
-                                                            "sdk": {
-                                                                "language": "go",
-                                                                "name": "opentelemetry",
-                                                                "version": "1.9.0"
-                                                            }
-                                                        }
-                                                    }
-                                                },
-                                                {
-                                                    "Name": "uniquery服务",
-                                                    "SpanContext": {
-                                                        "TraceID": "ab4fe1de2d9c951411bbdbc3533d747f",
-                                                        "SpanID": "44c39ef193f3e08b",
-                                                        "TraceFlags": "01",
-                                                        "TraceState": {
-                                                            "rojo": "00f067aa0ba902b7",
-                                                            "congo": "t61rcWkgMzE"
-                                                        }
-                                                    },
-                                                    "Parent": {
-                                                        "TraceID": "ab4fe1de2d9c951411bbdbc3533d747f",
-                                                        "SpanID": "44c39ef193f3e08a",
-                                                        "TraceFlags": "01",
-                                                        "TraceState": {
-                                                            "rojo": "00f067aa0ba902b7",
-                                                            "congo": "t61rcWkgMzE"
-                                                        }
-                                                    },
-                                                    "SpanKind": 1,
-                                                    "SpanKindDesc": "INTERNAL",
-                                                    "StartTime": 1651258379114304000,
-                                                    "EndTime": 1651258379115123000,
-                                                    "@timestamp": "2022-04-29T18:52:59.114Z",
-                                                    "Duration": 1131000,
-                                                    "Attributes": {
-                                                        "num": "45"
-                                                    },
-                                                    "Events": [
-                                                        {
-                                                            "Name": "Nice operation!",
-                                                            "Time": "1661995319100",
-                                                            "Attributes": {
-                                                                "bogons": 100
-                                                            }
-                                                        }
-                                                    ],
-                                                    "Links": [
-                                                        {
-                                                            "TraceID": "ab4fe1de2d9c951411bbdbc3533d747h",
-                                                            "SpanID": "dbff9e1d80069b59",
-                                                            "TraceState": {
-                                                                "rojo": "00f067aa0ba902b7",
-                                                                "congo": "t61rcWkgMzE"
-                                                            },
-                                                            "Attributes": {
-                                                                "num": 100
-                                                            }
-                                                        }
-                                                    ],
-                                                    "Status": {
-                                                        "Code": 0,
-                                                        "CodeDesc": "Unset",
-                                                        "Description": ""
-                                                    },
-                                                    "Resource": {
-                                                        "service": {
-                                                            "name": "uniquery",
-                                                            "version": "5.0.0"
-                                                        },
-                                                        "telemetry": {
-                                                            "sdk": {
-                                                                "language": "go",
-                                                                "name": "opentelemetry",
-                                                                "version": "1.9.0"
-                                                            }
-                                                        }
-                                                    }
-                                                },
-                                                {
-                                                    "Name": "opensearch服务",
-                                                    "SpanContext": {
-                                                        "TraceID": "ab4fe1de2d9c951411bbdbc3533d747f",
-                                                        "SpanID": "44c39ef193f3e08c",
-                                                        "TraceFlags": "01",
-                                                        "TraceState": {
-                                                            "rojo": "00f067aa0ba902b7",
-                                                            "congo": "t61rcWkgMzE"
-                                                        }
-                                                    },
-                                                    "Parent": {
-                                                        "TraceID": "ab4fe1de2d9c951411bbdbc3533d747f",
-                                                        "SpanID": "44c39ef193f3e08b",
-                                                        "TraceFlags": "01",
-                                                        "TraceState": {
-                                                            "rojo": "00f067aa0ba902b7",
-                                                            "congo": "t61rcWkgMzE"
-                                                        }
-                                                    },
-                                                    "SpanKind": 1,
-                                                    "SpanKindDesc": "INTERNAL",
-                                                    "StartTime": 1651258380114304000,
-                                                    "EndTime": 1651258380115123000,
-                                                    "@timestamp": "2022-04-29T18:53:00.114Z",
-                                                    "Duration": 1131000,
-                                                    "Attributes": {
-                                                        "num": "45"
-                                                    },
-                                                    "Events": [
-                                                        {
-                                                            "Name": "Nice operation!",
-                                                            "Time": "1661995319100",
-                                                            "Attributes": {
-                                                                "bogons": 100
-                                                            }
-                                                        }
-                                                    ],
-                                                    "Links": [
-                                                        {
-                                                            "TraceID": "ab4fe1de2d9c951411bbdbc3533d747h",
-                                                            "SpanID": "dbff9e1d80069b59",
-                                                            "TraceState": {
-                                                                "rojo": "00f067aa0ba902b7",
-                                                                "congo": "t61rcWkgMzE"
-                                                            },
-                                                            "Attributes": {
-                                                                "num": 100
-                                                            }
-                                                        }
-                                                    ],
-                                                    "Status": {
-                                                        "Code": 0,
-                                                        "CodeDesc": "Unset",
-                                                        "Description": ""
-                                                    },
-                                                    "Resource": {
-                                                        "service": {
-                                                            "name": "opensearch",
-                                                            "version": "1.3.1"
-                                                        },
-                                                        "telemetry": {
-                                                            "sdk": {
-                                                                "language": "go",
-                                                                "name": "opentelemetry",
-                                                                "version": "1.9.0"
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            ],
-                                            "services": [
-                                                {
-                                                    "name": "web-data-manager"
-                                                },
-                                                {
-                                                    "name": "opensearch"
-                                                },
-                                                {
-                                                    "name": "uniquery"
-                                                }
-                                            ]
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "description": "查询成功"
-                    },
-                    "400": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/UniqueryErrorCode"
-                                },
-                                "examples": {
-                                    "指定的日志分组ID未传入": {
-                                        "value": {
-                                            "error_code": "Uniquery.MissingParameter.ARDataView",
-                                            "description": "指定的日志分组ID未传入",
-                                            "error_details": "some text",
-                                            "error_link": "None",
-                                            "solution": "请您传入正确的参数。"
-                                        }
-                                    },
-                                    "指定的日志分组不存在": {
-                                        "value": {
-                                            "error_code": "Uniquery.NoSuchARDataView",
-                                            "description": "指定的日志分组不存在",
-                                            "error_details": "some text",
-                                            "error_link": "None",
-                                            "solution": "请您传入正确的参数。"
-                                        }
-                                    },
-                                    "指定的日志分组无效": {
-                                        "value": {
-                                            "error_code": "Uniquery_InvalidParameter_ARDataView",
-                                            "description": "指定的日志分组无效",
-                                            "error_details": "some text",
-                                            "error_link": "None",
-                                            "solution": "请您传入正确的参数。"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/UniqueryErrorCode"
-                                },
-                                "examples": {
-                                    "链路数据不存在": {
-                                        "value": {
-                                            "error_code": "Uniquery.TraceNotFound",
-                                            "description": "指定的链路不存在",
-                                            "error_details": "some text",
-                                            "error_link": "None",
-                                            "solution": "请您检查参数是否正确。"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "description": "链路数据未找到"
-                    },
-                    "500": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/UniqueryErrorCode"
-                                },
-                                "examples": {
-                                    "服务器内部错误": {
-                                        "value": {
-                                            "error_code": "Uniquery.InternalError",
-                                            "description": "服务器内部错误",
-                                            "error_details": "some text",
-                                            "error_link": "None",
-                                            "solution": "请重试该操作，若再次出现该错误请提交工单或联系技术支持工程师。"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "description": "内部错误"
-                    }
-                },
-                "summary": "traces/{trace_id}",
-                "description": "查看单条trace数据详情, AnyRobot 5.0.1.0版本及以上支持"
-            },
-            "parameters": [
-                {
-                    "name": "trace_id",
-                    "description": "链路id",
-                    "schema": {
-                        "type": "string"
-                    },
-                    "in": "path",
-                    "required": true
-                },
-                {
-                    "name": "ar_dataview",
-                    "description": "日志分组id",
-                    "schema": {
-                        "type": "string"
-                    },
-                    "in": "query",
-                    "required": true
-                }
-            ]
-        },
         "/uniquery/v1/metric-model": {
             "summary": "基于指标模型的数据预览",
             "post": {
@@ -21940,7 +22166,7 @@
                                 "$ref": "#/components/schemas/ReqMetricModelSimulate"
                             },
                             "examples": {
-                                "范围查询-预览": {
+                                "范围查询-promql-预览": {
                                     "value": {
                                         "method": "GET",
                                         "metric_type": "atomic",
@@ -21953,13 +22179,40 @@
                                         "step": "1m"
                                     }
                                 },
-                                "即时查询-预览": {
+                                "即时查询-promql-预览": {
                                     "value": {
                                         "method": "GET",
                                         "metric_type": "atomic",
                                         "data_view_id": "wretrtyuiol675342rfgf",
                                         "query_type": "promql",
                                         "formula": "avg(irate(node_cpu_seconds_total{name=~\"node-14-35\",mode=\"system\"}[5m]))by(name)",
+                                        "instant": true,
+                                        "time": 1669789900123,
+                                        "look_back_delta": "10m"
+                                    }
+                                },
+                                "范围查询-dsl-预览": {
+                                    "value": {
+                                        "method": "GET",
+                                        "metric_type": "atomic",
+                                        "data_view_id": "wretrtyuiol675342rfgf",
+                                        "query_type": "dsl",
+                                        "formula": "{    \"size\":0,    \"query\":{        \"bool\":{            \"filter\":[                {                    \"range\":{                        \"labels.cpu.keyword\":{                            \"lte\":\"2\"                        }                    }                },                {                    \"range\":{                        \"metrics.node_cpu_seconds_total\":{                            \"gte\":0                        }                    }                }            ]        }    },    \"sort\":[        {            \"@timestamp\":{                \"order\":\"desc\"            }        }    ],    \"aggregations\":{        \"cpu2\":{            \"terms\":{                \"field\":\"labels.cpu.keyword\",                \"size\":10000            },            \"aggs\":{                \"mode\":{                    \"terms\":{                        \"field\":\"labels.mode.keyword\",                        \"size\":100000                    },                    \"aggs\":{                        \"time2\":{                            \"date_histogram\":{                                \"field\":\"@timestamp\",                                \"fixed_interval\":\"1h\",                                \"format\":\"yyyy-MM-dd HH:mm:ss.SSS\",                                \"min_doc_count\":1,                                \"order\":{                                    \"_key\":\"asc\"                                }                            },                            \"aggs\":{                                \"cnt_v\":{                                    \"value_count\":{                                        \"field\":\"@timestamp\"                                    }                                }                            }                        }                    }                }            }        }    }}",
+                                        "measure_field": "value",
+                                        "instant": false,
+                                        "start": 1646360670123,
+                                        "end": 1646471470123,
+                                        "step": "1m"
+                                    }
+                                },
+                                "即时查询-dsl-预览": {
+                                    "value": {
+                                        "method": "GET",
+                                        "metric_type": "atomic",
+                                        "data_view_id": "wretrtyuiol675342rfgf",
+                                        "query_type": "dsl",
+                                        "formula": "{    \"size\":0,    \"query\":{        \"bool\":{            \"filter\":[                {                    \"range\":{                        \"labels.cpu.keyword\":{                            \"lte\":\"2\"                        }                    }                },                {                    \"range\":{                        \"metrics.node_cpu_seconds_total\":{                            \"gte\":0                        }                    }                }            ]        }    },    \"sort\":[        {            \"@timestamp\":{                \"order\":\"desc\"            }        }    ],    \"aggregations\":{        \"cpu2\":{            \"terms\":{                \"field\":\"labels.cpu.keyword\",                \"size\":10000            },            \"aggs\":{                \"mode\":{                    \"terms\":{                        \"field\":\"labels.mode.keyword\",                        \"size\":100000                    },                    \"aggs\":{                        \"time2\":{                            \"date_histogram\":{                                \"field\":\"@timestamp\",                                \"fixed_interval\":\"1h\",                                \"format\":\"yyyy-MM-dd HH:mm:ss.SSS\",                                \"min_doc_count\":1,                                \"order\":{                                    \"_key\":\"asc\"                                }                            },                            \"aggs\":{                                \"cnt_v\":{                                    \"value_count\":{                                        \"field\":\"@timestamp\"                                    }                                }                            }                        }                    }                }            }        }    }}",
+                                        "measure_field": "value",
                                         "instant": true,
                                         "time": 1669789900123,
                                         "look_back_delta": "10m"
@@ -21978,7 +22231,7 @@
                                     "$ref": "#/components/schemas/MetricResults"
                                 },
                                 "examples": {
-                                    "范围查询-预览": {
+                                    "范围查询-promql-预览": {
                                         "value": {
                                             "model": {
                                                 "name": "",
@@ -22024,7 +22277,7 @@
                                             ]
                                         }
                                     },
-                                    "即时查询-预览": {
+                                    "即时查询-promql-预览": {
                                         "value": {
                                             "model": {
                                                 "name": "",
@@ -22055,6 +22308,94 @@
                                                     "labels": {
                                                         "cpu": "2",
                                                         "instance": "10.4.68.120:9101"
+                                                    },
+                                                    "date_values": [
+                                                        1669789900123
+                                                    ],
+                                                    "values": [
+                                                        10
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "范围查询-dsl-预览": {
+                                        "value": {
+                                            "model": {
+                                                "name": "",
+                                                "metric_type": "",
+                                                "data_view_name": "",
+                                                "query_type": "",
+                                                "formula": "",
+                                                "date_field": "",
+                                                "date_format": "",
+                                                "metric_field": "",
+                                                "unit_type": "",
+                                                "unit": ""
+                                            },
+                                            "datas": [
+                                                {
+                                                    "labels": {
+                                                        "cpu": "1",
+                                                        "mode": "idle"
+                                                    },
+                                                    "date_values": [
+                                                        1669789800123,
+                                                        1669789900123
+                                                    ],
+                                                    "values": [
+                                                        100,
+                                                        11
+                                                    ]
+                                                },
+                                                {
+                                                    "labels": {
+                                                        "cpu": "1",
+                                                        "mode": "iowait"
+                                                    },
+                                                    "date_values": [
+                                                        1669789800123,
+                                                        1669789900123
+                                                    ],
+                                                    "values": [
+                                                        10,
+                                                        11
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "即时查询-dsl-预览": {
+                                        "value": {
+                                            "model": {
+                                                "name": "",
+                                                "metric_type": "",
+                                                "data_view_name": "",
+                                                "query_type": "",
+                                                "formula": "",
+                                                "date_field": "",
+                                                "date_format": "",
+                                                "metric_field": "",
+                                                "unit_type": "",
+                                                "unit": ""
+                                            },
+                                            "datas": [
+                                                {
+                                                    "labels": {
+                                                        "cpu": "1",
+                                                        "mode": "idle"
+                                                    },
+                                                    "date_values": [
+                                                        1669789900123
+                                                    ],
+                                                    "values": [
+                                                        10
+                                                    ]
+                                                },
+                                                {
+                                                    "labels": {
+                                                        "cpu": "2",
+                                                        "model": "iowait"
                                                     },
                                                     "date_values": [
                                                         1669789900123
@@ -22081,232 +22422,6 @@
                 "summary": "metric-model",
                 "description": "基于指标模型的数据预览"
             }
-        },
-        "/uniquery/v1/metric-models/{id}": {
-            "post": {
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ReqMetricModel"
-                            },
-                            "examples": {
-                                "范围查询+全局过滤器": {
-                                    "value": {
-                                        "method": "GET",
-                                        "instant": false,
-                                        "start": 1646360670123,
-                                        "end": 1646471470123,
-                                        "step": "1m",
-                                        "filters": [
-                                            {
-                                                "name": "labels.host",
-                                                "value": [
-                                                    "10.2.12.23",
-                                                    "10.21.2.3"
-                                                ],
-                                                "operation": "in"
-                                            },
-                                            {
-                                                "name": "labels.job",
-                                                "value": "prometheus",
-                                                "operation": "="
-                                            },
-                                            {
-                                                "name": "labels.namespace",
-                                                "value": "as",
-                                                "operation": "!="
-                                            },
-                                            {
-                                                "name": "metrics.node_cpu_seconds_total",
-                                                "value": [
-                                                    0,
-                                                    5
-                                                ],
-                                                "operation": "range"
-                                            },
-                                            {
-                                                "name": "metrics.node_memory_MemTotal_bytes",
-                                                "value": [
-                                                    1024,
-                                                    2048
-                                                ],
-                                                "operation": "out_range"
-                                            }
-                                        ]
-                                    }
-                                },
-                                "即时查询+全局过滤器": {
-                                    "value": {
-                                        "method": "GET",
-                                        "instant": true,
-                                        "time": 1669789900123,
-                                        "look_back_delta": "10m",
-                                        "filters": [
-                                            {
-                                                "name": "labels.host",
-                                                "value": [
-                                                    "10.2.12.23",
-                                                    "10.21.2.3"
-                                                ],
-                                                "operation": "in"
-                                            },
-                                            {
-                                                "name": "labels.job",
-                                                "value": "prometheus",
-                                                "operation": "="
-                                            },
-                                            {
-                                                "name": "labels.namespace",
-                                                "value": "as",
-                                                "operation": "!="
-                                            },
-                                            {
-                                                "name": "metrics.node_cpu_seconds_total",
-                                                "value": [
-                                                    0,
-                                                    5
-                                                ],
-                                                "operation": "range"
-                                            },
-                                            {
-                                                "name": "metrics.node_memory_MemTotal_bytes",
-                                                "value": [
-                                                    1024,
-                                                    2048
-                                                ],
-                                                "operation": "out_range"
-                                            }
-                                        ]
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/MetricResults"
-                                },
-                                "examples": {
-                                    "范围查询": {
-                                        "value": {
-                                            "model": {
-                                                "name": "model1",
-                                                "metric_type": "atomic",
-                                                "data_view_name": "xxx",
-                                                "query_type": "promql",
-                                                "formula": "cpu_second_total{}",
-                                                "date_field": "@timestamp",
-                                                "date_format": "epoch_millis",
-                                                "metric_field": "value",
-                                                "unit_type": "timeUnit",
-                                                "unit": "s"
-                                            },
-                                            "datas": [
-                                                {
-                                                    "labels": {
-                                                        "cpu": "1",
-                                                        "instance": "10.4.68.120:9101"
-                                                    },
-                                                    "date_values": [
-                                                        1669789800123,
-                                                        1669789900123
-                                                    ],
-                                                    "values": [
-                                                        10,
-                                                        11
-                                                    ]
-                                                },
-                                                {
-                                                    "labels": {
-                                                        "cpu": "2",
-                                                        "instance": "10.4.68.120:9101"
-                                                    },
-                                                    "date_values": [
-                                                        1669789800123,
-                                                        1669789900123
-                                                    ],
-                                                    "values": [
-                                                        10,
-                                                        11
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    },
-                                    "即时查询": {
-                                        "value": {
-                                            "model": {
-                                                "name": "model1",
-                                                "metric_type": "atomic",
-                                                "data_view_name": "xxx",
-                                                "query_type": "promql",
-                                                "formula": "cpu_second_total{}",
-                                                "date_field": "@timestamp",
-                                                "date_format": "epoch_millis",
-                                                "metric_field": "value",
-                                                "unit_type": "timeUnit",
-                                                "unit": "s"
-                                            },
-                                            "datas": [
-                                                {
-                                                    "labels": {
-                                                        "cpu": "1",
-                                                        "instance": "10.4.68.120:9101"
-                                                    },
-                                                    "date_values": [
-                                                        1669789900123
-                                                    ],
-                                                    "values": [
-                                                        11
-                                                    ]
-                                                },
-                                                {
-                                                    "labels": {
-                                                        "cpu": "2",
-                                                        "instance": "10.4.68.120:9101"
-                                                    },
-                                                    "date_values": [
-                                                        1669789900123
-                                                    ],
-                                                    "values": [
-                                                        11
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "description": "OK"
-                    },
-                    "400": {
-                        "$ref": "#/components/responses/400BadRequest"
-                    },
-                    "500": {
-                        "$ref": "#/components/responses/500InternalError"
-                    }
-                },
-                "summary": "metric-models/{id}",
-                "description": "根据指标模型 id 查询指标数据"
-            },
-            "parameters": [
-                {
-                    "name": "id",
-                    "description": "指标模型id",
-                    "schema": {
-                        "type": "integer"
-                    },
-                    "in": "path",
-                    "required": true
-                }
-            ]
         }
     },
     "components": {
@@ -22754,7 +22869,7 @@
                     "date_field",
                     "date_format",
                     "formula",
-                    "metric_field",
+                    "measure_field",
                     "name",
                     "unit",
                     "unit_type",
@@ -22801,10 +22916,6 @@
                         ],
                         "type": "string"
                     },
-                    "metric_field": {
-                        "description": "度量字段。当查询语言是 promql 时，此字段值为 value。",
-                        "type": "string"
-                    },
                     "unit_type": {
                         "description": "单位类型",
                         "enum": [
@@ -22846,6 +22957,10 @@
                             "year"
                         ],
                         "type": "string"
+                    },
+                    "measure_field": {
+                        "description": "度量字段。当查询语言是 promql 时，此字段值为 value。",
+                        "type": "string"
                     }
                 },
                 "example": {
@@ -22884,7 +22999,13 @@
                             "=",
                             "!=",
                             "range",
-                            "out_range"
+                            "out_range",
+                            "like",
+                            "not_like",
+                            ">",
+                            ">=",
+                            "<",
+                            "<="
                         ],
                         "type": "string"
                     }
@@ -22948,7 +23069,8 @@
                     "data_view_id",
                     "query_type",
                     "formula",
-                    "data_view_name"
+                    "data_view_name",
+                    "measure_field"
                 ],
                 "type": "object",
                 "properties": {
@@ -22974,12 +23096,17 @@
                     "query_type": {
                         "description": "指标查询语言。",
                         "enum": [
-                            "promql"
+                            "promql",
+                            "dsl"
                         ],
                         "type": "string"
                     },
                     "formula": {
                         "description": "计算公式",
+                        "type": "string"
+                    },
+                    "measure_field": {
+                        "description": "度量字段。当查询语言是 promql 时，此字段不需要传。当查询语言是 dsl 时，此字段是必须的。",
                         "type": "string"
                     },
                     "instant": {
