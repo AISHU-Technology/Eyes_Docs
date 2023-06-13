@@ -21577,7 +21577,9 @@
                                                         11
                                                     ]
                                                 }
-                                            ]
+                                            ],
+                                            "step": "1m",
+                                            "is_variable": false
                                         }
                                     },
                                     "即时查询": {
@@ -21619,7 +21621,9 @@
                                                         11
                                                     ]
                                                 }
-                                            ]
+                                            ],
+                                            "step": "",
+                                            "is_variable": false
                                         }
                                     }
                                 }
@@ -22274,7 +22278,9 @@
                                                         11
                                                     ]
                                                 }
-                                            ]
+                                            ],
+                                            "step": "1m",
+                                            "is_variable": false
                                         }
                                     },
                                     "即时查询-promql-预览": {
@@ -22316,7 +22322,9 @@
                                                         10
                                                     ]
                                                 }
-                                            ]
+                                            ],
+                                            "step": "",
+                                            "is_variable": false
                                         }
                                     },
                                     "范围查询-dsl-预览": {
@@ -22362,7 +22370,9 @@
                                                         11
                                                     ]
                                                 }
-                                            ]
+                                            ],
+                                            "step": "1h",
+                                            "is_variable": false
                                         }
                                     },
                                     "即时查询-dsl-预览": {
@@ -22404,7 +22414,9 @@
                                                         10
                                                     ]
                                                 }
-                                            ]
+                                            ],
+                                            "step": "",
+                                            "is_variable": false
                                         }
                                     }
                                 }
@@ -22728,71 +22740,6 @@
                     }
                 }
             },
-            "MetricResults": {
-                "description": "基于指标模型的指标查询结果",
-                "required": [
-                    "model",
-                    "datas"
-                ],
-                "type": "object",
-                "properties": {
-                    "model": {
-                        "$ref": "#/components/schemas/MetricModel",
-                        "description": "指标模型基本信息"
-                    },
-                    "datas": {
-                        "description": "指标数据",
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/MetricData"
-                        }
-                    }
-                },
-                "example": {
-                    "model": {
-                        "name": "some text",
-                        "metric_type": "complex",
-                        "data_view_name": "some text",
-                        "query_type": "promql",
-                        "formula": "some text",
-                        "date_field": "some text",
-                        "date_format": "epoch_second",
-                        "metric_field": "some text",
-                        "unit_type": "timeUnit",
-                        "unit": "bit"
-                    },
-                    "datas": [
-                        {
-                            "labels": {
-                                "cpu": "1",
-                                "instance": "10.4.68.120:9101"
-                            },
-                            "date_values": [
-                                1669789800,
-                                1669789900
-                            ],
-                            "values": [
-                                10,
-                                11
-                            ]
-                        },
-                        {
-                            "labels": {
-                                "cpu": "2",
-                                "instance": "10.4.68.120:9101"
-                            },
-                            "date_values": [
-                                1669789800,
-                                1669789900
-                            ],
-                            "values": [
-                                10,
-                                11
-                            ]
-                        }
-                    ]
-                }
-            },
             "Error": {
                 "description": "",
                 "required": [
@@ -23069,8 +23016,7 @@
                     "data_view_id",
                     "query_type",
                     "formula",
-                    "data_view_name",
-                    "measure_field"
+                    "data_view_name"
                 ],
                 "type": "object",
                 "properties": {
@@ -23109,6 +23055,10 @@
                         "description": "度量字段。当查询语言是 promql 时，此字段不需要传。当查询语言是 dsl 时，此字段是必须的。",
                         "type": "string"
                     },
+                    "is_save": {
+                        "description": "是否是保存时校验公式的请求。为 true 时，表示的是保存时计算公式有效性检查的请求，此时无需在预览接口中校验 dsl 公式是否符合规则；若为 false，表示预览请求，此时需要校验。",
+                        "type": "string"
+                    },
                     "instant": {
                         "description": "是否是即时查询。可选，默认为 false。当 instant = true 时，表示即时查询；当 instant = false 时，表示范围查询。",
                         "type": "boolean"
@@ -23143,6 +23093,81 @@
                     "data_view_id": "qwrerer56567787",
                     "query_type": "promql",
                     "formula": "avg(irate(node_cpu_seconds_total{name=~\"node-14-35\",mode=\"system\"}[5m]))by(name)"
+                }
+            },
+            "MetricResults": {
+                "description": "基于指标模型的指标查询结果",
+                "required": [
+                    "model",
+                    "datas",
+                    "step",
+                    "is_variable"
+                ],
+                "type": "object",
+                "properties": {
+                    "model": {
+                        "$ref": "#/components/schemas/MetricModel",
+                        "description": "指标模型基本信息"
+                    },
+                    "datas": {
+                        "description": "指标数据",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MetricData"
+                        }
+                    },
+                    "step": {
+                        "description": "范围查询时当前指标模型计算公式执行的步长。主要是为了兼容dsl中的日期直方图的 fixed_interval 是常量时，前端仪表盘画图使用。当查询语言是 promql 时，该值为请求的 step；当查询语言是 dsl 且日期直方图中使用了变量时，该值为请求的 step；当查询语言是 dsl 且日期直方图中使用了常量，该值为日期直方图中的常量。",
+                        "type": "string"
+                    },
+                    "is_variable": {
+                        "description": "dsl 原子指标的指标模型中的计算公式是否使用了变量。默认是 false",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "model": {
+                        "name": "some text",
+                        "metric_type": "complex",
+                        "data_view_name": "some text",
+                        "query_type": "promql",
+                        "formula": "some text",
+                        "date_field": "some text",
+                        "date_format": "epoch_second",
+                        "metric_field": "some text",
+                        "unit_type": "timeUnit",
+                        "unit": "bit"
+                    },
+                    "datas": [
+                        {
+                            "labels": {
+                                "cpu": "1",
+                                "instance": "10.4.68.120:9101"
+                            },
+                            "date_values": [
+                                1669789800,
+                                1669789900
+                            ],
+                            "values": [
+                                10,
+                                11
+                            ]
+                        },
+                        {
+                            "labels": {
+                                "cpu": "2",
+                                "instance": "10.4.68.120:9101"
+                            },
+                            "date_values": [
+                                1669789800,
+                                1669789900
+                            ],
+                            "values": [
+                                10,
+                                11
+                            ]
+                        }
+                    ]
                 }
             }
         },
