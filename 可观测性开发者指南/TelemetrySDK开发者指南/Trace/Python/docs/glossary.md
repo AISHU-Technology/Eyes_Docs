@@ -65,23 +65,23 @@
 |  CONSUMER   |        |   ✓    |    可能    |          |      5      | 表示Span所属服务的类型是异步处理的消费者类型，属于父子关系中的子。                  |
 
 ## Resource数据格式
-|           **字段**           | **类型** | **是否必填** | **主动设置** | **自动生成** | **说明**    | **示例**                               |
-|:--------------------------:|:------:|:--------:|:--------:|:--------:|:----------|:-------------------------------------|
-|        **host.ip**	        | string |    ✓     |          |    ✓     | 主机IP地址    | 1.2.3.4                              |
-|       **host.arch**	       | string |    ✓     |          |    ✓     | 主机CPU架构   | amd64、arm64                          |
-|       **host.name**	       | string |    ✓     |          |    ✓     | 主机名称      | Desk-028                             |
-|        **os.type**	        | string |    ✓     |          |    ✓     | 操作系统类型    | windows、linux                        |
-|      **os.version**	       | string |    ✓     |          |    ✓     | 操作系统版本    | CentOS 7.7                           |
-|     **os.description**     | string |    ✓     |          |    ✓     | 操作系统详细信息  | Microsoft Windows 10 Enterprise      |
-|    **service.instance**    | string |    ✕     |          |          | 服务实例的ID   | 627cc493-f310-47de-96bd-71410b7dec09 |
-|      **service.name**      | string |    ✓     |    ✓     |          | 服务名称      | ShoppingMart                         |
-|    **service.version**     | string |    ✓     |    ✓     |          | 服务的版本号    | 5.3.0                                |
-| **telemetry.sdk.language** | string |    ✓     |          |    ✓     | SDK的开发语言  | go                                   |
-|   **telemetry.sdk.name**   | string |    ✓     |          |    ✓     | SDK名称     | TelemetrySDK-Go/exporters/ar_trace   |
-| **telemetry.sdk.version**  | string |    ✓     |          |    ✓     | SDK版本号    | v2.2.0                               |
-|  **k8s.namespace.name**	   | string |    ✓     |          |    ✓     | k8s命名空间   | anyshare                             |
-|     **k8s.pod.name**	      | string |    ✓     |          |    ✓     | k8s pod名称 | efast-123456789-12345                |
-|     **k8s.node.name**	     | string |    ✓     |          |    ✓     | k8s节点名称   | node01                               |
+|           **字段**           | **类型** | **是否必填** | **主动设置** | **自动生成** | **说明**    | **示例**                                |
+|:--------------------------:|:------:|:--------:|:--------:|:--------:|:----------|:--------------------------------------|
+|        **host.ip**	        | string |    ✓     |          |    ✓     | 主机IP地址    | 1.2.3.4                               |
+|       **host.arch**	       | string |    ✓     |          |    ✓     | 主机CPU架构   | amd64、arm64                           |
+|       **host.name**	       | string |    ✓     |          |    ✓     | 主机名称      | Desk-028                              |
+|        **os.type**	        | string |    ✓     |          |    ✓     | 操作系统类型    | windows、linux                         |
+|      **os.version**	       | string |    ✓     |          |    ✓     | 操作系统版本    | CentOS 7.7                            |
+|     **os.description**     | string |    ✓     |          |    ✓     | 操作系统详细信息  | Microsoft Windows 10 Enterprise       |
+|    **service.instance**    | string |    ✕     |          |          | 服务实例的ID   | 627cc493-f310-47de-96bd-71410b7dec09  |
+|      **service.name**      | string |    ✓     |    ✓     |          | 服务名称      | ShoppingMart                          |
+|    **service.version**     | string |    ✓     |    ✓     |          | 服务的版本号    | 5.3.0                                 |
+| **telemetry.sdk.language** | string |    ✓     |          |    ✓     | SDK的开发语言  | go                                    |
+|   **telemetry.sdk.name**   | string |    ✓     |          |    ✓     | SDK名称     | TelemetrySDK-Python/exporter/ar_trace |
+| **telemetry.sdk.version**  | string |    ✓     |          |    ✓     | SDK版本号    | v2.2.0                                |
+|  **k8s.namespace.name**	   | string |    ✓     |          |    ✓     | k8s命名空间   | anyshare                              |
+|     **k8s.pod.name**	      | string |    ✓     |          |    ✓     | k8s pod名称 | efast-123456789-12345                 |
+|     **k8s.node.name**	     | string |    ✓     |          |    ✓     | k8s节点名称   | node01                                |
 
 # Trace数据样例
 ```json
@@ -89,8 +89,8 @@
   {
     "Name": "add",
     "SpanContext": {
-      "TraceID": "25163697983367533936662855072804318660",
-      "SpanID": "14760440036897806190",
+      "TraceID": "d87180d72277bfe1c82b3f30d68b9b24",
+      "SpanID": "5d247096845fa4d9",
       "TraceFlags": "01",
       "TraceState": "",
       "Remote": false
@@ -103,11 +103,11 @@
       "Remote": false
     },
     "SpanKind": 1,
-    "StartTime": 1684133038485977400,
-    "EndTime": 1684133038497084200,
+    "StartTime": 1686710036954320200,
+    "EndTime": 1686710036969702800,
     "Attributes": [
       {
-        "Key": "add.value",
+        "Key": "add_value",
         "Value": {
           "Type": "INT",
           "Value": 3
@@ -137,7 +137,7 @@
         "Key": "telemetry.sdk.name",
         "Value": {
           "Type": "STRING",
-          "Value": "TelemetrySDK-Python/exporter/ar_metric"
+          "Value": "TelemetrySDK-Python/exporter/ar_trace"
         }
       },
       {
@@ -193,7 +193,7 @@
         "Key": "service.name",
         "Value": {
           "Type": "STRING",
-          "Value": "YourServiceName"
+          "Value": "YourServiceName:Calculation"
         }
       },
       {
@@ -219,25 +219,25 @@
   {
     "Name": "multiply",
     "SpanContext": {
-      "TraceID": "25163697983367533936662855072804318660",
-      "SpanID": "985316654545656638",
+      "TraceID": "d87180d72277bfe1c82b3f30d68b9b24",
+      "SpanID": "7b41df03216a4604",
       "TraceFlags": "01",
       "TraceState": "",
       "Remote": false
     },
     "Parent": {
-      "TraceID": "25163697983367533936662855072804318660",
-      "SpanID": "14760440036897806190",
+      "TraceID": "d87180d72277bfe1c82b3f30d68b9b24",
+      "SpanID": "5d247096845fa4d9",
       "TraceFlags": "01",
       "TraceState": "",
       "Remote": true
     },
     "SpanKind": 1,
-    "StartTime": 1684133038498086400,
-    "EndTime": 1684133038498086400,
+    "StartTime": 1686710036969702800,
+    "EndTime": 1686710036969702800,
     "Attributes": [
       {
-        "Key": "add.value",
+        "Key": "add_value",
         "Value": {
           "Type": "INT",
           "Value": 6
@@ -267,7 +267,7 @@
         "Key": "telemetry.sdk.name",
         "Value": {
           "Type": "STRING",
-          "Value": "TelemetrySDK-Python/exporter/ar_metric"
+          "Value": "TelemetrySDK-Python/exporter/ar_trace"
         }
       },
       {
@@ -323,7 +323,7 @@
         "Key": "service.name",
         "Value": {
           "Type": "STRING",
-          "Value": "YourServiceName"
+          "Value": "YourServiceName:Calculation"
         }
       },
       {
@@ -349,25 +349,25 @@
   {
     "Name": "add",
     "SpanContext": {
-      "TraceID": "25163697983367533936662855072804318660",
-      "SpanID": "3883281921381558577",
+      "TraceID": "d87180d72277bfe1c82b3f30d68b9b24",
+      "SpanID": "a305740baa4917e5",
       "TraceFlags": "01",
       "TraceState": "",
       "Remote": false
     },
     "Parent": {
-      "TraceID": "25163697983367533936662855072804318660",
-      "SpanID": "985316654545656638",
+      "TraceID": "d87180d72277bfe1c82b3f30d68b9b24",
+      "SpanID": "7b41df03216a4604",
       "TraceFlags": "01",
       "TraceState": "",
       "Remote": true
     },
     "SpanKind": 1,
-    "StartTime": 1684133038498086400,
-    "EndTime": 1684133038498086400,
+    "StartTime": 1686710036969702800,
+    "EndTime": 1686710036969702800,
     "Attributes": [
       {
-        "Key": "add.value",
+        "Key": "add_value",
         "Value": {
           "Type": "INT",
           "Value": 9
@@ -397,7 +397,7 @@
         "Key": "telemetry.sdk.name",
         "Value": {
           "Type": "STRING",
-          "Value": "TelemetrySDK-Python/exporter/ar_metric"
+          "Value": "TelemetrySDK-Python/exporter/ar_trace"
         }
       },
       {
@@ -453,7 +453,7 @@
         "Key": "service.name",
         "Value": {
           "Type": "STRING",
-          "Value": "YourServiceName"
+          "Value": "YourServiceName:Calculation"
         }
       },
       {
@@ -479,25 +479,25 @@
   {
     "Name": "multiply",
     "SpanContext": {
-      "TraceID": "25163697983367533936662855072804318660",
-      "SpanID": "1886213936946889890",
+      "TraceID": "d87180d72277bfe1c82b3f30d68b9b24",
+      "SpanID": "65ba69ed738dad29",
       "TraceFlags": "01",
       "TraceState": "",
       "Remote": false
     },
     "Parent": {
-      "TraceID": "25163697983367533936662855072804318660",
-      "SpanID": "3883281921381558577",
+      "TraceID": "d87180d72277bfe1c82b3f30d68b9b24",
+      "SpanID": "a305740baa4917e5",
       "TraceFlags": "01",
       "TraceState": "",
       "Remote": true
     },
     "SpanKind": 1,
-    "StartTime": 1684133038498086400,
-    "EndTime": 1684133038498086400,
+    "StartTime": 1686710036969702800,
+    "EndTime": 1686710036969702800,
     "Attributes": [
       {
-        "Key": "add.value",
+        "Key": "add_value",
         "Value": {
           "Type": "INT",
           "Value": 36
@@ -527,7 +527,7 @@
         "Key": "telemetry.sdk.name",
         "Value": {
           "Type": "STRING",
-          "Value": "TelemetrySDK-Python/exporter/ar_metric"
+          "Value": "TelemetrySDK-Python/exporter/ar_trace"
         }
       },
       {
@@ -583,7 +583,7 @@
         "Key": "service.name",
         "Value": {
           "Type": "STRING",
-          "Value": "YourServiceName"
+          "Value": "YourServiceName:Calculation"
         }
       },
       {

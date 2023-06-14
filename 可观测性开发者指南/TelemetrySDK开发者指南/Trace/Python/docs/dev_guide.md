@@ -1,6 +1,6 @@
 # 开发指南
 
-## 导入TelemetrySDK-Metric(Python)
+## 导入TelemetrySDK-Trace(Python)
 
 **第1步**检查版本兼容性
 
@@ -21,7 +21,7 @@ cd TelemetrySDK-Python
 pip install .
 ```
 
-**第2步**(可选)更新Metric Exporter
+**第2步**(可选)更新Trace Exporter
 
 - 查看SDK[兼容列表](../../../docs/compatibility.md)，选择希望引入的版本，例如2.4.0。
 
@@ -34,7 +34,7 @@ pip install .
 
 ## 导入依赖
 
-**第1步**执行以下命令引入TelemetrySDK-Metric(Python)
+**第1步**执行以下命令引入TelemetrySDK-Trace(Python)
 
 ```
 pip install -r requirements.txt

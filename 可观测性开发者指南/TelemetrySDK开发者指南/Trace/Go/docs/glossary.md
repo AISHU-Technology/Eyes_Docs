@@ -77,7 +77,7 @@
 |      **service.name**      | string |    ✓     |    ✓     |          | 服务名称      | ShoppingMart                         |
 |    **service.version**     | string |    ✓     |    ✓     |          | 服务的版本号    | 5.3.0                                |
 | **telemetry.sdk.language** | string |    ✓     |          |    ✓     | SDK的开发语言  | go                                   |
-|   **telemetry.sdk.name**   | string |    ✓     |          |    ✓     | SDK名称     | TelemetrySDK-Go/exporters/ar_trace   |
+|   **telemetry.sdk.name**   | string |    ✓     |          |    ✓     | SDK名称     | TelemetrySDK-Go/exporter/ar_trace    |
 | **telemetry.sdk.version**  | string |    ✓     |          |    ✓     | SDK版本号    | v2.2.0                               |
 |  **k8s.namespace.name**	   | string |    ✓     |          |    ✓     | k8s命名空间   | anyshare                             |
 |     **k8s.pod.name**	      | string |    ✓     |          |    ✓     | k8s pod名称 | efast-123456789-12345                |
