@@ -333,7 +333,9 @@
                                                 "some text",
                                                 "some text"
                                             ],
-                                            "custom_attribute": {},
+                                            "custom_attribute": {
+
+                                            },
                                             "comment": "some text",
                                             "update_time": "some text"
                                         }
@@ -795,7 +797,9 @@
                         "some text",
                         "some text"
                     ],
-                    "custom_attribute": {},
+                    "custom_attribute": {
+
+                    },
                     "comment": "some text",
                     "update_time": "some text"
                 }
@@ -983,7 +987,6 @@
                     "model_name",
                     "name",
                     "unit_type",
-                    "measure_field",
                     "unit"
                 ],
                 "type": "object",
@@ -1028,7 +1031,7 @@
                         "type": "string"
                     },
                     "measure_field": {
-                        "description": "度量字段。当查询语言是 promql 时，此字段值为 value。当查询语言是 dsl 时，此字段值为 dsl 语句中的值聚合名称",
+                        "description": "度量字段。当查询语言是 promql 时，此字段值为 value，为空时，赋默认值。当查询语言是 dsl 时，必填，此字段值为 dsl 语句中的值聚合名称",
                         "type": "string"
                     },
                     "unit_type": {
