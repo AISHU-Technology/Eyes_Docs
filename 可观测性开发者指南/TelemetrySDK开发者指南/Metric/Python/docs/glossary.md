@@ -9,7 +9,7 @@
 ## Resource数据格式
 |           **字段**           | **类型** | **是否必填** | **主动设置** | **自动生成** | **说明**    | **示例**                                 |
 |:--------------------------:|:------:|:--------:|:--------:|:--------:|:----------|:---------------------------------------|
-|        **host.ip**	        | string |    ✓     |          |    ✓     | 主机IP地址    | 1.2.3.4                                |
+|        **host.ip**	        | string |    ✓     |          |    ✓     | 主机IP地址    | 127.0.0.1                              |
 |       **host.arch**	       | string |    ✓     |          |    ✓     | 主机CPU架构   | amd64、arm64                            |
 |       **host.name**	       | string |    ✓     |          |    ✓     | 主机名称      | Desk-028                               |
 |        **os.type**	        | string |    ✓     |          |    ✓     | 操作系统类型    | windows、linux                          |
@@ -18,9 +18,9 @@
 |    **service.instance**    | string |    ✕     |          |          | 服务实例的ID   | 627cc493-f310-47de-96bd-71410b7dec09   |
 |      **service.name**      | string |    ✓     |    ✓     |          | 服务名称      | ShoppingMart                           |
 |    **service.version**     | string |    ✓     |    ✓     |          | 服务的版本号    | 5.3.0                                  |
-| **telemetry.sdk.language** | string |    ✓     |          |    ✓     | SDK的开发语言  | go                                     |
+| **telemetry.sdk.language** | string |    ✓     |          |    ✓     | SDK的开发语言  | python                                 |
 |   **telemetry.sdk.name**   | string |    ✓     |          |    ✓     | SDK名称     | TelemetrySDK-Python/exporter/ar_metric |
-| **telemetry.sdk.version**  | string |    ✓     |          |    ✓     | SDK版本号    | v2.2.0                                 |
+| **telemetry.sdk.version**  | string |    ✓     |          |    ✓     | SDK版本号    | v2.4.1                                 |
 |  **k8s.namespace.name**	   | string |    ✓     |          |    ✓     | k8s命名空间   | anyshare                               |
 |     **k8s.pod.name**	      | string |    ✓     |          |    ✓     | k8s pod名称 | efast-123456789-12345                  |
 |     **k8s.node.name**	     | string |    ✓     |          |    ✓     | k8s节点名称   | node01                                 |
@@ -101,14 +101,14 @@
         "Key": "telemetry.sdk.name",
         "Value": {
           "Type": "STRING",
-          "Value": "TelemetrySDK-Python/exporter/exporter"
+          "Value": "TelemetrySDK-Python/exporter/ar_metric"
         }
       },
       {
         "Key": "telemetry.sdk.version",
         "Value": {
           "Type": "STRING",
-          "Value": "v2.2.0"
+          "Value": "2.4.1"
         }
       },
       {
@@ -143,7 +143,7 @@
         "Key": "os.version",
         "Value": {
           "Type": "STRING",
-          "Value": "10.0.18363"
+          "Value": "10.0.18362"
         }
       },
       {
@@ -157,29 +157,29 @@
         "Key": "service.name",
         "Value": {
           "Type": "STRING",
-          "Value": "D:\\Project\\Python\\TelemetrySDK-Python\\exporter\\resource\\resource.py"
+          "Value": "YourServiceName"
         }
       },
       {
         "Key": "service.version",
         "Value": {
           "Type": "STRING",
-          "Value": "UnknownServiceVersion"
+          "Value": "2.4.1"
         }
       },
       {
         "Key": "service.instance.id",
         "Value": {
           "Type": "STRING",
-          "Value": "UnknownServiceInstance"
+          "Value": "983d7e1d5e8cda64"
         }
       }
     ],
     "ScopeMetrics": [
       {
         "Scope": {
-          "Name": "TelemetrySDK-Python/exporter/exporter",
-          "Version": "v2.2.0",
+          "Name": "TelemetrySDK-Python/exporter/ar_metric",
+          "Version": "2.4.1",
           "SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python?path=/exporter/ar_metric"
         },
         "Metrics": [
@@ -199,8 +199,8 @@
                       }
                     }
                   ],
-                  "StartTime": "2023-02-02T20:34:15.175722+08:00",
-                  "Time": "2023-02-02T20:34:15.175722+08:00",
+                  "StartTime": "2023-06-17T14:21:32.043354+08:00",
+                  "Time": "2023-06-17T14:21:32.044368+08:00",
                   "Count": 2,
                   "Bounds": [
                     0.0,
@@ -222,12 +222,12 @@
                   "BucketCounts": [
                     0,
                     0,
-                    0,
-                    1,
-                    0,
+                    2,
                     0,
                     0,
-                    1,
+                    0,
+                    0,
+                    0,
                     0,
                     0,
                     0,
@@ -237,9 +237,9 @@
                     0,
                     0
                   ],
-                  "Min": 18,
-                  "Max": 126,
-                  "Sum": 144
+                  "Min": 6,
+                  "Max": 9,
+                  "Sum": 15
                 }
               ],
               "Temporality": "CumulativeTemporality"
@@ -261,9 +261,9 @@
                       }
                     }
                   ],
-                  "StartTime": "2023-02-02T20:34:15.175722+08:00",
-                  "Time": "2023-02-02T20:34:15.175722+08:00",
-                  "Int": 504
+                  "StartTime": "2023-06-17T14:21:32.043354+08:00",
+                  "Time": "2023-06-17T14:21:32.044368+08:00",
+                  "Int": 72
                 }
               ],
               "Temporality": "CumulativeTemporality",
@@ -286,11 +286,35 @@
                       }
                     }
                   ],
-                  "StartTime": "1970-01-01T08:00:00+08:00",
-                  "Time": "2023-02-02T20:34:15.175722+08:00",
-                  "Int": 9
+                  "Time": "2023-06-17T14:21:32.044368+08:00",
+                  "Float": 9
                 }
               ]
+            }
+          },
+          {
+            "Name": "sum",
+            "Description": "a simple counter",
+            "Unit": "dimension",
+            "Sum": {
+              "DataPoints": [
+                {
+                  "Attributes": [
+                    {
+                      "Key": "用户信息",
+                      "Value": {
+                        "Type": "STRING",
+                        "Value": "用户数日活"
+                      }
+                    }
+                  ],
+                  "StartTime": "2023-06-17T14:21:32.044368+08:00",
+                  "Time": "2023-06-17T14:21:32.044368+08:00",
+                  "Int": 72
+                }
+              ],
+              "Temporality": "CumulativeTemporality",
+              "IsMonotonic": true
             }
           }
         ]

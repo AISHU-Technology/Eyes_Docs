@@ -16,6 +16,14 @@ SyncLogger 同步模式上报数据的日志器。
 SamplerLogger(log_resource(), ARLogExporter())
 ```
 
+#### ConsoleExporter
+
+ConsoleExporter 新建Exporter，日志在控制台实时打印。
+
+```
+ConsoleExporter()
+```
+
 #### ARLogExporter
 
 ARLogExporter 新建Exporter，需要传入指定的数据发送客户端 Client 。
@@ -24,12 +32,28 @@ ARLogExporter 新建Exporter，需要传入指定的数据发送客户端 Client
 ARLogExporter(StdoutClient("./AnyRobotLog.txt"))
 ```
 
-#### ARLogExporter
+#### FileClient
 
-ARLogExporter 新建Exporter，需要传入指定的数据发送客户端 Client 。
+FileClient 创建 Exporter 需要的数据写入文件发送客户端。
 
 ```
-ARLogExporter(StdoutClient("./AnyRobotLog.txt"))
+FileClient("./AnyRobotTrace.txt")
+```
+
+#### ConsoleClient
+
+ConsoleClient 创建 Exporter 需要的数据写入控制台发送客户端。
+
+```
+ConsoleClient()
+```
+
+#### StdoutClient
+
+StdoutClient 创建 Exporter 需要的数据写入文件+控制台发送客户端。
+
+```
+StdoutClient("./AnyRobotTrace.txt")
 ```
 
 #### HTTPClient
@@ -38,14 +62,6 @@ HTTPClient 创建 Exporter 需要的HTTP数据发送客户端。
 
 ```
 HTTPClient(WithAnyRobotURL(),WithCompression(Compression.GzipCompression))
-```
-
-#### StdoutClient
-
-StdoutClient 创建 Exporter 需要的Local数据发送客户端。
-
-```
-StdoutClient("./AnyRobotLog.txt")
 ```
 
 #### WithAnyRobotURL
@@ -104,9 +120,9 @@ set_service_info 设置服务信息，包括服务名、版本号、实例ID。
 def set_service_info(name: str, version: str, instance_id: str):
 ```
 
-#### Log_resource
+#### log_resource
 
-Log_resource 传入 Log 的默认resource。
+log_resource 传入 Log 的默认resource。
 
 ```
 def log_resource() -> Resources:
