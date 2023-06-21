@@ -24,20 +24,36 @@ ARMetricExporter 新建Exporter，需要传入指定的数据发送客户端 Cli
 ARMetricExporter(StdoutClient("./AnyRobotMetric.txt"))
 ```
 
+#### FileClient
+
+FileClient 创建 Exporter 需要的数据写入文件发送客户端。
+
+```
+FileClient("./AnyRobotTrace.txt")
+```
+
+#### ConsoleClient
+
+ConsoleClient 创建 Exporter 需要的数据写入控制台发送客户端。
+
+```
+ConsoleClient()
+```
+
+#### StdoutClient
+
+StdoutClient 创建 Exporter 需要的数据写入文件+控制台发送客户端。
+
+```
+StdoutClient("./AnyRobotTrace.txt")
+```
+
 #### HTTPClient
 
 HTTPClient 创建 Exporter 需要的HTTP数据发送客户端。
 
 ```
 HTTPClient(WithAnyRobotURL(),WithCompression(Compression.GzipCompression))
-```
-
-#### StdoutClient
-
-StdoutClient 创建 Exporter 需要的Local数据发送客户端。
-
-```
-StdoutClient("./AnyRobotMetric.txt")
 ```
 
 #### WithAnyRobotURL

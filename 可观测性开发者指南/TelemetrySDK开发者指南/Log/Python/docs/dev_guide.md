@@ -14,34 +14,24 @@
 **第3步**执行以下命令引入TelemetrySDK-Log(Python)
 
 ```
-git clone ssh://devops.aishu.cn:22/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python -b 2.3.0
+git clone ssh://devops.aishu.cn:22/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python -b 2.4.1
 cd TelemetrySDK-Python
+pip install -r requirements.txt
 pip install .
 ```
 
 **第4步**(可选)更新TelemetrySDK-Log(Python)
 
 - 查看Telemetry[版本列表](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python/branches?_a=all)
-  ，选择希望引入的版本，例如v2.3.0，替换末尾的版本号重新执行命令。
+  ，选择希望引入的版本，例如v2.4.1，替换末尾的版本号重新执行命令。
 
 ```
 cd TelemetrySDK-Python
 git fetch
-git checkout 2.3.0
+git checkout 2.4.1
+pip install -r requirements.txt
 pip install .
 ```
-
-## 导入依赖
-
-**第1步**执行以下命令引入TelemetrySDK-Log(Python)
-
-```
-pip(pip3) install -r requirements.txt
-```
-
-**第2步**(可能需要)
-
-Mark Directory as Sources Root
 
 ## 使用TelemetrySDK-Log(Python)进行代码埋点生产Log数据
 
@@ -51,7 +41,7 @@ Mark Directory as Sources Root
 from tlogging import SamplerLogger, Attributes
 
 from exporter.ar_log.log_exporter import ARLogExporter
-from exporter.public.client import HTTPClient, StdoutClient
+from exporter.public.client import HTTPClient, StdoutClient, FileClient
 from exporter.public.public import WithAnyRobotURL, WithSyncMode
 from exporter.resource.resource import log_resource, set_service_info
 from tlogging.exporter import ConsoleExporter
@@ -63,7 +53,7 @@ from tlogging.tlogger import SyncLogger
 - 修改前
 
 ```
-def add_before(x: int, y: int) -> int:
+def add(x: int, y: int) -> int:
     return x + y
 ```
 
@@ -71,6 +61,7 @@ def add_before(x: int, y: int) -> int:
 
 ```
 def add(x: int, y: int) -> int:
+    # 设置属性的key中特殊字符.禁止使用
     func_attr = Attributes({"param_x": x, "param_y": y}, atype="pair")
     system_logger.warn(message="this is a info message", attributes=func_attr)
     return x + y
@@ -87,20 +78,23 @@ def add(x: int, y: int) -> int:
 - 将获取的上报地址作为参数传入
 
 ```
-if __name__ == "__main__":
+def log_init():
     # 设置服务名、服务版本号、服务运行实例ID
-    set_service_info("YourServiceName", "2.3.0", "983d7e1d5e8cda64")
+    set_service_info("YourServiceName", "2.4.1", "983d7e1d5e8cda64")
     # 初始化系统日志器，系统日志在控制台输出，并且异步模式上报数据到数据接收器。
+    global system_logger
     system_logger = SamplerLogger(log_resource(), ConsoleExporter(), ARLogExporter(
         HTTPClient(WithAnyRobotURL("http://127.0.0.1/api/feed_ingester/v1/jobs/job-983d7e1d5e8cda64/events"))))
 
     # 初始化业务日志器，业务日志同步模式上报数据到数据接收器。
     # ！注意配置这个参数WithSyncMode()
+    global service_logger
     service_logger = SyncLogger(log_resource(), ARLogExporter(
         HTTPClient(WithAnyRobotURL("http://127.0.0.1/api/feed_ingester/v1/jobs/job-c9a577c302505576/events"),
                    WithSyncMode())))
-    
+
     # 全部配置项的logger，照抄之后删掉你不需要的配置。
+    global all_config_logger
     all_config_logger = SyncLogger(log_resource(), ARLogExporter(
         HTTPClient(WithAnyRobotURL("http://127.0.0.1/api/feed_ingester/v1/jobs/job-c9a577c302505576/events"),
                    WithCompression(Compression(1)),
@@ -108,9 +102,6 @@ if __name__ == "__main__":
                    WithHeader({"self-defined-header": "something"}),
                    WithRetry(5),
                    WithSyncMode())))
-    # 业务代码
-    add(1, 2)
-    multiply(3, 4)
 ```
 
-## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python?path=%2Fexporter%2Far_log%2Fexamples%2Fone_service.py&version=GB2.3.0&_a=contents)
+## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python?path=%2Fexporter%2Far_log%2Fexamples%2FREADME.md&_a=preview)

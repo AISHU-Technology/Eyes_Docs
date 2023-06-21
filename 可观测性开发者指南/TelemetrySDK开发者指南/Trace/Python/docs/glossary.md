@@ -67,7 +67,7 @@
 ## Resource数据格式
 |           **字段**           | **类型** | **是否必填** | **主动设置** | **自动生成** | **说明**    | **示例**                                |
 |:--------------------------:|:------:|:--------:|:--------:|:--------:|:----------|:--------------------------------------|
-|        **host.ip**	        | string |    ✓     |          |    ✓     | 主机IP地址    | 1.2.3.4                               |
+|        **host.ip**	        | string |    ✓     |          |    ✓     | 主机IP地址    | 127.0.0.1                             |
 |       **host.arch**	       | string |    ✓     |          |    ✓     | 主机CPU架构   | amd64、arm64                           |
 |       **host.name**	       | string |    ✓     |          |    ✓     | 主机名称      | Desk-028                              |
 |        **os.type**	        | string |    ✓     |          |    ✓     | 操作系统类型    | windows、linux                         |
@@ -76,9 +76,9 @@
 |    **service.instance**    | string |    ✕     |          |          | 服务实例的ID   | 627cc493-f310-47de-96bd-71410b7dec09  |
 |      **service.name**      | string |    ✓     |    ✓     |          | 服务名称      | ShoppingMart                          |
 |    **service.version**     | string |    ✓     |    ✓     |          | 服务的版本号    | 5.3.0                                 |
-| **telemetry.sdk.language** | string |    ✓     |          |    ✓     | SDK的开发语言  | go                                    |
+| **telemetry.sdk.language** | string |    ✓     |          |    ✓     | SDK的开发语言  | python                                |
 |   **telemetry.sdk.name**   | string |    ✓     |          |    ✓     | SDK名称     | TelemetrySDK-Python/exporter/ar_trace |
-| **telemetry.sdk.version**  | string |    ✓     |          |    ✓     | SDK版本号    | v2.2.0                                |
+| **telemetry.sdk.version**  | string |    ✓     |          |    ✓     | SDK版本号    | v2.4.1                                |
 |  **k8s.namespace.name**	   | string |    ✓     |          |    ✓     | k8s命名空间   | anyshare                              |
 |     **k8s.pod.name**	      | string |    ✓     |          |    ✓     | k8s pod名称 | efast-123456789-12345                 |
 |     **k8s.node.name**	     | string |    ✓     |          |    ✓     | k8s节点名称   | node01                                |
@@ -87,154 +87,24 @@
 ```json
 [
   {
-    "Name": "add",
-    "SpanContext": {
-      "TraceID": "d87180d72277bfe1c82b3f30d68b9b24",
-      "SpanID": "5d247096845fa4d9",
-      "TraceFlags": "01",
-      "TraceState": "",
-      "Remote": false
-    },
-    "Parent": {
-      "TraceID": "00000000000000000000000000000000",
-      "SpanID": "0000000000000000",
-      "TraceFlags": "00",
-      "TraceState": "",
-      "Remote": false
-    },
-    "SpanKind": 1,
-    "StartTime": 1686710036954320200,
-    "EndTime": 1686710036969702800,
-    "Attributes": [
-      {
-        "Key": "add_value",
-        "Value": {
-          "Type": "INT",
-          "Value": 3
-        }
-      }
-    ],
-    "Links": [],
-    "Events": [],
-    "Status": {
-      "Code": 0,
-      "Description": ""
-    },
-    "InstrumentationScope": {
-      "Name": "TelemetrySDK-Python/exporter/ar_trace",
-      "Version": "2.4.0",
-      "SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python?path=/exporter/ar_trace"
-    },
-    "Resource": [
-      {
-        "Key": "telemetry.sdk.language",
-        "Value": {
-          "Type": "STRING",
-          "Value": "python"
-        }
-      },
-      {
-        "Key": "telemetry.sdk.name",
-        "Value": {
-          "Type": "STRING",
-          "Value": "TelemetrySDK-Python/exporter/ar_trace"
-        }
-      },
-      {
-        "Key": "telemetry.sdk.version",
-        "Value": {
-          "Type": "STRING",
-          "Value": "2.4.0"
-        }
-      },
-      {
-        "Key": "host.ip",
-        "Value": {
-          "Type": "STRING",
-          "Value": "10.4.34.50"
-        }
-      },
-      {
-        "Key": "host.arch",
-        "Value": {
-          "Type": "STRING",
-          "Value": "AMD64"
-        }
-      },
-      {
-        "Key": "host.name",
-        "Value": {
-          "Type": "STRING",
-          "Value": "DevDeskV6-029"
-        }
-      },
-      {
-        "Key": "os.type",
-        "Value": {
-          "Type": "STRING",
-          "Value": "Windows"
-        }
-      },
-      {
-        "Key": "os.version",
-        "Value": {
-          "Type": "STRING",
-          "Value": "10.0.18362"
-        }
-      },
-      {
-        "Key": "os.description",
-        "Value": {
-          "Type": "STRING",
-          "Value": "Windows10"
-        }
-      },
-      {
-        "Key": "service.name",
-        "Value": {
-          "Type": "STRING",
-          "Value": "YourServiceName:Calculation"
-        }
-      },
-      {
-        "Key": "service.version",
-        "Value": {
-          "Type": "STRING",
-          "Value": "1.0.0"
-        }
-      },
-      {
-        "Key": "service.instance.id",
-        "Value": {
-          "Type": "STRING",
-          "Value": "983d7e1d5e8cda64"
-        }
-      }
-    ],
-    "DroppedAttributes": 0,
-    "DroppedEvents": 0,
-    "DroppedLinks": 0,
-    "ChildSpanCount": 0
-  },
-  {
     "Name": "multiply",
     "SpanContext": {
-      "TraceID": "d87180d72277bfe1c82b3f30d68b9b24",
-      "SpanID": "7b41df03216a4604",
+      "TraceID": "e898de8d7a98c0e952b4b0513b507ef9",
+      "SpanID": "09745743ce96e982",
       "TraceFlags": "01",
       "TraceState": "",
       "Remote": false
     },
     "Parent": {
-      "TraceID": "d87180d72277bfe1c82b3f30d68b9b24",
-      "SpanID": "5d247096845fa4d9",
+      "TraceID": "e898de8d7a98c0e952b4b0513b507ef9",
+      "SpanID": "f2946cc4b4800ab9",
       "TraceFlags": "01",
       "TraceState": "",
       "Remote": true
     },
     "SpanKind": 1,
-    "StartTime": 1686710036969702800,
-    "EndTime": 1686710036969702800,
+    "StartTime": 1686980779702468300,
+    "EndTime": 1686980779702468300,
     "Attributes": [
       {
         "Key": "add_value",
@@ -252,7 +122,7 @@
     },
     "InstrumentationScope": {
       "Name": "TelemetrySDK-Python/exporter/ar_trace",
-      "Version": "2.4.0",
+      "Version": "2.4.1",
       "SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python?path=/exporter/ar_trace"
     },
     "Resource": [
@@ -274,7 +144,7 @@
         "Key": "telemetry.sdk.version",
         "Value": {
           "Type": "STRING",
-          "Value": "2.4.0"
+          "Value": "2.4.1"
         }
       },
       {
@@ -323,14 +193,14 @@
         "Key": "service.name",
         "Value": {
           "Type": "STRING",
-          "Value": "YourServiceName:Calculation"
+          "Value": "YourServiceName"
         }
       },
       {
         "Key": "service.version",
         "Value": {
           "Type": "STRING",
-          "Value": "1.0.0"
+          "Value": "2.4.1"
         }
       },
       {
@@ -349,22 +219,22 @@
   {
     "Name": "add",
     "SpanContext": {
-      "TraceID": "d87180d72277bfe1c82b3f30d68b9b24",
-      "SpanID": "a305740baa4917e5",
+      "TraceID": "e898de8d7a98c0e952b4b0513b507ef9",
+      "SpanID": "f6f0e8229b49d235",
       "TraceFlags": "01",
       "TraceState": "",
       "Remote": false
     },
     "Parent": {
-      "TraceID": "d87180d72277bfe1c82b3f30d68b9b24",
-      "SpanID": "7b41df03216a4604",
+      "TraceID": "e898de8d7a98c0e952b4b0513b507ef9",
+      "SpanID": "09745743ce96e982",
       "TraceFlags": "01",
       "TraceState": "",
       "Remote": true
     },
     "SpanKind": 1,
-    "StartTime": 1686710036969702800,
-    "EndTime": 1686710036969702800,
+    "StartTime": 1686980779702468300,
+    "EndTime": 1686980779702468300,
     "Attributes": [
       {
         "Key": "add_value",
@@ -382,7 +252,7 @@
     },
     "InstrumentationScope": {
       "Name": "TelemetrySDK-Python/exporter/ar_trace",
-      "Version": "2.4.0",
+      "Version": "2.4.1",
       "SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python?path=/exporter/ar_trace"
     },
     "Resource": [
@@ -404,7 +274,7 @@
         "Key": "telemetry.sdk.version",
         "Value": {
           "Type": "STRING",
-          "Value": "2.4.0"
+          "Value": "2.4.1"
         }
       },
       {
@@ -453,144 +323,14 @@
         "Key": "service.name",
         "Value": {
           "Type": "STRING",
-          "Value": "YourServiceName:Calculation"
+          "Value": "YourServiceName"
         }
       },
       {
         "Key": "service.version",
         "Value": {
           "Type": "STRING",
-          "Value": "1.0.0"
-        }
-      },
-      {
-        "Key": "service.instance.id",
-        "Value": {
-          "Type": "STRING",
-          "Value": "983d7e1d5e8cda64"
-        }
-      }
-    ],
-    "DroppedAttributes": 0,
-    "DroppedEvents": 0,
-    "DroppedLinks": 0,
-    "ChildSpanCount": 0
-  },
-  {
-    "Name": "multiply",
-    "SpanContext": {
-      "TraceID": "d87180d72277bfe1c82b3f30d68b9b24",
-      "SpanID": "65ba69ed738dad29",
-      "TraceFlags": "01",
-      "TraceState": "",
-      "Remote": false
-    },
-    "Parent": {
-      "TraceID": "d87180d72277bfe1c82b3f30d68b9b24",
-      "SpanID": "a305740baa4917e5",
-      "TraceFlags": "01",
-      "TraceState": "",
-      "Remote": true
-    },
-    "SpanKind": 1,
-    "StartTime": 1686710036969702800,
-    "EndTime": 1686710036969702800,
-    "Attributes": [
-      {
-        "Key": "add_value",
-        "Value": {
-          "Type": "INT",
-          "Value": 36
-        }
-      }
-    ],
-    "Links": [],
-    "Events": [],
-    "Status": {
-      "Code": 0,
-      "Description": ""
-    },
-    "InstrumentationScope": {
-      "Name": "TelemetrySDK-Python/exporter/ar_trace",
-      "Version": "2.4.0",
-      "SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python?path=/exporter/ar_trace"
-    },
-    "Resource": [
-      {
-        "Key": "telemetry.sdk.language",
-        "Value": {
-          "Type": "STRING",
-          "Value": "python"
-        }
-      },
-      {
-        "Key": "telemetry.sdk.name",
-        "Value": {
-          "Type": "STRING",
-          "Value": "TelemetrySDK-Python/exporter/ar_trace"
-        }
-      },
-      {
-        "Key": "telemetry.sdk.version",
-        "Value": {
-          "Type": "STRING",
-          "Value": "2.4.0"
-        }
-      },
-      {
-        "Key": "host.ip",
-        "Value": {
-          "Type": "STRING",
-          "Value": "10.4.34.50"
-        }
-      },
-      {
-        "Key": "host.arch",
-        "Value": {
-          "Type": "STRING",
-          "Value": "AMD64"
-        }
-      },
-      {
-        "Key": "host.name",
-        "Value": {
-          "Type": "STRING",
-          "Value": "DevDeskV6-029"
-        }
-      },
-      {
-        "Key": "os.type",
-        "Value": {
-          "Type": "STRING",
-          "Value": "Windows"
-        }
-      },
-      {
-        "Key": "os.version",
-        "Value": {
-          "Type": "STRING",
-          "Value": "10.0.18362"
-        }
-      },
-      {
-        "Key": "os.description",
-        "Value": {
-          "Type": "STRING",
-          "Value": "Windows10"
-        }
-      },
-      {
-        "Key": "service.name",
-        "Value": {
-          "Type": "STRING",
-          "Value": "YourServiceName:Calculation"
-        }
-      },
-      {
-        "Key": "service.version",
-        "Value": {
-          "Type": "STRING",
-          "Value": "1.0.0"
+          "Value": "2.4.1"
         }
       },
       {
