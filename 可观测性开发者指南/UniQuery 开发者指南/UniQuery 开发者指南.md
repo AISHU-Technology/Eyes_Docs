@@ -1534,7 +1534,7 @@ http_errors{method="post", code="404"} 21
 ```
 
 ### 2.3.4 函数
-PromQL 提供的内置函数有： time(), irate , rate, increase, sort, sort_desc, label_replace, label_join。
+PromQL 提供的内置函数有： time(), irate , rate, increase, changes, delta, <agg>_over_time, sort, sort_desc, label_replace, label_join, histogram_quantile, floor, ceil, abs, exp, sqrt, ln, log2, log10。
 
 #### 2.3.4.1 time()
 
@@ -1592,7 +1592,7 @@ irate(v range-vector)
 ```
 其中 `range-vector` 的语法结构参考[范围向量选择器]。
 
-1. 示例
+3. 示例
 
 以下示例表达式返回针对范围向量中每个时间序列的两个最近数据点的 HTTP 请求的每秒增长速率，最多可追溯 5 分钟：
 ``` markdown
@@ -1611,7 +1611,7 @@ rate(v range-vector)
 ```
 其中 `range-vector` 的语法结构参考[范围向量选择器]。
 
-1. 示例
+3. 示例
 
 以下示例表达式返回针对范围向量中过去 5 分钟内的所有数据点的 HTTP 请求的每秒平均增长速率：
 ``` markdown
@@ -1622,7 +1622,7 @@ rate(http_requests_total{job="api-server"}[5m])
 
 1. 语义
 
-`increase(v range-vector)` 计算范围向量中时间序列的一样本增长量。单调性的中断（例如由于目标重新启动而导致的计数器重置）会自动调整。此外，计算外推到时间范围的末端，允许遗漏采集或采集周期与该范围的时间段的不完美对齐。
+`increase(v range-vector)` 计算范围向量中时间序列的样本增长量。单调性的中断（例如由于目标重新启动而导致的计数器重置）会自动调整。此外，计算外推到时间范围的末端，允许遗漏采集或采集周期与该范围的时间段的不完美对齐。
 
 2. 语法结构
 ``` markdown
@@ -1643,7 +1643,7 @@ increase(http_requests_total{job="api-server"}[5m])
 
 `changes(v range-vector)` 计算范围向量中时间序列的样本值发生变化次数。
 
-1. 语法结构
+2. 语法结构
 ``` markdown
 changes(v range-vector)
 ```
@@ -1656,16 +1656,55 @@ changes(v range-vector)
 changes(http_requests_total{job="api-server"}[5m])
 ```
 
-#### 2.3.4.6 sort
+#### 2.3.4.6 delta
+
+1. 语义
+
+`delta(v range-vector)` 计算范围向量中每个时间序列元素的第一个值和最后一个值之间的差。
+
+2. 语法结构
+``` markdown
+delta(v range-vector)
+```
+其中 `range-vector` 的语法结构参考[范围向量选择器]。
+
+3. 示例
+
+以下示例表达式返回针对范围向量中过去 5 分钟内的 HTTP 请求的差异：
+``` markdown
+delta(http_requests_total{job="api-server"}[5m])
+```
+
+#### 2.3.4.7 <agg>_over_time
+
+1. 语义
+
+`<agg>_over_time(v range-vector)` 对各时间序列在指定时间范围内的所有样本值做聚合计算。支持 avg_over_time、sum_over_time、max_over_time、min_over_time 和 count_over_time。
+
+2. 语法结构
+``` markdown
+<agg>_over_time(v range-vector)
+```
+其中 `range-vector` 的语法结构参考[范围向量选择器]。
+
+3. 示例
+
+以下示例表达式返回针对范围向量中过去 5 分钟内的 HTTP 请求的均值：
+``` markdown
+avg_over_time(http_requests_total{job="api-server"}[5m])
+```
+
+
+#### 2.3.4.7 sort
 
 `sort(v instant-vector)` 将瞬时表达式返回的样本数据进行升序排序。`sort` 对 `query_range` 查询无排序效果，因此，禁止 `sort` 在query_range接口的使用。
 
-#### 2.3.4.7 sort_desc
+#### 2.3.4.8 sort_desc
 
 `sort_desc(v instant-vector)` 将瞬时表达式返回的样本数据进行降序排序。`sort_desc` 对 `query_range` 查询无排序效果，因此，禁止 `sort_desc` 在query_range接口的使用。
 
 
-#### 2.3.4.8 label_replace
+#### 2.3.4.9 label_replace
 
 1. 语义
 
@@ -1696,7 +1735,7 @@ node_cpu_seconds_total{host="localhost",instance="localhost:9090",job="prometheu
 node_cpu_seconds_total{host="localhost",instance="localhost:9100",job="node"} 1
 ```
 
-#### 2.3.4.9 label_join
+#### 2.3.4.10 label_join
 
 1. 定义
 
@@ -1718,13 +1757,128 @@ label_join(v instant-vector, dst_label string, separator string, src_label_1 str
 label_join(node_cpu_seconds_total, "host", "---", "instance", "job")
 ```
 
-+ 示例输出
++ 示例输入
 
 ``` markdown
 node_cpu_seconds_total{host="localhost:8080---cadvisor",instance="localhost:8080",job="cadvisor"} 1
 node_cpu_seconds_total{host="localhost:9090---prometheus",instance="localhost:9090",job="prometheus"} 1
 node_cpu_seconds_total{host="localhost:9100---node",instance="localhost:9100",job="node"} 1
 ```
+
+#### 2.3.4.11 histogram_quantile
+
+1. 定义
+
+`histogram_quantile` 为直方图类型的时间序列计算样本值的φ-分位数（0≤φ≤1）。
+
+2. 语法结构
+
+``` markdown
+histogram_quantile(φ float, v instant-vector)
+```
+
+3. 示例
+
+如下表达式是要获取 `http_request_duration_seconds_bucket` 请求的 `90` 分位的延迟时间，结果得出 90% 的延迟时间为 0.25s：
+
+``` markdown
+histogram_quantile(0.9, http_request_duration_seconds_bucket)
+```
+
++ 示例输出
+
+``` markdown
+{handler="/-/healthy",instance="prometheus:9090",job="prometheus"} 0.25
+```
+
+#### 2.3.4.12 floor
+
+1. 定义
+
+`floor` 将样本值向下取整。
+
+2. 语法结构
+
+``` markdown
+floor(v instant-vector)
+```
+
+3. 示例
+
+如下表达式是对指标 `node_load5` 做来下取整的操作：
+
+``` markdown
+floor(node_load5)
+```
+
++ 示例输入
+
+``` markdown
+{instance="192.168.1.75:9100"} 2.79
+```
+
++ 示例输出
+
+``` markdown
+{instance="192.168.1.75:9100"} 2
+```
+
+#### 2.3.4.13 ceil
+
+1. 定义
+
+`ceil` 将样本值向上取整。
+
+2. 语法结构
+
+``` markdown
+ceil(v instant-vector)
+```
+
+3. 示例
+
+如下表达式是对指标 `node_load5` 做来下取整的操作：
+
+``` markdown
+ceil(node_load5)
+```
+
++ 示例输入
+
+``` markdown
+{instance="192.168.1.75:9100"} 2.79
+```
+
++ 示例输出
+
+``` markdown
+{instance="192.168.1.75:9100"} 3
+```
+
+#### 2.3.4.14 abs
+
+`abs(v instant-vector)` 对瞬时表达式返回的样本数据取绝对值。
+
+#### 2.3.4.15 exp
+
+`exp(v instant-vector)` 对瞬时表达式返回的样本数据计算自然数e的指数。
+
+#### 2.3.4.16 sqrt
+
+`sqrt(v instant-vector)` 对瞬时表达式返回的样本数据求平方根。
+
+#### 2.3.4.17 ln
+
+`ln(v instant-vector)` 对瞬时表达式返回的样本数据求以e为底的对数。
+
+#### 2.3.4.18 log2
+
+`log2(v instant-vector)` 对瞬时表达式返回的样本数据求以2为底的对数。
+
+#### 2.3.4.18 log10
+
+`log10(v instant-vector)` 对瞬时表达式返回的样本数据求以10为底的对数。
+
 
 ### 2.3.5 HTTP API
 
