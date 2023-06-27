@@ -1,0 +1,1238 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Feed Ingester OpenTelemetry Metric接口",
+        "version": "1.0.0",
+        "description": "用于接收opentelemetry-metric格式"
+    },
+    "paths": {
+        "/api/feed_ingester/v1/jobs/{job_id}/events": {
+            "description": "接收接口url,其中metric位置可以根据采集任务配置自定义",
+            "post": {
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/ResourceMetrics"
+                                }
+                            },
+                            "examples": {
+                                "common ": {
+                                    "value": {
+                                        "Resource": [
+                                            {
+                                                "Key": "service.name",
+                                                "Value": {
+                                                    "Type": "STRING",
+                                                    "Value": "unknown_service:test_opentelemetry_view_metric"
+                                                }
+                                            },
+                                            {
+                                                "Key": "telemetry.sdk.language",
+                                                "Value": {
+                                                    "Type": "STRING",
+                                                    "Value": "go"
+                                                }
+                                            },
+                                            {
+                                                "Key": "telemetry.sdk.name",
+                                                "Value": {
+                                                    "Type": "STRING",
+                                                    "Value": "opentelemetry"
+                                                }
+                                            },
+                                            {
+                                                "Key": "telemetry.sdk.version",
+                                                "Value": {
+                                                    "Type": "STRING",
+                                                    "Value": "1.11.1"
+                                                }
+                                            }
+                                        ],
+                                        "ScopeMetrics": [
+                                            {
+                                                "Scope": {
+                                                    "Name": "test_opentelemetry_view_metric",
+                                                    "Version": "",
+                                                    "SchemaURL": ""
+                                                },
+                                                "Metrics": [
+                                                    {
+                                                        "Name": "foo",
+                                                        "Description": "a simple counter",
+                                                        "Unit": "",
+                                                        "Sum": {
+                                                            "DataPoints": [
+                                                                {
+                                                                    "Attributes": [
+                                                                        {
+                                                                            "Key": "A",
+                                                                            "Value": {
+                                                                                "Type": "STRING",
+                                                                                "Value": "B"
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "Key": "C",
+                                                                            "Value": {
+                                                                                "Type": "STRING",
+                                                                                "Value": "D"
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "StartTime": "2022-12-01T16:19:36.030076915+08:00",
+                                                                    "Time": "2022-12-01T16:19:46.031000029+08:00",
+                                                                    "AsInt": 5
+                                                                }
+                                                            ],
+                                                            "Temporality": "CumulativeTemporality",
+                                                            "IsMonotonic": true
+                                                        }
+                                                    },
+                                                    {
+                                                        "Name": "custom_histogram",
+                                                        "Description": "a histogram with custom buckets and rename",
+                                                        "Unit": "",
+                                                        "Histogram": {
+                                                            "DataPoints": [
+                                                                {
+                                                                    "Attributes": [
+                                                                        {
+                                                                            "Key": "A",
+                                                                            "Value": {
+                                                                                "Type": "STRING",
+                                                                                "Value": "B"
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "Key": "C",
+                                                                            "Value": {
+                                                                                "Type": "STRING",
+                                                                                "Value": "D"
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "StartTime": "2022-12-01T16:19:36.030104927+08:00",
+                                                                    "Time": "2022-12-01T16:19:46.031004066+08:00",
+                                                                    "Count": 4,
+                                                                    "Bounds": [
+                                                                        0,
+                                                                        5,
+                                                                        10,
+                                                                        25,
+                                                                        50,
+                                                                        75,
+                                                                        100,
+                                                                        250,
+                                                                        500,
+                                                                        750,
+                                                                        1000,
+                                                                        2500,
+                                                                        5000,
+                                                                        7500,
+                                                                        10000
+                                                                    ],
+                                                                    "BucketCounts": [
+                                                                        0,
+                                                                        0,
+                                                                        0,
+                                                                        0,
+                                                                        0,
+                                                                        1,
+                                                                        0,
+                                                                        1,
+                                                                        0,
+                                                                        1,
+                                                                        1,
+                                                                        0,
+                                                                        0,
+                                                                        0,
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "Min": 64,
+                                                                    "Max": 830,
+                                                                    "Sum": 1731
+                                                                }
+                                                            ],
+                                                            "Temporality": "CumulativeTemporality"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "204": {
+                        "description": "添加成功"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "FeedIngester.BadRequest.FormatError": {
+                                        "value": {
+                                            "error_code": "FeedIngester.BadRequest.FormatError",
+                                            "description": "请求体格式错误",
+                                            "solution": "检查请求体格式",
+                                            "error_details": {
+
+                                            },
+                                            "error_link": ""
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "客户端错误"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "FeedIngester.BadRequest.JobIdNotFound": {
+                                        "value": {
+                                            "description": "没有找到对应的job_id,任务已停止",
+                                            "error_code": "FeedIngester.BadRequest.JobIdNotFound",
+                                            "error_details": {
+
+                                            },
+                                            "error_link": "",
+                                            "solution": "确认job_id是否正确"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "未找到任务Id"
+                    },
+                    "413": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "FeedIngester.BadRequest.PayloadTooLarge": {
+                                        "value": {
+                                            "error_code": "FeedIngester.BadRequest.PayloadTooLarge",
+                                            "description": "请求体长度过长",
+                                            "solution": "检查请求体长度",
+                                            "error_details": {
+
+                                            },
+                                            "error_link": ""
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "请求体超过限制长度"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "FeedIngester.InternalError.InternalError": {
+                                        "value": {
+                                            "error_code": "FeedIngester.InternalError.InternalError",
+                                            "description": "内部错误",
+                                            "solution": "联系运维人员",
+                                            "error_details": {
+
+                                            },
+                                            "error_link": ""
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "内部错误"
+                    }
+                },
+                "summary": "接收指标数据",
+                "description": "用于从远程接收指标数据,保证长度限制在5m以内"
+            },
+            "parameters": [
+                {
+                    "name": "job_id",
+                    "description": "任务所属的job_id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "path",
+                    "required": true
+                },
+                {
+                    "examples": {
+                        "sync": {
+                            "value": "sync"
+                        }
+                    },
+                    "name": "sync-mode",
+                    "description": "是否使用同步模式，当该参数为sync时为同步模式，否则都为异步模式",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "header",
+                    "required": false
+                },
+                {
+                    "examples": {
+                        "language": {
+                            "value": "zh-CN"
+                        },
+                        "language2": {
+                            "value": "en-US"
+                        }
+                    },
+                    "name": "Accept-Language",
+                    "description": "国际化标识，用于切换返回错误信息的语言",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "header"
+                }
+            ]
+        }
+    },
+    "components": {
+        "schemas": {
+            "Error": {
+                "title": "Root Type for err_res",
+                "description": "",
+                "required": [
+                    "error_code",
+                    "description"
+                ],
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "description": "错误描述",
+                        "type": "string"
+                    },
+                    "solution": {
+                        "description": "错误解决方法",
+                        "type": "string"
+                    },
+                    "error_code": {
+                        "description": "错误码",
+                        "type": "string"
+                    },
+                    "error_link": {
+                        "description": "错误信息地址",
+                        "type": "string"
+                    },
+                    "error_details": {
+                        "description": "错误详细信息"
+                    }
+                },
+                "example": {
+                    "description": "some text",
+                    "solution": "some text",
+                    "error_code": "some text",
+                    "error_link": "some text",
+                    "error_details": {
+
+                    }
+                }
+            },
+            "Scope": {
+                "title": "Root Type for Scope",
+                "description": "用于存放Inetrument的信息的结构，标记使用的工具库",
+                "required": [
+                    "Name"
+                ],
+                "type": "object",
+                "properties": {
+                    "Name": {
+                        "description": "工具库的名称",
+                        "type": "string"
+                    },
+                    "Version": {
+                        "description": "工具库的版本",
+                        "type": "string"
+                    },
+                    "SchemaURL": {
+                        "description": "工具库的代码托管网址",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "Name": "test_opentelemetry_view_metric",
+                    "Version": "",
+                    "SchemaURL": ""
+                }
+            },
+            "Metric": {
+                "title": "Root Type for Metric",
+                "description": "单个metric数据，内部可包含三种metric格式，分别是Sum,Gauge和Histogram，三种数据中可存在一种",
+                "required": [
+                    "Name",
+                    "Unit",
+                    "Description"
+                ],
+                "type": "object",
+                "properties": {
+                    "Name": {
+                        "description": "该数据点的名称",
+                        "type": "string"
+                    },
+                    "Description": {
+                        "description": "该数据点的描述信息",
+                        "type": "string"
+                    },
+                    "Unit": {
+                        "description": "表示该数据点的单位，根据目前OpenTelemetry的实现，有三个通用单位，分别是Dimensionless（无单位）,Bytes（字节）,Milliseconds（毫秒），目前不做校验，但是如果存在这三个单位尽量用规定好的这三个单位表示",
+                        "type": "string"
+                    },
+                    "Sum": {
+                        "$ref": "#/components/schemas/Sum",
+                        "description": "Sum类型数据，表示一段时间内该数据的累积量，和Promethus中的Counter意义相同",
+                        "properties": {
+                            "DataPoints": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Attributes": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "A": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "Type": {
+                                                                "type": "string"
+                                                            },
+                                                            "Value": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "StartTime": {
+                                            "type": "string"
+                                        },
+                                        "Time": {
+                                            "type": "string"
+                                        },
+                                        "Value": {
+                                            "format": "int32",
+                                            "type": "integer"
+                                        }
+                                    }
+                                }
+                            },
+                            "Temporality": {
+                                "type": "string"
+                            },
+                            "IsMonotonic": {
+                                "type": "boolean"
+                            }
+                        }
+                    },
+                    "Gauge": {
+                        "$ref": "#/components/schemas/Gauge",
+                        "description": "Gauge类型数据，仪表盘类型，用于表示瞬时度量"
+                    },
+                    "Histogram": {
+                        "$ref": "#/components/schemas/Histogram",
+                        "description": "Histogram类型metric数据"
+                    }
+                },
+                "example": {
+                    "Name": "foo",
+                    "Description": "a simple counter",
+                    "Unit": "Dimensionless",
+                    "Sum": {
+                        "DataPoints": [
+                            {
+                                "Attributes": [
+                                    {
+                                        "Key": "A",
+                                        "Value": {
+                                            "Type": "STRING",
+                                            "Value": "B"
+                                        }
+                                    },
+                                    {
+                                        "Key": "C",
+                                        "Value": {
+                                            "Type": "STRING",
+                                            "Value": "D"
+                                        }
+                                    }
+                                ],
+                                "StartTime": "2022-12-01T16:19:36.030076915+08:00",
+                                "Time": "2022-12-01T16:19:46.031000029+08:00",
+                                "AsInt": 5
+                            }
+                        ],
+                        "Temporality": "CumulativeTemporality",
+                        "IsMonotonic": true
+                    }
+                }
+            },
+            "Sum": {
+                "title": "Root Type for Sum",
+                "description": "Sum格式Metric数据",
+                "required": [
+                    "IsMonotonic",
+                    "Temporality",
+                    "DataPoints"
+                ],
+                "type": "object",
+                "properties": {
+                    "DataPoints": {
+                        "description": "数据点的集合，选择AsInt和AsDouble中的一个以区分不同格式的数据",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DataPoint"
+                        }
+                    },
+                    "Temporality": {
+                        "description": "表示聚合时间的区别，和单位一样有预置的三种格式：undefinedTemporality（未定义的聚合时间模式），CumulativeTemporality（自“开始”以来的总和的累积聚合时间），DeltaTemporality（不进行时间累计，度量流的时间窗口没有重叠），",
+                        "type": "string"
+                    },
+                    "IsMonotonic": {
+                        "description": "表示该数据是否存在单调性",
+                        "type": "boolean"
+                    }
+                },
+                "example": {
+                    "DataPoints": [
+                        {
+                            "Attributes": [
+                                {
+                                    "Key": "A",
+                                    "Value": {
+                                        "Type": "STRING",
+                                        "Value": "B"
+                                    }
+                                },
+                                {
+                                    "Key": "C",
+                                    "Value": {
+                                        "Type": "STRING",
+                                        "Value": "D"
+                                    }
+                                }
+                            ],
+                            "StartTime": "2022-12-01T16:19:36.030076915+08:00",
+                            "Time": "2022-12-01T16:19:46.031000029+08:00",
+                            "AsInt": 5
+                        }
+                    ],
+                    "Temporality": "CumulativeTemporality",
+                    "IsMonotonic": true
+                }
+            },
+            "DataPoint": {
+                "title": "Root Type for DataPoint",
+                "description": "单个数据点，选择AsInt和AsDouble中的一个以区分不同格式的数据",
+                "required": [
+                    "Attributes",
+                    "Time"
+                ],
+                "type": "object",
+                "properties": {
+                    "Attributes": {
+                        "description": "该数据点的标签",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Attribute"
+                        }
+                    },
+                    "StartTime": {
+                        "description": "数据点的起始时间，格式如下\"2022-12-01T17:56:28.285087165+08:00\"",
+                        "type": "string"
+                    },
+                    "Time": {
+                        "description": "数据点的结束时间，格式如下\"2022-12-01T17:56:28.285087165+08:00\"",
+                        "type": "string"
+                    },
+                    "AsDouble": {
+                        "format": "double",
+                        "description": "该数据点承载的数据(Double类型)",
+                        "type": "number"
+                    },
+                    "AsInt": {
+                        "format": "int64",
+                        "description": "该数据点承载的数据(Int类型)",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "Attributes": [
+                        {
+                            "Key": "A",
+                            "Value": {
+                                "Type": "STRING",
+                                "Value": "B"
+                            }
+                        },
+                        {
+                            "Key": "C",
+                            "Value": {
+                                "Type": "STRING",
+                                "Value": "D"
+                            }
+                        }
+                    ],
+                    "StartTime": "2022-12-01T16:19:36.030076915+08:00",
+                    "Time": "2022-12-01T16:19:46.031000029+08:00",
+                    "AsInt": 5
+                }
+            },
+            "Gauge": {
+                "title": "Root Type for Gauge",
+                "description": "Gauge类型Metric数据格式",
+                "required": [
+                    "DataPoints"
+                ],
+                "type": "object",
+                "properties": {
+                    "DataPoints": {
+                        "description": "数据点数组，选择AsInt和AsDouble中的一个以区分不同格式的数据",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DataPoint"
+                        }
+                    }
+                },
+                "example": {
+                    "DataPoints": [
+                        {
+                            "Attributes": [
+                                {
+                                    "Key": "A",
+                                    "Value": {
+                                        "Type": "STRING",
+                                        "Value": "B"
+                                    }
+                                },
+                                {
+                                    "Key": "C",
+                                    "Value": {
+                                        "Type": "STRING",
+                                        "Value": "D"
+                                    }
+                                }
+                            ],
+                            "StartTime": "0001-01-01T00:00:00Z",
+                            "Time": "2022-12-05T13:41:14.484867495+08:00",
+                            "AsInt": 3
+                        }
+                    ]
+                }
+            },
+            "ScopeMetrics": {
+                "title": "Root Type for ScopeMetric",
+                "description": "Scope信息和Metrics信息组成的结构，存放一组使用相同Instrument的metrics数据",
+                "required": [
+                    "Scope",
+                    "Metrics"
+                ],
+                "type": "object",
+                "properties": {
+                    "Scope": {
+                        "$ref": "#/components/schemas/Scope",
+                        "description": "工具库相关信息",
+                        "properties": {
+                            "Name": {
+                                "type": "string"
+                            },
+                            "Version": {
+                                "type": "string"
+                            },
+                            "SchemaURL": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "Metrics": {
+                        "description": "具体metric数据，内部可包含三种metric格式，分别是Sum,Gauge和Histogram，三种数据中可存在一种",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Metric"
+                        }
+                    }
+                },
+                "example": {
+                    "Scope": {
+                        "Name": "test_opentelemetry_view_metric",
+                        "Version": "",
+                        "SchemaURL": ""
+                    },
+                    "Metrics": [
+                        {
+                            "Name": "foo",
+                            "Description": "a simple counter",
+                            "Unit": "",
+                            "Sum": {
+                                "DataPoints": [
+                                    {
+                                        "Attributes": [
+                                            {
+                                                "Key": "A",
+                                                "Value": {
+                                                    "Type": "STRING",
+                                                    "Value": "B"
+                                                }
+                                            },
+                                            {
+                                                "Key": "C",
+                                                "Value": {
+                                                    "Type": "STRING",
+                                                    "Value": "D"
+                                                }
+                                            }
+                                        ],
+                                        "StartTime": "2022-12-01T16:19:36.030076915+08:00",
+                                        "Time": "2022-12-01T16:19:46.031000029+08:00",
+                                        "AsInt": 5
+                                    }
+                                ],
+                                "Temporality": "CumulativeTemporality",
+                                "IsMonotonic": true
+                            }
+                        },
+                        {
+                            "Name": "custom_histogram",
+                            "Description": "a histogram with custom buckets and rename",
+                            "Unit": "",
+                            "Histogram": {
+                                "DataPoints": [
+                                    {
+                                        "Attributes": [
+                                            {
+                                                "Key": "A",
+                                                "Value": {
+                                                    "Type": "STRING",
+                                                    "Value": "B"
+                                                }
+                                            },
+                                            {
+                                                "Key": "C",
+                                                "Value": {
+                                                    "Type": "STRING",
+                                                    "Value": "D"
+                                                }
+                                            }
+                                        ],
+                                        "StartTime": "2022-12-01T16:19:36.030104927+08:00",
+                                        "Time": "2022-12-01T16:19:46.031004066+08:00",
+                                        "Count": 4,
+                                        "Bounds": [
+                                            0,
+                                            5,
+                                            10,
+                                            25,
+                                            50,
+                                            75,
+                                            100,
+                                            250,
+                                            500,
+                                            750,
+                                            1000,
+                                            2500,
+                                            5000,
+                                            7500,
+                                            10000
+                                        ],
+                                        "BucketCounts": [
+                                            0,
+                                            0,
+                                            0,
+                                            0,
+                                            0,
+                                            1,
+                                            0,
+                                            1,
+                                            0,
+                                            1,
+                                            1,
+                                            0,
+                                            0,
+                                            0,
+                                            0,
+                                            0
+                                        ],
+                                        "Min": 64,
+                                        "Max": 830,
+                                        "Sum": 1731
+                                    }
+                                ],
+                                "Temporality": "CumulativeTemporality"
+                            }
+                        }
+                    ]
+                }
+            },
+            "Histogram": {
+                "title": "Root Type for Histogram",
+                "description": "Histogram类型的Metric数据",
+                "required": [
+                    "Temporality",
+                    "DataPoints"
+                ],
+                "type": "object",
+                "properties": {
+                    "DataPoints": {
+                        "description": "Histogram类型的数据点集合",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/HistogramDataPoint"
+                        }
+                    },
+                    "Temporality": {
+                        "description": "表示聚合时间的区别，和单位一样有预置的三种格式：undefinedTemporality（未定义的聚合时间模式），CumulativeTemporality（自“开始”以来的总和的累积聚合时间），DeltaTemporality（不进行时间累计，度量流的时间窗口没有重叠），",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "DataPoints": [
+                        {
+                            "Attributes": [
+                                {
+                                    "Key": "A",
+                                    "Value": {
+                                        "Type": "STRING",
+                                        "Value": "B"
+                                    }
+                                },
+                                {
+                                    "Key": "C",
+                                    "Value": {
+                                        "Type": "STRING",
+                                        "Value": "D"
+                                    }
+                                }
+                            ],
+                            "StartTime": "2022-12-05T13:41:04.477640502+08:00",
+                            "Time": "2022-12-05T13:41:14.484890713+08:00",
+                            "Count": 4,
+                            "Bounds": [
+                                0,
+                                5,
+                                10,
+                                25,
+                                50,
+                                75,
+                                100,
+                                250,
+                                500,
+                                750,
+                                1000,
+                                2500,
+                                5000,
+                                7500,
+                                10000
+                            ],
+                            "BucketCounts": [
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                1,
+                                0,
+                                1,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0
+                            ],
+                            "Min": 64,
+                            "Max": 830,
+                            "Sum": 1731
+                        }
+                    ],
+                    "Temporality": "CumulativeTemporality"
+                }
+            },
+            "HistogramDataPoint": {
+                "title": "Root Type for HistogramDataPoint",
+                "description": "Histogram特有的DataPoint类型",
+                "required": [
+                    "Attributes",
+                    "Bounds",
+                    "BucketCounts",
+                    "Count",
+                    "Sum",
+                    "Time",
+                    "StartTime",
+                    "Max",
+                    "Min"
+                ],
+                "type": "object",
+                "properties": {
+                    "Attributes": {
+                        "description": "该数据点的标签",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Attribute"
+                        }
+                    },
+                    "StartTime": {
+                        "description": "数据点的起始时间，格式如下\"2022-12-01T17:56:28.285087165+08:00\"",
+                        "type": "string"
+                    },
+                    "Time": {
+                        "description": "数据点的终止时间，格式如下\"2022-12-01T17:56:28.285087165+08:00\"",
+                        "type": "string"
+                    },
+                    "Count": {
+                        "format": "int64",
+                        "description": "该记录点发生的记录次数",
+                        "type": "integer"
+                    },
+                    "Bounds": {
+                        "description": "该数据点内直方图的上界，参考promql的直方图的桶递增设计",
+                        "type": "array",
+                        "items": {
+                            "format": "double",
+                            "type": "number"
+                        }
+                    },
+                    "BucketCounts": {
+                        "description": "每个桶内值数量的计数",
+                        "type": "array",
+                        "items": {
+                            "format": "int64",
+                            "type": "integer"
+                        }
+                    },
+                    "Min": {
+                        "format": "double",
+                        "description": "被记录到的最小值",
+                        "type": "number"
+                    },
+                    "Max": {
+                        "format": "double",
+                        "description": "被记录到的最大值",
+                        "type": "number"
+                    },
+                    "Sum": {
+                        "format": "double",
+                        "description": "被记录的数据总和",
+                        "type": "number"
+                    }
+                },
+                "example": {
+                    "Attributes": [
+                        {
+                            "Key": "A",
+                            "Value": {
+                                "Type": "STRING",
+                                "Value": "B"
+                            }
+                        },
+                        {
+                            "Key": "C",
+                            "Value": {
+                                "Type": "STRING",
+                                "Value": "D"
+                            }
+                        }
+                    ],
+                    "StartTime": "2022-12-05T13:41:04.477640502+08:00",
+                    "Time": "2022-12-05T13:41:14.484890713+08:00",
+                    "Count": 4,
+                    "Bounds": [
+                        0,
+                        5,
+                        10,
+                        25,
+                        50,
+                        75,
+                        100,
+                        250,
+                        500,
+                        750,
+                        1000,
+                        2500,
+                        5000,
+                        7500,
+                        10000
+                    ],
+                    "BucketCounts": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        0,
+                        1,
+                        0,
+                        1,
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "Min": 64,
+                    "Max": 830,
+                    "Sum": 1731
+                }
+            },
+            "ResourceMetrics": {
+                "title": "Root Type for ResourceMetrics",
+                "description": "完整的接收体，包含Resource和ScopeMetrics部分",
+                "required": [
+                    "Resource",
+                    "ScopeMetrics"
+                ],
+                "type": "object",
+                "properties": {
+                    "Resource": {
+                        "description": "包含数据源信息，包括sdk信息，服务名成，主机信息等",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Attribute"
+                        }
+                    },
+                    "ScopeMetrics": {
+                        "description": "具体的Metric信息层",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ScopeMetrics"
+                        }
+                    }
+                },
+                "example": {
+                    "Resource": [
+                        {
+                            "Key": "service.name",
+                            "Value": {
+                                "Type": "STRING",
+                                "Value": "unknown_service:test_opentelemetry_view_metric"
+                            }
+                        },
+                        {
+                            "Key": "telemetry.sdk.language",
+                            "Value": {
+                                "Type": "STRING",
+                                "Value": "go"
+                            }
+                        },
+                        {
+                            "Key": "telemetry.sdk.name",
+                            "Value": {
+                                "Type": "STRING",
+                                "Value": "opentelemetry"
+                            }
+                        },
+                        {
+                            "Key": "telemetry.sdk.version",
+                            "Value": {
+                                "Type": "STRING",
+                                "Value": "1.11.1"
+                            }
+                        }
+                    ],
+                    "ScopeMetrics": [
+                        {
+                            "Scope": {
+                                "Name": "test_opentelemetry_view_metric",
+                                "Version": "",
+                                "SchemaURL": ""
+                            },
+                            "Metrics": [
+                                {
+                                    "Name": "foo",
+                                    "Description": "a simple counter",
+                                    "Unit": "",
+                                    "Sum": {
+                                        "DataPoints": [
+                                            {
+                                                "Attributes": [
+                                                    {
+                                                        "Key": "A",
+                                                        "Value": {
+                                                            "Type": "STRING",
+                                                            "Value": "B"
+                                                        }
+                                                    },
+                                                    {
+                                                        "Key": "C",
+                                                        "Value": {
+                                                            "Type": "STRING",
+                                                            "Value": "D"
+                                                        }
+                                                    }
+                                                ],
+                                                "StartTime": "2022-12-01T16:19:36.030076915+08:00",
+                                                "Time": "2022-12-01T16:19:46.031000029+08:00",
+                                                "AsInt": 5
+                                            }
+                                        ],
+                                        "Temporality": "CumulativeTemporality",
+                                        "IsMonotonic": true
+                                    }
+                                },
+                                {
+                                    "Name": "custom_histogram",
+                                    "Description": "a histogram with custom buckets and rename",
+                                    "Unit": "",
+                                    "Histogram": {
+                                        "DataPoints": [
+                                            {
+                                                "Attributes": [
+                                                    {
+                                                        "Key": "A",
+                                                        "Value": {
+                                                            "Type": "STRING",
+                                                            "Value": "B"
+                                                        }
+                                                    },
+                                                    {
+                                                        "Key": "C",
+                                                        "Value": {
+                                                            "Type": "STRING",
+                                                            "Value": "D"
+                                                        }
+                                                    }
+                                                ],
+                                                "StartTime": "2022-12-01T16:19:36.030104927+08:00",
+                                                "Time": "2022-12-01T16:19:46.031004066+08:00",
+                                                "Count": 4,
+                                                "Bounds": [
+                                                    0,
+                                                    5,
+                                                    10,
+                                                    25,
+                                                    50,
+                                                    75,
+                                                    100,
+                                                    250,
+                                                    500,
+                                                    750,
+                                                    1000,
+                                                    2500,
+                                                    5000,
+                                                    7500,
+                                                    10000
+                                                ],
+                                                "BucketCounts": [
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    1,
+                                                    0,
+                                                    1,
+                                                    0,
+                                                    1,
+                                                    1,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0
+                                                ],
+                                                "Min": 64,
+                                                "Max": 830,
+                                                "Sum": 1731
+                                            }
+                                        ],
+                                        "Temporality": "CumulativeTemporality"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "AttributeValue": {
+                "title": "Root Type for AttributeInner",
+                "description": "Attribute内部结构",
+                "required": [
+                    "Type",
+                    "Value"
+                ],
+                "type": "object",
+                "properties": {
+                    "Type": {
+                        "description": "值的类型，根据类型进行解析",
+                        "enum": [
+                            "STRING",
+                            "BOOL",
+                            "INT",
+                            "FLOAT",
+                            "STRING",
+                            "BOOLARRAY",
+                            "INTARRAY",
+                            "FLOATARRAY",
+                            "STRINGARRAY"
+                        ],
+                        "type": "string"
+                    },
+                    "Value": {
+                        "description": "具体的值"
+                    }
+                },
+                "example": {
+                    "Type": "STRING",
+                    "Value": "B"
+                }
+            },
+            "Attribute": {
+                "title": "Root Type for Attribute",
+                "description": "属性，OpenTelemetry增加键值对标签的基本方式",
+                "required": [
+                    "Key",
+                    "Value"
+                ],
+                "type": "object",
+                "properties": {
+                    "Key": {
+                        "description": "Attribute值的名称",
+                        "type": "string"
+                    },
+                    "Value": {
+                        "$ref": "#/components/schemas/AttributeValue",
+                        "description": "Attribute值的具体值"
+                    }
+                },
+                "example": {
+                    "Key": "service.name",
+                    "Value": {
+                        "Type": "STRING",
+                        "Value": "unknown_service:test_opentelemetry_view_metric"
+                    }
+                }
+            }
+        }
+    }
+}
