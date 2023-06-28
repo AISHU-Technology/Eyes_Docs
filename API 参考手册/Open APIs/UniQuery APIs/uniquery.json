@@ -21501,236 +21501,6 @@
                 }
             ]
         },
-        "/uniquery/v1/metric-models/{id}": {
-            "post": {
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ReqMetricModel"
-                            },
-                            "examples": {
-                                "范围查询+全局过滤器": {
-                                    "value": {
-                                        "method": "GET",
-                                        "instant": false,
-                                        "start": 1646360670123,
-                                        "end": 1646471470123,
-                                        "step": "1m",
-                                        "filters": [
-                                            {
-                                                "name": "labels.host",
-                                                "value": [
-                                                    "10.2.12.23",
-                                                    "10.21.2.3"
-                                                ],
-                                                "operation": "in"
-                                            },
-                                            {
-                                                "name": "labels.job",
-                                                "value": "prometheus",
-                                                "operation": "="
-                                            },
-                                            {
-                                                "name": "labels.namespace",
-                                                "value": "as",
-                                                "operation": "!="
-                                            },
-                                            {
-                                                "name": "metrics.node_cpu_seconds_total",
-                                                "value": [
-                                                    0,
-                                                    5
-                                                ],
-                                                "operation": "range"
-                                            },
-                                            {
-                                                "name": "metrics.node_memory_MemTotal_bytes",
-                                                "value": [
-                                                    1024,
-                                                    2048
-                                                ],
-                                                "operation": "out_range"
-                                            }
-                                        ]
-                                    }
-                                },
-                                "即时查询+全局过滤器": {
-                                    "value": {
-                                        "method": "GET",
-                                        "instant": true,
-                                        "time": 1669789900123,
-                                        "look_back_delta": "10m",
-                                        "filters": [
-                                            {
-                                                "name": "labels.host",
-                                                "value": [
-                                                    "10.2.12.23",
-                                                    "10.21.2.3"
-                                                ],
-                                                "operation": "in"
-                                            },
-                                            {
-                                                "name": "labels.job",
-                                                "value": "prometheus",
-                                                "operation": "="
-                                            },
-                                            {
-                                                "name": "labels.namespace",
-                                                "value": "as",
-                                                "operation": "!="
-                                            },
-                                            {
-                                                "name": "metrics.node_cpu_seconds_total",
-                                                "value": [
-                                                    0,
-                                                    5
-                                                ],
-                                                "operation": "range"
-                                            },
-                                            {
-                                                "name": "metrics.node_memory_MemTotal_bytes",
-                                                "value": [
-                                                    1024,
-                                                    2048
-                                                ],
-                                                "operation": "out_range"
-                                            }
-                                        ]
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/MetricResults"
-                                },
-                                "examples": {
-                                    "范围查询": {
-                                        "value": {
-                                            "model": {
-                                                "name": "model1",
-                                                "metric_type": "atomic",
-                                                "data_view_name": "xxx",
-                                                "query_type": "promql",
-                                                "formula": "cpu_second_total{}",
-                                                "date_field": "@timestamp",
-                                                "date_format": "epoch_millis",
-                                                "measure_field": "value",
-                                                "unit_type": "timeUnit",
-                                                "unit": "s"
-                                            },
-                                            "datas": [
-                                                {
-                                                    "labels": {
-                                                        "cpu": "1",
-                                                        "instance": "10.4.68.120:9101"
-                                                    },
-                                                    "date_values": [
-                                                        1669789800123,
-                                                        1669789900123
-                                                    ],
-                                                    "values": [
-                                                        10,
-                                                        11
-                                                    ]
-                                                },
-                                                {
-                                                    "labels": {
-                                                        "cpu": "2",
-                                                        "instance": "10.4.68.120:9101"
-                                                    },
-                                                    "date_values": [
-                                                        1669789800123,
-                                                        1669789900123
-                                                    ],
-                                                    "values": [
-                                                        10,
-                                                        11
-                                                    ]
-                                                }
-                                            ],
-                                            "step": "1m",
-                                            "is_variable": false
-                                        }
-                                    },
-                                    "即时查询": {
-                                        "value": {
-                                            "model": {
-                                                "name": "model1",
-                                                "metric_type": "atomic",
-                                                "data_view_name": "xxx",
-                                                "query_type": "promql",
-                                                "formula": "cpu_second_total{}",
-                                                "date_field": "@timestamp",
-                                                "date_format": "epoch_millis",
-                                                "measure_field": "value",
-                                                "unit_type": "timeUnit",
-                                                "unit": "s"
-                                            },
-                                            "datas": [
-                                                {
-                                                    "labels": {
-                                                        "cpu": "1",
-                                                        "instance": "10.4.68.120:9101"
-                                                    },
-                                                    "date_values": [
-                                                        1669789900123
-                                                    ],
-                                                    "values": [
-                                                        11
-                                                    ]
-                                                },
-                                                {
-                                                    "labels": {
-                                                        "cpu": "2",
-                                                        "instance": "10.4.68.120:9101"
-                                                    },
-                                                    "date_values": [
-                                                        1669789900123
-                                                    ],
-                                                    "values": [
-                                                        11
-                                                    ]
-                                                }
-                                            ],
-                                            "step": "",
-                                            "is_variable": false
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "description": "OK"
-                    },
-                    "400": {
-                        "$ref": "#/components/responses/400BadRequest"
-                    },
-                    "500": {
-                        "$ref": "#/components/responses/500InternalError"
-                    }
-                },
-                "summary": "metric-models/{id}",
-                "description": "根据指标模型 id 查询指标数据"
-            },
-            "parameters": [
-                {
-                    "name": "id",
-                    "description": "指标模型id",
-                    "schema": {
-                        "type": "integer"
-                    },
-                    "in": "path",
-                    "required": true
-                }
-            ]
-        },
         "/api/uniquery/v1/dsl/_search/scroll": {
             "post": {
                 "requestBody": {
@@ -22257,7 +22027,6 @@
                             "examples": {
                                 "范围查询-promql-预览": {
                                     "value": {
-                                        "method": "GET",
                                         "metric_type": "atomic",
                                         "data_view_id": "wretrtyuiol675342rfgf",
                                         "query_type": "promql",
@@ -22270,7 +22039,6 @@
                                 },
                                 "即时查询-promql-预览": {
                                     "value": {
-                                        "method": "GET",
                                         "metric_type": "atomic",
                                         "data_view_id": "wretrtyuiol675342rfgf",
                                         "query_type": "promql",
@@ -22282,7 +22050,6 @@
                                 },
                                 "范围查询-dsl-预览": {
                                     "value": {
-                                        "method": "GET",
                                         "metric_type": "atomic",
                                         "data_view_id": "wretrtyuiol675342rfgf",
                                         "query_type": "dsl",
@@ -22296,7 +22063,6 @@
                                 },
                                 "即时查询-dsl-预览": {
                                     "value": {
-                                        "method": "GET",
                                         "metric_type": "atomic",
                                         "data_view_id": "wretrtyuiol675342rfgf",
                                         "query_type": "dsl",
@@ -22312,6 +22078,20 @@
                     },
                     "required": true
                 },
+                "parameters": [
+                    {
+                        "name": "X-HTTP-Method-Override",
+                        "description": "重载 post，实际上是 get 方法",
+                        "schema": {
+                            "enum": [
+                                "GET"
+                            ],
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -22323,6 +22103,7 @@
                                     "范围查询-promql-预览": {
                                         "value": {
                                             "model": {
+                                                "id": "",
                                                 "name": "",
                                                 "metric_type": "",
                                                 "data_view_name": "",
@@ -22371,6 +22152,7 @@
                                     "即时查询-promql-预览": {
                                         "value": {
                                             "model": {
+                                                "id": "",
                                                 "name": "",
                                                 "metric_type": "",
                                                 "data_view_name": "",
@@ -22415,6 +22197,7 @@
                                     "范围查询-dsl-预览": {
                                         "value": {
                                             "model": {
+                                                "id": "",
                                                 "name": "",
                                                 "metric_type": "",
                                                 "data_view_name": "",
@@ -22463,6 +22246,7 @@
                                     "即时查询-dsl-预览": {
                                         "value": {
                                             "model": {
+                                                "id": "",
                                                 "name": "",
                                                 "metric_type": "",
                                                 "data_view_name": "",
@@ -22519,6 +22303,560 @@
                 "summary": "metric-model",
                 "description": "基于指标模型的数据预览"
             }
+        },
+        "/uniquery/v1/metric-models/{ids}": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ReqMetricModel"
+                            },
+                            "examples": {
+                                "范围查询 - 请求单个模型": {
+                                    "value": {
+                                        "instant": false,
+                                        "start": 1646360670123,
+                                        "end": 1646471470123,
+                                        "step": "1m",
+                                        "filters": [
+                                            {
+                                                "name": "labels.host",
+                                                "value": [
+                                                    "10.2.12.23",
+                                                    "10.21.2.3"
+                                                ],
+                                                "operation": "in"
+                                            },
+                                            {
+                                                "name": "labels.job",
+                                                "value": "prometheus",
+                                                "operation": "="
+                                            },
+                                            {
+                                                "name": "labels.namespace",
+                                                "value": "as",
+                                                "operation": "!="
+                                            },
+                                            {
+                                                "name": "metrics.node_cpu_seconds_total",
+                                                "value": [
+                                                    0,
+                                                    5
+                                                ],
+                                                "operation": "range"
+                                            },
+                                            {
+                                                "name": "metrics.node_memory_MemTotal_bytes",
+                                                "value": [
+                                                    1024,
+                                                    2048
+                                                ],
+                                                "operation": "out_range"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "即时查询 - 请求单个模型": {
+                                    "value": {
+                                        "instant": true,
+                                        "time": 1669789900123,
+                                        "look_back_delta": "10m",
+                                        "filters": [
+                                            {
+                                                "name": "labels.host",
+                                                "value": [
+                                                    "10.2.12.23",
+                                                    "10.21.2.3"
+                                                ],
+                                                "operation": "in"
+                                            },
+                                            {
+                                                "name": "labels.job",
+                                                "value": "prometheus",
+                                                "operation": "="
+                                            },
+                                            {
+                                                "name": "labels.namespace",
+                                                "value": "as",
+                                                "operation": "!="
+                                            },
+                                            {
+                                                "name": "metrics.node_cpu_seconds_total",
+                                                "value": [
+                                                    0,
+                                                    5
+                                                ],
+                                                "operation": "range"
+                                            },
+                                            {
+                                                "name": "metrics.node_memory_MemTotal_bytes",
+                                                "value": [
+                                                    1024,
+                                                    2048
+                                                ],
+                                                "operation": "out_range"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "范围查询 - 请求多个模型": {
+                                    "value": [
+                                        {
+                                            "instant": false,
+                                            "start": 1646360670123,
+                                            "end": 1646471470123,
+                                            "step": "1m",
+                                            "filters": [
+                                                {
+                                                    "name": "labels.host",
+                                                    "value": [
+                                                        "10.2.12.23",
+                                                        "10.21.2.3"
+                                                    ],
+                                                    "operation": "in"
+                                                },
+                                                {
+                                                    "name": "labels.job",
+                                                    "value": "prometheus",
+                                                    "operation": "="
+                                                },
+                                                {
+                                                    "name": "labels.namespace",
+                                                    "value": "as",
+                                                    "operation": "!="
+                                                },
+                                                {
+                                                    "name": "metrics.node_cpu_seconds_total",
+                                                    "value": [
+                                                        0,
+                                                        5
+                                                    ],
+                                                    "operation": "range"
+                                                },
+                                                {
+                                                    "name": "metrics.node_memory_MemTotal_bytes",
+                                                    "value": [
+                                                        1024,
+                                                        2048
+                                                    ],
+                                                    "operation": "out_range"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "instant": false,
+                                            "start": 1646360670123,
+                                            "end": 1646471470123,
+                                            "step": "5m",
+                                            "filters": [
+                                                {
+                                                    "name": "labels.host",
+                                                    "value": [
+                                                        "10.2.12.23",
+                                                        "10.21.2.3"
+                                                    ],
+                                                    "operation": "in"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                "即时查询 - 请求多个模型": {
+                                    "value": [
+                                        {
+                                            "instant": true,
+                                            "time": 1669789900123,
+                                            "look_back_delta": "10m",
+                                            "filters": [
+                                                {
+                                                    "name": "labels.host",
+                                                    "value": [
+                                                        "10.2.12.23",
+                                                        "10.21.2.3"
+                                                    ],
+                                                    "operation": "in"
+                                                },
+                                                {
+                                                    "name": "labels.job",
+                                                    "value": "prometheus",
+                                                    "operation": "="
+                                                },
+                                                {
+                                                    "name": "labels.namespace",
+                                                    "value": "as",
+                                                    "operation": "!="
+                                                },
+                                                {
+                                                    "name": "metrics.node_cpu_seconds_total",
+                                                    "value": [
+                                                        0,
+                                                        5
+                                                    ],
+                                                    "operation": "range"
+                                                },
+                                                {
+                                                    "name": "metrics.node_memory_MemTotal_bytes",
+                                                    "value": [
+                                                        1024,
+                                                        2048
+                                                    ],
+                                                    "operation": "out_range"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "instant": true,
+                                            "time": 1669790100123,
+                                            "look_back_delta": "30m",
+                                            "filters": [
+                                                {
+                                                    "name": "labels.host",
+                                                    "value": [
+                                                        "10.2.12.23",
+                                                        "10.21.2.3"
+                                                    ],
+                                                    "operation": "in"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "parameters": [
+                    {
+                        "name": "X-HTTP-Method-Override",
+                        "description": "重载 post，实际上是 get 方法",
+                        "schema": {
+                            "enum": [
+                                "GET"
+                            ],
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MetricResults"
+                                },
+                                "examples": {
+                                    "范围查询 - 请求单个模型": {
+                                        "value": {
+                                            "model": {
+                                                "id": "123",
+                                                "name": "model1",
+                                                "metric_type": "atomic",
+                                                "data_view_name": "xxx",
+                                                "query_type": "promql",
+                                                "formula": "cpu_second_total{}",
+                                                "date_field": "@timestamp",
+                                                "date_format": "epoch_millis",
+                                                "measure_field": "value",
+                                                "unit_type": "timeUnit",
+                                                "unit": "s"
+                                            },
+                                            "datas": [
+                                                {
+                                                    "labels": {
+                                                        "cpu": "1",
+                                                        "instance": "10.4.68.120:9101"
+                                                    },
+                                                    "date_values": [
+                                                        1669789800123,
+                                                        1669789900123
+                                                    ],
+                                                    "values": [
+                                                        10,
+                                                        11
+                                                    ]
+                                                },
+                                                {
+                                                    "labels": {
+                                                        "cpu": "2",
+                                                        "instance": "10.4.68.120:9101"
+                                                    },
+                                                    "date_values": [
+                                                        1669789800123,
+                                                        1669789900123
+                                                    ],
+                                                    "values": [
+                                                        10,
+                                                        11
+                                                    ]
+                                                }
+                                            ],
+                                            "step": "1m",
+                                            "is_variable": false
+                                        }
+                                    },
+                                    "即时查询 - 请求单个模型": {
+                                        "value": {
+                                            "model": {
+                                                "id": "123",
+                                                "name": "model1",
+                                                "metric_type": "atomic",
+                                                "data_view_name": "xxx",
+                                                "query_type": "promql",
+                                                "formula": "cpu_second_total{}",
+                                                "date_field": "@timestamp",
+                                                "date_format": "epoch_millis",
+                                                "measure_field": "value",
+                                                "unit_type": "timeUnit",
+                                                "unit": "s"
+                                            },
+                                            "datas": [
+                                                {
+                                                    "labels": {
+                                                        "cpu": "1",
+                                                        "instance": "10.4.68.120:9101"
+                                                    },
+                                                    "date_values": [
+                                                        1669789900123
+                                                    ],
+                                                    "values": [
+                                                        11
+                                                    ]
+                                                },
+                                                {
+                                                    "labels": {
+                                                        "cpu": "2",
+                                                        "instance": "10.4.68.120:9101"
+                                                    },
+                                                    "date_values": [
+                                                        1669789900123
+                                                    ],
+                                                    "values": [
+                                                        11
+                                                    ]
+                                                }
+                                            ],
+                                            "step": "",
+                                            "is_variable": false
+                                        }
+                                    },
+                                    "范围查询 - 请求多个模型": {
+                                        "value": [
+                                            {
+                                                "model": {
+                                                    "id": "123",
+                                                    "name": "model1",
+                                                    "metric_type": "atomic",
+                                                    "data_view_name": "xxx",
+                                                    "query_type": "promql",
+                                                    "formula": "cpu_second_total{}",
+                                                    "date_field": "@timestamp",
+                                                    "date_format": "epoch_millis",
+                                                    "measure_field": "value",
+                                                    "unit_type": "timeUnit",
+                                                    "unit": "s"
+                                                },
+                                                "datas": [
+                                                    {
+                                                        "labels": {
+                                                            "cpu": "1",
+                                                            "instance": "10.4.68.120:9101"
+                                                        },
+                                                        "date_values": [
+                                                            1669789800123,
+                                                            1669789900123
+                                                        ],
+                                                        "values": [
+                                                            10,
+                                                            11
+                                                        ]
+                                                    },
+                                                    {
+                                                        "labels": {
+                                                            "cpu": "2",
+                                                            "instance": "10.4.68.120:9101"
+                                                        },
+                                                        "date_values": [
+                                                            1669789800123,
+                                                            1669789900123
+                                                        ],
+                                                        "values": [
+                                                            10,
+                                                            11
+                                                        ]
+                                                    }
+                                                ],
+                                                "step": "1m",
+                                                "is_variable": false
+                                            },
+                                            {
+                                                "model": {
+                                                    "id": "345",
+                                                    "name": "model2",
+                                                    "metric_type": "atomic",
+                                                    "data_view_name": "xxx",
+                                                    "query_type": "promql",
+                                                    "formula": "memory_used_total{}",
+                                                    "date_field": "@timestamp",
+                                                    "date_format": "epoch_millis",
+                                                    "measure_field": "value",
+                                                    "unit_type": "timeUnit",
+                                                    "unit": "s"
+                                                },
+                                                "datas": [
+                                                    {
+                                                        "labels": {
+                                                            "cpu": "1",
+                                                            "instance": "10.4.68.120:9101"
+                                                        },
+                                                        "date_values": [
+                                                            1669789800123,
+                                                            1669789900123
+                                                        ],
+                                                        "values": [
+                                                            10,
+                                                            11
+                                                        ]
+                                                    },
+                                                    {
+                                                        "labels": {
+                                                            "cpu": "2",
+                                                            "instance": "10.4.68.120:9101"
+                                                        },
+                                                        "date_values": [
+                                                            1669789800123,
+                                                            1669789900123
+                                                        ],
+                                                        "values": [
+                                                            10,
+                                                            11
+                                                        ]
+                                                    }
+                                                ],
+                                                "step": "5m",
+                                                "is_variable": false
+                                            }
+                                        ]
+                                    },
+                                    "即时查询 - 请求多个模型": {
+                                        "value": [
+                                            {
+                                                "model": {
+                                                    "id": "123",
+                                                    "name": "model1",
+                                                    "metric_type": "atomic",
+                                                    "data_view_name": "xxx",
+                                                    "query_type": "promql",
+                                                    "formula": "cpu_second_total{}",
+                                                    "date_field": "@timestamp",
+                                                    "date_format": "epoch_millis",
+                                                    "measure_field": "value",
+                                                    "unit_type": "timeUnit",
+                                                    "unit": "s"
+                                                },
+                                                "datas": [
+                                                    {
+                                                        "labels": {
+                                                            "cpu": "1",
+                                                            "instance": "10.4.68.120:9101"
+                                                        },
+                                                        "date_values": [
+                                                            1669789900123
+                                                        ],
+                                                        "values": [
+                                                            11
+                                                        ]
+                                                    },
+                                                    {
+                                                        "labels": {
+                                                            "cpu": "2",
+                                                            "instance": "10.4.68.120:9101"
+                                                        },
+                                                        "date_values": [
+                                                            1669789900123
+                                                        ],
+                                                        "values": [
+                                                            11
+                                                        ]
+                                                    }
+                                                ],
+                                                "step": "",
+                                                "is_variable": false
+                                            },
+                                            {
+                                                "model": {
+                                                    "id": "345",
+                                                    "name": "model2",
+                                                    "metric_type": "atomic",
+                                                    "data_view_name": "xxx",
+                                                    "query_type": "promql",
+                                                    "formula": "cpu_second_total{}",
+                                                    "date_field": "@timestamp",
+                                                    "date_format": "epoch_millis",
+                                                    "measure_field": "value",
+                                                    "unit_type": "timeUnit",
+                                                    "unit": "s"
+                                                },
+                                                "datas": [
+                                                    {
+                                                        "labels": {
+                                                            "cpu": "1",
+                                                            "instance": "10.4.68.120:9101"
+                                                        },
+                                                        "date_values": [
+                                                            1669789900123
+                                                        ],
+                                                        "values": [
+                                                            11
+                                                        ]
+                                                    },
+                                                    {
+                                                        "labels": {
+                                                            "cpu": "2",
+                                                            "instance": "10.4.68.120:9101"
+                                                        },
+                                                        "date_values": [
+                                                            1669789900123
+                                                        ],
+                                                        "values": [
+                                                            11
+                                                        ]
+                                                    }
+                                                ],
+                                                "step": "",
+                                                "is_variable": false
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400BadRequest"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500InternalError"
+                    }
+                },
+                "summary": "metric-models/{ids}",
+                "description": "根据指标模型 id 查询指标数据。可支持单个指标查询和多个指标查询。若是需要查询大于1个的指标模型的数据，则需要提交一个查询请求参数的数组，请求参数的作用域与模型id顺序对应。返回的是多个模型的数据结果的数组，数据与模型id也是顺序对应的。"
+            },
+            "parameters": [
+                {
+                    "name": "ids",
+                    "description": "指标模型id",
+                    "schema": {
+                        "type": "integer"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
         }
     },
     "components": {
@@ -22898,118 +23236,6 @@
                     }
                 }
             },
-            "MetricModel": {
-                "description": "指标模型信息",
-                "required": [
-                    "data_view_name",
-                    "date_field",
-                    "date_format",
-                    "formula",
-                    "measure_field",
-                    "name",
-                    "unit",
-                    "unit_type",
-                    "metric_type",
-                    "query_type"
-                ],
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "description": "指标模型名称",
-                        "type": "string"
-                    },
-                    "metric_type": {
-                        "description": "指标类型",
-                        "enum": [
-                            "atomic",
-                            "complex"
-                        ],
-                        "type": "string"
-                    },
-                    "data_view_name": {
-                        "description": "数据视图名称",
-                        "type": "string"
-                    },
-                    "query_type": {
-                        "description": "查询语言",
-                        "enum": [
-                            "promql"
-                        ],
-                        "type": "string"
-                    },
-                    "formula": {
-                        "description": "计算公式",
-                        "type": "string"
-                    },
-                    "date_field": {
-                        "description": "时间字段。当查询语言是 promql 时，此字段值为 @timestamp。",
-                        "type": "string"
-                    },
-                    "date_format": {
-                        "description": "时间格式。当查询语言是 promql 时，此字段值为 epoch_millis。",
-                        "enum": [
-                            "epoch_millis"
-                        ],
-                        "type": "string"
-                    },
-                    "unit_type": {
-                        "description": "单位类型",
-                        "enum": [
-                            "numUnit",
-                            "storeUnit",
-                            "percent",
-                            "transmissionRate",
-                            "timeUnit"
-                        ],
-                        "type": "string"
-                    },
-                    "unit": {
-                        "description": "度量单位",
-                        "enum": [
-                            "none",
-                            "K",
-                            "Mil",
-                            "Bil",
-                            "Tri",
-                            "bit",
-                            "Byte",
-                            "KB",
-                            "MB",
-                            "GB",
-                            "TB",
-                            "PB",
-                            "%",
-                            "bps",
-                            "Kbps",
-                            "Mbps",
-                            "μs",
-                            "ms",
-                            "s",
-                            "m",
-                            "h",
-                            "day",
-                            "week",
-                            "month",
-                            "year"
-                        ],
-                        "type": "string"
-                    },
-                    "measure_field": {
-                        "description": "度量字段。当查询语言是 promql 时，此字段值为 value。",
-                        "type": "string"
-                    }
-                },
-                "example": {
-                    "name": "some text",
-                    "data_view_name": "some text",
-                    "formula": "some text",
-                    "date_field": "some text",
-                    "date_format": "epoch_second",
-                    "metric_field": "some text",
-                    "unit_type": "storeUnit",
-                    "unit": "bit"
-                }
-            },
             "Filter": {
                 "description": "过滤条件",
                 "required": [
@@ -23052,17 +23278,9 @@
             "ReqMetricModel": {
                 "description": "基于指标模型的指标数据查询请求体",
                 "required": [
-                    "method"
                 ],
                 "type": "object",
                 "properties": {
-                    "method": {
-                        "description": "方法名，必为\"GET\"",
-                        "enum": [
-                            "GET"
-                        ],
-                        "type": "string"
-                    },
                     "instant": {
                         "description": "是否是即时查询。可选，默认为 false。当 instant = true 时，表示即时查询；当 instant = false 时，表示范围查询。",
                         "type": "boolean"
@@ -23102,7 +23320,6 @@
             "ReqMetricModelSimulate": {
                 "description": "基于指标模型的指标数据预览",
                 "required": [
-                    "method",
                     "metric_type",
                     "data_view_id",
                     "query_type",
@@ -23111,13 +23328,6 @@
                 ],
                 "type": "object",
                 "properties": {
-                    "method": {
-                        "description": "方法名，必为\"GET\"",
-                        "enum": [
-                            "GET"
-                        ],
-                        "type": "string"
-                    },
                     "metric_type": {
                         "description": "指标类型，分原子指标和复合指标",
                         "enum": [
@@ -23259,6 +23469,123 @@
                             ]
                         }
                     ]
+                }
+            },
+            "MetricModel": {
+                "description": "指标模型信息",
+                "required": [
+                    "data_view_name",
+                    "date_field",
+                    "date_format",
+                    "formula",
+                    "measure_field",
+                    "name",
+                    "unit",
+                    "unit_type",
+                    "metric_type",
+                    "query_type",
+                    "id"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "指标模型 id",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "指标模型名称",
+                        "type": "string"
+                    },
+                    "metric_type": {
+                        "description": "指标类型",
+                        "enum": [
+                            "atomic",
+                            "complex"
+                        ],
+                        "type": "string"
+                    },
+                    "data_view_name": {
+                        "description": "数据视图名称",
+                        "type": "string"
+                    },
+                    "query_type": {
+                        "description": "查询语言",
+                        "enum": [
+                            "promql"
+                        ],
+                        "type": "string"
+                    },
+                    "formula": {
+                        "description": "计算公式",
+                        "type": "string"
+                    },
+                    "date_field": {
+                        "description": "时间字段。当查询语言是 promql 时，此字段值为 @timestamp。",
+                        "type": "string"
+                    },
+                    "date_format": {
+                        "description": "时间格式。当查询语言是 promql 时，此字段值为 epoch_millis。",
+                        "enum": [
+                            "epoch_millis"
+                        ],
+                        "type": "string"
+                    },
+                    "unit_type": {
+                        "description": "单位类型",
+                        "enum": [
+                            "numUnit",
+                            "storeUnit",
+                            "percent",
+                            "transmissionRate",
+                            "timeUnit"
+                        ],
+                        "type": "string"
+                    },
+                    "unit": {
+                        "description": "度量单位",
+                        "enum": [
+                            "none",
+                            "K",
+                            "Mil",
+                            "Bil",
+                            "Tri",
+                            "bit",
+                            "Byte",
+                            "KB",
+                            "MB",
+                            "GB",
+                            "TB",
+                            "PB",
+                            "%",
+                            "bps",
+                            "Kbps",
+                            "Mbps",
+                            "μs",
+                            "ms",
+                            "s",
+                            "m",
+                            "h",
+                            "day",
+                            "week",
+                            "month",
+                            "year"
+                        ],
+                        "type": "string"
+                    },
+                    "measure_field": {
+                        "description": "度量字段。当查询语言是 promql 时，此字段值为 value。",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "name": "some text",
+                    "data_view_name": "some text",
+                    "formula": "some text",
+                    "date_field": "some text",
+                    "date_format": "epoch_second",
+                    "metric_field": "some text",
+                    "unit_type": "storeUnit",
+                    "unit": "bit"
                 }
             }
         },
