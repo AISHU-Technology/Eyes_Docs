@@ -1,6 +1,6 @@
 ![LOGO](./images/TelemetrySDK.png)
 
-# [TelemetrySDK](https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Eyes_Docs?path=%2F%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97%2FTelemetrySDK%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97%2FTrace%2FGo&version=GBdevelop)
+# [TelemetrySDK](https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Eyes_Docs?path=%2F%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97%2FTelemetrySDK%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97%2FREADME.md&version=GBdevelop&_a=preview)
 
 `TelemetrySDK`是基于[OpenTelemetry](https://opentelemetry.io/)标准指导下的内部实现。该项目提供了一系列接口以帮助开发者完成代码埋点，旨在提高用户业务的可观测性能力。
 
@@ -22,6 +22,14 @@
 
 ### [版本变化 Python](./docs/change_log_python.md)
 
+### [版本变化 Java](./docs/change_log_java.md)
+
+### [性能数据 Go](./docs/performance_go.md)
+
+### [性能数据 Python](./docs/performance_python.md)
+
+### [性能数据 Java](./docs/performance_java.md)
+
 # [TelemetrySDK特性支持列表]
-### [confluence链接](https://confluence.aishu.cn/pages/resumedraft.action?draftId=178130715&draftShareId=b66f2911-c783-4567-8e81-b4386570d2d8&)
-### [本地链接](./docs/Feature_Support_List.md)
+
+### [Confluence链接](https://confluence.aishu.cn/pages/viewpage.action?pageId=178130712)

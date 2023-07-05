@@ -52,43 +52,93 @@
 # Log数据样例
 ```json
 [
-    {
-        "Link": {
-            "TraceId": "210fcd7c9577c5d7618b7e89bb3fa6f6",
-            "SpanId": "c3979bb69de47f3e"
-        },
-        "Timestamp": "2023-06-17T14:33:27.727970+08:00",
-        "SeverityText": "Info",
-        "Body": {
-            "Message": "ChengDu"
-        },
-        "Attributes": {},
-        "Resource": {
-            "host": {
-                "ip": "10.4.34.50",
-                "name": "DevDeskV6-029",
-                "arch": "AMD64"
-            },
-            "os": {
-                "type": "Windows",
-                "version": "10.0.18362",
-                "description": "Windows10"
-            },
-            "telemetry": {
-                "sdk": {
-                    "name": "TelemetrySDK-Python/exporter/ar_log",
-                    "version": "2.4.1",
-                    "language": "python"
-                }
-            },
-            "service": {
-                "name": "YourServiceName",
-                "version": "2.4.1",
-                "instance": {
-                    "id": "983d7e1d5e8cda64"
-                }
-            }
+  {
+    "Link": {
+      "TraceId": "00000000000000000000000000000000",
+      "SpanId": "0000000000000000"
+    },
+    "Timestamp": "2023-07-04T14:21:31.322274+08:00",
+    "SeverityText": "Warn",
+    "Body": {
+      "Message": "this is a info message"
+    },
+    "Attributes": {
+      "Type": "pair",
+      "pair": {
+        "param_x": 1,
+        "param_y": 2
+      }
+    },
+    "Resource": {
+      "host": {
+        "ip": "10.4.34.50",
+        "name": "DevDeskV6-029",
+        "arch": "AMD64"
+      },
+      "os": {
+        "type": "Windows",
+        "version": "10.0.18362",
+        "description": "Windows10"
+      },
+      "telemetry": {
+        "sdk": {
+          "name": "TelemetrySDK-Python/exporter/ar_log",
+          "version": "2.4.2",
+          "language": "python"
         }
+      },
+      "service": {
+        "name": "YourServiceName",
+        "version": "2.4.2",
+        "instance": {
+          "id": "983d7e1d5e8cda64"
+        }
+      }
     }
+  },
+  {
+    "Link": {
+      "TraceId": "00000000000000000000000000000000",
+      "SpanId": "0000000000000000"
+    },
+    "Timestamp": "2023-07-04T14:21:31.331358+08:00",
+    "SeverityText": "Warn",
+    "Body": {
+      "Message": "this is a info message"
+    },
+    "Attributes": {
+      "Type": "pair",
+      "pair": {
+        "param_x": 6,
+        "param_y": 3
+      }
+    },
+    "Resource": {
+      "host": {
+        "ip": "10.4.34.50",
+        "name": "DevDeskV6-029",
+        "arch": "AMD64"
+      },
+      "os": {
+        "type": "Windows",
+        "version": "10.0.18362",
+        "description": "Windows10"
+      },
+      "telemetry": {
+        "sdk": {
+          "name": "TelemetrySDK-Python/exporter/ar_log",
+          "version": "2.4.2",
+          "language": "python"
+        }
+      },
+      "service": {
+        "name": "YourServiceName",
+        "version": "2.4.2",
+        "instance": {
+          "id": "983d7e1d5e8cda64"
+        }
+      }
+    }
+  }
 ]
 ```

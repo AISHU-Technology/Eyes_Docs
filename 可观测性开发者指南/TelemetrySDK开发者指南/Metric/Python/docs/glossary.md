@@ -108,7 +108,7 @@
         "Key": "telemetry.sdk.version",
         "Value": {
           "Type": "STRING",
-          "Value": "2.4.1"
+          "Value": "2.4.2"
         }
       },
       {
@@ -164,7 +164,7 @@
         "Key": "service.version",
         "Value": {
           "Type": "STRING",
-          "Value": "2.4.1"
+          "Value": "2.4.2"
         }
       },
       {
@@ -179,7 +179,7 @@
       {
         "Scope": {
           "Name": "TelemetrySDK-Python/exporter/ar_metric",
-          "Version": "2.4.1",
+          "Version": "2.4.2",
           "SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python?path=/exporter/ar_metric"
         },
         "Metrics": [
@@ -199,8 +199,8 @@
                       }
                     }
                   ],
-                  "StartTime": "2023-06-17T14:21:32.043354+08:00",
-                  "Time": "2023-06-17T14:21:32.044368+08:00",
+                  "StartTime": "2023-07-04T14:15:38.092017+08:00",
+                  "Time": "2023-07-04T14:15:38.092017+08:00",
                   "Count": 2,
                   "Bounds": [
                     0.0,
@@ -261,8 +261,8 @@
                       }
                     }
                   ],
-                  "StartTime": "2023-06-17T14:21:32.043354+08:00",
-                  "Time": "2023-06-17T14:21:32.044368+08:00",
+                  "StartTime": "2023-07-04T14:15:38.092017+08:00",
+                  "Time": "2023-07-04T14:15:38.092017+08:00",
                   "Int": 72
                 }
               ],
@@ -286,7 +286,7 @@
                       }
                     }
                   ],
-                  "Time": "2023-06-17T14:21:32.044368+08:00",
+                  "Time": "2023-07-04T14:15:38.092017+08:00",
                   "Float": 9
                 }
               ]
@@ -308,8 +308,8 @@
                       }
                     }
                   ],
-                  "StartTime": "2023-06-17T14:21:32.044368+08:00",
-                  "Time": "2023-06-17T14:21:32.044368+08:00",
+                  "StartTime": "2023-07-04T14:15:38.092017+08:00",
+                  "Time": "2023-07-04T14:15:38.092017+08:00",
                   "Int": 72
                 }
               ],

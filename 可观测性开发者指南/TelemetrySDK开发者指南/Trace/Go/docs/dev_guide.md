@@ -9,7 +9,7 @@
 **第2步**配置项目下载权限
 
 - 从[ONE-Architecture](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go)
-  拉取代码需要配置代码仓库[下载权限](https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Eyes_Docs?path=/可观测性开发者指南/TelemetrySDK开发者指南/Log/README.md&version=GBdevelop&_a=preview&anchor=sdk2.0-使用参考)
+  配置代码仓库下载权限，以便后续从ONE-Architecture拉取代码[参考文档](https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Eyes_Docs?path=/可观测性开发者指南/TelemetrySDK开发者指南/Log/README.md&version=GBdevelop&_a=preview&anchor=sdk2.0-使用参考)
 
 **第3步**执行以下命令引入TelemetrySDK-Trace(Go)
 
@@ -20,11 +20,11 @@ go get go.opentelemetry.io/otel/sdk/trace@v1.11.2
 
 **第4步**(可选)更新TelemetrySDK-Trace(Go)
 
-- 查看Telemetry[版本列表](https://pkg.go.dev/go.opentelemetry.io/otel?tab=versions)，选择希望引入的版本，例如v1.11.0，替换末尾的版本号重新执行命令。
+- 查看Telemetry[版本列表](https://pkg.go.dev/go.opentelemetry.io/otel/sdk/trace?tab=versions)，选择希望引入的版本，例如v1.11.2，替换末尾的版本号重新执行命令。
 
 ```
-go get go.opentelemetry.io/otel@v1.11.0
-go get go.opentelemetry.io/otel/sdk/trace@v1.11.0
+go get go.opentelemetry.io/otel@v1.11.2
+go get go.opentelemetry.io/otel/sdk/trace@v1.11.2
 ```
 
 ## 导入Trace Exporter
@@ -32,15 +32,17 @@ go get go.opentelemetry.io/otel/sdk/trace@v1.11.0
 **第1步**执行以下命令引入Trace Exporter
 
 ```
-go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter@2.6.0
+go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter@2.6.1
+go mod tidy
 ```
 
 **第2步**(可选)更新Trace Exporter
 
-- 查看SDK[兼容列表](../../../docs/compatibility.md)，选择希望引入的版本，例如2.6.0，替换末尾的版本号重新执行命令。
+- 查看SDK[兼容列表](../../../docs/compatibility.md)，选择希望引入的版本，例如2.6.1，替换末尾的版本号重新执行命令。
 
 ```
-go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter@2.6.0
+go get devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go.git/exporter@2.6.1
+go mod tidy
 ```
 
 ## 使用TelemetrySDK-Trace(Go)进行代码埋点生产链路数据
@@ -227,4 +229,4 @@ func main() {
 }
 ```
 
-## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?path=%2Fexporter%2Far_trace%2Fexamples%2Fone_service.go&version=GBmaster&_a=contents)
+## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?path=%2Fexporter%2Far_trace%2Fexamples%2FREADME.md&version=GB2.6.1&_a=preview)

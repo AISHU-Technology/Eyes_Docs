@@ -86,460 +86,460 @@
 # Trace数据样例
 ```json
 [
-	{
-		"Name": "乘法",
-		"SpanContext": {
-			"TraceID": "8db02a16d1c296c5729a93489bfda477",
-			"SpanID": "4c6417705315b53c",
-			"TraceFlags": "01",
-			"TraceState": "",
-			"Remote": false
-		},
-		"Parent": {
-			"TraceID": "00000000000000000000000000000000",
-			"SpanID": "0000000000000000",
-			"TraceFlags": "00",
-			"TraceState": "",
-			"Remote": false
-		},
-		"SpanKind": 1,
-		"StartTime": "2023-01-12T11:59:29.0864778+08:00",
-		"EndTime": "2023-01-12T11:59:29.1887487+08:00",
-		"Attributes": [
-			{
-				"Key": "multiply",
-				"Value": {
-					"Type": "STRING",
-					"Value": "计算两数之积"
-				}
-			}
-		],
-		"Links": [],
-		"Events": [
-			{
-				"Name": "multiplyEvent",
-				"Attributes": [
-					{
-						"Key": "key",
-						"Value": {
-							"Type": "BOOLARRAY",
-							"Value": [
-								true,
-								true
-							]
-						}
-					},
-					{
-						"Key": "analyzed",
-						"Value": {
-							"Type": "STRING",
-							"Value": "100ms"
-						}
-					}
-				],
-				"DroppedAttributeCount": 0,
-				"Time": "2023-01-12T11:59:29.0864778+08:00"
-			}
-		],
-		"Status": {
-			"Code": "Ok",
-			"Description": ""
-		},
-		"InstrumentationScope": {
-			"Name": "TelemetrySDK-Go/exporter/ar_trace",
-			"Version": "v2.5.0",
-			"SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?path=/exporter/ar_trace"
-		},
-		"Resource": [
-			{
-				"Key": "host.arch",
-				"Value": {
-					"Type": "STRING",
-					"Value": "x86_64"
-				}
-			},
-			{
-				"Key": "host.ip",
-				"Value": {
-					"Type": "STRING",
-					"Value": "10.4.34.50"
-				}
-			},
-			{
-				"Key": "host.name",
-				"Value": {
-					"Type": "STRING",
-					"Value": "DevDeskV6-029"
-				}
-			},
-			{
-				"Key": "os.description",
-				"Value": {
-					"Type": "STRING",
-					"Value": "Microsoft Windows 10 Enterprise"
-				}
-			},
-			{
-				"Key": "os.type",
-				"Value": {
-					"Type": "STRING",
-					"Value": "windows"
-				}
-			},
-			{
-				"Key": "os.version",
-				"Value": {
-					"Type": "STRING",
-					"Value": "10.0.18363.959 Build 18363.959"
-				}
-			},
-			{
-				"Key": "service.instance.id",
-				"Value": {
-					"Type": "STRING",
-					"Value": ""
-				}
-			},
-			{
-				"Key": "service.name",
-				"Value": {
-					"Type": "STRING",
-					"Value": "YourServiceName"
-				}
-			},
-			{
-				"Key": "service.version",
-				"Value": {
-					"Type": "STRING",
-					"Value": "1.0.0"
-				}
-			},
-			{
-				"Key": "telemetry.sdk.language",
-				"Value": {
-					"Type": "STRING",
-					"Value": "go"
-				}
-			},
-			{
-				"Key": "telemetry.sdk.name",
-				"Value": {
-					"Type": "STRING",
-					"Value": "TelemetrySDK-Go/exporter/ar_trace"
-				}
-			},
-			{
-				"Key": "telemetry.sdk.version",
-				"Value": {
-					"Type": "STRING",
-					"Value": "v2.5.0"
-				}
-			}
-		],
-		"DroppedAttributes": 0,
-		"DroppedEvents": 0,
-		"DroppedLinks": 0,
-		"ChildSpanCount": 0
-	},
-	{
-		"Name": "乘法",
-		"SpanContext": {
-			"TraceID": "8db02a16d1c296c5729a93489bfda477",
-			"SpanID": "99f7976ed85cfd6f",
-			"TraceFlags": "01",
-			"TraceState": "",
-			"Remote": false
-		},
-		"Parent": {
-			"TraceID": "8db02a16d1c296c5729a93489bfda477",
-			"SpanID": "4c6417705315b53c",
-			"TraceFlags": "01",
-			"TraceState": "",
-			"Remote": false
-		},
-		"SpanKind": 1,
-		"StartTime": "2023-01-12T11:59:29.188749+08:00",
-		"EndTime": "2023-01-12T11:59:29.3029718+08:00",
-		"Attributes": [
-			{
-				"Key": "multiply",
-				"Value": {
-					"Type": "STRING",
-					"Value": "计算两数之积"
-				}
-			}
-		],
-		"Links": [],
-		"Events": [
-			{
-				"Name": "multiplyEvent",
-				"Attributes": [
-					{
-						"Key": "key",
-						"Value": {
-							"Type": "BOOLARRAY",
-							"Value": [
-								true,
-								true
-							]
-						}
-					},
-					{
-						"Key": "analyzed",
-						"Value": {
-							"Type": "STRING",
-							"Value": "100ms"
-						}
-					}
-				],
-				"DroppedAttributeCount": 0,
-				"Time": "2023-01-12T11:59:29.188749+08:00"
-			}
-		],
-		"Status": {
-			"Code": "Ok",
-			"Description": ""
-		},
-		"InstrumentationScope": {
-			"Name": "TelemetrySDK-Go/exporter/ar_trace",
-			"Version": "v2.5.0",
-			"SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?path=/exporter/ar_trace"
-		},
-		"Resource": [
-			{
-				"Key": "host.arch",
-				"Value": {
-					"Type": "STRING",
-					"Value": "x86_64"
-				}
-			},
-			{
-				"Key": "host.ip",
-				"Value": {
-					"Type": "STRING",
-					"Value": "10.4.34.50"
-				}
-			},
-			{
-				"Key": "host.name",
-				"Value": {
-					"Type": "STRING",
-					"Value": "DevDeskV6-029"
-				}
-			},
-			{
-				"Key": "os.description",
-				"Value": {
-					"Type": "STRING",
-					"Value": "Microsoft Windows 10 Enterprise"
-				}
-			},
-			{
-				"Key": "os.type",
-				"Value": {
-					"Type": "STRING",
-					"Value": "windows"
-				}
-			},
-			{
-				"Key": "os.version",
-				"Value": {
-					"Type": "STRING",
-					"Value": "10.0.18363.959 Build 18363.959"
-				}
-			},
-			{
-				"Key": "service.instance.id",
-				"Value": {
-					"Type": "STRING",
-					"Value": ""
-				}
-			},
-			{
-				"Key": "service.name",
-				"Value": {
-					"Type": "STRING",
-					"Value": "YourServiceName"
-				}
-			},
-			{
-				"Key": "service.version",
-				"Value": {
-					"Type": "STRING",
-					"Value": "1.0.0"
-				}
-			},
-			{
-				"Key": "telemetry.sdk.language",
-				"Value": {
-					"Type": "STRING",
-					"Value": "go"
-				}
-			},
-			{
-				"Key": "telemetry.sdk.name",
-				"Value": {
-					"Type": "STRING",
-					"Value": "TelemetrySDK-Go/exporter/ar_trace"
-				}
-			},
-			{
-				"Key": "telemetry.sdk.version",
-				"Value": {
-					"Type": "STRING",
-					"Value": "v2.5.0"
-				}
-			}
-		],
-		"DroppedAttributes": 0,
-		"DroppedEvents": 0,
-		"DroppedLinks": 0,
-		"ChildSpanCount": 0
-	},
-	{
-		"Name": "加法",
-		"SpanContext": {
-			"TraceID": "8db02a16d1c296c5729a93489bfda477",
-			"SpanID": "a3b488f211cb883f",
-			"TraceFlags": "01",
-			"TraceState": "",
-			"Remote": false
-		},
-		"Parent": {
-			"TraceID": "8db02a16d1c296c5729a93489bfda477",
-			"SpanID": "99f7976ed85cfd6f",
-			"TraceFlags": "01",
-			"TraceState": "",
-			"Remote": false
-		},
-		"SpanKind": 1,
-		"StartTime": "2023-01-12T11:59:29.3029722+08:00",
-		"EndTime": "2023-01-12T11:59:29.4032686+08:00",
-		"Attributes": [
-			{
-				"Key": "add",
-				"Value": {
-					"Type": "STRING",
-					"Value": "计算两数之和"
-				}
-			}
-		],
-		"Links": [],
-		"Events": [
-			{
-				"Name": "AddEvent",
-				"Attributes": [
-					{
-						"Key": "succeeded",
-						"Value": {
-							"Type": "BOOL",
-							"Value": true
-						}
-					}
-				],
-				"DroppedAttributeCount": 0,
-				"Time": "2023-01-12T11:59:29.3029722+08:00"
-			}
-		],
-		"Status": {
-			"Code": "Ok",
-			"Description": ""
-		},
-		"InstrumentationScope": {
-			"Name": "TelemetrySDK-Go/exporter/ar_trace",
-			"Version": "v2.5.0",
-			"SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?path=/exporter/ar_trace"
-		},
-		"Resource": [
-			{
-				"Key": "host.arch",
-				"Value": {
-					"Type": "STRING",
-					"Value": "x86_64"
-				}
-			},
-			{
-				"Key": "host.ip",
-				"Value": {
-					"Type": "STRING",
-					"Value": "10.4.34.50"
-				}
-			},
-			{
-				"Key": "host.name",
-				"Value": {
-					"Type": "STRING",
-					"Value": "DevDeskV6-029"
-				}
-			},
-			{
-				"Key": "os.description",
-				"Value": {
-					"Type": "STRING",
-					"Value": "Microsoft Windows 10 Enterprise"
-				}
-			},
-			{
-				"Key": "os.type",
-				"Value": {
-					"Type": "STRING",
-					"Value": "windows"
-				}
-			},
-			{
-				"Key": "os.version",
-				"Value": {
-					"Type": "STRING",
-					"Value": "10.0.18363.959 Build 18363.959"
-				}
-			},
-			{
-				"Key": "service.instance.id",
-				"Value": {
-					"Type": "STRING",
-					"Value": ""
-				}
-			},
-			{
-				"Key": "service.name",
-				"Value": {
-					"Type": "STRING",
-					"Value": "YourServiceName"
-				}
-			},
-			{
-				"Key": "service.version",
-				"Value": {
-					"Type": "STRING",
-					"Value": "1.0.0"
-				}
-			},
-			{
-				"Key": "telemetry.sdk.language",
-				"Value": {
-					"Type": "STRING",
-					"Value": "go"
-				}
-			},
-			{
-				"Key": "telemetry.sdk.name",
-				"Value": {
-					"Type": "STRING",
-					"Value": "TelemetrySDK-Go/exporter/ar_trace"
-				}
-			},
-			{
-				"Key": "telemetry.sdk.version",
-				"Value": {
-					"Type": "STRING",
-					"Value": "v2.5.0"
-				}
-			}
-		],
-		"DroppedAttributes": 0,
-		"DroppedEvents": 0,
-		"DroppedLinks": 0,
-		"ChildSpanCount": 0
-	}
+  {
+    "Name": "乘法",
+    "SpanContext": {
+      "TraceID": "9749354624cd11e041621acbaf059a49",
+      "SpanID": "76ed3f74d2e69c5c",
+      "TraceFlags": "01",
+      "TraceState": "",
+      "Remote": false
+    },
+    "Parent": {
+      "TraceID": "00000000000000000000000000000000",
+      "SpanID": "0000000000000000",
+      "TraceFlags": "00",
+      "TraceState": "",
+      "Remote": false
+    },
+    "SpanKind": 1,
+    "StartTime": 1688451162014048500,
+    "EndTime": 1688451162114594000,
+    "Attributes": [
+      {
+        "Key": "multiply",
+        "Value": {
+          "Type": "STRING",
+          "Value": "计算两数之积"
+        }
+      }
+    ],
+    "Links": [],
+    "Events": [
+      {
+        "Name": "multiplyEvent",
+        "Attributes": [
+          {
+            "Key": "key",
+            "Value": {
+              "Type": "BOOLARRAY",
+              "Value": [
+                true,
+                true
+              ]
+            }
+          },
+          {
+            "Key": "analyzed",
+            "Value": {
+              "Type": "STRING",
+              "Value": "100ms"
+            }
+          }
+        ],
+        "DroppedAttributeCount": 0,
+        "Time": 1688451162014048500
+      }
+    ],
+    "Status": {
+      "Code": 2,
+      "Description": ""
+    },
+    "InstrumentationScope": {
+      "Name": "TelemetrySDK-Go/exporter/ar_trace",
+      "Version": "2.6.1",
+      "SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?path=/exporter/ar_trace"
+    },
+    "Resource": [
+      {
+        "Key": "host.arch",
+        "Value": {
+          "Type": "STRING",
+          "Value": "x86_64"
+        }
+      },
+      {
+        "Key": "host.ip",
+        "Value": {
+          "Type": "STRING",
+          "Value": "10.4.34.50"
+        }
+      },
+      {
+        "Key": "host.name",
+        "Value": {
+          "Type": "STRING",
+          "Value": "DevDeskV6-029"
+        }
+      },
+      {
+        "Key": "os.description",
+        "Value": {
+          "Type": "STRING",
+          "Value": "Microsoft Windows 10 Enterprise"
+        }
+      },
+      {
+        "Key": "os.type",
+        "Value": {
+          "Type": "STRING",
+          "Value": "windows"
+        }
+      },
+      {
+        "Key": "os.version",
+        "Value": {
+          "Type": "STRING",
+          "Value": "10.0.18363.959 Build 18363.959"
+        }
+      },
+      {
+        "Key": "service.instance.id",
+        "Value": {
+          "Type": "STRING",
+          "Value": "983d7e1d5e8cda64"
+        }
+      },
+      {
+        "Key": "service.name",
+        "Value": {
+          "Type": "STRING",
+          "Value": "YourServiceName"
+        }
+      },
+      {
+        "Key": "service.version",
+        "Value": {
+          "Type": "STRING",
+          "Value": "2.6.1"
+        }
+      },
+      {
+        "Key": "telemetry.sdk.language",
+        "Value": {
+          "Type": "STRING",
+          "Value": "go"
+        }
+      },
+      {
+        "Key": "telemetry.sdk.name",
+        "Value": {
+          "Type": "STRING",
+          "Value": "TelemetrySDK-Go/exporter/ar_trace"
+        }
+      },
+      {
+        "Key": "telemetry.sdk.version",
+        "Value": {
+          "Type": "STRING",
+          "Value": "2.6.1"
+        }
+      }
+    ],
+    "DroppedAttributes": 0,
+    "DroppedEvents": 0,
+    "DroppedLinks": 0,
+    "ChildSpanCount": 0
+  },
+  {
+    "Name": "乘法",
+    "SpanContext": {
+      "TraceID": "9749354624cd11e041621acbaf059a49",
+      "SpanID": "5cd8dc6fe0bc6fd2",
+      "TraceFlags": "01",
+      "TraceState": "",
+      "Remote": false
+    },
+    "Parent": {
+      "TraceID": "9749354624cd11e041621acbaf059a49",
+      "SpanID": "76ed3f74d2e69c5c",
+      "TraceFlags": "01",
+      "TraceState": "",
+      "Remote": false
+    },
+    "SpanKind": 1,
+    "StartTime": 1688451162114596500,
+    "EndTime": 1688451162215156800,
+    "Attributes": [
+      {
+        "Key": "multiply",
+        "Value": {
+          "Type": "STRING",
+          "Value": "计算两数之积"
+        }
+      }
+    ],
+    "Links": [],
+    "Events": [
+      {
+        "Name": "multiplyEvent",
+        "Attributes": [
+          {
+            "Key": "key",
+            "Value": {
+              "Type": "BOOLARRAY",
+              "Value": [
+                true,
+                true
+              ]
+            }
+          },
+          {
+            "Key": "analyzed",
+            "Value": {
+              "Type": "STRING",
+              "Value": "100ms"
+            }
+          }
+        ],
+        "DroppedAttributeCount": 0,
+        "Time": 1688451162114596500
+      }
+    ],
+    "Status": {
+      "Code": 2,
+      "Description": ""
+    },
+    "InstrumentationScope": {
+      "Name": "TelemetrySDK-Go/exporter/ar_trace",
+      "Version": "2.6.1",
+      "SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?path=/exporter/ar_trace"
+    },
+    "Resource": [
+      {
+        "Key": "host.arch",
+        "Value": {
+          "Type": "STRING",
+          "Value": "x86_64"
+        }
+      },
+      {
+        "Key": "host.ip",
+        "Value": {
+          "Type": "STRING",
+          "Value": "10.4.34.50"
+        }
+      },
+      {
+        "Key": "host.name",
+        "Value": {
+          "Type": "STRING",
+          "Value": "DevDeskV6-029"
+        }
+      },
+      {
+        "Key": "os.description",
+        "Value": {
+          "Type": "STRING",
+          "Value": "Microsoft Windows 10 Enterprise"
+        }
+      },
+      {
+        "Key": "os.type",
+        "Value": {
+          "Type": "STRING",
+          "Value": "windows"
+        }
+      },
+      {
+        "Key": "os.version",
+        "Value": {
+          "Type": "STRING",
+          "Value": "10.0.18363.959 Build 18363.959"
+        }
+      },
+      {
+        "Key": "service.instance.id",
+        "Value": {
+          "Type": "STRING",
+          "Value": "983d7e1d5e8cda64"
+        }
+      },
+      {
+        "Key": "service.name",
+        "Value": {
+          "Type": "STRING",
+          "Value": "YourServiceName"
+        }
+      },
+      {
+        "Key": "service.version",
+        "Value": {
+          "Type": "STRING",
+          "Value": "2.6.1"
+        }
+      },
+      {
+        "Key": "telemetry.sdk.language",
+        "Value": {
+          "Type": "STRING",
+          "Value": "go"
+        }
+      },
+      {
+        "Key": "telemetry.sdk.name",
+        "Value": {
+          "Type": "STRING",
+          "Value": "TelemetrySDK-Go/exporter/ar_trace"
+        }
+      },
+      {
+        "Key": "telemetry.sdk.version",
+        "Value": {
+          "Type": "STRING",
+          "Value": "2.6.1"
+        }
+      }
+    ],
+    "DroppedAttributes": 0,
+    "DroppedEvents": 0,
+    "DroppedLinks": 0,
+    "ChildSpanCount": 0
+  },
+  {
+    "Name": "加法",
+    "SpanContext": {
+      "TraceID": "9749354624cd11e041621acbaf059a49",
+      "SpanID": "f9a7b4141972ab87",
+      "TraceFlags": "01",
+      "TraceState": "",
+      "Remote": false
+    },
+    "Parent": {
+      "TraceID": "9749354624cd11e041621acbaf059a49",
+      "SpanID": "5cd8dc6fe0bc6fd2",
+      "TraceFlags": "01",
+      "TraceState": "",
+      "Remote": false
+    },
+    "SpanKind": 1,
+    "StartTime": 1688451162215159200,
+    "EndTime": 1688451162324143500,
+    "Attributes": [
+      {
+        "Key": "add",
+        "Value": {
+          "Type": "STRING",
+          "Value": "计算两数之和"
+        }
+      }
+    ],
+    "Links": [],
+    "Events": [
+      {
+        "Name": "AddEvent",
+        "Attributes": [
+          {
+            "Key": "succeeded",
+            "Value": {
+              "Type": "BOOL",
+              "Value": true
+            }
+          }
+        ],
+        "DroppedAttributeCount": 0,
+        "Time": 1688451162215159200
+      }
+    ],
+    "Status": {
+      "Code": 2,
+      "Description": ""
+    },
+    "InstrumentationScope": {
+      "Name": "TelemetrySDK-Go/exporter/ar_trace",
+      "Version": "2.6.1",
+      "SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?path=/exporter/ar_trace"
+    },
+    "Resource": [
+      {
+        "Key": "host.arch",
+        "Value": {
+          "Type": "STRING",
+          "Value": "x86_64"
+        }
+      },
+      {
+        "Key": "host.ip",
+        "Value": {
+          "Type": "STRING",
+          "Value": "10.4.34.50"
+        }
+      },
+      {
+        "Key": "host.name",
+        "Value": {
+          "Type": "STRING",
+          "Value": "DevDeskV6-029"
+        }
+      },
+      {
+        "Key": "os.description",
+        "Value": {
+          "Type": "STRING",
+          "Value": "Microsoft Windows 10 Enterprise"
+        }
+      },
+      {
+        "Key": "os.type",
+        "Value": {
+          "Type": "STRING",
+          "Value": "windows"
+        }
+      },
+      {
+        "Key": "os.version",
+        "Value": {
+          "Type": "STRING",
+          "Value": "10.0.18363.959 Build 18363.959"
+        }
+      },
+      {
+        "Key": "service.instance.id",
+        "Value": {
+          "Type": "STRING",
+          "Value": "983d7e1d5e8cda64"
+        }
+      },
+      {
+        "Key": "service.name",
+        "Value": {
+          "Type": "STRING",
+          "Value": "YourServiceName"
+        }
+      },
+      {
+        "Key": "service.version",
+        "Value": {
+          "Type": "STRING",
+          "Value": "2.6.1"
+        }
+      },
+      {
+        "Key": "telemetry.sdk.language",
+        "Value": {
+          "Type": "STRING",
+          "Value": "go"
+        }
+      },
+      {
+        "Key": "telemetry.sdk.name",
+        "Value": {
+          "Type": "STRING",
+          "Value": "TelemetrySDK-Go/exporter/ar_trace"
+        }
+      },
+      {
+        "Key": "telemetry.sdk.version",
+        "Value": {
+          "Type": "STRING",
+          "Value": "2.6.1"
+        }
+      }
+    ],
+    "DroppedAttributes": 0,
+    "DroppedEvents": 0,
+    "DroppedLinks": 0,
+    "ChildSpanCount": 0
+  }
 ]
 ```

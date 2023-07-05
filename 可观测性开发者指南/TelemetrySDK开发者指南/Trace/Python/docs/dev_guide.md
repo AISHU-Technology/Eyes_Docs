@@ -9,14 +9,14 @@
 **第2步**配置项目下载权限
 
 - 从[ONE-Architecture](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python)
-  拉取代码需要配置代码仓库[下载权限](https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Eyes_Docs?path=/可观测性开发者指南/TelemetrySDK开发者指南/Log/README.md&version=GBdevelop&_a=preview&anchor=sdk2.0-使用参考)
+  配置代码仓库下载权限，以便后续从ONE-Architecture拉取代码[参考文档](https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Eyes_Docs?path=/可观测性开发者指南/TelemetrySDK开发者指南/Log/README.md&version=GBdevelop&_a=preview&anchor=sdk2.0-使用参考)
 
 ## 导入Trace Exporter
 
 **第1步**执行以下命令引入Trace Exporter
 
 ```
-git clone ssh://devops.aishu.cn:22/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python -b 2.4.1
+git clone ssh://devops.aishu.cn:22/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python -b 2.4.2
 cd TelemetrySDK-Python
 pip install -r requirements.txt
 pip install .
@@ -24,12 +24,12 @@ pip install .
 
 **第2步**(可选)更新Trace Exporter
 
-- 查看SDK[兼容列表](../../../docs/compatibility.md)，选择希望引入的版本，例如2.4.1。
+- 查看SDK[兼容列表](../../../docs/compatibility.md)，选择希望引入的版本，例如2.4.2。
 
 ```
 cd TelemetrySDK-Python
 git fetch
-git checkout 2.4.1
+git checkout 2.4.2
 pip install -r requirements.txt
 pip install .
 ```
@@ -92,7 +92,7 @@ def add(x: int, y: int) -> int:
 
 ```
 def trace_init():
-    set_service_info("YourServiceName", "2.4.1", "983d7e1d5e8cda64")
+    set_service_info("YourServiceName", "2.4.2", "983d7e1d5e8cda64")
     trace_exporter = ARTraceExporter(
         FileClient("AnyRobotTrace.json")
     )
@@ -105,4 +105,4 @@ def trace_init():
     set_tracer_provider(tracer_provider=trace_provider)
 ```
 
-## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python?path=%2Fexporter%2Far_trace%2Fexamples%2FREADME.md&_a=preview)
+## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python?path=%2Fexporter%2Far_trace%2Fexamples%2FREADME.md&version=GB2.4.2&_a=preview)

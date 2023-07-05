@@ -87,30 +87,30 @@
 ```json
 [
   {
-    "Name": "multiply",
+    "Name": "add",
     "SpanContext": {
-      "TraceID": "e898de8d7a98c0e952b4b0513b507ef9",
-      "SpanID": "09745743ce96e982",
+      "TraceID": "18b625232c7b63c3f42b7cfaaab94741",
+      "SpanID": "33dedea0e78d4f4a",
       "TraceFlags": "01",
       "TraceState": "",
       "Remote": false
     },
     "Parent": {
-      "TraceID": "e898de8d7a98c0e952b4b0513b507ef9",
-      "SpanID": "f2946cc4b4800ab9",
-      "TraceFlags": "01",
+      "TraceID": "00000000000000000000000000000000",
+      "SpanID": "0000000000000000",
+      "TraceFlags": "00",
       "TraceState": "",
-      "Remote": true
+      "Remote": false
     },
     "SpanKind": 1,
-    "StartTime": 1686980779702468300,
-    "EndTime": 1686980779702468300,
+    "StartTime": 1688451270165731000,
+    "EndTime": 1688451270181937600,
     "Attributes": [
       {
         "Key": "add_value",
         "Value": {
           "Type": "INT",
-          "Value": 6
+          "Value": 3
         }
       }
     ],
@@ -122,7 +122,7 @@
     },
     "InstrumentationScope": {
       "Name": "TelemetrySDK-Python/exporter/ar_trace",
-      "Version": "2.4.1",
+      "Version": "2.4.2",
       "SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python?path=/exporter/ar_trace"
     },
     "Resource": [
@@ -144,7 +144,7 @@
         "Key": "telemetry.sdk.version",
         "Value": {
           "Type": "STRING",
-          "Value": "2.4.1"
+          "Value": "2.4.2"
         }
       },
       {
@@ -200,7 +200,137 @@
         "Key": "service.version",
         "Value": {
           "Type": "STRING",
-          "Value": "2.4.1"
+          "Value": "2.4.2"
+        }
+      },
+      {
+        "Key": "service.instance.id",
+        "Value": {
+          "Type": "STRING",
+          "Value": "983d7e1d5e8cda64"
+        }
+      }
+    ],
+    "DroppedAttributes": 0,
+    "DroppedEvents": 0,
+    "DroppedLinks": 0,
+    "ChildSpanCount": 0
+  },
+  {
+    "Name": "multiply",
+    "SpanContext": {
+      "TraceID": "18b625232c7b63c3f42b7cfaaab94741",
+      "SpanID": "59c140e98ccb6acc",
+      "TraceFlags": "01",
+      "TraceState": "",
+      "Remote": false
+    },
+    "Parent": {
+      "TraceID": "18b625232c7b63c3f42b7cfaaab94741",
+      "SpanID": "33dedea0e78d4f4a",
+      "TraceFlags": "01",
+      "TraceState": "",
+      "Remote": true
+    },
+    "SpanKind": 1,
+    "StartTime": 1688451270181937600,
+    "EndTime": 1688451270181937600,
+    "Attributes": [
+      {
+        "Key": "add_value",
+        "Value": {
+          "Type": "INT",
+          "Value": 6
+        }
+      }
+    ],
+    "Links": [],
+    "Events": [],
+    "Status": {
+      "Code": 0,
+      "Description": ""
+    },
+    "InstrumentationScope": {
+      "Name": "TelemetrySDK-Python/exporter/ar_trace",
+      "Version": "2.4.2",
+      "SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python?path=/exporter/ar_trace"
+    },
+    "Resource": [
+      {
+        "Key": "telemetry.sdk.language",
+        "Value": {
+          "Type": "STRING",
+          "Value": "python"
+        }
+      },
+      {
+        "Key": "telemetry.sdk.name",
+        "Value": {
+          "Type": "STRING",
+          "Value": "TelemetrySDK-Python/exporter/ar_trace"
+        }
+      },
+      {
+        "Key": "telemetry.sdk.version",
+        "Value": {
+          "Type": "STRING",
+          "Value": "2.4.2"
+        }
+      },
+      {
+        "Key": "host.ip",
+        "Value": {
+          "Type": "STRING",
+          "Value": "10.4.34.50"
+        }
+      },
+      {
+        "Key": "host.arch",
+        "Value": {
+          "Type": "STRING",
+          "Value": "AMD64"
+        }
+      },
+      {
+        "Key": "host.name",
+        "Value": {
+          "Type": "STRING",
+          "Value": "DevDeskV6-029"
+        }
+      },
+      {
+        "Key": "os.type",
+        "Value": {
+          "Type": "STRING",
+          "Value": "Windows"
+        }
+      },
+      {
+        "Key": "os.version",
+        "Value": {
+          "Type": "STRING",
+          "Value": "10.0.18362"
+        }
+      },
+      {
+        "Key": "os.description",
+        "Value": {
+          "Type": "STRING",
+          "Value": "Windows10"
+        }
+      },
+      {
+        "Key": "service.name",
+        "Value": {
+          "Type": "STRING",
+          "Value": "YourServiceName"
+        }
+      },
+      {
+        "Key": "service.version",
+        "Value": {
+          "Type": "STRING",
+          "Value": "2.4.2"
         }
       },
       {
@@ -219,22 +349,22 @@
   {
     "Name": "add",
     "SpanContext": {
-      "TraceID": "e898de8d7a98c0e952b4b0513b507ef9",
-      "SpanID": "f6f0e8229b49d235",
+      "TraceID": "18b625232c7b63c3f42b7cfaaab94741",
+      "SpanID": "688ee92343e8e1e0",
       "TraceFlags": "01",
       "TraceState": "",
       "Remote": false
     },
     "Parent": {
-      "TraceID": "e898de8d7a98c0e952b4b0513b507ef9",
-      "SpanID": "09745743ce96e982",
+      "TraceID": "18b625232c7b63c3f42b7cfaaab94741",
+      "SpanID": "59c140e98ccb6acc",
       "TraceFlags": "01",
       "TraceState": "",
       "Remote": true
     },
     "SpanKind": 1,
-    "StartTime": 1686980779702468300,
-    "EndTime": 1686980779702468300,
+    "StartTime": 1688451270181937600,
+    "EndTime": 1688451270181937600,
     "Attributes": [
       {
         "Key": "add_value",
@@ -252,7 +382,7 @@
     },
     "InstrumentationScope": {
       "Name": "TelemetrySDK-Python/exporter/ar_trace",
-      "Version": "2.4.1",
+      "Version": "2.4.2",
       "SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python?path=/exporter/ar_trace"
     },
     "Resource": [
@@ -274,7 +404,7 @@
         "Key": "telemetry.sdk.version",
         "Value": {
           "Type": "STRING",
-          "Value": "2.4.1"
+          "Value": "2.4.2"
         }
       },
       {
@@ -330,7 +460,137 @@
         "Key": "service.version",
         "Value": {
           "Type": "STRING",
-          "Value": "2.4.1"
+          "Value": "2.4.2"
+        }
+      },
+      {
+        "Key": "service.instance.id",
+        "Value": {
+          "Type": "STRING",
+          "Value": "983d7e1d5e8cda64"
+        }
+      }
+    ],
+    "DroppedAttributes": 0,
+    "DroppedEvents": 0,
+    "DroppedLinks": 0,
+    "ChildSpanCount": 0
+  },
+  {
+    "Name": "multiply",
+    "SpanContext": {
+      "TraceID": "18b625232c7b63c3f42b7cfaaab94741",
+      "SpanID": "386bca24a9c7a1e4",
+      "TraceFlags": "01",
+      "TraceState": "",
+      "Remote": false
+    },
+    "Parent": {
+      "TraceID": "18b625232c7b63c3f42b7cfaaab94741",
+      "SpanID": "688ee92343e8e1e0",
+      "TraceFlags": "01",
+      "TraceState": "",
+      "Remote": true
+    },
+    "SpanKind": 1,
+    "StartTime": 1688451270181937600,
+    "EndTime": 1688451270181937600,
+    "Attributes": [
+      {
+        "Key": "add_value",
+        "Value": {
+          "Type": "INT",
+          "Value": 36
+        }
+      }
+    ],
+    "Links": [],
+    "Events": [],
+    "Status": {
+      "Code": 0,
+      "Description": ""
+    },
+    "InstrumentationScope": {
+      "Name": "TelemetrySDK-Python/exporter/ar_trace",
+      "Version": "2.4.2",
+      "SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python?path=/exporter/ar_trace"
+    },
+    "Resource": [
+      {
+        "Key": "telemetry.sdk.language",
+        "Value": {
+          "Type": "STRING",
+          "Value": "python"
+        }
+      },
+      {
+        "Key": "telemetry.sdk.name",
+        "Value": {
+          "Type": "STRING",
+          "Value": "TelemetrySDK-Python/exporter/ar_trace"
+        }
+      },
+      {
+        "Key": "telemetry.sdk.version",
+        "Value": {
+          "Type": "STRING",
+          "Value": "2.4.2"
+        }
+      },
+      {
+        "Key": "host.ip",
+        "Value": {
+          "Type": "STRING",
+          "Value": "10.4.34.50"
+        }
+      },
+      {
+        "Key": "host.arch",
+        "Value": {
+          "Type": "STRING",
+          "Value": "AMD64"
+        }
+      },
+      {
+        "Key": "host.name",
+        "Value": {
+          "Type": "STRING",
+          "Value": "DevDeskV6-029"
+        }
+      },
+      {
+        "Key": "os.type",
+        "Value": {
+          "Type": "STRING",
+          "Value": "Windows"
+        }
+      },
+      {
+        "Key": "os.version",
+        "Value": {
+          "Type": "STRING",
+          "Value": "10.0.18362"
+        }
+      },
+      {
+        "Key": "os.description",
+        "Value": {
+          "Type": "STRING",
+          "Value": "Windows10"
+        }
+      },
+      {
+        "Key": "service.name",
+        "Value": {
+          "Type": "STRING",
+          "Value": "YourServiceName"
+        }
+      },
+      {
+        "Key": "service.version",
+        "Value": {
+          "Type": "STRING",
+          "Value": "2.4.2"
         }
       },
       {

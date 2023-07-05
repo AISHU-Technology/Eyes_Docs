@@ -1,11 +1,19 @@
 # 使用手册
 
-#### NewDefaultSamplerLogger
+#### NewSamplerLogger
 
-NewDefaultSamplerLogger 生成默认的日志器。
+NewSamplerLogger 生成异步发送模式的日志器。
 
 ```
-func NewDefaultSamplerLogger() *SamplerLogger
+func NewSamplerLogger() Logger
+```
+
+#### NewSyncLogger
+
+NewSyncLogger 同步发送模式的日志器。
+
+```
+func NewSyncLogger() SyncLogger
 ```
 
 #### GetStdoutExporter
@@ -30,6 +38,30 @@ NewHTTPClient 创建 Exporter 需要的HTTP数据发送客户端。
 
 ```
 func NewHTTPClient(opts ...config.HTTPOption) public.Client
+```
+
+#### NewStdoutClient
+
+NewStdoutClient 创建 ar_trace.Exporter 需要的控制台+本地文件发送客户端。
+
+```
+func NewStdoutClient(stdoutPath string) public.Client
+```
+
+#### NewFileClient
+
+NewFileClient 创建 ar_trace.Exporter 需要的本地文件发送客户端。
+
+```
+func NewFileClient(stdoutPath string) public.Client
+```
+
+#### NewConsoleClient
+
+NewConsoleClient 创建 ar_trace.Exporter 需要的控制台发送客户端。
+
+```
+func NewConsoleClient() public.Client
 ```
 
 #### WithAnyRobotURL
@@ -238,4 +270,20 @@ FatalField 设置 Fatal 级别的结构化日志数据，可传入 Body 中的 m
 
 ```
 func (s *SamplerLogger) FatalField(message field.Field, typ string, options ...field.LogOptionFunc)
+```
+
+#### SetServiceInfo
+
+SetServiceInfo 设置服务信息，包括服务名、版本号、实例ID。
+
+```
+func SetServiceInfo(name string, version string, instance string)
+```
+
+#### LogResource
+
+LogResource 传入 Log 的默认resource。
+
+```
+func LogResource() field.Field
 ```

@@ -9,12 +9,12 @@
 **第2步**配置项目下载权限
 
 - 从[ONE-Architecture](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python)
-  拉取代码需要配置代码仓库[下载权限](https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Eyes_Docs?path=/可观测性开发者指南/TelemetrySDK开发者指南/Log/README.md&version=GBdevelop&_a=preview&anchor=sdk2.0-使用参考)
+  配置代码仓库下载权限，以便后续从ONE-Architecture拉取代码[参考文档](https://devops.aishu.cn/AISHUDevOps/AnyRobot/_git/Eyes_Docs?path=/可观测性开发者指南/TelemetrySDK开发者指南/Log/README.md&version=GBdevelop&_a=preview&anchor=sdk2.0-使用参考)
 
 **第3步**执行以下命令引入TelemetrySDK-Log(Python)
 
 ```
-git clone ssh://devops.aishu.cn:22/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python -b 2.4.1
+git clone ssh://devops.aishu.cn:22/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python -b 2.4.2
 cd TelemetrySDK-Python
 pip install -r requirements.txt
 pip install .
@@ -23,12 +23,12 @@ pip install .
 **第4步**(可选)更新TelemetrySDK-Log(Python)
 
 - 查看Telemetry[版本列表](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python/branches?_a=all)
-  ，选择希望引入的版本，例如v2.4.1，替换末尾的版本号重新执行命令。
+  ，选择希望引入的版本，例如v2.4.2，替换末尾的版本号重新执行命令。
 
 ```
 cd TelemetrySDK-Python
 git fetch
-git checkout 2.4.1
+git checkout 2.4.2
 pip install -r requirements.txt
 pip install .
 ```
@@ -80,7 +80,7 @@ def add(x: int, y: int) -> int:
 ```
 def log_init():
     # 设置服务名、服务版本号、服务运行实例ID
-    set_service_info("YourServiceName", "2.4.1", "983d7e1d5e8cda64")
+    set_service_info("YourServiceName", "2.4.2", "983d7e1d5e8cda64")
     # 初始化系统日志器，系统日志在控制台输出，并且异步模式上报数据到数据接收器。
     global system_logger
     system_logger = SamplerLogger(log_resource(), ConsoleExporter(), ARLogExporter(
@@ -104,4 +104,4 @@ def log_init():
                    WithSyncMode())))
 ```
 
-## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python?path=%2Fexporter%2Far_log%2Fexamples%2FREADME.md&_a=preview)
+## [更多示例](https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Python?path=%2Fexporter%2Far_log%2Fexamples%2FREADME.md&version=GB2.4.2&_a=preview)

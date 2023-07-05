@@ -1,3 +1,9 @@
+## 性能数据参考
+
+## Python
+
+### Trace(Python)
+
 ### 模拟真实场景性能测试
 
 #### 发送anyrobot性能测试
@@ -40,3 +46,39 @@
 3. 无数据丢失
 
 ![PythonTraceConsolePerformance.png](../images/PythonTraceConsolePerformance.png)
+
+### Log(Python)
+
+### 模拟真实场景性能测试
+
+说明：
+
+1. Python原生标准输出打印5万条日志字符串
+2. TelemetrySDK控制台打印5万条日志
+
+结论：
+
+1. print性能结果： 耗时：3.6秒
+2. Python-logger性能结果：耗时：3.2秒
+3. TelemetrySDK-Log(Python)与print作为对比，性能接近，测试通过
+
+![PythonPrintPerformance.png](../images/PythonPrintPerformance.png)
+
+![PythonSamplerLoggerPerformance1.png](../images/PythonSamplerLoggerPerformance1.png)
+
+### 发送anyrobot性能测试
+
+说明：
+
+1. 生产50万条日志并上报AnyRobot
+2. 推荐修改python env参数，将队列大小与组batch的大小长度设置合理
+3. 如果设置过大，则会导致批量发送大小超过5MB，数据接收器拒绝接收，HTTP发送失败
+4. 如果设置过小，则会导致日志器处理速度慢，可能会丢数据
+
+![PythonSamplerLoggerEnv.png](../images/PythonSamplerLoggerEnv.png)
+
+结论：
+
+1. 生产50万条日志数据并上报AnyRobot，共耗时35秒。平均14285条日志/秒
+
+![PythonSamplerLoggerPerformance2.png](../images/PythonSamplerLoggerPerformance2.png)

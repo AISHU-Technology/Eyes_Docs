@@ -88,215 +88,215 @@
 # Metric数据样例
 ```json
 [
-	{
-		"Resource": [
-			{
-				"Key": "host.arch",
-				"Value": {
-					"Type": "STRING",
-					"Value": "x86_64"
-				}
-			},
-			{
-				"Key": "host.ip",
-				"Value": {
-					"Type": "STRING",
-					"Value": "10.4.34.50"
-				}
-			},
-			{
-				"Key": "host.name",
-				"Value": {
-					"Type": "STRING",
-					"Value": "DevDeskV6-029"
-				}
-			},
-			{
-				"Key": "os.description",
-				"Value": {
-					"Type": "STRING",
-					"Value": "Microsoft Windows 10 Enterprise"
-				}
-			},
-			{
-				"Key": "os.type",
-				"Value": {
-					"Type": "STRING",
-					"Value": "windows"
-				}
-			},
-			{
-				"Key": "os.version",
-				"Value": {
-					"Type": "STRING",
-					"Value": "10.0.18363.959 Build 18363.959"
-				}
-			},
-			{
-				"Key": "service.instance.id",
-				"Value": {
-					"Type": "STRING",
-					"Value": ""
-				}
-			},
-			{
-				"Key": "service.name",
-				"Value": {
-					"Type": "STRING",
-					"Value": "YourServiceName"
-				}
-			},
-			{
-				"Key": "service.version",
-				"Value": {
-					"Type": "STRING",
-					"Value": "1.0.0"
-				}
-			},
-			{
-				"Key": "telemetry.sdk.language",
-				"Value": {
-					"Type": "STRING",
-					"Value": "go"
-				}
-			},
-			{
-				"Key": "telemetry.sdk.name",
-				"Value": {
-					"Type": "STRING",
-					"Value": "TelemetrySDK-Go/exporter/ar_metric"
-				}
-			},
-			{
-				"Key": "telemetry.sdk.version",
-				"Value": {
-					"Type": "STRING",
-					"Value": "v2.5.0"
-				}
-			}
-		],
-		"ScopeMetrics": [
-			{
-				"Scope": {
-					"Name": "TelemetrySDK-Go/exporter/ar_metric",
-					"Version": "v2.5.0",
-					"SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?path=/exporter/ar_metric"
-				},
-				"Metrics": [
-					{
-						"Name": "gauge：用户数峰值",
-						"Description": "a simple gauge",
-						"Unit": "1",
-						"Gauge": {
-							"DataPoints": [
-								{
-									"Attributes": [
-										{
-											"Key": "用户信息",
-											"Value": {
-												"Type": "STRING",
-												"Value": "在线用户数"
-											}
-										}
-									],
-									"Time": "2023-01-12T11:52:32.1473631+08:00",
-									"Int": 12
-								}
-							]
-						}
-					},
-					{
-						"Name": "histogram：当前用户数",
-						"Description": "a histogram with custom buckets and name",
-						"Unit": "1",
-						"Histogram": {
-							"DataPoints": [
-								{
-									"Attributes": [
-										{
-											"Key": "用户信息",
-											"Value": {
-												"Type": "STRINGARRAY",
-												"Value": [
-													"在线用户数"
-												]
-											}
-										}
-									],
-									"StartTime": "2023-01-12T11:52:32.0246543+08:00",
-									"Time": "2023-01-12T11:52:32.1473631+08:00",
-									"Count": 4,
-									"Bounds": [
-										0,
-										5,
-										10,
-										25,
-										50,
-										75,
-										100,
-										250,
-										500,
-										750,
-										1000,
-										2500,
-										5000,
-										7500,
-										10000
-									],
-									"BucketCounts": [
-										0,
-										0,
-										0,
-										0,
-										0,
-										1,
-										0,
-										1,
-										1,
-										1,
-										0,
-										0,
-										0,
-										0,
-										0,
-										0
-									],
-									"Min": 64,
-									"Max": 600,
-									"Sum": 1140
-								}
-							],
-							"Temporality": "CumulativeTemporality"
-						}
-					},
-					{
-						"Name": "sum：用户数日活",
-						"Description": "a simple counter",
-						"Unit": "ms",
-						"Sum": {
-							"DataPoints": [
-								{
-									"Attributes": [
-										{
-											"Key": "用户信息",
-											"Value": {
-												"Type": "STRING",
-												"Value": "登录DAU"
-											}
-										}
-									],
-									"StartTime": "2023-01-12T11:52:32.0246543+08:00",
-									"Time": "2023-01-12T11:52:32.1473631+08:00",
-									"Float": 968
-								}
-							],
-							"Temporality": "CumulativeTemporality",
-							"IsMonotonic": true
-						}
-					}
-				]
-			}
-		]
-	}
+  {
+    "Resource": [
+      {
+        "Key": "host.arch",
+        "Value": {
+          "Type": "STRING",
+          "Value": "x86_64"
+        }
+      },
+      {
+        "Key": "host.ip",
+        "Value": {
+          "Type": "STRING",
+          "Value": "10.4.34.50"
+        }
+      },
+      {
+        "Key": "host.name",
+        "Value": {
+          "Type": "STRING",
+          "Value": "DevDeskV6-029"
+        }
+      },
+      {
+        "Key": "os.description",
+        "Value": {
+          "Type": "STRING",
+          "Value": "Microsoft Windows 10 Enterprise"
+        }
+      },
+      {
+        "Key": "os.type",
+        "Value": {
+          "Type": "STRING",
+          "Value": "windows"
+        }
+      },
+      {
+        "Key": "os.version",
+        "Value": {
+          "Type": "STRING",
+          "Value": "10.0.18363.959 Build 18363.959"
+        }
+      },
+      {
+        "Key": "service.instance.id",
+        "Value": {
+          "Type": "STRING",
+          "Value": "983d7e1d5e8cda64"
+        }
+      },
+      {
+        "Key": "service.name",
+        "Value": {
+          "Type": "STRING",
+          "Value": "YourServiceName"
+        }
+      },
+      {
+        "Key": "service.version",
+        "Value": {
+          "Type": "STRING",
+          "Value": "2.6.1"
+        }
+      },
+      {
+        "Key": "telemetry.sdk.language",
+        "Value": {
+          "Type": "STRING",
+          "Value": "go"
+        }
+      },
+      {
+        "Key": "telemetry.sdk.name",
+        "Value": {
+          "Type": "STRING",
+          "Value": "TelemetrySDK-Go/exporter/ar_metric"
+        }
+      },
+      {
+        "Key": "telemetry.sdk.version",
+        "Value": {
+          "Type": "STRING",
+          "Value": "2.6.1"
+        }
+      }
+    ],
+    "ScopeMetrics": [
+      {
+        "Scope": {
+          "Name": "TelemetrySDK-Go/exporter/ar_metric",
+          "Version": "2.6.1",
+          "SchemaURL": "https://devops.aishu.cn/AISHUDevOps/ONE-Architecture/_git/TelemetrySDK-Go?path=/exporter/ar_metric"
+        },
+        "Metrics": [
+          {
+            "Name": "histogram：当前用户数",
+            "Description": "a histogram with custom buckets and name",
+            "Unit": "1",
+            "Histogram": {
+              "DataPoints": [
+                {
+                  "Attributes": [
+                    {
+                      "Key": "用户信息",
+                      "Value": {
+                        "Type": "STRINGARRAY",
+                        "Value": [
+                          "在线用户数"
+                        ]
+                      }
+                    }
+                  ],
+                  "StartTime": "2023-07-04T14:11:31.9029316+08:00",
+                  "Time": "2023-07-04T14:11:32.20518+08:00",
+                  "Count": 8,
+                  "Bounds": [
+                    0,
+                    5,
+                    10,
+                    25,
+                    50,
+                    75,
+                    100,
+                    250,
+                    500,
+                    750,
+                    1000,
+                    2500,
+                    5000,
+                    7500,
+                    10000
+                  ],
+                  "BucketCounts": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    2,
+                    0,
+                    2,
+                    2,
+                    2,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "Min": 64,
+                  "Max": 600,
+                  "Sum": 2280
+                }
+              ],
+              "Temporality": "CumulativeTemporality"
+            }
+          },
+          {
+            "Name": "sum：用户数日活",
+            "Description": "a simple counter",
+            "Unit": "ms",
+            "Sum": {
+              "DataPoints": [
+                {
+                  "Attributes": [
+                    {
+                      "Key": "用户信息",
+                      "Value": {
+                        "Type": "STRING",
+                        "Value": "登录DAU"
+                      }
+                    }
+                  ],
+                  "StartTime": "2023-07-04T14:11:31.9034445+08:00",
+                  "Time": "2023-07-04T14:11:32.20518+08:00",
+                  "Float": 1936
+                }
+              ],
+              "Temporality": "CumulativeTemporality",
+              "IsMonotonic": true
+            }
+          },
+          {
+            "Name": "gauge：用户数峰值",
+            "Description": "a simple gauge",
+            "Unit": "1",
+            "Gauge": {
+              "DataPoints": [
+                {
+                  "Attributes": [
+                    {
+                      "Key": "用户信息",
+                      "Value": {
+                        "Type": "STRING",
+                        "Value": "在线用户数"
+                      }
+                    }
+                  ],
+                  "Time": "2023-07-04T14:11:32.20518+08:00",
+                  "Int": 12
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
 ]
 ```

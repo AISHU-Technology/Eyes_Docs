@@ -58,10 +58,26 @@ func NewHTTPClient(opts ...config.HTTPOption) public.Client
 
 #### NewStdoutClient
 
-NewStdoutClient 创建 ar_trace.Exporter 需要的Local数据发送客户端。
+NewStdoutClient 创建 ar_trace.Exporter 需要的控制台+本地文件发送客户端。
 
 ```
 func NewStdoutClient(stdoutPath string) public.Client
+```
+
+#### NewFileClient
+
+NewFileClient 创建 ar_trace.Exporter 需要的本地文件发送客户端。
+
+```
+func NewFileClient(stdoutPath string) public.Client
+```
+
+#### NewConsoleClient
+
+NewConsoleClient 创建 ar_trace.Exporter 需要的控制台发送客户端。
+
+```
+func NewConsoleClient() public.Client
 ```
 
 #### WithAnyRobotURL
