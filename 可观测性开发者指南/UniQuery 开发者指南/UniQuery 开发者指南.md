@@ -1675,7 +1675,7 @@ delta(v range-vector)
 delta(http_requests_total{job="api-server"}[5m])
 ```
 
-#### 2.3.4.7 <agg>_over_time
+#### 2.3.4.7 `<agg>_over_time`
 
 1. 语义
 
@@ -1695,16 +1695,16 @@ avg_over_time(http_requests_total{job="api-server"}[5m])
 ```
 
 
-#### 2.3.4.7 sort
+#### 2.3.4.8 sort
 
 `sort(v instant-vector)` 将瞬时表达式返回的样本数据进行升序排序。`sort` 对 `query_range` 查询无排序效果，因此，禁止 `sort` 在query_range接口的使用。
 
-#### 2.3.4.8 sort_desc
+#### 2.3.4.9 sort_desc
 
 `sort_desc(v instant-vector)` 将瞬时表达式返回的样本数据进行降序排序。`sort_desc` 对 `query_range` 查询无排序效果，因此，禁止 `sort_desc` 在query_range接口的使用。
 
 
-#### 2.3.4.9 label_replace
+#### 2.3.4.10 label_replace
 
 1. 语义
 
@@ -1735,7 +1735,7 @@ node_cpu_seconds_total{host="localhost",instance="localhost:9090",job="prometheu
 node_cpu_seconds_total{host="localhost",instance="localhost:9100",job="node"} 1
 ```
 
-#### 2.3.4.10 label_join
+#### 2.3.4.11 label_join
 
 1. 定义
 
@@ -1765,7 +1765,7 @@ node_cpu_seconds_total{host="localhost:9090---prometheus",instance="localhost:90
 node_cpu_seconds_total{host="localhost:9100---node",instance="localhost:9100",job="node"} 1
 ```
 
-#### 2.3.4.11 histogram_quantile
+#### 2.3.4.12 histogram_quantile
 
 1. 定义
 
@@ -1791,7 +1791,7 @@ histogram_quantile(0.9, http_request_duration_seconds_bucket)
 {handler="/-/healthy",instance="prometheus:9090",job="prometheus"} 0.25
 ```
 
-#### 2.3.4.12 floor
+#### 2.3.4.13 floor
 
 1. 定义
 
@@ -1823,7 +1823,7 @@ floor(node_load5)
 {instance="192.168.1.75:9100"} 2
 ```
 
-#### 2.3.4.13 ceil
+#### 2.3.4.14 ceil
 
 1. 定义
 
@@ -1855,27 +1855,27 @@ ceil(node_load5)
 {instance="192.168.1.75:9100"} 3
 ```
 
-#### 2.3.4.14 abs
+#### 2.3.4.15 abs
 
 `abs(v instant-vector)` 对瞬时表达式返回的样本数据取绝对值。
 
-#### 2.3.4.15 exp
+#### 2.3.4.16 exp
 
 `exp(v instant-vector)` 对瞬时表达式返回的样本数据计算自然数e的指数。
 
-#### 2.3.4.16 sqrt
+#### 2.3.4.17 sqrt
 
 `sqrt(v instant-vector)` 对瞬时表达式返回的样本数据求平方根。
 
-#### 2.3.4.17 ln
+#### 2.3.4.18 ln
 
 `ln(v instant-vector)` 对瞬时表达式返回的样本数据求以e为底的对数。
 
-#### 2.3.4.18 log2
+#### 2.3.4.19 log2
 
 `log2(v instant-vector)` 对瞬时表达式返回的样本数据求以2为底的对数。
 
-#### 2.3.4.18 log10
+#### 2.3.4.20 log10
 
 `log10(v instant-vector)` 对瞬时表达式返回的样本数据求以10为底的对数。
 
