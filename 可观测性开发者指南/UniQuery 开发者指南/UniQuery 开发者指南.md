@@ -1,4 +1,4 @@
-# Uniquery
+# UniQuery
 
 # 第1章 背景
 
@@ -489,7 +489,7 @@ windows系统下可打开以下文件查看更多详细示例：
 
 #### 2.2.3.2 请求示例
 
-**第1步****   **往opensearch/es写入test类型数据：
+**第1步****   **往 OpenSearch 或者 ElasticSearch 中写入test类型数据：
 
 ```json
 curl -X POST "http://localhost:9200/_bulk?pretty" -H 'Content-Type: application/json' -uadmin:eisoo.com123 -d'
@@ -1159,7 +1159,7 @@ PromQL（Prometheus Query Language）是Prometheus内置的数据查询语言，
 
 通过 PromQL 的搜索引擎可支持对时序数据、日志数据做聚合查询。并在兼容 Prometheus 的 PromQL 的基础上扩展新的功能以支持特定场景的统计查询。
 
-UniQuery 将输入的 PromQL 解析成 AST，叶子节点把查询请求的过滤条件和聚合逻辑转换为DSL，根据索引选择和访问控制优化的结果，再结合索引和索引的分片数，并发从 Opensearch 中获取结果。之后对各个索引各个分片返回的数据做合并处理，再把数据逐层流转到上层节点执行，直到顶层节点执行完毕。
+UniQuery 将输入的 PromQL 解析成 AST，叶子节点把查询请求的过滤条件和聚合逻辑转换为DSL，根据索引选择和访问控制优化的结果，再结合索引和索引的分片数，并发从 OpenSearch 中获取结果。之后对各个索引各个分片返回的数据做合并处理，再把数据逐层流转到上层节点执行，直到顶层节点执行完毕。
 
 在 PromQL 的表达式语言中，表达式或子表达式可以计算为以下三种类型之一：
 + 瞬时向量 - 一组时间序列，每个时间序列包含一个样本，都共享相同的时间戳。
@@ -2038,7 +2038,7 @@ API 响应格式为 JSON。
 
 #### 2.3.6.2 请求示例
 
-**第1步****   **往 opensearch/es 写入 promql_test 类型数据：
+**第1步****   **往 OpenSearch 或者 ElasticSearch 中写入 promql_test 类型数据：
 
 ```json
 curl -X POST "10.4.14.35:30000/_bulk?pretty" -uadmin:eisoo.com123 -H 'Content-Type: application/json' -d'
@@ -2338,11 +2338,11 @@ curl -X POST http://ip:port/api/uniquery/v1/promql/series \
 }
 ```
 
-+ 结合 grafana 的使用说明
++ 结合 Grafana 的使用说明
 
 **第1步****   **配置 anyrobot 数据源：
 
-登录 grafana 配置 anyrobot 数据源，配置 uniquery 和 data-manager 的连接信息，如下图：
+登录 Grafana 配置 anyrobot 数据源，配置 uniquery 和 data-manager 的连接信息，如下图：
 ![image](images/anyrobot_datasource.png)
 
 创建仪表盘或者导入仪表盘模板查询展示 anyrobot 中的仪表盘数据。此时需要注意的是，需要给仪表盘定义关于日志分组的变量。
@@ -2376,7 +2376,7 @@ curl -X POST http://ip:port/api/uniquery/v1/promql/series \
 
 + 查询序列限制
 
-默认情况下，允许从 `opensearch` 中查询到的最大的序列个数为 10000 。
+默认情况下，允许从 `OpenSearch` 中查询到的最大的序列个数为 10000 。
 
 + 单个序列查询点数限制
 
