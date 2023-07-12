@@ -176,6 +176,22 @@
                     },
                     "in": "header",
                     "required": false
+                },
+                {
+                    "examples": {
+                        "language": {
+                            "value": "zh-CN"
+                        },
+                        "language2": {
+                            "value": "en-US"
+                        }
+                    },
+                    "name": "Accept-Language",
+                    "description": "国际化选项，修改返回错误描述的语言",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "header"
                 }
             ]
         }
