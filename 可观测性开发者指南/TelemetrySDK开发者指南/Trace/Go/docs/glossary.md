@@ -30,8 +30,8 @@
 |     **SpanContext**      | object |    ✓     |          |    ✓     | 唯一且不可变对象，必须能够序列化，并沿着分布式上下文传递。内部字段参考下表。                                                           |
 |        **Parent**        | object |    ✓     |          |    ✓     | 父Span的SpanContext，仅根节点的Parent为空。                                                                 |
 |       **SpanKind**       |  int   |    ✓     |    ✓     |    ✓     | 记录了Span所属服务的类型，并且指定了Span的父子关系。为5种类型之一：INTERNAL、SERVER、CLIENT、PRODUCER、CONSUMER。                  |
-|      **StartTime**       | string |    ✓     |          |    ✓     | Span开始时间，时间格式为RFC3339。                                                                           |
-|       **EndTime**        | string |    ✓     |          |    ✓     | Span结束时间，时间格式为RFC3339。                                                                           |
+|      **StartTime**       |  int   |    ✓     |          |    ✓     | Span开始时间，时间格式为TimeStamp。                                                                         |
+|       **EndTime**        |  int   |    ✓     |          |    ✓     | Span结束时间，时间格式为TimeStamp。                                                                         |
 |      **Attributes**      | array  |    ✓     |    ✓     |          | 和业务相关的键值对。键和值都必须非空且有语义，数值只有8种类型：STRING、BOOL、INT、FLOAT、STRINGARRAY、BOOLARRAY、INTARRAY、FLOATARRAY。 |
 |        **Links**         | array  |    ✓     |    ✓     |          | 关联异步操作的父Span的SpanContext。                                                                        |
 |        **Events**        | array  |    ✓     |    ✓     |          | 记录Span某一时间点发生的有意义的事件。                                                                            |
@@ -49,7 +49,7 @@
 |:--------------:|:------:|:--------:|:--------:|:--------:|:------------------------------------------------------------------------------------------------------------|
 |  **TraceID**   | string |    ✓     |          |    ✓     | 一个有效的TraceID是一个16字节的数组\[16\]byte，且至少有一个非0字节。输出为字符串类型时会转成32长度的字符串。                                           |
 |   **SpanID**   | string |    ✓     |          |    ✓     | 一个有效的SpanID是一个8字节的数组\[8\]byte，且至少有一个非0字节。输出为字符串类型时会转成16长度的字符串。                                              |
-| **TraceFlags** | string |    ✓     |          |    ✓     | 是否采样标记位，总共8个标记位，用16进制符号00~ff记录：00表示全采样。                                                                     |
+| **TraceFlags** | string |    ✓     |          |    ✓     | 这个Span是否被采样的标记位，总共2种，0x00和0x01。0x00表示被丢弃，0x01表示被采样。数据接收器接收到的全部都是0x01类型，导出时以字符串形式"01"记录。                     |
 | **TraceState** | string |    ✓     |          |    ✓     | TraceState记录服务间使用的不同Trace供应商，比如tracestate: rojo=00f067aa0ba902b7,congo=t61rcWkgMzE，表示有rojo和congo两个trace供应商。 |
 |   **Remote**   |  bool  |    ✕     |          |    ✓     | 是否跨源传递，如果Span具有远程父对象，Remote=true，默认值为false。                                                                 |
 
@@ -78,7 +78,7 @@
 |    **service.version**     | string |    ✓     |    ✓     |          | 服务的版本号    | 5.3.0                                |
 | **telemetry.sdk.language** | string |    ✓     |          |    ✓     | SDK的开发语言  | go                                   |
 |   **telemetry.sdk.name**   | string |    ✓     |          |    ✓     | SDK名称     | TelemetrySDK-Go/exporter/ar_trace    |
-| **telemetry.sdk.version**  | string |    ✓     |          |    ✓     | SDK版本号    | v2.2.0                               |
+| **telemetry.sdk.version**  | string |    ✓     |          |    ✓     | SDK版本号    | 2.6.1                                |
 |  **k8s.namespace.name**	   | string |    ✓     |          |    ✓     | k8s命名空间   | anyshare                             |
 |     **k8s.pod.name**	      | string |    ✓     |          |    ✓     | k8s pod名称 | efast-123456789-12345                |
 |     **k8s.node.name**	     | string |    ✓     |          |    ✓     | k8s节点名称   | node01                               |

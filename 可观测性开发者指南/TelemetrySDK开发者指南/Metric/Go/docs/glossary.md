@@ -3,13 +3,13 @@
 ## ResourceMetric数据格式
 |      **字段**      | **类型** | **是否必填** | **主动设置** | **自动生成** | **说明**              |
 |:----------------:|:------:|:--------:|:--------:|:--------:|:--------------------|
-|   **Resource**   |  map   |    ✓     |          |    ✓     | 资源信息，用于区分数据来源。      |
+|   **Resource**   | array  |    ✓     |          |    ✓     | 资源信息，用于区分数据来源。      |
 | **ScopeMetrics** | array  |    ✓     |          |    ✓     | Scope和Metrics信息的合集。 |
 
 ## Resource数据格式
 |           **字段**           | **类型** | **是否必填** | **主动设置** | **自动生成** | **说明**    | **示例**                               |
 |:--------------------------:|:------:|:--------:|:--------:|:--------:|:----------|:-------------------------------------|
-|        **host.ip**	        | string |    ✓     |          |    ✓     | 主机IP地址    | 1.2.3.4                              |
+|        **host.ip**	        | string |    ✓     |          |    ✓     | 主机IP地址    | 127.0.0.1                            |
 |       **host.arch**	       | string |    ✓     |          |    ✓     | 主机CPU架构   | amd64、arm64                          |
 |       **host.name**	       | string |    ✓     |          |    ✓     | 主机名称      | Desk-028                             |
 |        **os.type**	        | string |    ✓     |          |    ✓     | 操作系统类型    | windows、linux                        |
@@ -20,7 +20,7 @@
 |    **service.version**     | string |    ✓     |    ✓     |          | 服务的版本号    | 5.3.0                                |
 | **telemetry.sdk.language** | string |    ✓     |          |    ✓     | SDK的开发语言  | go                                   |
 |   **telemetry.sdk.name**   | string |    ✓     |          |    ✓     | SDK名称     | TelemetrySDK-Go/exporter/ar_metric   |
-| **telemetry.sdk.version**  | string |    ✓     |          |    ✓     | SDK版本号    | v2.2.0                               |
+| **telemetry.sdk.version**  | string |    ✓     |          |    ✓     | SDK版本号    | 2.6.1                                |
 |  **k8s.namespace.name**	   | string |    ✓     |          |    ✓     | k8s命名空间   | anyshare                             |
 |     **k8s.pod.name**	      | string |    ✓     |          |    ✓     | k8s pod名称 | efast-123456789-12345                |
 |     **k8s.node.name**	     | string |    ✓     |          |    ✓     | k8s节点名称   | node01                               |

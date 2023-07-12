@@ -1,13 +1,13 @@
 # [术语表](https://confluence.aishu.cn/pages/viewpage.action?pageId=160886225)
 ## Log 数据格式
-|      **字段**      | **类型** | **是否必填** |  **主动设置**  |  **自动生成**  | **说明**                                                                 |
-|:----------------:|:------:|:--------:|:----------:|:----------:|:-----------------------------------------------------------------------|
-|  **Timestamp**   | string |    ✓     |            |     ✓      | 事件发生的时间：格式为RFC3339Nano。精确到纳秒。示例："2022-12-29T15:28:13.587199587+08:00"。 |
-|     **Link**     | object |    ✕     |     ✓      |            | 关联的信息：包含TraceId、SpanId的信息                                              |
-| **SeverityText** | string |    ✓     |     ✓      |            | 日志级别：从低到高对应为Trace、Debug、Info、Warn、Error、Fatal                          |
-|     **Body**     |  map   |    ✕     |     ✓      |            | 一次日志记录行为 。                                                             |
-|   **Resource**   |  map   |    ✓     | ✓(部分可主动设置) | ✓(部分可自动生成) | 系统进程属性，与Attributes 区别在于attributes 更倾向于业务信息，resource 关注系统或进程上下文。        |
-|  **Attributes**  |  map   |    ✕     |            |     ✓      | 一次内部调用的业务属性                                                            |
+|      **字段**      | **类型** | **是否必填** | **主动设置** | **自动生成** | **说明**                                                                 |
+|:----------------:|:------:|:--------:|:--------:|:--------:|:-----------------------------------------------------------------------|
+|     **Link**     | object |    ✕     |    ✓     |          | 关联的信息：包含TraceId、SpanId的信息                                              |
+|  **Timestamp**   | string |    ✓     |          |    ✓     | 事件发生的时间：格式为RFC3339Nano。精确到纳秒。示例："2022-12-29T15:28:13.587199587+08:00"。 |
+| **SeverityText** | string |    ✓     |    ✓     |          | 日志级别：从低到高对应为Trace、Debug、Info、Warn、Error、Fatal                          |
+|     **Body**     |  map   |    ✕     |    ✓     |          | 一次日志记录行为 。                                                             |
+|  **Attributes**  |  map   |    ✕     |          |    ✓     | 一次内部调用的业务属性                                                            |
+|   **Resource**   |  map   |    ✓     |    ✓     |    ✓     | 系统进程属性，与Attributes 区别在于attributes 更倾向于业务信息，resource 关注系统或进程上下文。        |
 
 ## Link字段信息定义：
 
@@ -31,7 +31,7 @@
 |    **service.version**     | string |    ✓     |    ✓     |          | 服务的版本号    | 5.3.0                                |
 | **telemetry.sdk.language** | string |    ✓     |          |    ✓     | SDK的开发语言  | python                               |
 |   **telemetry.sdk.name**   | string |    ✓     |          |    ✓     | SDK名称     | TelemetrySDK-Python/exporter/ar_log  |
-| **telemetry.sdk.version**  | string |    ✓     |          |    ✓     | SDK版本号    | v2.4.1                               |
+| **telemetry.sdk.version**  | string |    ✓     |          |    ✓     | SDK版本号    | 2.4.2                                |
 |   **k8s.namespace.name**   | string |    ✓     |          |    ✓     | k8s 命名空间  | anyshare                             |
 |      **k8s.pod.name**      | string |    ✓     |          |    ✓     | k8s pod名称 | efast-123456789-12345                |
 |     **k8s.node.name**      | string |    ✓     |          |    ✓     | k8s 节点名称  | node01                               |

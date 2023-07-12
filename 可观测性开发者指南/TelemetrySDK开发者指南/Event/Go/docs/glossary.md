@@ -7,7 +7,7 @@
 |    **Time**    | string |    ✓     |          |    ✓     | 事件的时间戳：创建事件对象时自动读取系统时间。格式为RFC3339Nano。示例：“2022-10-18T14:12:03.9053361+08:00”。                                       |
 |   **Level**    | string |    ✓     |    ✓     |          | 事件的级别：总共3种，“ERROR，WARN，INFO”。默认INFO。                                                                                |
 | **Attributes** |  map   |    ✓     |    ✓     |          | 事件的属性：业务相关的键值对。键和值都必须非空且有语义。                                                                                        |
-|  **Resource**  | object |    ✓     |          |    ✓     | 事件的资源信息：记录服务资源，包括主机信息和容器信息。                                                                                         |
+|  **Resource**  |  map   |    ✓     |          |    ✓     | 事件的资源信息：记录服务资源，包括主机信息和容器信息。                                                                                         |
 |  **Subject**   | string |    ✕     |    ✓     |          | 事件的主题：未设置时为空字符串""。                                                                                                  |
 |    **Link**    | array  |    ✕     |    ✓     |          | 事件的关联信息：记录事件和链路之间的关联。未设置时隐藏不显示。                                                                                     |
 |    **Data**    | object |    ✓     |    ✓     |          | 事件的内容：大小应该不超过128KB。                                                                                                 |
@@ -15,7 +15,7 @@
 ## Resource数据格式
 |           **字段**           | **类型** | **是否必填** | **主动设置** | **自动生成** | **说明**    | **示例**                               |
 |:--------------------------:|:------:|:--------:|:--------:|:--------:|:----------|:-------------------------------------|
-|        **host.ip**	        | string |    ✓     |          |    ✓     | 主机IP地址    | 1.2.3.4                              |
+|        **host.ip**	        | string |    ✓     |          |    ✓     | 主机IP地址    | 127.0.0.1                            |
 |       **host.arch**	       | string |    ✓     |          |    ✓     | 主机CPU架构   | amd64、arm64                          |
 |       **host.name**	       | string |    ✓     |          |    ✓     | 主机名称      | Desk-028                             |
 |        **os.type**	        | string |    ✓     |          |    ✓     | 操作系统类型    | windows、linux                        |
@@ -26,7 +26,7 @@
 |    **service.version**     | string |    ✓     |    ✓     |          | 服务的版本号    | 5.3.0                                |
 | **telemetry.sdk.language** | string |    ✓     |          |    ✓     | SDK的开发语言  | go                                   |
 |   **telemetry.sdk.name**   | string |    ✓     |          |    ✓     | SDK名称     | TelemetrySDK-Go/exporters/ar_event   |
-| **telemetry.sdk.version**  | string |    ✓     |          |    ✓     | SDK版本号    | v2.2.0                               |
+| **telemetry.sdk.version**  | string |    ✓     |          |    ✓     | SDK版本号    | 2.6.1                                |
 |  **k8s.namespace.name**	   | string |    ✓     |          |    ✓     | k8s命名空间   | anyshare                             |
 |     **k8s.pod.name**	      | string |    ✓     |          |    ✓     | k8s pod名称 | efast-123456789-12345                |
 |     **k8s.node.name**	     | string |    ✓     |          |    ✓     | k8s节点名称   | node01                               |
