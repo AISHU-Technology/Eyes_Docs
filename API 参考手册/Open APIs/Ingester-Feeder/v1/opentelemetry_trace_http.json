@@ -68,9 +68,13 @@
                                             ],
                                             "Links": [
                                                 {
-                                                    "TraceID": "ab4fe1de2d9c951411bbdbc3533d747h",
-                                                    "SpanID": "dbff9e1d80069b59",
-                                                    "TraceState": "rojo=00f067aa0ba902b7,congo=t61rcWkgMzE",
+                                                    "SpanContext": {
+                                                        "TraceID": "ab4fe1de2d9c951411bbdbc3533d747h",
+                                                        "SpanID": "dbff9e1d80069b59",
+                                                        "TraceFlags": "01",
+                                                        "TraceState": "rojo=00f067aa0ba902b7,congo=t61rcWkgMzE",
+                                                        "Remote": false
+                                                    },
                                                     "Attributes": [
                                                         {
                                                             "Key": "num1",
@@ -186,9 +190,13 @@
                                             ],
                                             "Links": [
                                                 {
-                                                    "TraceID": "ab4fe1de2d9c951411bbdbc3533d754f",
-                                                    "SpanID": "44c39ef193f3e25f",
-                                                    "TraceState": "rojo=00f067aa0ba902b7,congo=t61rcWkgMzE",
+                                                    "SpanContext": {
+                                                        "TraceID": "ab4fe1de2d9c951411bbdbc3533d754f",
+                                                        "SpanID": "44c39ef193f3e25f",
+                                                        "TraceFlags": "01",
+                                                        "TraceState": "rojo=00f067aa0ba902b7,congo=t61rcWkgMzE",
+                                                        "Remote": false
+                                                    },
                                                     "Attributes": [
                                                         {
                                                             "Key": "numk",
@@ -524,36 +532,30 @@
                 "description": "相关联的其他的Span的信息",
                 "required": [
                     "Attributes",
-                    "SpanId",
-                    "TraceID",
-                    "TraceState"
+                    "SpanContext"
                 ],
                 "type": "object",
                 "properties": {
-                    "TraceID": {
-                        "description": "相关联span的traceID",
-                        "type": "string"
-                    },
-                    "SpanId": {
-                        "description": "相关联span的spanID",
-                        "type": "string"
-                    },
-                    "TraceState": {
-                        "description": "相关联span携带特定于系统的配置数据",
-                        "type": "string"
-                    },
                     "Attributes": {
                         "description": "相关联的span的属性信息",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/Attributes"
                         }
+                    },
+                    "SpanContext": {
+                        "$ref": "#/components/schemas/SpanContext",
+                        "description": "相关span的信息"
                     }
                 },
                 "example": {
-                    "TraceID": "ab4fe1de2d9c951411bbdbc3533d747j",
-                    "SpanID": "44c39ef193f3e08f",
-                    "TraceState": "rojo=00f067aa0ba902b7,congo=t61rcWkgMzE",
+                    "SpanContext": {
+                        "TraceID": "",
+                        "SpanID": "",
+                        "TraceFlags": "",
+                        "TraceState": "",
+                        "Remote": false
+                    },
                     "Attributes": [
                         {
                             "Key": "num1",
