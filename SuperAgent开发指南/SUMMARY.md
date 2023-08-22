@@ -31,5 +31,4 @@
 * [代码规范](develop-coding.md)
 * [组件开发](develop-component.md)
 * [采集器脚手架](create-ingester-guide.md)
-
 * [插件采集开发](plugin-ingester-guide.md)
