@@ -22,6 +22,10 @@
 * [执行器相关API](api-executor.md)
 * [采集器相关API](api-job.md)
 
+# 配置
+* [采集器系统配置](config-ingester.md)
+* [执行器系统配置](config-executor.md)
+* [采集配置](config-ingest.md)
 
 # 可观测性
 
