@@ -1,0 +1,1 @@
+![architecture](./images/image2022-8-11_14-27-6.png)
