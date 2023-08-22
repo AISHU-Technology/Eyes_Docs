@@ -33,4 +33,5 @@
 
 # 开发者指南
 
-* [develop-guide.md]
+* [采集器开发脚手架](create-ingester-guide.md)
+* [插件采集开发](plugin-ingester-guide.md)
