@@ -1,4 +1,4 @@
-# system-metric ingester (系统指标采集器)
+# 通用系统配置
 
 系统配置示例：
 ```
@@ -36,3 +36,6 @@ kafka:
 |kafka.max_age|int|是|日志文件最大保留时间（单位：天）|
 |kafka.max_backups|int|是|日志文件最多保留多少备份|
 |kafka.compress|bool|是|日志是否压缩|
+
+
+# system-metric ingester (系统指标采集器)
