@@ -10,11 +10,6 @@
 * [IngestManager 部署](deploy-ingest-manager.md)
 * [xxx采集器部署](deploy-xxx.md)
 
-# 采集器核心组件
-
-* [input-输入](component-input.md)
-* [processor-处理](component-processor.md)
-* [output-输出](component-output.md)
 
 # 采集任务管理和调度
 * [任务管理和调度原理](concept-manager-dispatcher.md)
@@ -32,6 +27,9 @@
 * [SuperAgent自身可观测性](self-observability.md)
 
 # 开发者指南
+* [开发环境](develeop-env.md)
+* [代码规范](develop-coding.md)
+* [组件开发](develop-component.md)
+* [采集器脚手架](create-ingester-guide.md)
 
-* [采集器开发脚手架](create-ingester-guide.md)
 * [插件采集开发](plugin-ingester-guide.md)
